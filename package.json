@@ -1,7 +1,7 @@
 {
-  "name": "@samchon/bbs-sdk",
+  "name": "@samchon/bbs-api",
   "version": "0.0.0",
-  "description": "SDK for BBS",
+  "description": "API library (SDK) for the BBS",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -34,5 +34,8 @@
     "ttypescript": "^1.5.12",
     "typescript": "^4.3.2",
     "typescript-is": "^0.18.2"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
