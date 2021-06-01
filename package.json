@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "dev": "ttsc --watch",
+    "build": "rm -rf bin && ttsc",
+    "dev": "npm run build -- --watch",
     "test": "node bin/test"
   },
   "repository": {
