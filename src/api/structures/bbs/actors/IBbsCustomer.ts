@@ -1,10 +1,12 @@
 import { ICitizen } from "../../members/ICitizen";
 import { IMember } from "../../members/IMember";
 
-export interface IBbsConsumer
+export interface IBbsCustomer<Ensure extends boolean = false>
 {
     id: string;
-    citizen: ICitizen | null;
+    citizen: Ensure extends true
+        ? ICitizen
+        : (ICitizen | null);
     member: IMember | null;
     ip: string;
     href: string;
@@ -12,11 +14,19 @@ export interface IBbsConsumer
     created_at: string;
 }
 
-export namespace IBbsConsumer
+export namespace IBbsCustomer
 {
     export interface IStore
     {
         href: string;
         referrer: string;
+    }
+
+    export namespace IAuthorization
+    {
+        export import IJoin = IMember.IJoin;
+        export import ILogin = IMember.ILogin;
+        export import IChangePassword = IMember.IChangePassword;
+        export import IResetPassword = IMember.IResetPassword;
     }
 }

@@ -70,21 +70,10 @@ For a representatively, the `ONLY_FULL_GROUP_BY` condition occurs a syntax error
 
 ```sql
 -- CREATE A NEW SCHEMA
-CREATE SCHEMA bbs_test 
-    DEFAULT CHARACTER SET 
-    utf8 COLLATE utf8_unicode_ci;
+CREATE SCHEMA bbs_test DEFAULT CHARACTER SET utf8mb4;
 
 -- STRICT MODE
-SET GLOBAL sql_mode = CONCAT_WS(',',
-    'IGNORE_SPACE',
-    'ONLY_FULL_GROUP_BY',
-    'STRICT_TRANS_TABLES',
-    'NO_ZERO_IN_DATE',
-    'NO_ZERO_DATE',
-    'ERROR_FOR_DIVISION_BY_ZERO',
-    'NO_AUTO_CREATE_USER',
-    'NO_ENGINE_SUBSTITUTION'
-);
+SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
 ```
 
 ### 2.3. Repository
@@ -257,20 +246,18 @@ Also, the Test Automation Program runs all of the test functions placed into the
     - `include`: test only restricted functions who is containing the special keyword.
     - `exclude`: exclude some functions who is containing the special keyword.
     - `skipReset`: do not reset the DB
-    - `skipSeed`: do not seed the initial data
     - `count`: repeating count of the test automation program.
 
 ```bash
 # test in the dev server
 npm run test -- --mode=dev
 
-# test without db reset & initial data seeding
-npm run test -- --skipReset --skipSeed
+# test without db reset
+npm run test -- --skipReset
 
 # test only restricted functions whose name contain the "bbs" keyword
 # do not reset db
-# do not seed initial data
-npm run test -- --include=bbs --skipReset --skipSeed
+npm run test -- --include=bbs --skipReset
 ```
 
 ### 3.4. Main Program

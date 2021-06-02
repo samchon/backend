@@ -1,9 +1,4 @@
-export interface ICitizen
-{
-    id: string;
-    mobile: string;
-    name: string;
-}
+export type ICitizen = ICitizen.IStore;
 
 export namespace ICitizen
 {

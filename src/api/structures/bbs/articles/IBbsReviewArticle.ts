@@ -1,21 +1,33 @@
-import { IBbsConsumer } from "../actors/IBbsCustomer";
+import { IBbsCustomer } from "../actors/IBbsCustomer";
 import { IBbsArticle } from "./IBbsArticle";
 
 export interface IBbsReviewArticle extends IBbsArticle<IBbsReviewArticle.IContent>
 {
-    consumer: IBbsConsumer;
+    customer: IBbsCustomer<true>;
     brand: string;
     manufacturer: string;
     product: string;
-    score: number;
+    hit: number;
     purchased_at: string;
 }
 
 export namespace IBbsReviewArticle
 {
+    export type IRequest = IBbsArticle.IRequest<IRequest.ISearch>;
+    export namespace IRequest
+    {
+        export interface ISearch extends IBbsArticle.IRequest.ISearch
+        {
+            brand?: string;
+            manufacturer?: string;
+            product?: string;
+            score_min?: number;
+            score_max?: number;
+        }
+    }
     export interface ISummary extends IBbsArticle.ISummary
     {
-        consumer: string;
+        customer: string;
         brand: string;
         manufacturer: string;
         product: string;
@@ -24,16 +36,18 @@ export namespace IBbsReviewArticle
 
     export interface IContent extends IBbsArticle.IContent
     {
-        score: string;
+        score: number;
     }
-
-    export interface IStore extends IContent
+    export interface IStore extends IBbsArticle.IStore
     {
         brand: string;
         manufacturer: string;
         produdct: string;
         purchased_at: string;
+        score: number;
     }
-
-    export type IUpdate = IContent;
+    export interface IUpdate extends IBbsArticle.IUpdate
+    {
+        score: number;
+    }
 }

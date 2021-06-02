@@ -7,6 +7,8 @@
   "scripts": {
     "build": "rm -rf bin && ttsc",
     "dev": "npm run build -- --watch",
+    "nestia": "nestia sdk src/controllers --out src/api",
+    "sdk": "rm -rf lib && npm run nestia && tsc -p tsconfig.api.json",
     "test": "node bin/test"
   },
   "repository": {
@@ -23,20 +25,24 @@
     "@types/cli": "^0.11.19",
     "@types/express": "^4.17.12",
     "@types/node": "^15.6.1",
+    "@types/uuid": "^8.3.0",
     "cli": "^1.0.1",
     "encrypted-nestjs": "^0.1.7",
+    "git-last-commit": "^1.0.0",
     "mutex-server": "^0.2.2",
     "mysql": "^2.18.1",
-    "nestia": "^0.1.16",
+    "nestia": "^0.2.0",
     "pm2": "^4.5.6",
     "safe-typeorm": "0.0.79",
     "source-map-support": "^0.5.19",
-    "ts-node": "^10.0.0",
-    "ttypescript": "^1.5.12",
-    "typescript": "^4.3.2",
+    "tstl": "^2.4.21",
     "typescript-is": "^0.18.2"
   },
   "dependencies": {
     "node-fetch": "^2.6.1"
-  }
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ]
 }
