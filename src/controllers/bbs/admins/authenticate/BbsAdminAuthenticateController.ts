@@ -1,8 +1,15 @@
 import express from "express";
 import * as helper from "encrypted-nestjs";
+import { assertType } from "typescript-is";
 import * as nest from "@nestjs/common";
 
 import { IBbsAdministrator } from "../../../../api/structures/bbs/actors/IBbsAdministrator";
+
+import { BbsAdministrator } from "../../../../models/tables/bbs/actors/BbsAdministrator";
+
+import { BbsAdminAuth } from "./BbsAdminAuth";
+import { BbsAdminProvider } from "../../../../providers/bbs/actors/BbsAdminProvider";
+import { MemberProvider } from "../../../../providers/members/MemberProvider";
 
 @nest.Controller("bbs/admins/authenticate")
 export class BbsAdminAuthenticateController
@@ -13,22 +20,24 @@ export class BbsAdminAuthenticateController
             @nest.Request() request: express.Request
         ): Promise<IBbsAdministrator>
     {
-        request;
-
-        return null!;
+        const admin: BbsAdministrator = await BbsAdminAuth.authorize(request);
+        return await MemberProvider.json(await admin.base.get());
     }
 
     @helper.EncryptedRoute.Post("login")
     public async login
         (
-            @nest.Request() request: express.Request,
             @helper.EncryptedBody() input: IBbsAdministrator.IAuthorization.ILogin
         ): Promise<IBbsAdministrator>
     {
-        request;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const manager: BbsAdministrator = await BbsAdminProvider.login(input);
+
+        return {
+            ...await BbsAdminProvider.json(manager),
+            ...BbsAdminAuth.issue(manager)
+        };
     }
 
     @helper.EncryptedRoute.Get("refresh")
@@ -37,8 +46,7 @@ export class BbsAdminAuthenticateController
             @nest.Request() request: express.Request
         ): Promise<object>
     {
-        request;
-
-        return null!;
+        const admin: BbsAdministrator = await BbsAdminAuth.authorize(request);
+        return BbsAdminAuth.issue(admin);
     }
 }

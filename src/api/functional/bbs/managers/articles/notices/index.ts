@@ -31,7 +31,7 @@ export function store(connection: IConnection, code: string, input: Primitive<st
 }
 export namespace store
 {
-    export type Input = Primitive<IBbsArticle.IContent>;
+    export type Input = Primitive<IBbsArticle.IStore>;
     export type Output = Primitive<IBbsNoticeArticle>;
 }
 
@@ -53,7 +53,7 @@ export function update(connection: IConnection, code: string, id: string, input:
 }
 export namespace update
 {
-    export type Input = Primitive<IBbsArticle.IContent>;
+    export type Input = Primitive<IBbsArticle.IStore>;
     export type Output = Primitive<IBbsArticle.IContent>;
 }
 

@@ -13,7 +13,7 @@ export namespace IBbsArticle
     export interface IRequest<Search extends IRequest.ISearch> 
         extends IPage.IRequest
     {
-        search?: Search;
+        search: Search | null;
     }
     export namespace IRequest
     {
@@ -45,7 +45,7 @@ export namespace IBbsArticle
     {
         title: string;
         body: string;
-        file: IAttachmentFile[];
+        files: IAttachmentFile[];
     }
     export type IUpdate = IStore;
 }

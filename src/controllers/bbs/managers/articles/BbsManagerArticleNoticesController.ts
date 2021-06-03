@@ -1,15 +1,31 @@
 import express from "express";
 import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
-
-import { BbsArticleNoticesController } from "../../base/articles/BbsArticleNoticesController";
+import { assertType } from "typescript-is";
 
 import { IBbsNoticeArticle } from "../../../../api/structures/bbs/articles/IBbsNoticeArticle";
 
+import { BbsArticle } from "../../../../models/tables/bbs/articles/BbsArticle";
+import { BbsArticleContent } from "../../../../models/tables/bbs/articles/BbsArticleContent";
+import { BbsManager } from "../../../../models/tables/bbs/actors/BbsManager";
+import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsNoticeArticle } from "../../../../models/tables/bbs/articles/BbsNoticeArticle";
+
+import { BbsArticleContentProvider } from "../../../../providers/bbs/articles/BbsArticleContentProvider";
+import { BbsArticleNoticesController } from "../../base/articles/BbsArticleNoticesController";
+import { BbsManagerArticlesTrait } from "./BbsManagerArticlesTrait";
+import { BbsNoticeArticleProvider } from "../../../../providers/bbs/articles/BbsNoticeArticleController";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+
 @nest.Controller("bbs/managers/articles/notices/:code")
 export class BbsManagerArticleNoticesController
-    extends BbsArticleNoticesController
+    extends BbsArticleNoticesController<BbsManager, typeof BbsManagerArticlesTrait>
 {
+    public constructor()
+    {
+        super(BbsManagerArticlesTrait);
+    }
+
     @helper.EncryptedRoute.Post()
     public async store
         (
@@ -18,11 +34,18 @@ export class BbsManagerArticleNoticesController
             @helper.EncryptedBody() input: IBbsNoticeArticle.IStore
         ): Promise<IBbsNoticeArticle>
     {
-        request;
-        code;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.find(code, "NOTICE");
+        const manager: BbsManager = await this.trait.authorize(request, true, section);
+
+        const notice: BbsNoticeArticle = await BbsNoticeArticleProvider.store
+        (
+            section,
+            manager,
+            input
+        );
+        return await BbsNoticeArticleProvider.json(notice);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -34,11 +57,20 @@ export class BbsManagerArticleNoticesController
             @helper.EncryptedBody() input: IBbsNoticeArticle.IUpdate
         ): Promise<IBbsNoticeArticle.IContent>
     {
-        request;
-        code;
-        id;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.find(code, "NOTICE");
+        const manager: BbsManager = await this.trait.authorize(request, true, section);
+
+        const notice: BbsNoticeArticle = await BbsNoticeArticleProvider.editable
+        (
+            section, 
+            id, 
+            manager
+        );
+        const article: BbsArticle = await notice.base.get();
+        const content: BbsArticleContent = await BbsArticleContentProvider.update(article, input);
+
+        return await BbsArticleContentProvider.json(content);
     }
 }

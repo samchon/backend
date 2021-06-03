@@ -9,7 +9,7 @@ import { Citizen } from "./Citizen";
 @orm.Entity()
 export class Member extends safe.Model
 {
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
     @orm.Index({ unique: true })

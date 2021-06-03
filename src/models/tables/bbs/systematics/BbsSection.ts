@@ -12,7 +12,7 @@ export class BbsSection extends safe.Model
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
     @orm.Index({ unique: true })

@@ -25,7 +25,13 @@ export namespace ActorAuth
 
         // PARSE THE TOKEN
         const table: string = orm.getRepository(creator).metadata.tableName;
-        const tuple: Pair<string, boolean> | null = TokenManager.parse(table, token instanceof Array ? token[0] : token);
+        const tuple: Pair<string, boolean> | null = TokenManager.parse
+        (
+            table, 
+            token instanceof Array 
+                ? token[0] 
+                : token
+        );
 
         if (tuple === null)
             throw new nest.ForbiddenException("Your authorization token is not valid.");

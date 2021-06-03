@@ -7,7 +7,7 @@ export class AttachmentFile extends safe.Model
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
     @orm.Column("varchar")

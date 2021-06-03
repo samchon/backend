@@ -1,14 +1,32 @@
 import express from "express";
 import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
+import { assertType } from "typescript-is";
 
-import { BbsArticleFreeController } from "../../base/articles/BbsArticleFreeController";
 import { IBbsFreeArticle } from "../../../../api/structures/bbs/articles/IBbsFreeArticle";
+
+import { BbsArticle } from "../../../../models/tables/bbs/articles/BbsArticle";
+import { BbsArticleContent } from "../../../../models/tables/bbs/articles/BbsArticleContent";
+import { BbsCustomer } from "../../../../models/tables/bbs/actors/BbsCustomer";
+import { BbsFreeArticle } from "../../../../models/tables/bbs/articles/BbsFreeArticle";
+import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+
+import { BbsCustomerArticlesTrait } from "./BbsCustomerArticlesTrait";
+import { BbsArticleFreeController } from "../../base/articles/BbsArticleFreeController";
+
+import { BbsArticleContentProvider } from "../../../../providers/bbs/articles/BbsArticleContentProvider";
+import { BbsFreeArticleProvider } from "../../../../providers/bbs/articles/BbsFreeArticleProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
 
 @nest.Controller("bbs/customers/articles/free/:code")
 export class BbsCustomerArticleFreeController
-    extends BbsArticleFreeController
+    extends BbsArticleFreeController<BbsCustomer, typeof BbsCustomerArticlesTrait>
 {
+    public constructor()
+    {
+        super(BbsCustomerArticlesTrait);
+    }
+
     @helper.EncryptedRoute.Post()
     public async store
         (
@@ -17,11 +35,18 @@ export class BbsCustomerArticleFreeController
             @helper.EncryptedBody() input: IBbsFreeArticle.IStore
         ): Promise<IBbsFreeArticle>
     {
-        request;
-        code;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.find(code, "FREE");
+        const customer: BbsCustomer<true> = await this.trait.authorize(request, true);
+
+        const free: BbsFreeArticle = await BbsFreeArticleProvider.store
+        (
+            section,
+            customer,
+            input
+        );
+        return await BbsFreeArticleProvider.json(free);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -33,11 +58,15 @@ export class BbsCustomerArticleFreeController
             @helper.EncryptedBody() input: IBbsFreeArticle.IUpdate
         ): Promise<IBbsFreeArticle.IContent>
     {
-        request;
-        code;
-        id;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.find(code, "FREE");
+        const customer: BbsCustomer<true> = await this.trait.authorize(request, true);
+
+        const free: BbsFreeArticle = await BbsFreeArticleProvider.editable(section, id, customer);
+        const article: BbsArticle = await free.base.get();
+        const content: BbsArticleContent = await BbsArticleContentProvider.update(article, input);
+
+        return await BbsArticleContentProvider.json(content);
     }
 }

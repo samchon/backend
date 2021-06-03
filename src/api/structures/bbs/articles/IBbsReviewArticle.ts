@@ -42,7 +42,7 @@ export namespace IBbsReviewArticle
     {
         brand: string;
         manufacturer: string;
-        produdct: string;
+        product: string;
         purchased_at: string;
         score: number;
     }

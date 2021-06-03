@@ -15,7 +15,7 @@ export class BbsArticleContent extends safe.Model
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
     @safe.Belongs.ManyToOne(() => BbsArticle,

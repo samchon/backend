@@ -7,25 +7,32 @@ import { FilePairBase } from "../../models/tables/misc/internal/FilePairBase";
 
 export namespace AttachmentFileProvider
 {
-    export function collect<Pair extends FilePairBase>
+    export function collectList<Pair extends FilePairBase>
         (
             collection: safe.InsertCollection,
-            input: IAttachmentFile.IStore,
-            closure: (file: AttachmentFile) => Pair
-        ): AttachmentFile
+            inputList: IAttachmentFile.IStore[],
+            closure: (file: AttachmentFile, sequence: number) => Pair
+        ): AttachmentFile[]
     {
-        const file: AttachmentFile = AttachmentFile.initialize({
-            ...input,
-            id: safe.DEFAULT,
-            created_at: safe.DEFAULT
-        });
-        collection.push(file);
+        if (inputList.length === 0)
+            return [];
+
+        const fileList: AttachmentFile[] = inputList.map(input => 
+            AttachmentFile.initialize({
+                ...input,
+                id: safe.DEFAULT,
+                created_at: safe.DEFAULT
+            }));
+        collection.push(fileList);
 
         if (closure)
         {
-            const pair: Pair = closure(file);
-            collection.push(pair);
+            const pairList: Pair[] = fileList.map
+            (
+                (file, sequence) => closure(file, sequence)
+            );
+            collection.push(pairList);
         }
-        return file;
+        return fileList;
     }
 }

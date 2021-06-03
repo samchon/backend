@@ -1,7 +1,6 @@
 import * as orm from "typeorm";
 import { HashMap } from "tstl/container/HashMap";
 
-import { Atomic } from "../api/typings/Atomic";
 import { IEntity } from "../api/structures/common/IEntity";
 import { IPage } from "../api/structures/common/IPage";
 
@@ -31,7 +30,7 @@ export namespace Paginator
         (
             stmt: orm.SelectQueryBuilder<any>, 
             request: IPage.IRequest,
-            postProcess?: PostProcess<Atomic<Output>, Output>
+            postProcess?: PostProcess<any, Output>
         ): Promise<IPage<Output>>
     {
         return _Paginate(stmt, request, postProcess, stmt => stmt.getRawMany());

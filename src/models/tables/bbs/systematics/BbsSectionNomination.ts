@@ -5,7 +5,7 @@ import { BbsManager } from "../actors/BbsManager";
 import { BbsSection } from "./BbsSection";
 
 @orm.Entity()
-export class BbsSectionNomination
+export class BbsSectionNomination extends safe.Model
 {
     /* -----------------------------------------------------------
         COLUMNS
@@ -27,7 +27,4 @@ export class BbsSectionNomination
 
     @orm.CreateDateColumn()
     public readonly created_at!: Date;
-
-    @orm.DeleteDateColumn()
-    public readonly deleted_at!: Date | null;
 }

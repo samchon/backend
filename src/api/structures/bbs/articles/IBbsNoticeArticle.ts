@@ -22,6 +22,6 @@ export namespace IBbsNoticeArticle
     }
 
     export import IContent = IBbsArticle.IContent;
-    export import IStore = IBbsArticle.IContent;
-    export import IUpdate = IBbsArticle.IContent;
+    export import IStore = IBbsArticle.IStore;
+    export import IUpdate = IBbsArticle.IUpdate;
 }

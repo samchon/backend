@@ -2,8 +2,13 @@ import express from "express";
 import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
 
-import { BbsSystematicSectionsController } from "../../base/systematics/BbsSystematicSectionsController";
 import { IBbsSection } from "../../../../api/structures/bbs/systematics/IBbsSection";
+
+import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+
+import { BbsAdminAuth } from "../authenticate/BbsAdminAuth";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+import { BbsSystematicSectionsController } from "../../base/systematics/BbsSystematicSectionsController";
 
 @nest.Controller("bbs/admins/systematics/sections")
 export class BbsAdminSystematicSectionsController
@@ -16,10 +21,13 @@ export class BbsAdminSystematicSectionsController
             @helper.EncryptedBody() input: IBbsSection.IStore
         ): Promise<IBbsSection>
     {
-        request;
-        input;
+        await BbsAdminAuth.authorize(request);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.store(input);
+        return {
+            ...section.toPrimitive(),
+            managers: []
+        };
     }
 
     @nest.Put(":code")
@@ -30,8 +38,9 @@ export class BbsAdminSystematicSectionsController
             @helper.EncryptedBody() input: IBbsSection.IUpdate
         ): Promise<void>
     {
-        request;
-        code;
-        input;
+        await BbsAdminAuth.authorize(request);
+
+        const section: BbsSection = await BbsSectionProvider.find(code);
+        await BbsSectionProvider.update(section, input);
     }
 }

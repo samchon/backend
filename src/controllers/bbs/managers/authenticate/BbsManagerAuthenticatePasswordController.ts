@@ -4,6 +4,12 @@ import * as nest from "@nestjs/common";
 
 import { IBbsManager } from "../../../../api/structures/bbs/actors/IBbsManager";
 
+import { BbsManager } from "../../../../models/tables/bbs/actors/BbsManager";
+import { Member } from "../../../../models/tables/members/Member";
+
+import { BbsManagerAuth } from "./BbsManagerAuth";
+import { MemberProvider } from "../../../../providers/members/MemberProvider";
+
 @nest.Controller("bbs/managers/authenticate/password")
 export class BbsManagerAuthenticatePasswordController
 {
@@ -14,8 +20,10 @@ export class BbsManagerAuthenticatePasswordController
             @helper.EncryptedBody() input: IBbsManager.IAuthorization.IChangePassword
         ): Promise<void>
     {
-        request;
-        input;
+        const manager: BbsManager = await BbsManagerAuth.authorize(request, true);
+        const base: Member = await manager.base.get();
+
+        await MemberProvider.changePassword(base, input);
     }
 
     @nest.Patch("reset")
@@ -24,6 +32,6 @@ export class BbsManagerAuthenticatePasswordController
             @helper.EncryptedBody() input: IBbsManager.IAuthorization.IResetPassword
         ): Promise<void>
     {
-        input;
+        await MemberProvider.resetPassword(input);        
     }
 }

@@ -26,7 +26,7 @@ export namespace BbsCustomerAuth
             isWritablePtr
         );
         if (mustBeCitizen === true && customer.citizen.id === null)
-            throw new nest.ForbiddenException("You're a type of consumer, however, you've not been certified as a citizen yet.");
+            throw new nest.ForbiddenException("You're a type of customer, however, you've not been certified as a citizen yet.");
 
         const citizen: Citizen | null = await customer.citizen.get();
         return { customer, citizen } as IAuthorized<Ensure>;

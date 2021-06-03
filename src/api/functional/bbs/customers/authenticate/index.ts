@@ -31,7 +31,7 @@ export function get(connection: IConnection, ): Promise<get.Output>
 }
 export namespace get
 {
-    export type Output = Primitive<IBbsCustomer<false>>;
+    export type Output = Primitive<IBbsCustomer.IUnknown>;
 }
 
 /**
@@ -53,7 +53,7 @@ export function issue(connection: IConnection, input: Primitive<issue.Input>): P
 export namespace issue
 {
     export type Input = Primitive<IBbsCustomer.IStore>;
-    export type Output = Primitive<IBbsCustomer<false>>;
+    export type Output = Primitive<IBbsCustomer.IGuest>;
 }
 
 /**

@@ -1,0 +1,34 @@
+name: build
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  Ubuntu:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mariadb:10.5
+        env:
+          MYSQL_DATABASE: bbs_test
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+
+      - name: Create DB Schema
+        run: mysql -uroot -h127.0.0.1 -proot -e "DROP SCHEMA IF EXISTS bbs_test; CREATE SCHEMA bbs_test DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+
+      - name: Install Backend-Server
+        run: npm install
+
+      - name: Compile Backend-Server
+        run: npm run build
+      
+      - name: Test Backend-Server
+        run: npm run test

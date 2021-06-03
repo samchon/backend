@@ -10,15 +10,19 @@ export class Citizen extends safe.Model
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
-    @orm.Index({ unique: true })
-    @orm.Column("varchar")
+    @safe.EncryptedColumn("varchar", { 
+        unique: true,
+        password: () => Citizen.ENCRYPTION_PASSWORD
+    })
     public readonly mobile!: string;
 
-    @orm.Index()
-    @orm.Column("varchar")
+    @safe.EncryptedColumn("varchar", {
+        unique: true,
+        password: () => Citizen.ENCRYPTION_PASSWORD
+    })
     public readonly name!: string;
 
     @orm.CreateDateColumn()

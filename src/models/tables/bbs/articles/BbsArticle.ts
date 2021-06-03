@@ -19,7 +19,7 @@ export class BbsArticle extends safe.Model
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
     
     @safe.Belongs.ManyToOne(() => BbsSection,

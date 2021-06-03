@@ -61,7 +61,14 @@ export namespace MemberProvider
         // FIND MEMBER
         const member: Member = await Member
             .createJoinQueryBuilder(member => member.innerJoin("citizen"))
-            .andWhere(...Citizen.getWhereArguments("mobile", AesPkcs5.encode(input.mobile, Citizen.ENCRYPTION_PASSWORD.key, Citizen.ENCRYPTION_PASSWORD.iv)))
+            .andWhere(...Citizen.getWhereArguments("mobile", 
+                AesPkcs5.encode
+                (
+                    input.mobile, 
+                    Citizen.ENCRYPTION_PASSWORD.key, 
+                    Citizen.ENCRYPTION_PASSWORD.iv
+                )
+            ))
             .getOneOrFail();
         
         // CHANGE PASSWORD

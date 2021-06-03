@@ -15,14 +15,14 @@ export class BbsCustomer<Ensure extends boolean = false>
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @orm.PrimaryColumn("uuid")
+    @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
     @safe.Belongs.ManyToOne(() => Citizen,
         citizen => citizen.customers,
         "uuid",
         "citizen_id",
-        { index: true }
+        { index: true, nullable: true }
     )
     public readonly citizen!: safe.Belongs.ManyToOne<
             Citizen, 
@@ -34,7 +34,8 @@ export class BbsCustomer<Ensure extends boolean = false>
     @safe.Belongs.ManyToOne(() => Member,
         member => member.customers,
         "uuid",
-        "member_id"
+        "member_id",
+        { index: true, nullable: true }
     )
     public readonly member!: safe.Belongs.ManyToOne<Member, "uuid", { nullable: true }>;
 

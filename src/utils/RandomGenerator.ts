@@ -62,7 +62,7 @@ export namespace RandomGenerator
 
     export function mobile(): string
     {
-        return `010${digit(3, 4)}${digit(4, 4)}`;
+        return `8210${digit(3, 4)}${digit(4, 4)}`;
     }
 
     export function digit(minC: number, maxC: number): string

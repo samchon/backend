@@ -6,6 +6,7 @@ export interface IBbsQuestionArticle extends IBbsArticle<IBbsQuestionArticle.ICo
 {
     customer: IBbsCustomer<true>;
     answer: IBbsAnswerArticle | null;
+    hit: number;
 }
 
 export namespace IBbsQuestionArticle
@@ -21,7 +22,7 @@ export namespace IBbsQuestionArticle
     export interface ISummary extends IBbsArticle.ISummary
     {
         customer: string;
-        answered_at: string | null;
+        answer: IBbsAnswerArticle.ISummary | null;
     }
 
     export import IContent = IBbsArticle.IContent;

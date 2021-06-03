@@ -1,8 +1,15 @@
 import express from "express";
 import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
+import { IPointer } from "tstl/functional/IPointer";
+import { assertType } from "typescript-is";
 
 import { IBbsManager } from "../../../../api/structures/bbs/actors/IBbsManager";
+
+import { BbsManager } from "../../../../models/tables/bbs/actors/BbsManager";
+
+import { BbsManagerAuth } from "./BbsManagerAuth";
+import { BbsManagerProvider } from "../../../../providers/bbs/actors/BbsManagerProvider";
 
 @nest.Controller("bbs/managers/authenticate")
 export class BbsManagerAuthenticateController
@@ -13,35 +20,24 @@ export class BbsManagerAuthenticateController
             @nest.Request() request: express.Request
         ): Promise<IBbsManager>
     {
-        request;
-
-        return null!;
-    }
-
-    @helper.EncryptedRoute.Post("join")
-    public async join
-        (
-            @nest.Request() request: express.Request,
-            @helper.EncryptedBody() input: IBbsManager.IAuthorization.IJoin
-        ): Promise<IBbsManager>
-    {
-        request;
-        input;
-
-        return null!;
+        const manager: BbsManager = await BbsManagerAuth.authorize(request, false);
+        return await BbsManagerProvider.json(manager);
     }
 
     @helper.EncryptedRoute.Post("login")
     public async login
         (
-            @nest.Request() request: express.Request,
             @helper.EncryptedBody() input: IBbsManager.IAuthorization.ILogin
         ): Promise<IBbsManager>
     {
-        request;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const manager: BbsManager = await BbsManagerProvider.login(input);
+
+        return {
+            ...await BbsManagerProvider.json(manager),
+            ...BbsManagerAuth.issue(manager, true)
+        };
     }
 
     @helper.EncryptedRoute.Get("refresh")
@@ -50,8 +46,9 @@ export class BbsManagerAuthenticateController
             @nest.Request() request: express.Request
         ): Promise<object>
     {
-        request;
+        const ptr: IPointer<boolean> = { value: false };
+        const manager: BbsManager = await BbsManagerAuth.authorize(request, false, ptr);
 
-        return null!;
+        return BbsManagerAuth.issue(manager, ptr.value);
     }
 }

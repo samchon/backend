@@ -1,28 +1,56 @@
 import express from "express";
 import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
-
-import { BbsArticleQuestionsController } from "../../base/articles/BbsArticleQuestionsController";
+import { assertType } from "typescript-is";
 
 import { IBbsAnswerArticle } from "../../../../api/structures/bbs/articles/IBbsAnswerArticle";
 
+import { BbsArticle } from "../../../../models/tables/bbs/articles/BbsArticle";
+import { BbsArticleContent } from "../../../../models/tables/bbs/articles/BbsArticleContent";
+import { BbsAnswerArticle } from "../../../../models/tables/bbs/articles/BbsAnswerArticle";
+import { BbsManager } from "../../../../models/tables/bbs/actors/BbsManager";
+import { BbsQuestionArticle } from "../../../../models/tables/bbs/articles/BbsQuestionArticle";
+import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+
+import { BbsAnswerArticleProvider } from "../../../../providers/bbs/articles/BbsAnswerArticleProvider";
+import { BbsArticleContentProvider } from "../../../../providers/bbs/articles/BbsArticleContentProvider";
+import { BbsArticleQuestionsController } from "../../base/articles/BbsArticleQuestionsController";
+import { BbsManagerArticlesTrait } from "./BbsManagerArticlesTrait";
+import { BbsQuestionArticleProvider } from "../../../../providers/bbs/articles/BbsQuestionArticleProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+
 @nest.Controller("bbs/managers/articles/questions/:code")
 export class BbsManagerArticleQuestionsController
-    extends BbsArticleQuestionsController
+    extends BbsArticleQuestionsController<BbsManager, typeof BbsManagerArticlesTrait>
 {
-    @helper.EncryptedRoute.Post()
+    public constructor()
+    {
+        super(BbsManagerArticlesTrait);
+    }
+
+    @helper.EncryptedRoute.Post(":id")
     public async store
         (
             @nest.Request() request: express.Request,
             @helper.TypedParam("code", "string") code: string,
+            @helper.TypedParam("id", "string") id: string,
             @helper.EncryptedBody() input: IBbsAnswerArticle.IStore
         ): Promise<IBbsAnswerArticle>
     {
-        request;
-        code;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.find(code, "QNA");
+        const manager: BbsManager = await this.trait.authorize(request, true, section);
+
+        const question: BbsQuestionArticle = await BbsQuestionArticleProvider.find(section, id);
+        const answer: BbsAnswerArticle = await BbsAnswerArticleProvider.store
+        (
+            section,
+            question,
+            manager,
+            input
+        );
+        return await BbsAnswerArticleProvider.json(answer);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -34,11 +62,20 @@ export class BbsManagerArticleQuestionsController
             @helper.EncryptedBody() input: IBbsAnswerArticle.IUpdate
         ): Promise<IBbsAnswerArticle.IContent>
     {
-        request;
-        code;
-        id;
-        input;
+        assertType<typeof input>(input);
 
-        return null!;
+        const section: BbsSection = await BbsSectionProvider.find(code, "QNA");
+        const manager: BbsManager = await this.trait.authorize(request, true, section);
+
+        const answer: BbsAnswerArticle = await BbsAnswerArticleProvider.editable
+        (
+            section,
+            id,
+            manager
+        );
+        const article: BbsArticle = await answer.base.get();
+        const content: BbsArticleContent = await BbsArticleContentProvider.update(article, input);
+
+        return await BbsArticleContentProvider.json(content);
     }
 }
