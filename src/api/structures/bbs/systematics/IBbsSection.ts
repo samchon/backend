@@ -30,4 +30,10 @@ export namespace IBbsSection
     {
         name: string;
     }
+
+    export interface IUnify
+    {
+        keep_code: string;
+        absorbed_codes: string[];
+    }
 }

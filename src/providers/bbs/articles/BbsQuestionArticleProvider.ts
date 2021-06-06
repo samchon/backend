@@ -57,6 +57,7 @@ export namespace BbsQuestionArticleProvider
                 BbsArticle.getColumn("id"),
                 Citizen.getColumn("name", "customer"),
                 BbsArticleContent.getColumn("title"),
+                __MvBbsArticleHit.getColumn("count", "hit"),
                 BbsArticle.getColumn("created_at"),
                 BbsArticleContent.getColumn("created_at", "updated_at"),
                 Citizen.getColumn("ACitizen.name", "answer_manager"),
@@ -173,6 +174,8 @@ export namespace BbsQuestionArticleProvider
         const answer: BbsAnswerArticle | null = await question.answer.get();
         const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
 
+        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
+
         return {
             ...await BbsArticleProvider.json
             (
@@ -184,8 +187,8 @@ export namespace BbsQuestionArticleProvider
                 ? await BbsAnswerArticleProvider.json(answer)
                 : null,
             hit: hit !== null
-                ? hit.count
-                : 0
+                ? hit.count + 1
+                : 1
         };
     }
 

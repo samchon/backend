@@ -43,6 +43,8 @@ export namespace BbsFreeArticleProvider
             .select([
                 BbsArticle.getColumn("id"),
                 Citizen.getColumn("name", "customer"),
+                BbsArticleContent.getColumn("title"),
+                __MvBbsArticleHit.getColumn("count", "hit"),
                 BbsArticle.getColumn("created_at"),
                 BbsArticleContent.getColumn("created_at", "updated_at")
             ])
@@ -76,7 +78,8 @@ export namespace BbsFreeArticleProvider
             {
                 free.innerJoinAndSelect("customer")
                     .innerJoinAndSelect("citizen");
-                free.innerJoinAndSelect("base");
+                free.innerJoinAndSelect("base")
+                    .leftJoinAndSelect("__mv_hit");
             })
             .andWhere(...BbsArticle.getWhereArguments("section", "=", section))
             .andWhere(...BbsArticle.getWhereArguments("id", "=", id))
@@ -109,12 +112,14 @@ export namespace BbsFreeArticleProvider
         const customer: BbsCustomer<true> = await free.customer.get();
         const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
 
+        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
+
         return {
             ...await BbsArticleProvider.json(base, BbsArticleContentProvider.json),
             customer: await BbsCustomerProvider.json(customer),
             hit: (hit !== null)
-                ? hit.count 
-                : 0
+                ? hit.count + 1
+                : 1
         };
     }
 

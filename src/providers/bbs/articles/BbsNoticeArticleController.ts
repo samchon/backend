@@ -44,6 +44,8 @@ export namespace BbsNoticeArticleProvider
             .select([
                 BbsArticle.getColumn("id"),
                 Citizen.getColumn("name", "manager"),
+                BbsArticleContent.getColumn("title"),
+                __MvBbsArticleHit.getColumn("count", "hit"),
                 BbsArticle.getColumn("created_at"),
                 BbsArticleContent.getColumn("created_at", "updated_at")
             ])
@@ -108,12 +110,14 @@ export namespace BbsNoticeArticleProvider
         const manager: BbsManager = await notice.manager.get();
         const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
 
+        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
+
         return {
             ...await BbsArticleProvider.json(base, BbsArticleContentProvider.json),
             manager: await MemberProvider.json(await manager.base.get()),
             hit: (hit !== null)
-                ? hit.count 
-                : 0
+                ? hit.count + 1
+                : 1
         };
     }
 

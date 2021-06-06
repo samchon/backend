@@ -44,10 +44,12 @@ export namespace BbsReviewArticleProvider
             .select([
                 BbsArticle.getColumn("id"),
                 Citizen.getColumn("name", "customer"),
+                BbsArticleContent.getColumn("title"),
                 BbsReviewArticle.getColumn("brand"),
                 BbsReviewArticle.getColumn("manufacturer"),
                 BbsReviewArticle.getColumn("product"),
                 BbsReviewArticle.getColumn("purchased_at"),
+                __MvBbsArticleHit.getColumn("count", "hit"),
                 BbsArticle.getColumn("created_at"),
                 BbsArticleContent.getColumn("created_at", "updated_at")
             ])
@@ -122,13 +124,15 @@ export namespace BbsReviewArticleProvider
         const customer: BbsCustomer<true> = await review.customer.get();
         const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
 
+        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
+
         return {
             ...review.toPrimitive(),
             ...await BbsArticleProvider.json(base, BbsReviewArticleContentProvider.json),
             customer: await BbsCustomerProvider.json(customer),
             hit: (hit !== null)
-                ? hit.count 
-                : 0
+                ? hit.count + 1
+                : 1
         };
     }
 

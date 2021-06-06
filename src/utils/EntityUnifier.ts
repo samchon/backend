@@ -9,38 +9,35 @@ import { equal } from "tstl/ranges/algorithm/iterations";
 import { Configuration } from "../Configuration";
 import { IEntity } from "../api/structures/common/IEntity";
 
-export namespace EntityUtil
+export namespace EntityUnifier
 {
     /* -----------------------------------------------------------
         UNIFIER
     ----------------------------------------------------------- */
-    export interface IUnifierEntity<Entity extends IUnifierEntity<Entity>> 
-        extends safe.Model
-    {
-        readonly id: string;
-    }
-
     /**
-     * 중복된 레코드들을 하나로 통합한다.
+     * Unify duplicated records into one.
      * 
-     * 복수의 `Entity` 레코드들을, 하나의 레코드로 흡수-병합한다. 즉, *duplicates* 에 기입된 모든 
-     * 레코드들을 삭제하고, 그 대신 중복 레코드들에 종속되어있는 모든 레코드의 *Entity* 에 대한 참조 
-     * 내역을, 모두 *original* 의 것으로 교체해준다.
+     * Absorb duplicated records into one. Another word, remove all of the *duplicates* records and
+     * keep only the *keep* record. 
      * 
-     * @template Entity 타깃 엔티티의 클래스 타입.
-     * @param original 원본 레코드, 중복 레코드가 모두 이리로 통합된다.
-     * @param duplicates 중복 레코드 리스트, 모두 원본으로 통합된다.
+     * Don't worry about cascade deletion. Depdents records belonged to the *absorbed*, all of 
+     * them would be automatically belonged to the *keep*. Even some of the dependent entities 
+     * who have the unique constraint would be safely unitifed.
+     * 
+     * @template Entity Target of the entity type
+     * @param keep Original record that would absorb the *absorbed*
+     * @param absorbed Duplicated records to be absorbed to the *keep*
      */
-    export async function unify<Entity extends IUnifierEntity<Entity>>
+    export async function unify<Entity extends IEntity>
         (
-            original: Entity, 
-            duplicates: Entity[]
+            keep: Entity, 
+            absorbed: Entity[]
         ): Promise<void>
     {
-        const table: string = getTable(original.constructor as safe.Model.Creator<Entity>);
-        const deprecates: string[] = duplicates.map(elem => elem.id);
+        const table: string = getTable(keep.constructor as any);
+        const deprecates: string[] = absorbed.map(elem => elem.id);
 
-        await safe.Transaction.run(manager => _Unify(manager, table, original.id, deprecates));
+        await safe.Transaction.run(manager => _Unify(manager, table, keep.id, deprecates));
     }
 
     async function _Unify
@@ -146,26 +143,17 @@ export namespace EntityUtil
     /* -----------------------------------------------------------
         UTILITY FUNCTIONS
     ----------------------------------------------------------- */
-    export interface IDependency
+    interface IDependency
     {
         table: string;
         column: string;
         unique: string[][];
     }
 
-    export function getTable<Entity extends safe.Model>
-        (entity: safe.Model.Creator<Entity>): string
+    function getTable<Entity extends IEntity>
+        (entity: safe.typings.Creator<Entity>): string
     {
-        return entity.getRepository().metadata.tableName;
-    }
-
-    export async function getDependencies<Entity extends safe.Model>
-        (entity: safe.Model.Creator<Entity>): Promise<IDependency[]>
-    {
-        const table: string = getTable(entity);
-        const dict: HashMap<string, IDependency[]> = await dependencies_.get();
-
-        return dict.get(table);
+        return orm.getConnection().getRepository(entity).metadata.tableName;
     }
 
     const dependencies_: Singleton<HashMap<string, IDependency[]>> = new Singleton(async () =>

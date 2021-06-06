@@ -9,16 +9,25 @@ import { Configuration } from "../../../../../../Configuration";
 import { test_api_bbs_admin_login } from "../admins/test_bbs_admin_login";
 import { test_bbs_customer_join } from "../consumers/test_bbs_customer_join";
 
+const CODE = "dummy-section-for-manager-creation";
+
 const singleton: Singleton<IBbsSection, [api.IConnection]> = new Singleton(async connection =>
 {
     await test_api_bbs_admin_login(connection);
+
+    const total: IBbsSection[] = await api.functional.bbs.admins.systematics.sections.index(connection);
+    assertType<typeof total>(total);
+
+    const ordinary: IBbsSection | undefined = total.find(elem => elem.code === CODE);
+    if (ordinary !== undefined)
+        return ordinary;
 
     const section: IBbsSection = await api.functional.bbs.admins.systematics.sections.store
     (
         connection,
         {
             type: "FREE",
-            code: "dummy-section-for-manager-creation",
+            code: CODE,
             name: "Dummy Section for Manager Creation"
         }
     );
