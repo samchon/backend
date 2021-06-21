@@ -54,6 +54,7 @@
   },
   "files": [
     "lib",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ]
 }

@@ -1,7 +1,7 @@
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
-import { BbsSection } from "../systematics/BbsSection";
+import { BbsSection } from "../systematic/BbsSection";
 import { BbsArticleContent } from "./BbsArticleContent";
 import { BbsComment } from "./BbsComment";
 

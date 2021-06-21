@@ -2,7 +2,7 @@ import { assertType } from "typescript-is";
 
 import api from "../../../../../../api";
 import { IBbsManager } from "../../../../../../api/structures/bbs/actors/IBbsManager";
-import { IBbsSection } from "../../../../../../api/structures/bbs/systematics/IBbsSection";
+import { IBbsSection } from "../../../../../../api/structures/bbs/systematic/IBbsSection";
 
 import { RandomGenerator } from "../../../../../../utils/RandomGenerator";
 import { test_api_bbs_admin_login } from "../../actors/admins/test_bbs_admin_login";
@@ -12,7 +12,7 @@ export async function generate_bbs_section(connection: api.IConnection, type: IB
 {
     await test_api_bbs_admin_login(connection);
     const manager: IBbsManager = await test_bbs_manager_login(connection);
-    const section: IBbsSection = await api.functional.bbs.admins.systematics.sections.store
+    const section: IBbsSection = await api.functional.bbs.admins.systematic.sections.store
     (
         connection,
         {
@@ -23,7 +23,7 @@ export async function generate_bbs_section(connection: api.IConnection, type: IB
     );
     assertType<typeof section>(section);
 
-    await api.functional.bbs.admins.systematics.sections.nominations.store
+    await api.functional.bbs.admins.systematic.sections.nominations.store
     (
         connection,
         section.code,

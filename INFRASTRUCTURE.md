@@ -7,7 +7,7 @@ Also, the accounts of the DBMS are separated to the `readonly` and `writable`. I
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
-CREATE SCHEMA bbs DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+CREATE SCHEMA bbs DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET GLOBAL sql_mode = CONCAT_WS(',',
     'IGNORE_SPACE',
     'ONLY_FULL_GROUP_BY',
@@ -70,7 +70,7 @@ After the install, open the MariaDB terminal and create the new schema `bbs`. Al
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
-CREATE SCHEMA bbs DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+CREATE SCHEMA bbs DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET GLOBAL sql_mode = CONCAT_WS(',',
     'IGNORE_SPACE',
     'ONLY_FULL_GROUP_BY',

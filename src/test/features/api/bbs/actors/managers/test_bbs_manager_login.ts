@@ -3,7 +3,7 @@ import { assertType } from "typescript-is";
 import api from "../../../../../../api";
 import { IBbsCustomer } from "../../../../../../api/structures/bbs/actors/IBbsCustomer";
 import { IBbsManager } from "../../../../../../api/structures/bbs/actors/IBbsManager";
-import { IBbsSection } from "../../../../../../api/structures/bbs/systematics/IBbsSection";
+import { IBbsSection } from "../../../../../../api/structures/bbs/systematic/IBbsSection";
 import { IMember } from "../../../../../../api/structures/members/IMember";
 import { Configuration } from "../../../../../../Configuration";
 import { test_api_bbs_admin_login } from "../admins/test_bbs_admin_login";
@@ -15,18 +15,18 @@ const singleton: Singleton<IBbsSection, [api.IConnection]> = new Singleton(async
 {
     await test_api_bbs_admin_login(connection);
 
-    const total: IBbsSection[] = await api.functional.bbs.admins.systematics.sections.index(connection);
+    const total: IBbsSection[] = await api.functional.bbs.admins.systematic.sections.index(connection);
     assertType<typeof total>(total);
 
     const ordinary: IBbsSection | undefined = total.find(elem => elem.code === CODE);
     if (ordinary !== undefined)
         return ordinary;
 
-    const section: IBbsSection = await api.functional.bbs.admins.systematics.sections.store
+    const section: IBbsSection = await api.functional.bbs.admins.systematic.sections.store
     (
         connection,
         {
-            type: "FREE",
+            type: "free",
             code: CODE,
             name: "Dummy Section for Manager Creation"
         }
@@ -40,7 +40,7 @@ export async function test_bbs_manager_login(connection: api.IConnection): Promi
     const customer: IBbsCustomer<true> = await test_bbs_customer_join(connection);
     const member: IMember = customer.member!;
 
-    const nominated: IBbsSection.INominatedManager = await api.functional.bbs.admins.systematics.sections.nominations.store
+    const nominated: IBbsSection.INominatedManager = await api.functional.bbs.admins.systematic.sections.nominations.store
     (
         connection, 
         section.code, 
@@ -48,7 +48,7 @@ export async function test_bbs_manager_login(connection: api.IConnection): Promi
     );
     assertType<typeof nominated>(nominated);
 
-    await api.functional.bbs.admins.systematics.sections.nominations.erase
+    await api.functional.bbs.admins.systematic.sections.nominations.erase
     (
         connection,
         section.code,

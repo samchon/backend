@@ -2,7 +2,7 @@ import { assertType } from "typescript-is";
 
 import api from "../../../../../../api";
 import { IBbsFreeArticle } from "../../../../../../api/structures/bbs/articles/IBbsFreeArticle";
-import { IBbsSection } from "../../../../../../api/structures/bbs/systematics/IBbsSection";
+import { IBbsSection } from "../../../../../../api/structures/bbs/systematic/IBbsSection";
 
 import { test_bbs_customer_activate } from "../../actors/consumers/test_bbs_customer_activate";
 import { test_bbs_customer_join } from "../../actors/consumers/test_bbs_customer_join";
@@ -14,7 +14,7 @@ export async function test_bbs_article_free_store
         connection: api.IConnection
     ): Promise<[ IBbsSection, IBbsFreeArticle ]>
 {
-    const section: IBbsSection = await generate_bbs_section(connection, "FREE");
+    const section: IBbsSection = await generate_bbs_section(connection, "free");
     if (Math.random() < .5)
         await test_bbs_customer_join(connection);
     else
@@ -26,5 +26,13 @@ export async function test_bbs_article_free_store
         section.code,
         prepare_random_article_content()
     );
-    return [ section, assertType<typeof article>(article) ];
+    assertType<typeof article>(article);
+
+    const reloaded: IBbsFreeArticle = await api.functional.bbs.customers.articles.free.at
+    (
+        connection, 
+        section.code, 
+        article.id
+    );
+    return [ section, reloaded ];
 }

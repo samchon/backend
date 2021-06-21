@@ -9,14 +9,14 @@ import { BbsArticle } from "../../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../../models/tables/bbs/articles/BbsArticleContent";
 import { BbsCustomer } from "../../../../models/tables/bbs/actors/BbsCustomer";
 import { BbsFreeArticle } from "../../../../models/tables/bbs/articles/BbsFreeArticle";
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 
 import { BbsCustomerArticlesTrait } from "./BbsCustomerArticlesTrait";
 import { BbsArticleFreeController } from "../../base/articles/BbsArticleFreeController";
 
 import { BbsArticleContentProvider } from "../../../../providers/bbs/articles/BbsArticleContentProvider";
 import { BbsFreeArticleProvider } from "../../../../providers/bbs/articles/BbsFreeArticleProvider";
-import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
 
 @nest.Controller("bbs/customers/articles/free/:code")
 export class BbsCustomerArticleFreeController
@@ -37,7 +37,7 @@ export class BbsCustomerArticleFreeController
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "FREE");
+        const section: BbsSection = await BbsSectionProvider.find(code, "free");
         const customer: BbsCustomer<true> = await this.trait.authorize(request, true);
 
         const free: BbsFreeArticle = await BbsFreeArticleProvider.store
@@ -60,7 +60,7 @@ export class BbsCustomerArticleFreeController
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "FREE");
+        const section: BbsSection = await BbsSectionProvider.find(code, "free");
         const customer: BbsCustomer<true> = await this.trait.authorize(request, true);
 
         const free: BbsFreeArticle = await BbsFreeArticleProvider.editable(section, id, customer);

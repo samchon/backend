@@ -8,7 +8,7 @@ import { BbsCustomer } from "../../../models/tables/bbs/actors/BbsCustomer";
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
 import { BbsFreeArticle } from "../../../models/tables/bbs/articles/BbsFreeArticle";
-import { BbsSection } from "../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { Citizen } from "../../../models/tables/members/Citizen";
 import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHit";
 

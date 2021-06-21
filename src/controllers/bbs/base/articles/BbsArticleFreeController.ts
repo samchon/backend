@@ -8,11 +8,11 @@ import { IBbsFreeArticle } from "../../../../api/structures/bbs/articles/IBbsFre
 import { IPage } from "../../../../api/structures/common/IPage";
 
 import { BbsFreeArticle } from "../../../../models/tables/bbs/articles/BbsFreeArticle";
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 
 import { IBbsArticlesTrait } from "./IBbsArticlesTrait";
 import { BbsFreeArticleProvider } from "../../../../providers/bbs/articles/BbsFreeArticleProvider";
-import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
 import { Paginator } from "../../../../utils/Paginator";
 
 export abstract class BbsArticleFreeController<
@@ -33,7 +33,7 @@ export abstract class BbsArticleFreeController<
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "FREE");
+        const section: BbsSection = await BbsSectionProvider.find(code, "free");
         await this.trait.authorize(request, false, section);
 
         const stmt = BbsFreeArticleProvider.statement(section, input.search);
@@ -48,7 +48,7 @@ export abstract class BbsArticleFreeController<
             @helper.TypedParam("id", "string") id: string
         ): Promise<IBbsFreeArticle>
     {
-        const section: BbsSection = await BbsSectionProvider.find(code, "FREE");
+        const section: BbsSection = await BbsSectionProvider.find(code, "free");
         await this.trait.authorize(request, false, section);
 
         const free: BbsFreeArticle = await BbsFreeArticleProvider.find(section, id);

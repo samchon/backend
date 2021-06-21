@@ -3,7 +3,7 @@ import { assertType } from "typescript-is";
 import api from "../../../../../../api";
 import { IBbsAnswerArticle } from "../../../../../../api/structures/bbs/articles/IBbsAnswerArticle";
 import { IBbsQuestionArticle } from "../../../../../../api/structures/bbs/articles/IBbsQuestionArticle";
-import { IBbsSection } from "../../../../../../api/structures/bbs/systematics/IBbsSection";
+import { IBbsSection } from "../../../../../../api/structures/bbs/systematic/IBbsSection";
 
 import { prepare_random_article_content } from "../internal/prepare_random_article_content";
 import { test_bbs_article_question_store } from "./test_bbs_article_question_store";

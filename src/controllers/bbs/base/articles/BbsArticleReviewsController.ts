@@ -8,11 +8,11 @@ import { IBbsReviewArticle } from "../../../../api/structures/bbs/articles/IBbsR
 import { IPage } from "../../../../api/structures/common/IPage";
 
 import { BbsReviewArticle } from "../../../../models/tables/bbs/articles/BbsReviewArticle";
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 
 import { IBbsArticlesTrait } from "./IBbsArticlesTrait";
 import { BbsReviewArticleProvider } from "../../../../providers/bbs/articles/BbsReviewArticleProvider";
-import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
 import { Paginator } from "../../../../utils/Paginator";
 
 export abstract class BbsArticleReviewsController<
@@ -33,7 +33,7 @@ export abstract class BbsArticleReviewsController<
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "REVIEW");
+        const section: BbsSection = await BbsSectionProvider.find(code, "review");
         await this.trait.authorize(request, false, section);
 
         const stmt = BbsReviewArticleProvider.statement(section, input.search);
@@ -48,7 +48,7 @@ export abstract class BbsArticleReviewsController<
             @helper.TypedParam("id", "string") id: string
         ): Promise<IBbsReviewArticle>
     {
-        const section: BbsSection = await BbsSectionProvider.find(code, "REVIEW");
+        const section: BbsSection = await BbsSectionProvider.find(code, "review");
         await this.trait.authorize(request, false, section);
 
         const review: BbsReviewArticle = await BbsReviewArticleProvider.find(section, id);

@@ -6,7 +6,7 @@ import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHi
 
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
-import { BbsSection } from "../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { Citizen } from "../../../models/tables/members/Citizen";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
@@ -40,6 +40,19 @@ export namespace BbsArticleProvider
     /* ----------------------------------------------------------------
         ACCESSORS
     ---------------------------------------------------------------- */
+    export function find
+        (
+            section: BbsSection,
+            id: string
+        ): Promise<BbsArticle>
+    {
+        return BbsArticle
+            .createQueryBuilder()
+            .andWhere(...BbsArticle.getWhereArguments("section", section))
+            .andWhere(...BbsArticle.getWhereArguments("id", id))
+            .getOneOrFail();
+    }
+
     export async function json<Content extends IBbsArticle.IContent>
         (
             article: BbsArticle,

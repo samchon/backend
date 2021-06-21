@@ -1,5 +1,5 @@
 import { IMember } from "../../members/IMember";
-import { IBbsSection } from "../systematics/IBbsSection";
+import { IBbsSection } from "../systematic/IBbsSection";
 
 export interface IBbsManager 
     extends IBbsManager.IReference

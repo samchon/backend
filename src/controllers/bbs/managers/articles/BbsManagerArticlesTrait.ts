@@ -2,8 +2,8 @@ import * as express from "express";
 import * as nest from "@nestjs/common";
 
 import { BbsManager } from "../../../../models/tables/bbs/actors/BbsManager";
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
-import { BbsSectionNomination } from "../../../../models/tables/bbs/systematics/BbsSectionNomination";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
+import { BbsSectionNomination } from "../../../../models/tables/bbs/systematic/BbsSectionNomination";
 
 import { BbsManagerAuth } from "../authenticate/BbsManagerAuth";
 

@@ -7,7 +7,7 @@ import { IBbsReviewArticle } from "../../../api/structures/bbs/articles/IBbsRevi
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
 import { BbsCustomer } from "../../../models/tables/bbs/actors/BbsCustomer";
-import { BbsSection } from "../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { BbsReviewArticle } from "../../../models/tables/bbs/articles/BbsReviewArticle";
 import { Citizen } from "../../../models/tables/members/Citizen";
 import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHit";

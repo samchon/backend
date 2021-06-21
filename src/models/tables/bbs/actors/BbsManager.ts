@@ -5,7 +5,7 @@ import { Member } from "../../members/Member";
 import { BbsAnswerArticle } from "../articles/BbsAnswerArticle";
 import { BbsComment } from "../articles/BbsComment";
 import { BbsNoticeArticle } from "../articles/BbsNoticeArticle";
-import { BbsSectionNomination } from "../systematics/BbsSectionNomination";
+import { BbsSectionNomination } from "../systematic/BbsSectionNomination";
 
 @orm.Entity()
 export class BbsManager extends safe.Model

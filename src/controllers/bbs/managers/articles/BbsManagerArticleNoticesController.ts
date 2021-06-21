@@ -8,14 +8,14 @@ import { IBbsNoticeArticle } from "../../../../api/structures/bbs/articles/IBbsN
 import { BbsArticle } from "../../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../../models/tables/bbs/articles/BbsArticleContent";
 import { BbsManager } from "../../../../models/tables/bbs/actors/BbsManager";
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 import { BbsNoticeArticle } from "../../../../models/tables/bbs/articles/BbsNoticeArticle";
 
 import { BbsArticleContentProvider } from "../../../../providers/bbs/articles/BbsArticleContentProvider";
 import { BbsArticleNoticesController } from "../../base/articles/BbsArticleNoticesController";
 import { BbsManagerArticlesTrait } from "./BbsManagerArticlesTrait";
 import { BbsNoticeArticleProvider } from "../../../../providers/bbs/articles/BbsNoticeArticleController";
-import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
 
 @nest.Controller("bbs/managers/articles/notices/:code")
 export class BbsManagerArticleNoticesController
@@ -36,7 +36,7 @@ export class BbsManagerArticleNoticesController
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "NOTICE");
+        const section: BbsSection = await BbsSectionProvider.find(code, "notice");
         const manager: BbsManager = await this.trait.authorize(request, true, section);
 
         const notice: BbsNoticeArticle = await BbsNoticeArticleProvider.store
@@ -59,7 +59,7 @@ export class BbsManagerArticleNoticesController
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "NOTICE");
+        const section: BbsSection = await BbsSectionProvider.find(code, "notice");
         const manager: BbsManager = await this.trait.authorize(request, true, section);
 
         const notice: BbsNoticeArticle = await BbsNoticeArticleProvider.editable

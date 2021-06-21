@@ -8,8 +8,8 @@ import { BbsCustomer } from "../../../../models/tables/bbs/actors/BbsCustomer";
 import { BbsCustomerArticlesTrait } from "./BbsCustomerArticlesTrait";
 import { BbsQuestionArticle } from "../../../../models/tables/bbs/articles/BbsQuestionArticle";
 import { BbsQuestionArticleProvider } from "../../../../providers/bbs/articles/BbsQuestionArticleProvider";
-import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 import { assertType } from "typescript-is";
 import { BbsArticle } from "../../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../../models/tables/bbs/articles/BbsArticleContent";
@@ -34,7 +34,7 @@ export class BbsCustomerArticleQuestionsController
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "QNA");
+        const section: BbsSection = await BbsSectionProvider.find(code, "qna");
         const customer: BbsCustomer<true> = await this.trait.authorize(request, true);
 
         const question: BbsQuestionArticle = await BbsQuestionArticleProvider.store
@@ -57,7 +57,7 @@ export class BbsCustomerArticleQuestionsController
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "QNA");
+        const section: BbsSection = await BbsSectionProvider.find(code, "qna");
         const customer: BbsCustomer<true> = await this.trait.authorize(request, true);
 
         const question: BbsQuestionArticle = await BbsQuestionArticleProvider.editable(section, id, customer);

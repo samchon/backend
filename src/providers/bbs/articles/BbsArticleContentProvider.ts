@@ -39,7 +39,6 @@ export namespace BbsArticleContentProvider
         collection.push(content);
 
         // ATTACHMENT FILES
-        // @todo: MEMOIZE INTO THE CONTENT
         AttachmentFileProvider.collectList(collection, input.files, 
             (file, sequence) => BbsArticleContentFile.initialize({
                 id: safe.DEFAULT,

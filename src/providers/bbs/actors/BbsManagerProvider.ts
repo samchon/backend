@@ -3,8 +3,8 @@ import * as nest from "@nestjs/common";
 import { IBbsManager } from "../../../api/structures/bbs/actors/IBbsManager";
 
 import { BbsManager } from "../../../models/tables/bbs/actors/BbsManager";
-import { BbsSection } from "../../../models/tables/bbs/systematics/BbsSection";
-import { BbsSectionNomination } from "../../../models/tables/bbs/systematics/BbsSectionNomination";
+import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
+import { BbsSectionNomination } from "../../../models/tables/bbs/systematic/BbsSectionNomination";
 import { Member } from "../../../models/tables/members/Member";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";

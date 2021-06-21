@@ -7,12 +7,12 @@ import { assertType } from "typescript-is";
 import { IBbsQuestionArticle } from "../../../../api/structures/bbs/articles/IBbsQuestionArticle";
 import { IPage } from "../../../../api/structures/common/IPage";
 
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 import { BbsQuestionArticle } from "../../../../models/tables/bbs/articles/BbsQuestionArticle";
 
 import { IBbsArticlesTrait } from "./IBbsArticlesTrait";
 import { BbsQuestionArticleProvider } from "../../../../providers/bbs/articles/BbsQuestionArticleProvider";
-import { BbsSectionProvider } from "../../../../providers/bbs/systematics/BbsSectionProvider";
+import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
 import { Paginator } from "../../../../utils/Paginator";
 
 export abstract class BbsArticleQuestionsController<
@@ -33,7 +33,7 @@ export abstract class BbsArticleQuestionsController<
     {
         assertType<typeof input>(input);
 
-        const section: BbsSection = await BbsSectionProvider.find(code, "QNA");
+        const section: BbsSection = await BbsSectionProvider.find(code, "qna");
         await this.trait.authorize(request, false, section);
 
         const stmt = BbsQuestionArticleProvider.statement(section, input.search);
@@ -48,7 +48,7 @@ export abstract class BbsArticleQuestionsController<
             @helper.TypedParam("id", "string") id: string
         ): Promise<IBbsQuestionArticle>
     {
-        const section: BbsSection = await BbsSectionProvider.find(code, "QNA");
+        const section: BbsSection = await BbsSectionProvider.find(code, "qna");
         await this.trait.authorize(request, false, section);
 
         const question: BbsQuestionArticle = await BbsQuestionArticleProvider.find(section, id);

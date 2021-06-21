@@ -3,7 +3,7 @@ import { assertType } from "typescript-is";
 
 import api from "../../../../../../api";
 import { IBbsReviewArticle } from "../../../../../../api/structures/bbs/articles/IBbsReviewArticle";
-import { IBbsSection } from "../../../../../../api/structures/bbs/systematics/IBbsSection";
+import { IBbsSection } from "../../../../../../api/structures/bbs/systematic/IBbsSection";
 
 import { RandomGenerator } from "../../../../../../utils/RandomGenerator";
 import { test_bbs_customer_activate } from "../../actors/consumers/test_bbs_customer_activate";
@@ -14,7 +14,7 @@ import { prepare_random_article_content } from "../internal/prepare_random_artic
 export async function test_bbs_article_review_store
     (connection: api.IConnection): Promise<[ IBbsSection, IBbsReviewArticle ]>
 {
-    const section: IBbsSection = await generate_bbs_section(connection, "REVIEW");
+    const section: IBbsSection = await generate_bbs_section(connection, "review");
     if (Math.random() < .5)
         await test_bbs_customer_join(connection);
     else

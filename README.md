@@ -70,7 +70,7 @@ For a representatively, the `ONLY_FULL_GROUP_BY` condition occurs a syntax error
 
 ```sql
 -- CREATE A NEW SCHEMA
-CREATE SCHEMA bbs_test DEFAULT CHARACTER SET utf8mb4;
+CREATE SCHEMA bbs_test DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- STRICT MODE
 SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
@@ -122,6 +122,8 @@ npm run stop
 
 ## 3. Development
 ### 3.1. Definition
+![ERD](designs/erd.png)
+
 If you want to add a new feature or update ordinary thing in the API level, you should write the code down to the matched *API controller*, who is stored in the [src/controllers](src/controllers) directory as the [Main Program](#34-main-program). 
 
 However, [@samchon](https://github.com/samchon) does not recommend to writing code down into the [Main Program](#34-main-program) first, without any consideration. Instead, [@samchon](https://github.com/samchon) recommends to declare the definition first and implement the [Main Program](#34-main-program) later.
@@ -158,7 +160,9 @@ When the SDK has been published, client programmers can interact with this backe
 ```typescript
 import api from "@samchon/bbs-api";
 
-import { IBbsQuestion } from "@samchon/bbs-api/lib/structures/bbs/IBbsQuestion";
+import { IBbsCitizen } from "@samchon/bbs-api/lib/structures/bbs/actors/IBbsCitizen";
+import { IBbsQuestionArticle } from "@samchon/bbs-api/lib/structures/bbs/articles/IBbsQuestionArticle";
+import { IBbsSection } from "@samchon/bbs-api/lib/api/structures/bbs/systematic/IBbsSection";
 
 async function main(): Promise<void>
 {
@@ -174,8 +178,8 @@ async function main(): Promise<void>
         }
     };
 
-    // ISSUE A CONSUMER ACCOUNT
-    await api.functional.bbs.consumers.authenticate.issue
+    // ISSUE A CUSTOMER ACCOUNT
+    const customer: IBbsCustomer = await api.functional.bbs.customers.authenticate.issue
     (
         connection,
         {
@@ -184,8 +188,8 @@ async function main(): Promise<void>
         }
     );
 
-    // ACTIVATE THE CONSUMER
-    await api.functional.bbs.consumers.authenticate.activate
+    // ACTIVATE THE CUSTOMER
+    customer.citizen = await api.functional.bbs.customers.authenticate.activate
     (
         connection,
         {
@@ -197,17 +201,25 @@ async function main(): Promise<void>
     //----
     // WRITE A QUESTION ARTICLE
     //----
+    // FIND TARGET SECTION
+    const sectionList: IBbsSection[] = await api.functional.bbs.customers.systematic.sections.index
+    (
+        connection
+    );
+    const section: IBbsSection = sectionList.find(section => section.type === "qna")!;
+
     // PREPARE INPUT DATA
-    const input: IBbsQuestion.IStore = {
+    const input: IBbsQuestionArticle.IStore = {
         title: "Some Question Title",
         body: "Some Question Body Content...",
         files: []
     };
 
     // DO WRITE
-    const question: IBbsQuestion = await api.functional.bbs.consumers.qna.store
+    const question: IBbsQuestionArticle = await api.functional.bbs.customers.articles.qna.store
     (
         connection, 
+        section.code,
         input
     );
     console.log(question);

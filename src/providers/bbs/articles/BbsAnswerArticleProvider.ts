@@ -6,7 +6,7 @@ import { IBbsAnswerArticle } from "../../../api/structures/bbs/articles/IBbsAnsw
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 import { BbsAnswerArticle } from "../../../models/tables/bbs/articles/BbsAnswerArticle";
 import { BbsManager } from "../../../models/tables/bbs/actors/BbsManager";
-import { BbsSection } from "../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";

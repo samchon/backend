@@ -1,7 +1,7 @@
 import * as express from "express";
 import safe from "safe-typeorm";
 
-import { BbsSection } from "../../../../models/tables/bbs/systematics/BbsSection";
+import { BbsSection } from "../../../../models/tables/bbs/systematic/BbsSection";
 
 export interface IBbsArticlesTrait<Actor extends safe.Model>
 {
