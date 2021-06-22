@@ -1,14 +1,16 @@
 {
-  "name": "@samchon/bbs-api",
+  "name": "@samchon/backend",
   "version": "0.0.0",
-  "description": "API library (SDK) for the BBS",
-  "executable": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "description": "Backend for BBS",
   "scripts": {
-    "build": "rm -rf bin && ttsc",
+    "build": "rimraf bin && ttsc",
+    "build:api": "rimraf packages/api/lib && npm run nestia && tsc -p tsconfig.api.json",
+    "build:models": "rimraf packages/models/lib && tsc -p tsconfig.models.json",
     "dev": "npm run build -- --watch",
     "nestia": "nestia sdk src/controllers --out src/api",
-    "sdk": "rm -rf lib && npm run nestia && tsc -p tsconfig.api.json",
+    "package:api": "npm run build:api && cd packages/api && npm publish",
+    "package:models": "npm run build:models && cd packags/models && npm publish",
+    "reset:dev": "git pull && npm install && npm run build && npm run stop && npm run test -- --mode=dev && npm run start:updator:master && npm run start dev",
     "start": "pm2 start bin/executable/server.js -i 0 --name bbs-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
     "start:local": "pm2 start bin/executable/server.js -i 2 --name bbs-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
     "start:updator:master": "pm2 start --name bbs-backend-updator-master bin/updator/master.js",
@@ -37,24 +39,21 @@
     "@types/node": "^15.6.1",
     "@types/uuid": "^8.3.0",
     "cli": "^1.0.1",
+    "nestia": "^0.2.1",
+    "pm2": "^4.5.6",
+    "rimraf": "^3.0.2",
+    "sloc": "^0.2.1",
+    "typescript-is": "^0.18.2"
+  },
+  "dependencies": {
     "encrypted-nestjs": "^0.1.7",
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.2.2",
     "mysql": "^2.18.1",
-    "nestia": "^0.2.1",
-    "pm2": "^4.5.6",
+    "node-fetch": "^2.6.1",
     "safe-typeorm": "0.0.79",
-    "sloc": "^0.2.1",
     "source-map-support": "^0.5.19",
-    "tstl": "^2.4.21",
-    "typescript-is": "^0.18.2"
+    "tstl": "^2.4.21"
   },
-  "dependencies": {
-    "node-fetch": "^2.6.1"
-  },
-  "files": [
-    "lib",
-    "README.md",
-    "LICENSE"
-  ]
+  "private": true
 }

@@ -1,0 +1,20 @@
+{
+  "name": "@samchon/bbs-api",
+  "version": "0.0.0",
+  "description": "API for BBS",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/backend"
+  },
+  "author": "Samchon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/backend/issues"
+  },
+  "homepage": "https://github.com/samchon/backend#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}

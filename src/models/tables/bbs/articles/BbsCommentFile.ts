@@ -1,8 +1,8 @@
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
-import { FilePairBase } from "../../misc/internal/FilePairBase";
 import { BbsComment } from "./BbsComment";
+import { FilePairBase } from "../../misc/internal/FilePairBase";
 
 @orm.Unique(["bbs_comment_id", "attachment_file_id"])
 @orm.Entity()

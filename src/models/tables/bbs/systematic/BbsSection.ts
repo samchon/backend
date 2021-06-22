@@ -1,8 +1,6 @@
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
-import { IBbsSection } from "../../../../api/structures/bbs/systematic/IBbsSection";
-
 import { BbsArticle } from "../articles/BbsArticle";
 import { BbsSectionNomination } from "./BbsSectionNomination";
 
@@ -20,7 +18,7 @@ export class BbsSection extends safe.Model
     public readonly code!: string;
 
     @orm.Column("varchar")
-    public readonly type!: IBbsSection.Type;
+    public readonly type!: "free" | "qna" | "review" | "notice";
 
     @orm.Column("varchar")
     public readonly name!: string;

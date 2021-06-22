@@ -2,8 +2,8 @@ import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
 import { BbsArticle } from "./BbsArticle";
-import { BbsCustomer } from "../actors/BbsCustomer";
 import { BbsAnswerArticle } from "./BbsAnswerArticle";
+import { BbsCustomer } from "../actors/BbsCustomer";
 
 @orm.Entity()
 export class BbsQuestionArticle extends safe.Model

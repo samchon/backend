@@ -2,7 +2,7 @@ import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
 import { BbsArticle } from "../../tables/bbs/articles/BbsArticle";
-import { SyncSingleton } from "../../../utils/SyncSingleton";
+import { SyncSingleton } from "../../internal/SyncSingleton";
 
 @orm.Entity()
 export class __MvBbsArticleHit extends safe.Model

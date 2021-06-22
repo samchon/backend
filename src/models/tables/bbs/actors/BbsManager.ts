@@ -1,11 +1,11 @@
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
-import { Member } from "../../members/Member";
 import { BbsAnswerArticle } from "../articles/BbsAnswerArticle";
 import { BbsComment } from "../articles/BbsComment";
 import { BbsNoticeArticle } from "../articles/BbsNoticeArticle";
 import { BbsSectionNomination } from "../systematic/BbsSectionNomination";
+import { Member } from "../../members/Member";
 
 @orm.Entity()
 export class BbsManager extends safe.Model

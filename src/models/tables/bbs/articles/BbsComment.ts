@@ -1,11 +1,11 @@
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
 
+import { AttachmentFile } from "../../misc/AttachmentFile";
 import { BbsArticle } from "./BbsArticle";
+import { BbsCommentFile } from "./BbsCommentFile";
 import { BbsCustomer } from "../actors/BbsCustomer";
 import { BbsManager } from "../actors/BbsManager";
-import { AttachmentFile } from "../../misc/AttachmentFile";
-import { BbsCommentFile } from "./BbsCommentFile";
 
 import { ColumnType } from "../../../internal/ColumnType";
 
