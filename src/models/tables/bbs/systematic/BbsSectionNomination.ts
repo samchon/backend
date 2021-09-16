@@ -4,6 +4,7 @@ import safe from "safe-typeorm";
 import { BbsManager } from "../actors/BbsManager";
 import { BbsSection } from "./BbsSection";
 
+@orm.Unique(["bbs_section_id", "bbs_manager_id"])
 @orm.Entity()
 export class BbsSectionNomination extends safe.Model
 {
@@ -21,7 +22,8 @@ export class BbsSectionNomination extends safe.Model
 
     @safe.Belongs.ManyToOne(() => BbsManager,
         "uuid",
-        "bbs_manager_id"
+        "bbs_manager_id",
+        { index: true }
     )
     public readonly manager!: safe.Belongs.ManyToOne<BbsManager, "uuid">;
 

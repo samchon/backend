@@ -17,12 +17,19 @@ export * as nominations from "./nominations";
  * @controller BbsAdminSystematicSectionsController.store()
  * @path POST /bbs/admins/systematic/sections/
  */
-export function store(connection: IConnection, input: Primitive<store.Input>): Promise<store.Output>
+export function store
+    (
+        connection: IConnection,
+        input: Primitive<store.Input>
+    ): Promise<store.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/admins/systematic/sections/`,
         input
@@ -39,12 +46,20 @@ export namespace store
  * @controller BbsAdminSystematicSectionsController.update()
  * @path PUT /bbs/admins/systematic/sections/:code
  */
-export function update(connection: IConnection, code: string, input: Primitive<update.Input>): Promise<void>
+export function update
+    (
+        connection: IConnection,
+        code: string,
+        input: Primitive<update.Input>
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":false},
+        {
+            input_encrypted: true,
+            output_encrypted: false
+        },
         "PUT",
         `/bbs/admins/systematic/sections/${code}`,
         input
@@ -60,12 +75,18 @@ export namespace update
  * @controller BbsAdminSystematicSectionsController.index()
  * @path GET /bbs/admins/systematic/sections/
  */
-export function index(connection: IConnection, ): Promise<index.Output>
+export function index
+    (
+        connection: IConnection
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/admins/systematic/sections/`
     );
@@ -80,12 +101,19 @@ export namespace index
  * @controller BbsAdminSystematicSectionsController.unify()
  * @path POST /bbs/admins/systematic/sections/unify
  */
-export function unify(connection: IConnection, input: Primitive<unify.Input>): Promise<void>
+export function unify
+    (
+        connection: IConnection,
+        input: Primitive<unify.Input>
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":false},
+        {
+            input_encrypted: true,
+            output_encrypted: false
+        },
         "POST",
         `/bbs/admins/systematic/sections/unify`,
         input

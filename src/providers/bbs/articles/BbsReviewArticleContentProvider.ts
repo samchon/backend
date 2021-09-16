@@ -1,4 +1,5 @@
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 import { IBbsReviewArticle } from "../../../api/structures/bbs/articles/IBbsReviewArticle";
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 
@@ -9,17 +10,28 @@ import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
 
 export namespace BbsReviewArticleContentProvider
 {
-    export async function json
-        (content: BbsArticleContent): Promise<IBbsReviewArticle.IContent>
+    /* ----------------------------------------------------------------
+        ACCESSORS
+    ---------------------------------------------------------------- */
+    export function json(): safe.JsonSelectBuilder<BbsReviewArticleContent, any, IBbsReviewArticle.IContent>
     {
-        const derived: BbsReviewArticleContent = (await content.reviewContent.get())!;
-
-        return {
-            ...await BbsArticleContentProvider.json(content),
-            score: derived.score
-        };
+        return json_builder.get();
     }
 
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsReviewArticleContent,
+        { base: BbsArticleContentProvider.json() },
+        output => ({
+            ...output,
+            ...output.base,
+            base: undefined
+        })
+    ));
+
+    /* ----------------------------------------------------------------
+        STORE
+    ---------------------------------------------------------------- */
     export function collect
         (
             collection: safe.InsertCollection,

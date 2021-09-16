@@ -46,7 +46,7 @@ export class BbsCustomerArticleFreeController
             customer,
             input
         );
-        return await BbsFreeArticleProvider.json(free);
+        return await BbsFreeArticleProvider.json().getOne(free);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -67,6 +67,6 @@ export class BbsCustomerArticleFreeController
         const article: BbsArticle = await free.base.get();
         const content: BbsArticleContent = await BbsArticleContentProvider.update(article, input);
 
-        return await BbsArticleContentProvider.json(content);
+        return await BbsArticleContentProvider.json().getOne(content);
     }
 }

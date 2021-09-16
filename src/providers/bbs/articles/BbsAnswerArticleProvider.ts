@@ -10,28 +10,34 @@ import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
-import { MemberProvider } from "../../members/MemberProvider";
 import { BbsQuestionArticle } from "../../../models/tables/bbs/articles/BbsQuestionArticle";
+import { Singleton } from "tstl/thread/Singleton";
+import { BbsManagerProvider } from "../actors/BbsManagerProvider";
 
 export namespace BbsAnswerArticleProvider
 {
     /* ----------------------------------------------------------------
         ACCESSORS
     ---------------------------------------------------------------- */
-    export async function json(answer: BbsAnswerArticle): Promise<IBbsAnswerArticle>
+    export function json(): safe.JsonSelectBuilder<BbsAnswerArticle, any, IBbsAnswerArticle>
     {
-        const article: BbsArticle = await answer.base.get();
-        const manager: BbsManager = await answer.manager.get();
-
-        return {
-            ...await BbsArticleProvider.json
-            (
-                article, 
-                BbsArticleContentProvider.json
-            ),
-            manager: await MemberProvider.json(await manager.base.get())
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsAnswerArticle,
+        {
+            base: BbsArticleProvider.json(),
+            manager: BbsManagerProvider.reference(),
+            question: undefined,
+        },
+        output => ({
+            ...output,
+            ...output.base,
+            base: undefined
+        })
+    ));
 
     export async function editable
         (

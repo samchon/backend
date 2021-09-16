@@ -16,12 +16,19 @@ import type { IMember } from "./../../../../../structures/members/IMember";
  * @controller BbsCustomerAuthenticatePasswordController.change()
  * @path PUT /bbs/customers/authenticate/password/change
  */
-export function change(connection: IConnection, input: Primitive<change.Input>): Promise<void>
+export function change
+    (
+        connection: IConnection,
+        input: Primitive<change.Input>
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":false},
+        {
+            input_encrypted: true,
+            output_encrypted: false
+        },
         "PUT",
         `/bbs/customers/authenticate/password/change`,
         input
@@ -37,12 +44,19 @@ export namespace change
  * @controller BbsCustomerAuthenticatePasswordController.reset()
  * @path PUT /bbs/customers/authenticate/password/reset
  */
-export function reset(connection: IConnection, input: Primitive<reset.Input>): Promise<void>
+export function reset
+    (
+        connection: IConnection,
+        input: Primitive<reset.Input>
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":false},
+        {
+            input_encrypted: true,
+            output_encrypted: false
+        },
         "PUT",
         `/bbs/customers/authenticate/password/reset`,
         input

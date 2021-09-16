@@ -18,12 +18,20 @@ import type { IBbsNoticeArticle } from "./../../../../../structures/bbs/articles
  * @controller BbsCustomerArticleNoticesController.index()
  * @path PATCH /bbs/customers/articles/notices/:code/
  */
-export function index(connection: IConnection, code: string, input: Primitive<index.Input>): Promise<index.Output>
+export function index
+    (
+        connection: IConnection,
+        code: string,
+        input: Primitive<index.Input>
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PATCH",
         `/bbs/customers/articles/notices/${code}/`,
         input
@@ -40,12 +48,20 @@ export namespace index
  * @controller BbsCustomerArticleNoticesController.at()
  * @path GET /bbs/customers/articles/notices/:code/:id
  */
-export function at(connection: IConnection, code: string, id: string): Promise<at.Output>
+export function at
+    (
+        connection: IConnection,
+        code: string,
+        id: string
+    ): Promise<at.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/customers/articles/notices/${code}/${id}`
     );

@@ -42,7 +42,7 @@ export class Citizen extends safe.Model
     (
         () => BbsCustomer as safe.Model.Creator<BbsCustomer<true>>,
         customer => customer.citizen,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime()
+        (x, y) => x.created_at.getTime() - y.created_at.getTime()
     )
     public readonly customers!: safe.Has.OneToMany<BbsCustomer<true>>;
 }

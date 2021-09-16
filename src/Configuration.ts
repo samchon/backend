@@ -43,7 +43,7 @@ export class Configuration
             database: (SGlobal.mode === "LOCAL") ? "bbs_test" : "bbs",
 
             // OPTIONS
-            namingStrategy: new safe.NamingStrategy(),
+            namingStrategy: new safe.SnakeCaseStrategy(),
             bigNumberStrings: false,
             dateStrings: false,
             entities: [ `${__dirname}/models/**/*.${EXTENSION}` ]

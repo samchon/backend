@@ -45,7 +45,7 @@ export class BbsManager extends safe.Model
     (
         () => BbsComment,
         comment => comment.manager,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime()
+        (x, y) => x.created_at.getTime() - y.created_at.getTime()
     )
     public readonly comments!: safe.Has.OneToMany<BbsComment>;
 
@@ -53,7 +53,7 @@ export class BbsManager extends safe.Model
     (
         () => BbsSectionNomination,
         nomination => nomination.manager,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime()
+        (x, y) => x.created_at.getTime() - y.created_at.getTime()
     )
     public readonly nominations!: safe.Has.OneToMany<BbsSectionNomination>;
 }

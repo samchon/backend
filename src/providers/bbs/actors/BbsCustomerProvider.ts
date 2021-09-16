@@ -1,6 +1,8 @@
 import * as nest from "@nestjs/common";
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
+
 import { IBbsCustomer } from "../../../api/structures/bbs/actors/IBbsCustomer";
 import { ICitizen } from "../../../api/structures/members/ICitizen";
 
@@ -16,22 +18,24 @@ export namespace BbsCustomerProvider
     /* ----------------------------------------------------------------
         ACCECSSORS
     ---------------------------------------------------------------- */
-    export async function json<Ensure extends boolean>
-        (customer: BbsCustomer<Ensure>): Promise<IBbsCustomer<Ensure>>
+    export function json<Ensure extends boolean>
+        (): safe.JsonSelectBuilder<BbsCustomer<Ensure>, any, IBbsCustomer>
     {
-        const citizen: Citizen | null = await customer.citizen.get();
-        const member: Member | null = await customer.member.get();
-
-        return {
-            ...customer.toPrimitive(),
-            citizen: citizen !== null
-                ? await CitizenProvider.json(citizen)
-                : null as any,
-            member: member !== null
-                ? await MemberProvider.json(member)
-                : null,
-        } as any;
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsCustomer as safe.Model.Creator<BbsCustomer<false>>,
+        {
+            citizen: CitizenProvider.json(),
+            member: MemberProvider.json(),
+            freeArticles: undefined,
+            questionArticles: undefined,
+            reviewArticles: undefined,
+            comments: undefined
+        }
+    ));
 
     /* ----------------------------------------------------------------
         AUTHORIZATIONS

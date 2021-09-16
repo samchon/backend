@@ -32,7 +32,7 @@ export class BbsAdminSystematicSectionNominationsController
         );
 
         return {
-            ...await MemberProvider.json(member),
+            ...await MemberProvider.json().getOne(member),
             nominated_at: nomination.created_at.toString()
         };
     }

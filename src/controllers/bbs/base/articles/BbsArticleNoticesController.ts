@@ -52,6 +52,6 @@ export abstract class BbsArticleNoticesController<
         await this.trait.authorize(request, false, section);
 
         const notice: BbsNoticeArticle = await BbsNoticeArticleProvider.find(section, id);
-        return await BbsNoticeArticleProvider.json(notice);
+        return await BbsNoticeArticleProvider.json().getOne(notice);
     }
 }

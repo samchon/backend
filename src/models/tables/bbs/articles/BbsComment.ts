@@ -59,7 +59,7 @@ export class BbsComment extends safe.Model
         () => BbsCommentFile,
         router => router.file,
         router => router.comment,
-        (x, y) => x.router.sequence < y.router.sequence
+        (x, y) => x.router.sequence - y.router.sequence
     )
     public readonly files!: safe.Has.ManyToMany<AttachmentFile, BbsCommentFile>;
 }

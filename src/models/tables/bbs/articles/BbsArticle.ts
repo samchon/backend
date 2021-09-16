@@ -40,7 +40,7 @@ export class BbsArticle extends safe.Model
     (
         () => BbsArticleContent,
         content => content.article,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime(),
+        (x, y) => x.created_at.getTime() - y.created_at.getTime(),
     )
     public readonly contents!: safe.Has.OneToMany<BbsArticleContent>;
 
@@ -48,7 +48,7 @@ export class BbsArticle extends safe.Model
     (
         () => BbsComment,
         comment => comment.article,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime()
+        (x, y) => x.created_at.getTime() - y.created_at.getTime()
     )
     public readonly comments!: safe.Has.OneToMany<BbsComment>;
 

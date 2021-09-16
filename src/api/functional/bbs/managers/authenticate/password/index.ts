@@ -16,12 +16,19 @@ import type { IMember } from "./../../../../../structures/members/IMember";
  * @controller BbsManagerAuthenticatePasswordController.change()
  * @path PATCH /bbs/managers/authenticate/password/change
  */
-export function change(connection: IConnection, input: Primitive<change.Input>): Promise<void>
+export function change
+    (
+        connection: IConnection,
+        input: Primitive<change.Input>
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":false},
+        {
+            input_encrypted: true,
+            output_encrypted: false
+        },
         "PATCH",
         `/bbs/managers/authenticate/password/change`,
         input
@@ -37,12 +44,19 @@ export namespace change
  * @controller BbsManagerAuthenticatePasswordController.reset()
  * @path PATCH /bbs/managers/authenticate/password/reset
  */
-export function reset(connection: IConnection, input: Primitive<reset.Input>): Promise<void>
+export function reset
+    (
+        connection: IConnection,
+        input: Primitive<reset.Input>
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":false},
+        {
+            input_encrypted: true,
+            output_encrypted: false
+        },
         "PATCH",
         `/bbs/managers/authenticate/password/reset`,
         input

@@ -45,7 +45,7 @@ export class BbsManagerArticleNoticesController
             manager,
             input
         );
-        return await BbsNoticeArticleProvider.json(notice);
+        return await BbsNoticeArticleProvider.json().getOne(notice);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -71,6 +71,6 @@ export class BbsManagerArticleNoticesController
         const article: BbsArticle = await notice.base.get();
         const content: BbsArticleContent = await BbsArticleContentProvider.update(article, input);
 
-        return await BbsArticleContentProvider.json(content);
+        return await BbsArticleContentProvider.json().getOne(content);
     }
 }

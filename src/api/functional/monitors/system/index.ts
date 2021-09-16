@@ -16,12 +16,18 @@ import type { ISystem } from "./../../../structures/monitors/ISystem";
  * @controller SystemController.get()
  * @path GET /monitors/system/
  */
-export function get(connection: IConnection, ): Promise<get.Output>
+export function get
+    (
+        connection: IConnection
+    ): Promise<get.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/monitors/system/`
     );
@@ -36,12 +42,19 @@ export namespace get
  * @controller SystemController.sleep()
  * @path GET /monitors/system/:ms
  */
-export function sleep(connection: IConnection, ms: number): Promise<sleep.Output>
+export function sleep
+    (
+        connection: IConnection,
+        ms: number
+    ): Promise<sleep.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/monitors/system/${ms}`
     );

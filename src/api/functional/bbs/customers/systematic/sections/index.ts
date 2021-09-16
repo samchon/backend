@@ -16,12 +16,18 @@ import type { IBbsSection } from "./../../../../../structures/bbs/systematic/IBb
  * @controller BbsCustomerSystematicSectionsController.index()
  * @path GET /bbs/customers/systematic/sections/
  */
-export function index(connection: IConnection, ): Promise<index.Output>
+export function index
+    (
+        connection: IConnection
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/customers/systematic/sections/`
     );

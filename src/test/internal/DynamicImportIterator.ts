@@ -84,7 +84,7 @@ export namespace DynamicImportIterator
                 }
                 catch (exp)
                 {
-                    if (exceptions !== undefined)
+                    if (exceptions !== undefined && exp instanceof Error)
                     {
                         console.log(exp.name);
                         exceptions.push(exp);

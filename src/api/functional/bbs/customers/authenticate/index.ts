@@ -19,19 +19,25 @@ export * as password from "./password";
  * @controller BbsCustomerAuthenticateController.get()
  * @path GET /bbs/customers/authenticate/
  */
-export function get(connection: IConnection, ): Promise<get.Output>
+export function get
+    (
+        connection: IConnection
+    ): Promise<get.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/customers/authenticate/`
     );
 }
 export namespace get
 {
-    export type Output = Primitive<IBbsCustomer.IUnknown>;
+    export type Output = Primitive<IBbsCustomer>;
 }
 
 /**
@@ -39,12 +45,19 @@ export namespace get
  * @controller BbsCustomerAuthenticateController.issue()
  * @path PATCH /bbs/customers/authenticate/issue
  */
-export function issue(connection: IConnection, input: Primitive<issue.Input>): Promise<issue.Output>
+export function issue
+    (
+        connection: IConnection,
+        input: Primitive<issue.Input>
+    ): Promise<issue.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PATCH",
         `/bbs/customers/authenticate/issue`,
         input
@@ -53,7 +66,7 @@ export function issue(connection: IConnection, input: Primitive<issue.Input>): P
 export namespace issue
 {
     export type Input = Primitive<IBbsCustomer.IStore>;
-    export type Output = Primitive<IBbsCustomer.IGuest>;
+    export type Output = Primitive<IBbsCustomer>;
 }
 
 /**
@@ -61,12 +74,19 @@ export namespace issue
  * @controller BbsCustomerAuthenticateController.activate()
  * @path POST /bbs/customers/authenticate/activate
  */
-export function activate(connection: IConnection, input: Primitive<activate.Input>): Promise<activate.Output>
+export function activate
+    (
+        connection: IConnection,
+        input: Primitive<activate.Input>
+    ): Promise<activate.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/customers/authenticate/activate`,
         input
@@ -83,12 +103,18 @@ export namespace activate
  * @controller BbsCustomerAuthenticateController.refresh()
  * @path GET /bbs/customers/authenticate/refresh
  */
-export function refresh(connection: IConnection, ): Promise<refresh.Output>
+export function refresh
+    (
+        connection: IConnection
+    ): Promise<refresh.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/customers/authenticate/refresh`
     );
@@ -103,12 +129,19 @@ export namespace refresh
  * @controller BbsCustomerAuthenticateController.join()
  * @path POST /bbs/customers/authenticate/join
  */
-export function join(connection: IConnection, input: Primitive<join.Input>): Promise<join.Output>
+export function join
+    (
+        connection: IConnection,
+        input: Primitive<join.Input>
+    ): Promise<join.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/customers/authenticate/join`,
         input
@@ -125,12 +158,19 @@ export namespace join
  * @controller BbsCustomerAuthenticateController.login()
  * @path POST /bbs/customers/authenticate/login
  */
-export function login(connection: IConnection, input: Primitive<login.Input>): Promise<login.Output>
+export function login
+    (
+        connection: IConnection,
+        input: Primitive<login.Input>
+    ): Promise<login.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/customers/authenticate/login`,
         input

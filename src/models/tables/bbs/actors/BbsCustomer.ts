@@ -79,7 +79,7 @@ export class BbsCustomer<Ensure extends boolean = false>
     (
         () => BbsComment,
         comment => comment.customer,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime()
+        (x, y) => x.created_at.getTime() - y.created_at.getTime()
     )
     public readonly comments!: safe.Has.OneToMany<BbsComment>;
 }

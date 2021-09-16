@@ -21,7 +21,7 @@ export class BbsManagerAuthenticateController
         ): Promise<IBbsManager>
     {
         const manager: BbsManager = await BbsManagerAuth.authorize(request, false);
-        return await BbsManagerProvider.json(manager);
+        return await BbsManagerProvider.json().getOne(manager);
     }
 
     @helper.EncryptedRoute.Post("login")
@@ -35,7 +35,7 @@ export class BbsManagerAuthenticateController
         const manager: BbsManager = await BbsManagerProvider.login(input);
 
         return {
-            ...await BbsManagerProvider.json(manager),
+            ...await BbsManagerProvider.json().getOne(manager),
             ...BbsManagerAuth.issue(manager, true)
         };
     }

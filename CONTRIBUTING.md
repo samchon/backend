@@ -63,7 +63,7 @@ import { test_bbs_customer_activate } from "./test_bbs_customer_activate";
 export async function test_bbs_customer_join_after_activate
     (connection: api.IConnection): Promise<void>
 {
-    const customer: IBbsCustomer<true> = await test_bbs_customer_activate(connection);
+    const customer: IBbsCustomer = await test_bbs_customer_activate(connection);
 
     // DIFFERENT CITIZEN
     await exception_must_be_thrown

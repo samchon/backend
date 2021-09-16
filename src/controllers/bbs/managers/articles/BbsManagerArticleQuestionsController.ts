@@ -50,7 +50,7 @@ export class BbsManagerArticleQuestionsController
             manager,
             input
         );
-        return await BbsAnswerArticleProvider.json(answer);
+        return await BbsAnswerArticleProvider.json().getOne(answer);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -76,6 +76,6 @@ export class BbsManagerArticleQuestionsController
         const article: BbsArticle = await answer.base.get();
         const content: BbsArticleContent = await BbsArticleContentProvider.update(article, input);
 
-        return await BbsArticleContentProvider.json(content);
+        return await BbsArticleContentProvider.json().getOne(content);
     }
 }

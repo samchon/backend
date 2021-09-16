@@ -44,7 +44,7 @@ export class BbsArticleContent extends safe.Model
         () => BbsArticleContentFile,
         router => router.file,
         router => router.content,
-        (x, y) => x.router.sequence < y.router.sequence
+        (x, y) => x.router.sequence - y.router.sequence
     )
     public readonly files!: safe.Has.ManyToMany<AttachmentFile, BbsArticleContentFile>;
 

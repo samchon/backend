@@ -16,6 +16,7 @@ import { BbsCustomerArticlesTrait } from "./BbsCustomerArticlesTrait";
 import { BbsReviewArticleProvider } from "../../../../providers/bbs/articles/BbsReviewArticleProvider";
 import { BbsReviewArticleContentProvider } from "../../../../providers/bbs/articles/BbsReviewArticleContentProvider";
 import { BbsSectionProvider } from "../../../../providers/bbs/systematic/BbsSectionProvider";
+import { BbsReviewArticleContent } from "../../../../models/tables/bbs/articles/BbsReviewArticleContent";
 
 @nest.Controller("bbs/customers/articles/reviews/:code")
 export class BbsCustomerArticleReviewsController
@@ -45,7 +46,7 @@ export class BbsCustomerArticleReviewsController
             customer,
             input
         );
-        return await BbsReviewArticleProvider.json(review);
+        return await BbsReviewArticleProvider.json().getOne(review);
     }
 
     @helper.EncryptedRoute.Put(":id")
@@ -65,7 +66,8 @@ export class BbsCustomerArticleReviewsController
         const review: BbsReviewArticle = await BbsReviewArticleProvider.editable(section, id, customer);
         const article: BbsArticle = await review.base.get();
         const content: BbsArticleContent = await BbsReviewArticleContentProvider.update(article, input);
+        const reviewContent: BbsReviewArticleContent = (await content.reviewContent.get())!;
 
-        return await BbsReviewArticleContentProvider.json(content);
+        return await BbsReviewArticleContentProvider.json().getOne(reviewContent);
     }
 }

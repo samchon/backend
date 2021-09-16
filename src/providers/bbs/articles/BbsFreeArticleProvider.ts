@@ -15,6 +15,7 @@ import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHi
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
 import { BbsCustomerProvider } from "../actors/BbsCustomerProvider";
+import { Singleton } from "tstl/thread/Singleton";
 
 export namespace BbsFreeArticleProvider
 {
@@ -106,22 +107,24 @@ export namespace BbsFreeArticleProvider
         return free;
     }
 
-    export async function json(free: BbsFreeArticle): Promise<IBbsFreeArticle>
+    export function json(): safe.JsonSelectBuilder<BbsFreeArticle, any, IBbsFreeArticle>
     {
-        const base: BbsArticle = await free.base.get();
-        const customer: BbsCustomer<true> = await free.customer.get();
-        const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
-
-        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
-
-        return {
-            ...await BbsArticleProvider.json(base, BbsArticleContentProvider.json),
-            customer: await BbsCustomerProvider.json(customer),
-            hit: (hit !== null)
-                ? hit.count + 1
-                : 1
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsFreeArticle,
+        {
+            base: BbsArticleProvider.json(),
+            customer: BbsCustomerProvider.json(),
+        },
+        output => ({
+            ...output,
+            ...output.base,
+            base: undefined
+        })
+    ));
 
     /* ----------------------------------------------------------------
         SAVE

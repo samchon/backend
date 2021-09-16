@@ -1,15 +1,16 @@
 import safe from "safe-typeorm";
 import * as orm from "typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IBbsArticle } from "../../../api/structures/bbs/articles/IBbsArticle";
-import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHit";
 
+import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHit";
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
 import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { Citizen } from "../../../models/tables/members/Citizen";
 
-import { ArrayUtil } from "../../../utils/ArrayUtil";
+import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
 
 export namespace BbsArticleProvider
 {
@@ -53,20 +54,35 @@ export namespace BbsArticleProvider
             .getOneOrFail();
     }
 
-    export async function json<Content extends IBbsArticle.IContent>
-        (
-            article: BbsArticle,
-            contentGetter: (content: BbsArticleContent) => Promise<Content>
-        ): Promise<IBbsArticle<Content>>
+    export function json()
     {
-        const contents: BbsArticleContent[] = await article.contents.get();
-
-        return {
-            id: article.id,
-            contents: await ArrayUtil.asyncMap(contents, c => contentGetter(c)),
-            created_at: article.created_at.toString()
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsArticle,
+        {
+            contents: BbsArticleContentProvider.json(),
+            __mv_hit: safe.createJsonSelectBuilder
+            (
+                __MvBbsArticleHit, 
+                { article: undefined  }
+            ),
+            section: undefined,
+            comments: undefined,
+            __mv_last: undefined,
+            answer: undefined,
+            free: undefined,
+            notice: undefined,
+            question: undefined,
+            review: undefined,
+        },
+        output => ({
+            ...output,
+            hit: output.__mv_hit?.count || 0
+        })
+    ))
 
     /* ----------------------------------------------------------------
         SAVE

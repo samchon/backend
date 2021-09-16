@@ -17,12 +17,22 @@ import type { IBbsComment } from "./../../../../../structures/bbs/articles/IBbsC
  * @controller BbsAdminCommentsController.index()
  * @path PATCH /bbs/admins/articles/:type/:code/:id/comments/
  */
-export function index(connection: IConnection, type: string, code: string, id: string, input: Primitive<index.Input>): Promise<index.Output>
+export function index
+    (
+        connection: IConnection,
+        type: string,
+        code: string,
+        id: string,
+        input: Primitive<index.Input>
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PATCH",
         `/bbs/admins/articles/${type}/${code}/${id}/comments/`,
         input

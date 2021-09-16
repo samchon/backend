@@ -5,14 +5,14 @@ import { test_bbs_customer_login } from "./test_bbs_customer_login";
 
 export async function test_bbs_customer_activate_after_login(connection: api.IConnection): Promise<void>
 {
-    const customer: IBbsCustomer<true> = await test_bbs_customer_login(connection);
+    const customer: IBbsCustomer = await test_bbs_customer_login(connection);
     await exception_must_be_thrown
     (
         "Activate after login",
         () => api.functional.bbs.customers.authenticate.activate
         (
             connection,
-            customer.citizen
+            customer.citizen!
         )
     );
 }

@@ -19,6 +19,7 @@ import { BbsAnswerArticleProvider } from "./BbsAnswerArticleProvider";
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
 import { BbsCustomerProvider } from "../actors/BbsCustomerProvider";
+import { Singleton } from "tstl/thread/Singleton";
 
 export namespace BbsQuestionArticleProvider
 {
@@ -167,30 +168,25 @@ export namespace BbsQuestionArticleProvider
         return question;
     }
 
-    export async function json(question: BbsQuestionArticle): Promise<IBbsQuestionArticle>
+    export function json(): safe.JsonSelectBuilder<BbsQuestionArticle, any, IBbsQuestionArticle>
     {
-        const base: BbsArticle = await question.base.get();
-        const customer: BbsCustomer<true> = await question.customer.get();
-        const answer: BbsAnswerArticle | null = await question.answer.get();
-        const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
-
-        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
-
-        return {
-            ...await BbsArticleProvider.json
-            (
-                base,
-                BbsArticleContentProvider.json
-            ),
-            customer: await BbsCustomerProvider.json(customer),
-            answer: (answer !== null)
-                ? await BbsAnswerArticleProvider.json(answer)
-                : null,
-            hit: hit !== null
-                ? hit.count + 1
-                : 1
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsQuestionArticle,
+        {
+            base: BbsArticleProvider.json(),
+            answer: BbsAnswerArticleProvider.json(),
+            customer: BbsCustomerProvider.json(),
+        },
+        output => ({
+            ...output,
+            ...output.base,
+            base: undefined
+        })
+    ));
 
     /* ----------------------------------------------------------------
         STORE

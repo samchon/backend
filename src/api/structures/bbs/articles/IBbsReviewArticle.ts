@@ -3,7 +3,7 @@ import { IBbsArticle } from "./IBbsArticle";
 
 export interface IBbsReviewArticle extends IBbsArticle<IBbsReviewArticle.IContent>
 {
-    customer: IBbsCustomer<true>;
+    customer: IBbsCustomer;
     brand: string;
     manufacturer: string;
     product: string;

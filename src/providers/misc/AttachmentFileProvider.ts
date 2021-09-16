@@ -1,4 +1,5 @@
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IAttachmentFile } from "../../api/structures/misc/IAttachmentFile";
 
@@ -7,6 +8,17 @@ import { FilePairBase } from "../../models/tables/misc/internal/FilePairBase";
 
 export namespace AttachmentFileProvider
 {
+    export function json()
+    {
+        return json_builder.get();
+    }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        AttachmentFile,
+        {}
+    ));
+
     export function collectList<Pair extends FilePairBase>
         (
             collection: safe.InsertCollection,

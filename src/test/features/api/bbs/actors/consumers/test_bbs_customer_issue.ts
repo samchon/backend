@@ -4,9 +4,9 @@ import api from "../../../../../../api";
 
 import { IBbsCustomer } from "../../../../../../api/structures/bbs/actors/IBbsCustomer";
 
-export async function test_bbs_customer_issue(connection: api.IConnection): Promise<IBbsCustomer<false>>
+export async function test_bbs_customer_issue(connection: api.IConnection): Promise<IBbsCustomer>
 {
-    const customer: IBbsCustomer<false> = await api.functional.bbs.customers.authenticate.issue
+    const customer: IBbsCustomer = await api.functional.bbs.customers.authenticate.issue
     (
         connection,
         {

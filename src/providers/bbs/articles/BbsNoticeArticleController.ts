@@ -1,6 +1,7 @@
 import * as nest from "@nestjs/common";
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IBbsNoticeArticle } from "../../../api/structures/bbs/articles/IBbsNoticeArticle";
 
@@ -12,9 +13,9 @@ import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { Citizen } from "../../../models/tables/members/Citizen";
 import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHit";
 
-import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
-import { MemberProvider } from "../../members/MemberProvider";
+import { BbsArticleProvider } from "./BbsArticleProvider";
+import { BbsManagerProvider } from "../actors/BbsManagerProvider";
 
 export namespace BbsNoticeArticleProvider
 {
@@ -104,22 +105,24 @@ export namespace BbsNoticeArticleProvider
         return notice;
     }
 
-    export async function json(notice: BbsNoticeArticle): Promise<IBbsNoticeArticle>
+    export function json(): safe.JsonSelectBuilder<BbsNoticeArticle, any, IBbsNoticeArticle>
     {
-        const base: BbsArticle = await notice.base.get();
-        const manager: BbsManager = await notice.manager.get();
-        const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
-
-        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
-
-        return {
-            ...await BbsArticleProvider.json(base, BbsArticleContentProvider.json),
-            manager: await MemberProvider.json(await manager.base.get()),
-            hit: (hit !== null)
-                ? hit.count + 1
-                : 1
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsNoticeArticle,
+        {
+            base: BbsArticleProvider.json(),
+            manager: BbsManagerProvider.reference(),
+        },
+        output => ({
+            ...output,
+            ...output.base,
+            base: undefined,
+        })
+    ));
 
     /* ----------------------------------------------------------------
         SAVE

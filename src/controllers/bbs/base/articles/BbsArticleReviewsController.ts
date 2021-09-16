@@ -52,6 +52,6 @@ export abstract class BbsArticleReviewsController<
         await this.trait.authorize(request, false, section);
 
         const review: BbsReviewArticle = await BbsReviewArticleProvider.find(section, id);
-        return await BbsReviewArticleProvider.json(review);
+        return await BbsReviewArticleProvider.json().getOne(review);
     }
 }

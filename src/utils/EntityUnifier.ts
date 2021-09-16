@@ -156,7 +156,7 @@ export namespace EntityUnifier
         return orm.getConnection().getRepository(entity).metadata.tableName;
     }
 
-    const dependencies_: Singleton<HashMap<string, IDependency[]>> = new Singleton(async () =>
+    const dependencies_: Singleton<Promise<HashMap<string, IDependency[]>>> = new Singleton(async () =>
     {
         interface IUniqueContraint
         {

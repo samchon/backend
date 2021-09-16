@@ -4,7 +4,7 @@ import { IBbsCustomer } from "../actors/IBbsCustomer";
 
 export interface IBbsQuestionArticle extends IBbsArticle<IBbsQuestionArticle.IContent>
 {
-    customer: IBbsCustomer<true>;
+    customer: IBbsCustomer;
     answer: IBbsAnswerArticle | null;
     hit: number;
 }

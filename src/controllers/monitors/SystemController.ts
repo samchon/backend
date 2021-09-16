@@ -38,7 +38,7 @@ export class SystemController
 }
 
 const uid_: number = randint(0, Number.MAX_SAFE_INTEGER);
-const commit_: Singleton<ISystem.ICommit> = new Singleton
+const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton
 (
     () => new Promise((resolve, reject) =>
     {
@@ -55,7 +55,7 @@ const commit_: Singleton<ISystem.ICommit> = new Singleton
         });
     })
 );
-const package_: Singleton<ISystem.IPackage> = new Singleton(async () =>
+const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(async () =>
 {
     const content: string = await fs.promises.readFile(`${__dirname}/../../../package.json`, "utf8");
     return JSON.parse(content);

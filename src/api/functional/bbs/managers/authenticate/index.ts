@@ -18,12 +18,18 @@ export * as password from "./password";
  * @controller BbsManagerAuthenticateController.get()
  * @path GET /bbs/managers/authenticate/
  */
-export function get(connection: IConnection, ): Promise<get.Output>
+export function get
+    (
+        connection: IConnection
+    ): Promise<get.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/managers/authenticate/`
     );
@@ -38,12 +44,19 @@ export namespace get
  * @controller BbsManagerAuthenticateController.login()
  * @path POST /bbs/managers/authenticate/login
  */
-export function login(connection: IConnection, input: Primitive<login.Input>): Promise<login.Output>
+export function login
+    (
+        connection: IConnection,
+        input: Primitive<login.Input>
+    ): Promise<login.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/managers/authenticate/login`,
         input
@@ -60,12 +73,18 @@ export namespace login
  * @controller BbsManagerAuthenticateController.refresh()
  * @path GET /bbs/managers/authenticate/refresh
  */
-export function refresh(connection: IConnection, ): Promise<refresh.Output>
+export function refresh
+    (
+        connection: IConnection
+    ): Promise<refresh.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/managers/authenticate/refresh`
     );

@@ -13,7 +13,7 @@ import { MemberProvider } from "../../../../../../providers/members/MemberProvid
 
 const EMAIL = "robot-admin@samchon.org";
 
-const singleton: Singleton<IBbsAdministrator> = new Singleton(async () =>
+const singleton: Singleton<Promise<IBbsAdministrator>> = new Singleton(async () =>
 {
     let admin: BbsAdministrator | undefined = await BbsAdministrator
         .createJoinQueryBuilder(admin => admin.innerJoinAndSelect("base"))
@@ -37,7 +37,7 @@ const singleton: Singleton<IBbsAdministrator> = new Singleton(async () =>
         admin = collection.push(BbsAdministrator.initialize({ base }));
         await collection.execute();
     }
-    return await MemberProvider.json(await admin.base.get());
+    return await MemberProvider.json().getOne(await admin.base.get());
 });
 
 export async function test_api_bbs_admin_login(connection: api.IConnection): Promise<IBbsAdministrator>

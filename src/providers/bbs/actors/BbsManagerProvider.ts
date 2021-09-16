@@ -1,4 +1,6 @@
 import * as nest from "@nestjs/common";
+import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IBbsManager } from "../../../api/structures/bbs/actors/IBbsManager";
 
@@ -7,7 +9,6 @@ import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { BbsSectionNomination } from "../../../models/tables/bbs/systematic/BbsSectionNomination";
 import { Member } from "../../../models/tables/members/Member";
 
-import { ArrayUtil } from "../../../utils/ArrayUtil";
 import { MemberProvider } from "../../members/MemberProvider";
 
 export namespace BbsManagerProvider
@@ -15,22 +16,62 @@ export namespace BbsManagerProvider
     /* ----------------------------------------------------------------
         ACCESSORS
     ---------------------------------------------------------------- */
-    export async function json(manager: BbsManager): Promise<IBbsManager>
+    export function json(): safe.JsonSelectBuilder<BbsManager, any, IBbsManager>
     {
-        const nominations: BbsSectionNomination[] = await manager.nominations.get();
-
-        return {
-            ...await MemberProvider.json(await manager.base.get()),
-            sections: await ArrayUtil.asyncMap(nominations, async nomi =>
-            {
-                const section: BbsSection = await nomi.section.get();
-                return {
-                    ...section.toPrimitive(),
-                    nominated_at: nomi.created_at.toString()
-                };
-            })
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsManager,
+        {
+            base: MemberProvider.json(),
+            nominations: safe.createJsonSelectBuilder
+            (
+                BbsSectionNomination,
+                {
+                    section: safe.createJsonSelectBuilder
+                    (
+                        BbsSection,
+                        {
+                            articles: undefined,
+                            nominations: undefined
+                        }
+                    ),
+                    manager: undefined,
+                },
+                output => ({
+                    ...output.section,
+                    nominated_at: output.created_at
+                })
+            ),
+            answers: undefined,
+            notices: undefined,
+            comments: undefined,
+        },
+        output => ({
+            ...output.base,
+            sections: output.nominations
+        })
+    ));
+
+    export function reference(): safe.JsonSelectBuilder<BbsManager, any, IBbsManager.IReference>
+    {
+        return reference_builder.get();
+    }
+
+    const reference_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsManager,
+        {
+            base: MemberProvider.json(),
+            nominations: undefined,
+            answers: undefined,
+            notices: undefined,
+            comments: undefined,
+        },
+        output => output.base
+    ));
 
     /* ----------------------------------------------------------------
         AUTHORIZATIONS

@@ -52,6 +52,6 @@ export abstract class BbsArticleQuestionsController<
         await this.trait.authorize(request, false, section);
 
         const question: BbsQuestionArticle = await BbsQuestionArticleProvider.find(section, id);
-        return await BbsQuestionArticleProvider.json(question);
+        return await BbsQuestionArticleProvider.json().getOne(question);
     }
 }

@@ -1,10 +1,33 @@
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
+
 import { ICitizen } from "../../api/structures/members/ICitizen";
+
 import { Citizen } from "../../models/tables/members/Citizen";
 import { CitizenUtil } from "../../utils/CitizenUtil";
 
 export namespace CitizenProvider
 {
+    /* ----------------------------------------------------------------
+        ACCECSSORS
+    ---------------------------------------------------------------- */
+    export function json(): safe.JsonSelectBuilder<Citizen, any, ICitizen>
+    {
+        return json_builder.get();
+    }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        Citizen,
+        {
+            members: undefined,
+            customers: undefined
+        }
+    ));
+
+    /* ----------------------------------------------------------------
+        STORE
+    ---------------------------------------------------------------- */
     export async function collect
         (
             collection: safe.InsertCollection, 
@@ -44,10 +67,5 @@ export namespace CitizenProvider
             collection.push(citizen);
         }
         return citizen;
-    }
-
-    export function json(citizen: Citizen): ICitizen
-    {
-        return citizen.toPrimitive("id");
     }
 }

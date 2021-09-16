@@ -18,12 +18,20 @@ import type { IPage } from "./../../../../../structures/common/IPage";
  * @controller BbsCustomerArticleFreeController.store()
  * @path POST /bbs/customers/articles/free/:code/
  */
-export function store(connection: IConnection, code: string, input: Primitive<store.Input>): Promise<store.Output>
+export function store
+    (
+        connection: IConnection,
+        code: string,
+        input: Primitive<store.Input>
+    ): Promise<store.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/customers/articles/free/${code}/`,
         input
@@ -40,12 +48,21 @@ export namespace store
  * @controller BbsCustomerArticleFreeController.update()
  * @path PUT /bbs/customers/articles/free/:code/:id
  */
-export function update(connection: IConnection, code: string, id: string, input: Primitive<update.Input>): Promise<update.Output>
+export function update
+    (
+        connection: IConnection,
+        code: string,
+        id: string,
+        input: Primitive<update.Input>
+    ): Promise<update.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PUT",
         `/bbs/customers/articles/free/${code}/${id}`,
         input
@@ -62,12 +79,20 @@ export namespace update
  * @controller BbsCustomerArticleFreeController.index()
  * @path PATCH /bbs/customers/articles/free/:code/
  */
-export function index(connection: IConnection, code: string, input: Primitive<index.Input>): Promise<index.Output>
+export function index
+    (
+        connection: IConnection,
+        code: string,
+        input: Primitive<index.Input>
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PATCH",
         `/bbs/customers/articles/free/${code}/`,
         input
@@ -84,12 +109,20 @@ export namespace index
  * @controller BbsCustomerArticleFreeController.at()
  * @path GET /bbs/customers/articles/free/:code/:id
  */
-export function at(connection: IConnection, code: string, id: string): Promise<at.Output>
+export function at
+    (
+        connection: IConnection,
+        code: string,
+        id: string
+    ): Promise<at.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/customers/articles/free/${code}/${id}`
     );

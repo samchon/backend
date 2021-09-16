@@ -1,42 +1,27 @@
 import * as nest from "@nestjs/common";
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IBbsSection } from "../../../api/structures/bbs/systematic/IBbsSection";
 import { Writable } from "../../../api/typings/Writable";
 
-import { BbsManager } from "../../../models/tables/bbs/actors/BbsManager";
 import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { BbsSectionNomination } from "../../../models/tables/bbs/systematic/BbsSectionNomination";
 
-import { ArrayUtil } from "../../../utils/ArrayUtil";
-import { MemberProvider } from "../../members/MemberProvider";
+import { BbsManagerProvider } from "../actors/BbsManagerProvider";
 
 export namespace BbsSectionProvider
 {
     export async function index(): Promise<IBbsSection[]>
     {
         // GET ALL SECTIONS
-        const sectionList: BbsSection[] = await BbsSection
+        const sections: BbsSection[] = await BbsSection
             .createQueryBuilder()
             .orderBy(BbsSection.getColumn("created_at", null), "ASC")
             .getMany();
         
         // COMPOSE THE COMPLICATE DATA
-        return await ArrayUtil.asyncMap(sectionList, async section =>
-        {
-            const nominations: BbsSectionNomination[] = await section.nominations.get();
-            return {
-                ...section.toPrimitive(),
-                managers: await ArrayUtil.asyncMap(nominations, async nomi =>
-                {
-                    const manager: BbsManager = await nomi.manager.get();
-                    return {
-                        ...await MemberProvider.json(await manager.base.get()),
-                        nominated_at: nomi.created_at.toString()
-                    };
-                })
-            };
-        });
+        return await json().getMany(sections);
     }
 
     export async function find(code: string, type?: IBbsSection.Type): Promise<BbsSection>
@@ -47,6 +32,36 @@ export namespace BbsSectionProvider
         
         return section;
     }
+
+    export function json(): safe.JsonSelectBuilder<BbsSection, any, IBbsSection>
+    {
+        return json_builder.get();
+    }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsSection,
+        {
+            nominations: safe.createJsonSelectBuilder
+            (
+                BbsSectionNomination,
+                {
+                    manager: BbsManagerProvider.reference(),
+                    section: undefined,
+                },
+                output => ({
+                    ...output.manager,
+                    nominated_at: output.created_at
+                })
+            ),
+            articles: undefined,
+        },
+        output => ({
+            ...output,
+            managers: output.nominations,
+            nominations: undefined
+        })
+    ));
 
     export async function store(input: IBbsSection.IStore): Promise<BbsSection>
     {

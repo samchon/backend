@@ -11,7 +11,7 @@ import { test_bbs_customer_join } from "../consumers/test_bbs_customer_join";
 
 const CODE = "dummy-section-for-manager-creation";
 
-const singleton: Singleton<IBbsSection, [api.IConnection]> = new Singleton(async connection =>
+const singleton: Singleton<Promise<IBbsSection>, [api.IConnection]> = new Singleton(async connection =>
 {
     await test_api_bbs_admin_login(connection);
 
@@ -37,7 +37,7 @@ const singleton: Singleton<IBbsSection, [api.IConnection]> = new Singleton(async
 export async function test_bbs_manager_login(connection: api.IConnection): Promise<IBbsManager>
 {
     const section: IBbsSection = await singleton.get(connection);
-    const customer: IBbsCustomer<true> = await test_bbs_customer_join(connection);
+    const customer: IBbsCustomer = await test_bbs_customer_join(connection);
     const member: IMember = customer.member!;
 
     const nominated: IBbsSection.INominatedManager = await api.functional.bbs.admins.systematic.sections.nominations.store

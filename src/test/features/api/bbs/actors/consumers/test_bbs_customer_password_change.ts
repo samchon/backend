@@ -8,7 +8,7 @@ import { test_bbs_customer_join } from "./test_bbs_customer_join";
 
 export async function test_bbs_customer_password_change(connection: api.IConnection): Promise<void>
 {
-    const customer: IBbsCustomer<true> = await test_bbs_customer_join(connection);
+    const customer: IBbsCustomer = await test_bbs_customer_join(connection);
     const member: IMember = customer.member!;
 
     await exception_must_be_thrown

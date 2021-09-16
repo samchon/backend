@@ -17,12 +17,22 @@ import type { IPage } from "./../../../../../structures/common/IPage";
  * @controller BbsCustomerCommentsController.store()
  * @path POST /bbs/customers/articles/:type/:code/:id/comments/
  */
-export function store(connection: IConnection, type: string, code: string, id: string, input: Primitive<store.Input>): Promise<store.Output>
+export function store
+    (
+        connection: IConnection,
+        type: string,
+        code: string,
+        id: string,
+        input: Primitive<store.Input>
+    ): Promise<store.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "POST",
         `/bbs/customers/articles/${type}/${code}/${id}/comments/`,
         input
@@ -39,12 +49,22 @@ export namespace store
  * @controller BbsCustomerCommentsController.index()
  * @path PATCH /bbs/customers/articles/:type/:code/:id/comments/
  */
-export function index(connection: IConnection, type: string, code: string, id: string, input: Primitive<index.Input>): Promise<index.Output>
+export function index
+    (
+        connection: IConnection,
+        type: string,
+        code: string,
+        id: string,
+        input: Primitive<index.Input>
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PATCH",
         `/bbs/customers/articles/${type}/${code}/${id}/comments/`,
         input

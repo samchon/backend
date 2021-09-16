@@ -6,12 +6,12 @@ import { exception_must_be_thrown } from "../../../../../internal/exception_must
 import { test_bbs_customer_issue } from "./test_bbs_customer_issue";
 import { test_bbs_customer_join } from "./test_bbs_customer_join";
 
-export async function test_bbs_customer_login(connection: api.IConnection): Promise<IBbsCustomer<true>>
+export async function test_bbs_customer_login(connection: api.IConnection): Promise<IBbsCustomer>
 {
-    const customer: IBbsCustomer<true> = await test_bbs_customer_join(connection);
+    const customer: IBbsCustomer = await test_bbs_customer_join(connection);
     delete (connection.headers as any)["bbs-customer-authorization"];
 
-    const reloaded: IBbsCustomer<false> = await test_bbs_customer_issue(connection);
+    const reloaded: IBbsCustomer = await test_bbs_customer_issue(connection);
     await exception_must_be_thrown
     (
         "Invalid password", 

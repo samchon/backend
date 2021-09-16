@@ -8,20 +8,28 @@ import { IMember } from "../../api/structures/members/IMember";
 
 import { CitizenProvider } from "./CitizenProvider";
 import { RandomGenerator } from "../../utils/RandomGenerator";
+import { Singleton } from "tstl/thread/Singleton";
 
 export namespace MemberProvider
 {
     /* ----------------------------------------------------------------
         ACCESSORS
     ---------------------------------------------------------------- */
-    export async function json(member: Member): Promise<IMember>
+    export function json(): safe.JsonSelectBuilder<Member, any, IMember>
     {
-        const citizen: Citizen = await member.citizen.get();
-        return {
-            ...member.toPrimitive(),
-            citizen: citizen.toPrimitive()
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        Member,
+        {
+            citizen: CitizenProvider.json(),
+            administrator: undefined,
+            manager: undefined,
+            customers: undefined
+        }
+    ));
 
     /* ----------------------------------------------------------------
         STORE

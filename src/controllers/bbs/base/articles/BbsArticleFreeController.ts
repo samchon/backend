@@ -52,6 +52,6 @@ export abstract class BbsArticleFreeController<
         await this.trait.authorize(request, false, section);
 
         const free: BbsFreeArticle = await BbsFreeArticleProvider.find(section, id);
-        return await BbsFreeArticleProvider.json(free);
+        return await BbsFreeArticleProvider.json().getOne(free);
     }
 }

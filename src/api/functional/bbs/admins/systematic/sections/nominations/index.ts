@@ -16,12 +16,20 @@ import type { IBbsSection } from "./../../../../../../structures/bbs/systematic/
  * @controller BbsAdminSystematicSectionNominationsController.store()
  * @path GET /bbs/admins/systematic/sections/:code/nominations/:id
  */
-export function store(connection: IConnection, code: string, id: string): Promise<store.Output>
+export function store
+    (
+        connection: IConnection,
+        code: string,
+        id: string
+    ): Promise<store.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":false},
+        {
+            input_encrypted: false,
+            output_encrypted: false
+        },
         "GET",
         `/bbs/admins/systematic/sections/${code}/nominations/${id}`
     );
@@ -36,12 +44,20 @@ export namespace store
  * @controller BbsAdminSystematicSectionNominationsController.erase()
  * @path DELETE /bbs/admins/systematic/sections/:code/nominations/:id
  */
-export function erase(connection: IConnection, code: string, id: string): Promise<void>
+export function erase
+    (
+        connection: IConnection,
+        code: string,
+        id: string
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":false},
+        {
+            input_encrypted: false,
+            output_encrypted: false
+        },
         "DELETE",
         `/bbs/admins/systematic/sections/${code}/nominations/${id}`
     );

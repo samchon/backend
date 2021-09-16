@@ -18,12 +18,20 @@ import type { IBbsFreeArticle } from "./../../../../../structures/bbs/articles/I
  * @controller BbsManagerArticleManagerController.index()
  * @path PATCH /bbs/managers/articles/free/:code/
  */
-export function index(connection: IConnection, code: string, input: Primitive<index.Input>): Promise<index.Output>
+export function index
+    (
+        connection: IConnection,
+        code: string,
+        input: Primitive<index.Input>
+    ): Promise<index.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":true,"output_encrypted":true},
+        {
+            input_encrypted: true,
+            output_encrypted: true
+        },
         "PATCH",
         `/bbs/managers/articles/free/${code}/`,
         input
@@ -40,12 +48,20 @@ export namespace index
  * @controller BbsManagerArticleManagerController.at()
  * @path GET /bbs/managers/articles/free/:code/:id
  */
-export function at(connection: IConnection, code: string, id: string): Promise<at.Output>
+export function at
+    (
+        connection: IConnection,
+        code: string,
+        id: string
+    ): Promise<at.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/bbs/managers/articles/free/${code}/${id}`
     );

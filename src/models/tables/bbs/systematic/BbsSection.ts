@@ -43,7 +43,7 @@ export class BbsSection extends safe.Model
     (
         () => BbsSectionNomination,
         nomination => nomination.section,
-        (x, y) => x.created_at.getTime() < y.created_at.getTime()
+        (x, y) => x.created_at.getTime() - y.created_at.getTime()
     )
     public readonly nominations!: safe.Has.OneToMany<BbsSectionNomination>;
 }

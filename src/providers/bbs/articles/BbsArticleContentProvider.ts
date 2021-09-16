@@ -1,24 +1,30 @@
+import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
+
 import { IBbsArticle } from "../../../api/structures/bbs/articles/IBbsArticle";
 
-import { AttachmentFile } from "../../../models/tables/misc/AttachmentFile";
-import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
-import safe from "safe-typeorm";
-import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
-import { AttachmentFileProvider } from "../../misc/AttachmentFileProvider";
-import { BbsArticleContentFile } from "../../../models/tables/bbs/articles/BbsArticleContentFile";
 import { __MvBbsArticleLastContent } from "../../../models/material/bbs/__MvBbsArticleLastContent";
+import { AttachmentFileProvider } from "../../misc/AttachmentFileProvider";
+import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
+import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
+import { BbsArticleContentFile } from "../../../models/tables/bbs/articles/BbsArticleContentFile";
 
 export namespace BbsArticleContentProvider
 {
-    export async function json(content: BbsArticleContent): Promise<IBbsArticle.IContent>
+    export function json()
     {
-        const files: AttachmentFile[] = await content.files.get();
-
-        return {
-            ...content.toPrimitive(),
-            files: files.map(f => f.toPrimitive())
-        };
+        return json_builder.get();
     }
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+         BbsArticleContent,
+         {
+             files: AttachmentFileProvider.json(),
+             article: undefined,
+             reviewContent: undefined,
+             __mv_last: undefined
+         }
+    ));
 
     export function collect
         (

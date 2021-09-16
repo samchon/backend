@@ -1,4 +1,6 @@
 import * as nest from "@nestjs/common";
+import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IBbsAdministrator } from "../../../api/structures/bbs/actors/IBbsAdministrator";
 
@@ -12,11 +14,19 @@ export namespace BbsAdminProvider
     /* ----------------------------------------------------------------
         ACCESSORS
     ---------------------------------------------------------------- */
-    export async function json(admin: BbsAdministrator): Promise<IBbsAdministrator>
+    export function json(): safe.JsonSelectBuilder<BbsAdministrator, any, IBbsAdministrator>
     {
-        const member: Member = await admin.base.get();
-        return await MemberProvider.json(member);
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsAdministrator,
+        { 
+            base: MemberProvider.json()
+        },
+        output => output.base
+    ))
 
     /* ----------------------------------------------------------------
         AUTHORIZATIONS

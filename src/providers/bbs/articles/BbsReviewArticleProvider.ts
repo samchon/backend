@@ -15,6 +15,9 @@ import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHi
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsReviewArticleContentProvider } from "./BbsReviewArticleContentProvider";
 import { BbsCustomerProvider } from "../actors/BbsCustomerProvider";
+import { Singleton } from "tstl/thread/Singleton";
+import { AttachmentFileProvider } from "../../misc/AttachmentFileProvider";
+import { BbsReviewArticleContent } from "../../../models/tables/bbs/articles/BbsReviewArticleContent";
 
 export namespace BbsReviewArticleProvider
 {
@@ -118,23 +121,65 @@ export namespace BbsReviewArticleProvider
         return review;
     }
 
-    export async function json(review: BbsReviewArticle): Promise<IBbsReviewArticle>
+    export function json(): safe.JsonSelectBuilder<BbsReviewArticle, any, IBbsReviewArticle>
     {
-        const base: BbsArticle = await review.base.get();
-        const customer: BbsCustomer<true> = await review.customer.get();
-        const hit: __MvBbsArticleHit | null = await base.__mv_hit.get();
-
-        __MvBbsArticleHit.increments(orm.getManager(), base).catch(() => {});
-
-        return {
-            ...review.toPrimitive(),
-            ...await BbsArticleProvider.json(base, BbsReviewArticleContentProvider.json),
-            customer: await BbsCustomerProvider.json(customer),
-            hit: (hit !== null)
-                ? hit.count + 1
-                : 1
-        };
+        return json_builder.get();
     }
+
+    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    (
+        BbsReviewArticle,
+        {
+            base: safe.createJsonSelectBuilder
+            (
+                BbsArticle,
+                {
+                    contents: safe.createJsonSelectBuilder
+                    (
+                        BbsArticleContent,
+                        {
+                            files: AttachmentFileProvider.json(),
+                            article: undefined,
+                            __mv_last: undefined,
+                            reviewContent: safe.createJsonSelectBuilder
+                            (
+                                BbsReviewArticleContent,
+                                { base: undefined }
+                            ),
+                        },
+                        output => ({
+                            ...output,
+                            score: output.reviewContent!.score,
+                            reviewContent: undefined
+                        })
+                    ),
+                    __mv_hit: safe.createJsonSelectBuilder
+                    (
+                        __MvBbsArticleHit, 
+                        { article: undefined  }
+                    ),
+                    section: undefined,
+                    comments: undefined,
+                    __mv_last: undefined,
+                    answer: undefined,
+                    free: undefined,
+                    notice: undefined,
+                    question: undefined,
+                    review: undefined,
+                },
+                output => ({
+                    ...output,
+                    hit: output.__mv_hit?.count || 0
+                })
+            ),
+            customer: BbsCustomerProvider.json(),
+        },
+        output => ({
+            ...output,
+            ...output.base,
+            base: undefined
+        })
+    ));
 
     /* ----------------------------------------------------------------
         SAVE
@@ -164,7 +209,7 @@ export namespace BbsReviewArticleProvider
             brand: input.brand,
             manufacturer: input.manufacturer,
             product: input.product,
-            purchased_at: input.purchased_at
+            purchased_at: new Date(input.purchased_at)
         });
         base.review.set(collection.push(review));
 

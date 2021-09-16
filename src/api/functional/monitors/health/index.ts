@@ -16,12 +16,18 @@ import type { IConnection } from "./../../../IConnection";
  * @controller HealthController.get()
  * @path GET /monitors/health/
  */
-export function get(connection: IConnection, ): Promise<void>
+export function get
+    (
+        connection: IConnection
+    ): Promise<void>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":false},
+        {
+            input_encrypted: false,
+            output_encrypted: false
+        },
         "GET",
         `/monitors/health/`
     );

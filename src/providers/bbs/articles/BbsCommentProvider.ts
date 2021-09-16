@@ -94,7 +94,7 @@ export namespace BbsCommentProvider
         const stmt: orm.SelectQueryBuilder<BbsComment> = statement(comment.article);
         stmt.andWhere(...BbsComment.getWhereArguments("id", comment.id));
         
-        const record: IBbsComment = await stmt.getRawOne();
+        const record: IBbsComment = (await stmt.getRawOne())!;
         return (await postProcess([record]))[0];
     }
 

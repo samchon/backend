@@ -16,12 +16,18 @@ import type { IPerformance } from "./../../../structures/monitors/IPerformance";
  * @controller PerformanceController.get()
  * @path GET /monitors/performance/
  */
-export function get(connection: IConnection, ): Promise<get.Output>
+export function get
+    (
+        connection: IConnection
+    ): Promise<get.Output>
 {
     return Fetcher.fetch
     (
         connection,
-        {"input_encrypted":false,"output_encrypted":true},
+        {
+            input_encrypted: false,
+            output_encrypted: true
+        },
         "GET",
         `/monitors/performance/`
     );

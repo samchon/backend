@@ -24,10 +24,10 @@ export class BbsCustomerAuthenticateController
     public async get
         (
             @nest.Request() request: express.Request
-        ): Promise<IBbsCustomer.IUnknown>
+        ): Promise<IBbsCustomer>
     {
         const { customer } = await BbsCustomerAuth.authorize(request, false, false);
-        return await BbsCustomerProvider.json(customer);
+        return await BbsCustomerProvider.json().getOne(customer);
     }
 
     @helper.EncryptedRoute.Patch("issue")
@@ -35,14 +35,14 @@ export class BbsCustomerAuthenticateController
         (
             @nest.Request() request: express.Request,
             @helper.EncryptedBody() input: IBbsCustomer.IStore
-        ): Promise<IBbsCustomer<false>>
+        ): Promise<IBbsCustomer>
     {
         assertType<typeof input>(input);
 
         const customer: BbsCustomer = await BbsCustomerProvider.issue(input, request.ip);
 
         return {
-            ...await BbsCustomerProvider.json(customer),
+            ...await BbsCustomerProvider.json().getOne(customer),
             ...BbsCustomerAuth.issue(customer, true)
         };
     }
@@ -59,7 +59,7 @@ export class BbsCustomerAuthenticateController
         const { customer } = await BbsCustomerAuth.authorize(request, false, true);
         const citizen: Citizen = await BbsCustomerProvider.activate(customer, input);
 
-        return CitizenProvider.json(citizen);
+        return CitizenProvider.json().getOne(citizen);
     }
 
     @helper.EncryptedRoute.Get("refresh")
@@ -86,7 +86,7 @@ export class BbsCustomerAuthenticateController
         const { customer } = await BbsCustomerAuth.authorize(request, false, true);
         const member: Member = await BbsCustomerProvider.join(customer, input);
 
-        return await MemberProvider.json(member);
+        return await MemberProvider.json().getOne(member);
     }
 
     @helper.EncryptedRoute.Post("login")
@@ -101,6 +101,6 @@ export class BbsCustomerAuthenticateController
         const { customer } = await BbsCustomerAuth.authorize(request, false, true);
         const member: Member = await BbsCustomerProvider.login(customer, input);
 
-        return await MemberProvider.json(member);
+        return await MemberProvider.json().getOne(member);
     }
 }
