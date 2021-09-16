@@ -36,7 +36,9 @@ export async function start_updator_master(): Promise<MutexServer<string, IUpdat
             await acceptor.accept(null);
 
             clientSet.insert(acceptor);
-            acceptor.join().then(() => clientSet.erase(acceptor));
+            acceptor.join()
+                .then(() => clientSet.erase(acceptor))
+                .catch(() => {});
         }
         else if (acceptor.path === "/api")
             await acceptor.accept(null);

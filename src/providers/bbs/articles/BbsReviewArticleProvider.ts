@@ -184,16 +184,16 @@ export namespace BbsReviewArticleProvider
     /* ----------------------------------------------------------------
         SAVE
     ---------------------------------------------------------------- */
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection,
             section: BbsSection, 
             customer: BbsCustomer<true>,
             input: IBbsReviewArticle.IStore
-        ): BbsReviewArticle
+        ): Promise<BbsReviewArticle>
     {
         // SUPER-TYPE
-        const base: BbsArticle = BbsArticleProvider.collect
+        const base: BbsArticle = await BbsArticleProvider.collect
         (
             collection,
             section,
@@ -211,7 +211,7 @@ export namespace BbsReviewArticleProvider
             product: input.product,
             purchased_at: new Date(input.purchased_at)
         });
-        base.review.set(collection.push(review));
+        await base.review.set(collection.push(review));
 
         return review;
     }
@@ -224,7 +224,7 @@ export namespace BbsReviewArticleProvider
         ): Promise<BbsReviewArticle>
     {
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const review: BbsReviewArticle = collect(collection, section, customer, input);
+        const review: BbsReviewArticle = await collect(collection, section, customer, input);
         
         await collection.execute();
         return review;

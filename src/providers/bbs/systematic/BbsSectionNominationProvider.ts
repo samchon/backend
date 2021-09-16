@@ -21,7 +21,7 @@ export namespace BbsSectionNominationProvider
                 base: member,
                 created_at: safe.DEFAULT
             });
-            member.manager.set(manager);
+            await member.manager.set(manager);
             collection.push(manager);
         }
 

@@ -43,8 +43,8 @@ export class __MvBbsArticleLastContent extends safe.Model
             .getOne();
         if (material !== undefined)
         {
-            material.article.set(article);
-            material.content.set(content);
+            await material.article.set(article);
+            await material.content.set(content);
             await material.update(manager);
         }
         else
@@ -58,8 +58,8 @@ export class __MvBbsArticleLastContent extends safe.Model
         }
 
         // RETURNS WITH PARING
-        article.__mv_last.set(material);
-        content.__mv_last.set(material);
+        await article.__mv_last.set(material);
+        await content.__mv_last.set(material);
         return material;
     }
 }

@@ -8,6 +8,7 @@ import { AttachmentFileProvider } from "../../misc/AttachmentFileProvider";
 import { BbsArticle } from "../../../models/tables/bbs/articles/BbsArticle";
 import { BbsArticleContent } from "../../../models/tables/bbs/articles/BbsArticleContent";
 import { BbsArticleContentFile } from "../../../models/tables/bbs/articles/BbsArticleContentFile";
+import { AttachmentFile } from "../../../models/tables/misc/AttachmentFile";
 
 export namespace BbsArticleContentProvider
 {
@@ -26,13 +27,13 @@ export namespace BbsArticleContentProvider
          }
     ));
 
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection, 
             article: BbsArticle,
             input: IBbsArticle.IStore,
             newbie: boolean
-        ): BbsArticleContent
+        ): Promise<BbsArticleContent>
     {
         // THE CONTENT
         const content: BbsArticleContent = BbsArticleContent.initialize({
@@ -45,13 +46,18 @@ export namespace BbsArticleContentProvider
         collection.push(content);
 
         // ATTACHMENT FILES
-        AttachmentFileProvider.collectList(collection, input.files, 
+        const files: AttachmentFile[] = AttachmentFileProvider.collectList
+        (
+            collection, 
+            input.files, 
             (file, sequence) => BbsArticleContentFile.initialize({
                 id: safe.DEFAULT,
                 content,
                 file,
                 sequence
-            }));
+            })
+        );
+        await content.files.set(files);
 
         // LAST CONTENT PAIRING
         if (newbie === true)
@@ -72,7 +78,7 @@ export namespace BbsArticleContentProvider
         ): Promise<BbsArticleContent>
     {
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const content: BbsArticleContent = collect(collection, article, input, false);
+        const content: BbsArticleContent = await collect(collection, article, input, false);
 
         await collection.execute();
         return content;

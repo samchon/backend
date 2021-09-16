@@ -71,7 +71,7 @@ export namespace BbsCustomerProvider
 
         const collection: safe.InsertCollection = new safe.InsertCollection();
         const citizen: Citizen = await CitizenProvider.collect(collection, input);
-        customer.citizen.set(citizen);
+        await customer.citizen.set(citizen);
 
         collection.after(manager => customer.update(manager));
         await collection.execute();
@@ -146,8 +146,8 @@ export namespace BbsCustomerProvider
             member: Member
         ): Promise<void>
     {
-        customer.member.set(member);
-        customer.citizen.set(await member.citizen.get());
+        await customer.member.set(member);
+        await customer.citizen.set(await member.citizen.get());
         await customer.update(manager);
     }
 }

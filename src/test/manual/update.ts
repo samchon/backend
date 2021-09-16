@@ -30,7 +30,7 @@ async function main(): Promise<void>
         console.log("Start updating");
         await Terminal.execute("npm run update");
         console.log("The update has been completed");
-    });
+    }).catch(() => {});
 
     try
     {
@@ -47,4 +47,8 @@ async function main(): Promise<void>
     await Terminal.execute("npm run stop");
     await Terminal.execute("npm run stop:updator:master");
 }
-main();
+main().catch(exp =>
+{
+    console.log(exp);
+    process.exit(-1);
+});

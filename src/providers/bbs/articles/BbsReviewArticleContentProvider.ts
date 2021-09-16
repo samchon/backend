@@ -32,15 +32,15 @@ export namespace BbsReviewArticleContentProvider
     /* ----------------------------------------------------------------
         STORE
     ---------------------------------------------------------------- */
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection,
             article: BbsArticle,
             input: IBbsReviewArticle.IUpdate,
             newbie: boolean
-        ): BbsArticleContent
+        ): Promise<BbsArticleContent>
     {
-        const base: BbsArticleContent = BbsArticleContentProvider.collect
+        const base: BbsArticleContent = await BbsArticleContentProvider.collect
         (
             collection, 
             article, 
@@ -52,7 +52,7 @@ export namespace BbsReviewArticleContentProvider
             base,
             score: input.score
         });
-        base.reviewContent.set(derived);
+        await base.reviewContent.set(derived);
         collection.push(derived);
 
         return base;
@@ -65,7 +65,7 @@ export namespace BbsReviewArticleContentProvider
         ): Promise<BbsArticleContent>
     {
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const content: BbsArticleContent = collect(collection, article, input, false);
+        const content: BbsArticleContent = await collect(collection, article, input, false);
 
         await collection.execute();
         return content;

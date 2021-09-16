@@ -12,4 +12,8 @@ async function main(): Promise<void>
     // START THE CLIENT
     await start_updator_slave(Configuration.MASTER_IP);
 }
-main();
+main().catch(exp =>
+{
+    console.log(exp);
+    process.exit(-1);
+});

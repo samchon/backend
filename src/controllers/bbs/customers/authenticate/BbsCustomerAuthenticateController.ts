@@ -59,7 +59,7 @@ export class BbsCustomerAuthenticateController
         const { customer } = await BbsCustomerAuth.authorize(request, false, true);
         const citizen: Citizen = await BbsCustomerProvider.activate(customer, input);
 
-        return CitizenProvider.json().getOne(citizen);
+        return await CitizenProvider.json().getOne(citizen);
     }
 
     @helper.EncryptedRoute.Get("refresh")

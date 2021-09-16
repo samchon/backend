@@ -129,16 +129,16 @@ export namespace BbsFreeArticleProvider
     /* ----------------------------------------------------------------
         SAVE
     ---------------------------------------------------------------- */
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection,
             section: BbsSection, 
             customer: BbsCustomer<true>,
             input: IBbsFreeArticle.IStore
-        ): BbsFreeArticle
+        ): Promise<BbsFreeArticle>
     {
         // SUPER-TYPE
-        const base: BbsArticle = BbsArticleProvider.collect
+        const base: BbsArticle = await BbsArticleProvider.collect
         (
             collection,
             section,
@@ -152,7 +152,7 @@ export namespace BbsFreeArticleProvider
             base,
             customer
         });
-        base.free.set(collection.push(free));
+        await base.free.set(collection.push(free));
 
         return free;
     }
@@ -165,7 +165,7 @@ export namespace BbsFreeArticleProvider
         ): Promise<BbsFreeArticle>
     {
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const free: BbsFreeArticle = collect(collection, section, customer, input);
+        const free: BbsFreeArticle = await collect(collection, section, customer, input);
         
         await collection.execute();
         return free;

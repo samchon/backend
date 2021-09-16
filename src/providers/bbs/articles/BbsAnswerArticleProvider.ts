@@ -60,16 +60,16 @@ export namespace BbsAnswerArticleProvider
     /* ----------------------------------------------------------------
         SAVE
     ---------------------------------------------------------------- */
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection,
             section: BbsSection,
             question: BbsQuestionArticle,
             manager: BbsManager,
             input: IBbsAnswerArticle.IStore
-        ): BbsAnswerArticle
+        ): Promise<BbsAnswerArticle>
     {
-        const base: BbsArticle = BbsArticleProvider.collect
+        const base: BbsArticle = await BbsArticleProvider.collect
         (
             collection, 
             section, 
@@ -83,8 +83,8 @@ export namespace BbsAnswerArticleProvider
             question,
             manager
         });
-        base.answer.set(answer);
-        question.answer.set(answer);
+        await base.answer.set(answer);
+        await question.answer.set(answer);
 
         collection.push(answer);
         return answer;
@@ -102,7 +102,7 @@ export namespace BbsAnswerArticleProvider
             throw new nest.UnprocessableEntityException("Already being answered.");
 
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const answer: BbsAnswerArticle = collect
+        const answer: BbsAnswerArticle = await collect
         (
             collection, 
             section, 

@@ -127,16 +127,16 @@ export namespace BbsNoticeArticleProvider
     /* ----------------------------------------------------------------
         SAVE
     ---------------------------------------------------------------- */
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection,
             section: BbsSection, 
             manager: BbsManager,
             input: IBbsNoticeArticle.IStore
-        ): BbsNoticeArticle
+        ): Promise<BbsNoticeArticle>
     {
         // SUPER-TYPE
-        const base: BbsArticle = BbsArticleProvider.collect
+        const base: BbsArticle = await BbsArticleProvider.collect
         (
             collection,
             section,
@@ -150,7 +150,7 @@ export namespace BbsNoticeArticleProvider
             base,
             manager
         });
-        base.notice.set(collection.push(notice));
+        await base.notice.set(collection.push(notice));
 
         return notice;
     }
@@ -163,7 +163,7 @@ export namespace BbsNoticeArticleProvider
         ): Promise<BbsNoticeArticle>
     {
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const notice: BbsNoticeArticle = collect(collection, section, manager, input);
+        const notice: BbsNoticeArticle = await collect(collection, section, manager, input);
         
         await collection.execute();
         return notice;

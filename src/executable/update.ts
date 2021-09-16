@@ -33,4 +33,8 @@ async function main(): Promise<void>
     await connector.close();
     process.exit(success ? 0 : -1);
 }
-main();
+main().catch(exp =>
+{
+    console.log(exp);
+    process.exit(-1);
+});

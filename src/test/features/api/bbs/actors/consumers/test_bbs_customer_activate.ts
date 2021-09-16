@@ -1,3 +1,4 @@
+import { assertType } from "typescript-is";
 import api from "../../../../../../api";
 import { IBbsCustomer } from "../../../../../../api/structures/bbs/actors/IBbsCustomer";
 import { ICitizen } from "../../../../../../api/structures/members/ICitizen";
@@ -15,6 +16,7 @@ export async function test_bbs_customer_activate(connection: api.IConnection): P
             name: RandomGenerator.name(),
         }
     );
+    assertType<typeof citizen>(citizen);
 
     return {
         ...customer,

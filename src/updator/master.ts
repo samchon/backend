@@ -6,4 +6,4 @@ async function main(): Promise<void>
     await start_updator_master();
     await start_updator_slave("127.0.0.1");
 }
-main();
+main().catch(() => {});

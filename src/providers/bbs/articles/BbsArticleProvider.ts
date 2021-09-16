@@ -87,7 +87,7 @@ export namespace BbsArticleProvider
     /* ----------------------------------------------------------------
         SAVE
     ---------------------------------------------------------------- */
-    export function collect<Store extends IBbsArticle.IStore>
+    export async function collect<Store extends IBbsArticle.IStore>
         (
             collection: safe.InsertCollection,
             section: BbsSection,
@@ -98,9 +98,9 @@ export namespace BbsArticleProvider
                     article: BbsArticle, 
                     input: Store,
                     newbie: boolean
-                ) => BbsArticleContent,
+                ) => Promise<BbsArticleContent>,
             hit: boolean
-        ): BbsArticle
+        ): Promise<BbsArticle>
     {
         // MAIN ARTICLE
         const article: BbsArticle = BbsArticle.initialize
@@ -112,14 +112,14 @@ export namespace BbsArticleProvider
         collection.push(article);
 
         // THE FIRST CONTENT
-        const content: BbsArticleContent = contentCollector
+        const content: BbsArticleContent = await contentCollector
         (
             collection, 
             article, 
             input, 
             true
         );
-        article.contents.set([content]);
+        await article.contents.set([content]);
 
         // MV - HIT
         if (hit === true)

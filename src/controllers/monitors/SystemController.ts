@@ -61,5 +61,5 @@ const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(async () =>
     return JSON.parse(content);
 });
 
-commit_.get();
-package_.get();
+commit_.get().catch(() => {});
+package_.get().catch(() => {});

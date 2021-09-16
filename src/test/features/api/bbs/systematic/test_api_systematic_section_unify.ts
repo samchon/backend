@@ -22,7 +22,7 @@ async function generate_article
     ): Promise<IBbsFreeArticle>
 {
     // ACTIVATE CUSTOMER
-    if (Math.random() < .5)
+    if (Math.random() < 0)
         await test_bbs_customer_activate(connection);
     else
         await test_bbs_customer_join(connection);

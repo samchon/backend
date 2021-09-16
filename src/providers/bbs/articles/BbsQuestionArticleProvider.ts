@@ -191,16 +191,16 @@ export namespace BbsQuestionArticleProvider
     /* ----------------------------------------------------------------
         STORE
     ---------------------------------------------------------------- */
-    export function collect
+    export async function collect
         (
             collection: safe.InsertCollection,
             section: BbsSection, 
             customer: BbsCustomer<true>,
             input: IBbsQuestionArticle.IStore
-        ): BbsQuestionArticle
+        ): Promise<BbsQuestionArticle>
     {
         // SUPER-TYPE
-        const base: BbsArticle = BbsArticleProvider.collect
+        const base: BbsArticle = await BbsArticleProvider.collect
         (
             collection,
             section,
@@ -214,7 +214,7 @@ export namespace BbsQuestionArticleProvider
             base,
             customer
         });
-        base.question.set(collection.push(question));
+        await base.question.set(collection.push(question));
 
         return question;
     }
@@ -227,7 +227,7 @@ export namespace BbsQuestionArticleProvider
         ): Promise<BbsQuestionArticle>
     {
         const collection: safe.InsertCollection = new safe.InsertCollection();
-        const question: BbsQuestionArticle = collect(collection, section, customer, input);
+        const question: BbsQuestionArticle = await collect(collection, section, customer, input);
         
         await collection.execute();
         return question;

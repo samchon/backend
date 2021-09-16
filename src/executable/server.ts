@@ -74,4 +74,8 @@ async function main(): Promise<void>
     global.process.on("uncaughtException", handle_error);
     global.process.on("unhandledRejection", handle_error);
 }
-main();
+main().catch(exp =>
+{
+    console.log(exp);
+    process.exit(-1);
+});

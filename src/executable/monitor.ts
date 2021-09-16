@@ -22,4 +22,8 @@ async function main(): Promise<void>
     // TRACE THEM
     console.log({ performance, system });
 }
-main();
+main().catch(exp =>
+{
+    console.log(exp);
+    process.exit(-1);
+});
