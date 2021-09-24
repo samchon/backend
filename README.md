@@ -3,11 +3,10 @@
 ### 1.1. Introduction
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 
-A template repository for Typescript Backend Server using those libraries:
+A template repository for the Typescript Backend Server using those libraries:
 
-  - [`encrypted-nestjs`](https://github.com/samchon/encrypted-nestjs): Encrypt NestJS for security
-  - [**`nestia`**](https://github.com/samchon/nestia): Automatic SDK generator for NestJS
-  - [`safe-typeorm`](https://github.com/samchon/safe-typeorm): Support the TypeORM to be much safer
+  - [NestJS](https://nestjs.com) and [**`nestia`**](https://github.com/samchon/nestia): Automatic SDK generator for NestJS
+  - [TypeORM](https://typeorm.io) and [`safe-typeorm`](https://github.com/samchon/safe-typeorm): Helper of TypeORM in the compilation level
 
 ### 1.2. Built-in Bullet System
 This template repository has implemented a simple BBS (Built-in Bullet System) as an example project. This BBS is a typical subject for students who want to be a backend server developer. Therefore, I think this repository and the subject BBS would be the good reference for you. 
@@ -373,8 +372,8 @@ Therefore, if you want to install any npm module required for the backend server
 
 ```bash
 # REQUIRED FOR BACKEND SERVER
+npm install --save-dev encrypted-nestjs
 npm install --save-dev nestia
-npm install --save-dev nestia-helper
 npm install --save-dev safe-typeorm
 
 # REQUIRED FOR SDK
