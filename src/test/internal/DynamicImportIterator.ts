@@ -11,41 +11,53 @@ interface ICommand
     include?: string;
     exclude?: string;
 }
-type IModule<Arguments extends any[]> = 
-{
-    [key: string]: (...args: Arguments) => Promise<void>;
-};
 
 export namespace DynamicImportIterator
 {
-    export async function main<Arguments extends any[]>
-        (path: string, prefix: string, useCommand: boolean, ...args: Arguments): Promise<void>
+    export type Closure<Arguments extends any[]> = (...args: Arguments) => Promise<void>;
+    type Module<Arguments extends any[]> = 
     {
-        let command: ICommand;
-        if (useCommand === true)
-            command = cli.parse();
-        else
-            command = {};
+        [key: string]: Closure<Arguments>;
+    };
 
-        await iterate(command, path, prefix, args);
+    export interface IOptions<Parameters extends any[]>
+    {
+        prefix: string;
+        parameters: Parameters;
+        wrapper?: (name: string, closure: Closure<Parameters>) => Promise<void>;
+        showElapsedTime?: boolean;
+    }
+
+    export async function main<Arguments extends any[]>
+        (
+            path: string, 
+            options: IOptions<Arguments>
+        ): Promise<void>
+    {
+        const command: ICommand = cli.parse();
+        await iterate(options, command, path);
     }
 
     export async function force<Arguments extends any[]>
-        (path: string, prefix: string, useCommand: boolean, ...args: Arguments): Promise<Error[]>
+        (
+            path: string, 
+            options: IOptions<Arguments>
+        ): Promise<Error[]>
     {
-        let command: ICommand;
-        if (useCommand === true)
-            command = cli.parse();
-        else
-            command = {};
-
+        const command: ICommand = cli.parse();
         const exceptions: Error[] = [];
-        await iterate(command, path, prefix, args, exceptions);
+        
+        await iterate(options, command, path, exceptions);
         return exceptions;
     }
 
     async function iterate<Arguments extends any[]>
-        (command: ICommand, path: string, prefix: string, args: Arguments, exceptions?: Error[]): Promise<void>
+        (
+            options: IOptions<Arguments>,
+            command: ICommand, 
+            path: string, 
+            exceptions?: Error[]
+        ): Promise<void>
     {
         const directory: string[] = await fs.promises.readdir(path);
         for (const file of directory)
@@ -55,19 +67,24 @@ export namespace DynamicImportIterator
 
             if (stats.isDirectory() === true)
             {
-                await iterate(command, current, prefix, args, exceptions);
+                await iterate(options, command, current, exceptions);
                 continue;
             }
             else if (file.substr(-3) !== `.${EXTENSION}`)
                 continue;
 
-            const external: IModule<Arguments> = await import(current);
-            await execute(command, prefix, args, external, exceptions);
+            const external: Module<Arguments> = await import(current);
+            await execute(options, command, external, exceptions);
         }
     }
 
     async function execute<Arguments extends any[]>
-        (command: ICommand, prefix: string, args: Arguments, external: IModule<Arguments>, exceptions?: Error[]): Promise<void>
+        (
+            options: IOptions<Arguments>,
+            command: ICommand, 
+            external: Module<Arguments>, 
+            exceptions?: Error[]
+        ): Promise<void>
     {
         for (const key in external)
         {
@@ -75,23 +92,44 @@ export namespace DynamicImportIterator
                 continue;
             else if (command.include && key.indexOf(command.include) === -1)
                 continue;
-            else if (key.substr(0, prefix.length) !== prefix)
+            else if (key.substr(0, options.prefix.length) !== options.prefix)
                 continue;
             else if (external[key] instanceof Function)
+            {
+                const closure: Closure<Arguments> = external[key];
+                const func = async () =>
+                {
+                    if (options.wrapper !== undefined)
+                        await options.wrapper(key, closure);
+                    else
+                        await closure(...options.parameters);
+                };
+
                 try
                 {
-                    await StopWatch.trace(key, () => external[key](...args));
+                    if (options.showElapsedTime === false)
+                    {
+                        await func();
+                        console.log(`  - ${key}`);
+                    }
+                    else
+                    {
+                        const time: number = await StopWatch.measure(func);
+                        console.log(`  - ${key}: ${time.toLocaleString()} ms`)
+                    }
                 }
                 catch (exp)
                 {
-                    if (exceptions !== undefined && exp instanceof Error)
-                    {
-                        console.log(exp.name);
+                    if (!(exp instanceof Error))
+                        return;
+
+                    console.log(`  - ${key} -> ${exp.name}`);
+                    if (exceptions !== undefined)
                         exceptions.push(exp);
-                    }
                     else
                         throw exp;
                 }
+            }
         }
     }
 }

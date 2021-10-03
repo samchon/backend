@@ -52,7 +52,14 @@ async function main(): Promise<void>
     };
 
     // DO TEST
-    const exceptions: Error[] = await DynamicImportIterator.force(__dirname + "/features", "test", true, connection);
+    const exceptions: Error[] = await DynamicImportIterator.force
+    (
+        __dirname + "/features", 
+        {
+            prefix: "test", 
+            parameters: [connection]
+        }
+    );
 
     // TERMINATE
     await backend.close();

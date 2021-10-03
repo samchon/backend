@@ -12,6 +12,7 @@ import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
 
 import { ErrorUtil } from "../utils/ErrorUtil";
+import { Scheduler } from "../schedulers/Scheduler";
 
 const directory = new Singleton(async () =>
 {
@@ -73,6 +74,10 @@ async function main(): Promise<void>
     // UNEXPECTED ERRORS
     global.process.on("uncaughtException", handle_error);
     global.process.on("unhandledRejection", handle_error);
+
+    // SCHEDULER ONLY WHEN MASTER
+    if (SGlobal.mode !== "REAL" || process.argv[3] === "master")
+        await Scheduler.repeat();
 }
 main().catch(exp =>
 {
