@@ -51,7 +51,6 @@ export namespace BbsSectionProvider
                     nominated_at: output.created_at
                 })
             ),
-            articles: undefined,
         },
         output => ({
             ...output,
