@@ -30,8 +30,7 @@ export class __MvBbsArticleLastContent extends safe.Model
         EMPLACER
     ----------------------------------------------------------- */
     public static async emplace
-        (
-            manager: orm.EntityManager, 
+        ( 
             article: BbsArticle,
             content: BbsArticleContent,
         ): Promise<__MvBbsArticleLastContent>
@@ -45,7 +44,7 @@ export class __MvBbsArticleLastContent extends safe.Model
         {
             await material.article.set(article);
             await material.content.set(content);
-            await material.update(manager);
+            await material.update();
         }
         else
         {
@@ -54,7 +53,7 @@ export class __MvBbsArticleLastContent extends safe.Model
                 article,
                 content
             });
-            await material.insert(manager);
+            await material.insert();
         }
 
         // RETURNS WITH PARING

@@ -21,33 +21,20 @@ export namespace BbsManagerProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsManager.createJsonSelectBuilder
     (
-        BbsManager,
         {
             base: MemberProvider.json(),
-            nominations: safe.createJsonSelectBuilder
+            nominations: BbsSectionNomination.createJsonSelectBuilder
             (
-                BbsSectionNomination,
                 {
-                    section: safe.createJsonSelectBuilder
-                    (
-                        BbsSection,
-                        {
-                            articles: undefined,
-                            nominations: undefined
-                        }
-                    ),
-                    manager: undefined,
+                    section: BbsSection.createJsonSelectBuilder({}),
                 },
                 output => ({
                     ...output.section,
                     nominated_at: output.created_at
                 })
             ),
-            answers: undefined,
-            notices: undefined,
-            comments: undefined,
         },
         output => ({
             ...output.base,
@@ -60,15 +47,10 @@ export namespace BbsManagerProvider
         return reference_builder.get();
     }
 
-    const reference_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const reference_builder = new Singleton(() => BbsManager.createJsonSelectBuilder
     (
-        BbsManager,
         {
             base: MemberProvider.json(),
-            nominations: undefined,
-            answers: undefined,
-            notices: undefined,
-            comments: undefined,
         },
         output => output.base
     ));

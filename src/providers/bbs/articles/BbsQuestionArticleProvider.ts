@@ -173,9 +173,8 @@ export namespace BbsQuestionArticleProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsQuestionArticle.createJsonSelectBuilder
     (
-        BbsQuestionArticle,
         {
             base: BbsArticleProvider.json(),
             answer: BbsAnswerArticleProvider.json(),

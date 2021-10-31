@@ -59,24 +59,11 @@ export namespace BbsArticleProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsArticle.createJsonSelectBuilder
     (
-        BbsArticle,
         {
             contents: BbsArticleContentProvider.json(),
-            __mv_hit: safe.createJsonSelectBuilder
-            (
-                __MvBbsArticleHit, 
-                { article: undefined  }
-            ),
-            section: undefined,
-            comments: undefined,
-            __mv_last: undefined,
-            answer: undefined,
-            free: undefined,
-            notice: undefined,
-            question: undefined,
-            review: undefined,
+            __mv_hit: __MvBbsArticleHit.createJsonSelectBuilder({}),
         },
         output => ({
             ...output,

@@ -16,14 +16,7 @@ export namespace CitizenProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
-    (
-        Citizen,
-        {
-            members: undefined,
-            customers: undefined
-        }
-    ));
+    const json_builder = new Singleton(() => Citizen.createJsonSelectBuilder({}));
 
     /* ----------------------------------------------------------------
         STORE

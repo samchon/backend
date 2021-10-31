@@ -24,13 +24,11 @@ export namespace BbsAnswerArticleProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsAnswerArticle.createJsonSelectBuilder
     (
-        BbsAnswerArticle,
         {
             base: BbsArticleProvider.json(),
             manager: BbsManagerProvider.reference(),
-            question: undefined,
         },
         output => ({
             ...output,

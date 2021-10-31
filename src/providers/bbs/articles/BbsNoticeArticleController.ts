@@ -110,9 +110,8 @@ export namespace BbsNoticeArticleProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsNoticeArticle.createJsonSelectBuilder
     (
-        BbsNoticeArticle,
         {
             base: BbsArticleProvider.json(),
             manager: BbsManagerProvider.reference(),

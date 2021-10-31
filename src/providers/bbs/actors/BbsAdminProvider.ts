@@ -19,9 +19,8 @@ export namespace BbsAdminProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsAdministrator.createJsonSelectBuilder
     (
-        BbsAdministrator,
         { 
             base: MemberProvider.json()
         },

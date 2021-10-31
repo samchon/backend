@@ -2,7 +2,7 @@ import * as orm from "typeorm";
 import safe from "safe-typeorm";
 import { HashMap } from "tstl/container/HashMap";
 import { HashSet } from "tstl/container/HashSet";
-import { Singleton } from "tstl/thread/Singleton";
+import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
 import { hash } from "tstl/functional/hash";
 import { equal } from "tstl/ranges/algorithm/iterations";
 
@@ -15,109 +15,100 @@ export namespace EntityUnifier
         UNIFIER
     ----------------------------------------------------------- */
     /**
-     * Unify duplicated records into one.
+     * 중복된 레코드들을 하나로 통합한다.
      * 
-     * Absorb duplicated records into one. Another word, remove all of the *duplicates* records and
-     * keep only the *keep* record. 
+     * 복수의 `Entity` 레코드들을, 하나의 레코드로 흡수-병합한다. 즉, *duplicates* 에 기입된 모든 
+     * 레코드들을 삭제하고, 그 대신 중복 레코드들에 종속되어있는 모든 레코드의 *Entity* 에 대한 참조 
+     * 내역을, 모두 *original* 의 것으로 교체해준다.
      * 
-     * Don't worry about cascade deletion. Depdents records belonged to the *absorbed*, all of 
-     * them would be automatically belonged to the *keep*. Even some of the dependent entities 
-     * who have the unique constraint would be safely unitifed.
-     * 
-     * @template Entity Target of the entity type
-     * @param keep Original record that would absorb the *absorbed*
-     * @param absorbed Duplicated records to be absorbed to the *keep*
+     * @template Entity 타깃 엔티티의 클래스 타입.
+     * @param original 원본 레코드, 중복 레코드가 모두 이리로 통합된다.
+     * @param duplicates 중복 레코드 리스트, 모두 원본으로 통합된다.
      */
-    export async function unify<Entity extends IEntity>
+    export async function unify<Entity extends safe.Model>
         (
-            keep: Entity, 
-            absorbed: Entity[]
+            original: Entity, 
+            duplicates: Entity[]
         ): Promise<void>
     {
-        const table: string = getTable(keep.constructor as any);
-        const deprecates: string[] = absorbed.map(elem => elem.id);
+        const info: ITableInfo = await getTableInfo(original.constructor as safe.Model.Creator<Entity>);
+        const deprecates: string[] = duplicates.map(elem => (elem as any)[info.primaryColumn]);
 
-        await safe.Transaction.run(manager => _Unify(manager, table, keep.id, deprecates));
+        await _Unify(info, (original as any)[info.primaryColumn], deprecates);
     }
 
     async function _Unify
         (
-            manager: orm.EntityManager, 
-            table: string, 
-            id: string, 
+            table: ITableInfo, 
+            keep: string, 
             deprecates: string[]
         ): Promise<void>
     {
         if (deprecates.length === 0)
             return;
 
-        const dict: HashMap<string, IDependency[]> = await dependencies_.get();
-        const it: HashMap.Iterator<string, IDependency[]> = dict.find(table);
-        if (it.equals(dict.end()) === true)
-            return;
-
-        for (const info of it.second)
+        for (const dependency of table.children)
         {
             let standalone: boolean = true;
-            if (info.unique.length !== 0)
-                for (const columns of info.unique)
-                    if (columns.find(col => col === info.column) !== undefined)
+            if (dependency.unique.length !== 0)
+                for (const columns of dependency.unique)
+                    if (columns.find(col => col === dependency.foreignColumn) !== undefined)
                     {
                         standalone = false;
-                        await _Unify_unique_children(manager, id, deprecates, info, columns);
+                        await _Unify_unique_children(keep, deprecates, dependency, columns);
                     }
             if (standalone === true)
             {
                 // UPDATE RECORD DIRECTLY
-                await manager.getRepository(info.table)
+                await safe.findRepository(dependency.table.target)
                     .createQueryBuilder()
-                    .andWhere(`${info.column} IN (:deprecates)`, { deprecates })
-                    .update({ [info.column]: id })
+                    .andWhere(`${dependency.foreignColumn} IN (:deprecates)`, { deprecates })
+                    .update({ [dependency.foreignColumn]: keep })
                     .updateEntity(false)
                     .execute();
             }
         }
         
         // DELETE THE DUPLICATED RECORDS
-        await manager.getRepository(table)
+        await safe.findRepository(table.target)
             .createQueryBuilder()
-            .andWhere("id IN (:deprecates)", { deprecates })
+            .andWhere(`${table.primaryColumn} IN (:deprecates)`, { deprecates })
             .delete()
             .execute();
     }
 
     async function _Unify_unique_children
         (
-            manager: orm.EntityManager, 
-            id: string, 
+            keep: string, 
             deprecates: string[],
-            info: IDependency,
+            child: ITableInfo.IChild,
             columns: string[]
         ): Promise<void>
     {
-        const group: string[] = columns.filter(col => col !== info.column);
-        await manager.query
-        (
-            `UPDATE ${info.table}
-            SET ${info.column} = ?
-            WHERE id IN
+        const group: string[] = columns.filter(col => col !== child.foreignColumn);
+        if (group.length !== 0)
+            await safe.findRepository(child.table.target).query
             (
-                SELECT MIN(id) AS id
-                FROM ${info.table}
-                WHERE ${info.column} IN (?)
-                GROUP BY ${group.join(", ")}
-                HAVING COUNT(IF(${info.column} = ?, 1, NULL)) = 0
-            )`,
-            [id, [id, ...deprecates], id]
-        );
-        
-        const recordList: (IEntity & any)[] = await manager.query
+                `UPDATE ${child.table.name}
+                SET ${child.foreignColumn} = ?
+                WHERE ${child.table.primaryColumn} IN
+                (
+                    SELECT MIN(${child.table.primaryColumn}) AS ${child.table.primaryColumn}
+                    FROM ${child.table.name}
+                    WHERE ${child.foreignColumn} IN (?)
+                    GROUP BY ${group.join(", ")}
+                    HAVING COUNT(IF(${child.foreignColumn} = ?, 1, NULL)) = 0
+                )`,
+                [keep, [keep, ...deprecates], keep]
+            );
+
+        const recordList: (IEntity & any)[] =  await safe.findRepository(child.table.target).query
         (
             `SELECT * 
-            FROM ${info.table} 
-            WHERE ${info.column} IN (?)
-            ORDER BY id ASC`, 
-            [ [id, ...deprecates] ]
+            FROM ${child.table.name} 
+            WHERE ${child.foreignColumn} IN (?)
+            ORDER BY ${child.table.primaryColumn} ASC`, 
+            [ [keep, ...deprecates] ]
         );
 
         const dict: HashMap<any[], (IEntity & any)[]> = new HashMap(elements => hash(...elements), (x, y) => equal(x, y));
@@ -132,31 +123,50 @@ export namespace EntityUnifier
 
         for (const it of dict)
         {
-            const index: number = it.second.findIndex(rec => rec[info.column] === id);
-            const master: (IEntity & any) = it.second[index];
-            const slaves: (IEntity & any)[] = it.second.filter((_, i) => i !== index);
+            const index: number = it.second.findIndex(rec => rec[child.foreignColumn] === keep);
+            const master: any = it.second[index];
+            const slaves: any[] = it.second.filter((_, i) => i !== index);
 
-            await _Unify(manager, info.table, master.id, slaves.map(s => s.id));
+            await _Unify(child.table, master[child.table.primaryColumn], slaves.map(s => s[child.table.primaryColumn]));
         }
     }
 
     /* -----------------------------------------------------------
         UTILITY FUNCTIONS
     ----------------------------------------------------------- */
-    interface IDependency
+    export interface ITableInfo
     {
-        table: string;
-        column: string;
-        unique: string[][];
+        target: safe.typings.Creator<object>,
+        name: string;
+        primaryColumn: string;
+        children: ITableInfo.IChild[];
+    }
+    export namespace ITableInfo
+    {
+        export interface IChild
+        {
+            table: ITableInfo;
+            foreignColumn: string;
+            unique: string[][];
+        }
     }
 
-    function getTable<Entity extends IEntity>
-        (entity: safe.typings.Creator<Entity>): string
+    export function getTable<Entity extends safe.Model>
+        (entity: safe.Model.Creator<Entity>): string
     {
-        return orm.getConnection().getRepository(entity).metadata.tableName;
+        return entity.getRepository().metadata.tableName;
     }
 
-    const dependencies_: Singleton<Promise<HashMap<string, IDependency[]>>> = new Singleton(async () =>
+    export async function getTableInfo<Entity extends safe.Model>
+        (entity: safe.Model.Creator<Entity>): Promise<ITableInfo>
+    {
+        const table: string = getTable(entity);
+        const dict: HashMap<string, ITableInfo> = await table_infos_.get(entity.getRepository().manager.connection);
+
+        return dict.get(table);
+    }
+
+    const table_infos_ = new VariadicSingleton(async (connection: orm.Connection) =>
     {
         interface IUniqueContraint
         {
@@ -165,7 +175,7 @@ export namespace EntityUnifier
             column_name: string;
         }
 
-        const constraints: IUniqueContraint[] = await orm.getConnection().query
+        const constraints: IUniqueContraint[] = await connection.query
         (
             `SELECT DISTINCT 
                 TCO.table_name, 
@@ -193,30 +203,43 @@ export namespace EntityUnifier
             cit.second.insert(restrict.column_name);
         }
 
-        const foreignDict: HashMap<string, IDependency[]> = new HashMap();
-        for (const entity of orm.getConnection().entityMetadatas)
+        const output: HashMap<string, ITableInfo> = new HashMap();
+        const entities: orm.EntityMetadata[] = connection.entityMetadatas;
+
+        for (const entity of entities)
+        {
+            const name: string = entity.tableName;
+            const primaryColumn: string = entity.primaryColumns[0].databaseName;
+
+            output.emplace(name, {
+                name,
+                target: entity.target as safe.typings.Creator<object>,
+                primaryColumn,
+                children: []
+            });
+        }
+
+        for (const entity of entities)
+        {
+            const table: ITableInfo = output.get(entity.tableName);
             for (const foreign of entity.foreignKeys)
             {
-                const key: string = foreign.referencedEntityMetadata.tableName;
-                let fit: HashMap.Iterator<string, IDependency[]> = foreignDict.find(key);
-                if (fit.equals(foreignDict.end()) === true)
-                    fit = foreignDict.emplace(key, []).first;
-
-                const table: string = entity.tableName;
-                const column: string = foreign.columns[0].databaseName;
+                const parent: ITableInfo = output.get(foreign.referencedEntityMetadata.tableName);
+                const foreignColumn: string = foreign.columns[0].databaseName;
                 const unique: string[][] = [];
 
-                if (uniqueDict.has(table))
-                    for (const tit of uniqueDict.get(table))
-                        if (tit.second.has(column))
+                if (uniqueDict.has(table.name))
+                    for (const tit of uniqueDict.get(table.name))
+                        if (tit.second.has(foreignColumn))
                             unique.push(tit.second.toJSON());
 
-                fit.second.push({
+                parent.children.push({
                     table,
-                    column,
+                    foreignColumn,
                     unique
                 });
             }
-        return foreignDict;
+        }
+        return output;
     });
 }

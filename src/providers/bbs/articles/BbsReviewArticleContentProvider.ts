@@ -18,10 +18,11 @@ export namespace BbsReviewArticleContentProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsReviewArticleContent.createJsonSelectBuilder
     (
-        BbsReviewArticleContent,
-        { base: BbsArticleContentProvider.json() },
+        { 
+            base: BbsArticleContentProvider.json() 
+        },
         output => ({
             ...output,
             ...output.base,

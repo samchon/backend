@@ -52,7 +52,7 @@
     "mutex-server": "^0.2.2",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
-    "safe-typeorm": "^0.1.0",
+    "safe-typeorm": "^0.2.4",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.0"
   },

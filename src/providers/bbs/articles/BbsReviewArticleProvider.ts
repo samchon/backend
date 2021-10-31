@@ -1,6 +1,7 @@
 import * as nest from "@nestjs/common";
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { IBbsReviewArticle } from "../../../api/structures/bbs/articles/IBbsReviewArticle";
 
@@ -12,12 +13,10 @@ import { BbsReviewArticle } from "../../../models/tables/bbs/articles/BbsReviewA
 import { Citizen } from "../../../models/tables/members/Citizen";
 import { __MvBbsArticleHit } from "../../../models/material/bbs/__MvBbsArticleHit";
 
-import { BbsArticleProvider } from "./BbsArticleProvider";
-import { BbsReviewArticleContentProvider } from "./BbsReviewArticleContentProvider";
-import { BbsCustomerProvider } from "../actors/BbsCustomerProvider";
-import { Singleton } from "tstl/thread/Singleton";
 import { AttachmentFileProvider } from "../../misc/AttachmentFileProvider";
-import { BbsReviewArticleContent } from "../../../models/tables/bbs/articles/BbsReviewArticleContent";
+import { BbsArticleProvider } from "./BbsArticleProvider";
+import { BbsCustomerProvider } from "../actors/BbsCustomerProvider";
+import { BbsReviewArticleContentProvider } from "./BbsReviewArticleContentProvider";
 
 export namespace BbsReviewArticleProvider
 {
@@ -126,47 +125,25 @@ export namespace BbsReviewArticleProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsReviewArticle.createJsonSelectBuilder
     (
-        BbsReviewArticle,
         {
-            base: safe.createJsonSelectBuilder
+            base: BbsArticle.createJsonSelectBuilder
             (
-                BbsArticle,
                 {
-                    contents: safe.createJsonSelectBuilder
+                    contents: BbsArticleContent.createJsonSelectBuilder
                     (
-                        BbsArticleContent,
                         {
                             files: AttachmentFileProvider.json(),
-                            article: undefined,
-                            __mv_last: undefined,
-                            reviewContent: safe.createJsonSelectBuilder
-                            (
-                                BbsReviewArticleContent,
-                                { base: undefined }
-                            ),
-                        },
+                            reviewContent: "join",
+                        } as const,
                         output => ({
                             ...output,
                             score: output.reviewContent!.score,
-                            reviewContent: undefined
                         })
                     ),
-                    __mv_hit: safe.createJsonSelectBuilder
-                    (
-                        __MvBbsArticleHit, 
-                        { article: undefined  }
-                    ),
-                    section: undefined,
-                    comments: undefined,
-                    __mv_last: undefined,
-                    answer: undefined,
-                    free: undefined,
-                    notice: undefined,
-                    question: undefined,
-                    review: undefined,
-                },
+                    __mv_hit: "join",
+                } as const,
                 output => ({
                     ...output,
                     hit: output.__mv_hit?.count || 0

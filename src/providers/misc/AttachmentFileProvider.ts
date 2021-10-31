@@ -13,11 +13,7 @@ export namespace AttachmentFileProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
-    (
-        AttachmentFile,
-        {}
-    ));
+    const json_builder = new Singleton(() => AttachmentFile.createJsonSelectBuilder({}));
 
     export function collectList<Pair extends FilePairBase>
         (

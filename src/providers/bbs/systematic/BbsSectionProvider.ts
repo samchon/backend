@@ -38,16 +38,13 @@ export namespace BbsSectionProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsSection.createJsonSelectBuilder
     (
-        BbsSection,
         {
-            nominations: safe.createJsonSelectBuilder
+            nominations: BbsSectionNomination.createJsonSelectBuilder
             (
-                BbsSectionNomination,
                 {
                     manager: BbsManagerProvider.reference(),
-                    section: undefined,
                 },
                 output => ({
                     ...output.manager,

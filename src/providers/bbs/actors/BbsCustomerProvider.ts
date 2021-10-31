@@ -1,5 +1,4 @@
 import * as nest from "@nestjs/common";
-import * as orm from "typeorm";
 import safe from "safe-typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 
@@ -24,16 +23,11 @@ export namespace BbsCustomerProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsCustomer.createJsonSelectBuilder
     (
-        BbsCustomer as safe.Model.Creator<BbsCustomer<false>>,
         {
             citizen: CitizenProvider.json(),
             member: MemberProvider.json(),
-            freeArticles: undefined,
-            questionArticles: undefined,
-            reviewArticles: undefined,
-            comments: undefined
         }
     ));
 
@@ -73,7 +67,7 @@ export namespace BbsCustomerProvider
         const citizen: Citizen = await CitizenProvider.collect(collection, input);
         await customer.citizen.set(citizen);
 
-        collection.after(manager => customer.update(manager));
+        collection.after(() => customer.update());
         await collection.execute();
 
         return citizen;
@@ -98,7 +92,7 @@ export namespace BbsCustomerProvider
         // COLLECT INSERTION
         const collection: safe.InsertCollection = new safe.InsertCollection();
         const member: Member = await MemberProvider.collect(collection, input);
-        collection.after(manager => assign(manager, customer, member));
+        collection.after(() => assign(customer, member));
 
         // DO INSERT
         await collection.execute();
@@ -135,19 +129,18 @@ export namespace BbsCustomerProvider
         }
 
         // RETURNS WITH ASSIGNMENT
-        await assign(orm.getManager(), customer, member);
+        await assign(customer, member);
         return member;
     }
 
     async function assign
         (
-            manager: orm.EntityManager, 
             customer: BbsCustomer, 
             member: Member
         ): Promise<void>
     {
         await customer.member.set(member);
         await customer.citizen.set(await member.citizen.get());
-        await customer.update(manager);
+        await customer.update();
     }
 }

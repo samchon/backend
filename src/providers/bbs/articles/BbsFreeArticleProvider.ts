@@ -112,9 +112,8 @@ export namespace BbsFreeArticleProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsFreeArticle.createJsonSelectBuilder
     (
-        BbsFreeArticle,
         {
             base: BbsArticleProvider.json(),
             customer: BbsCustomerProvider.json(),

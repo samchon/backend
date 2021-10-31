@@ -20,14 +20,10 @@ export namespace MemberProvider
         return json_builder.get();
     }
 
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => Member.createJsonSelectBuilder
     (
-        Member,
         {
             citizen: CitizenProvider.json(),
-            administrator: undefined,
-            manager: undefined,
-            customers: undefined
         }
     ));
 

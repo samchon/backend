@@ -16,15 +16,11 @@ export namespace BbsArticleContentProvider
     {
         return json_builder.get();
     }
-    const json_builder = new Singleton(() => safe.createJsonSelectBuilder
+    const json_builder = new Singleton(() => BbsArticleContent.createJsonSelectBuilder
     (
-         BbsArticleContent,
-         {
-             files: AttachmentFileProvider.json(),
-             article: undefined,
-             reviewContent: undefined,
-             __mv_last: undefined
-         }
+        {
+            files: AttachmentFileProvider.json(),
+        }
     ));
 
     export async function collect
@@ -66,7 +62,7 @@ export namespace BbsArticleContentProvider
                 content
             }));
         else
-            collection.after(manager => __MvBbsArticleLastContent.emplace(manager, article, content));
+            collection.after(() => __MvBbsArticleLastContent.emplace(article, content));
 
         return content;
     }

@@ -32,7 +32,7 @@ export class Member extends safe.Model
     /* -----------------------------------------------------------
         HAS
     ----------------------------------------------------------- */
-    @safe.Has.OneToMany
+    @safe.Has.OneToOne
     (
         () => BbsAdministrator,
         admin => admin.base
