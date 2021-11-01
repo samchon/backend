@@ -63,7 +63,7 @@ export namespace BbsArticleProvider
     (
         {
             contents: BbsArticleContentProvider.json(),
-            __mv_hit: __MvBbsArticleHit.createJsonSelectBuilder({}),
+            __mv_hit: "join" as const,
         },
         output => ({
             ...output,

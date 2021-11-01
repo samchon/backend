@@ -135,15 +135,15 @@ export namespace BbsReviewArticleProvider
                     (
                         {
                             files: AttachmentFileProvider.json(),
-                            reviewContent: "join",
-                        } as const,
+                            reviewContent: "join" as const,
+                        },
                         output => ({
                             ...output,
                             score: output.reviewContent!.score,
                         })
                     ),
-                    __mv_hit: "join",
-                } as const,
+                    __mv_hit: "join" as const,
+                },
                 output => ({
                     ...output,
                     hit: output.__mv_hit?.count || 0

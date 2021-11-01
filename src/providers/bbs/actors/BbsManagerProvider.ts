@@ -5,7 +5,6 @@ import { Singleton } from "tstl/thread/Singleton";
 import { IBbsManager } from "../../../api/structures/bbs/actors/IBbsManager";
 
 import { BbsManager } from "../../../models/tables/bbs/actors/BbsManager";
-import { BbsSection } from "../../../models/tables/bbs/systematic/BbsSection";
 import { BbsSectionNomination } from "../../../models/tables/bbs/systematic/BbsSectionNomination";
 import { Member } from "../../../models/tables/members/Member";
 
@@ -28,7 +27,7 @@ export namespace BbsManagerProvider
             nominations: BbsSectionNomination.createJsonSelectBuilder
             (
                 {
-                    section: BbsSection.createJsonSelectBuilder({}),
+                    section: "join" as const,
                 },
                 output => ({
                     ...output.section,
