@@ -1,5 +1,5 @@
 {
-  "name": "@samchon/backend",
+  "name": "@${ORGANIZATION}/${PROJECT}",
   "version": "0.0.0",
   "description": "Backend for BBS",
   "scripts": {
@@ -10,12 +10,12 @@
     "package:api": "npm run build:api && cd packages/api && npm publish",
     "package:models": "npm run build:models && cd packags/models && npm publish",
     "reset:dev": "git pull && npm install && npm run build && npm run stop && npm run test -- --mode=dev && npm run start:updator:master && npm run start dev",
-    "start": "pm2 start bin/executable/server.js -i 0 --name bbs-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
-    "start:local": "pm2 start bin/executable/server.js -i 2 --name bbs-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
+    "start": "pm2 start bin/executable/server.js -i 0 --name ${PROJECT}-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
+    "start:local": "pm2 start bin/executable/server.js -i 2 --name ${PROJECT}-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
     "start:updator:master": "pm2 start --name bbs-backend-updator-master bin/updator/master.js",
     "start:updator:slave": "pm2 start --name bbs-backend-updator-slave bin/updator/slave.js",
-    "start:reload": "pm2 reload bbs-backend-server",
-    "stop": "pm2 delete bbs-backend-server",
+    "start:reload": "pm2 reload ${PROJECT}-backend-server",
+    "stop": "pm2 delete ${PROJECT}-backend-server",
     "stop:updator:master": "pm2 delete bbs-backend-updator-master",
     "stop:updator:slave": "pm2 delete bbs-backend-updator-slave",
     "update": "node bin/executable/update",
@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/samchon/backend"
   },
-  "author": "Jeongho Nam",
+  "author": "${AUTHOR}",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/samchon/backend/issues"
@@ -39,7 +39,7 @@
     "@types/node": "^15.6.1",
     "@types/uuid": "^8.3.0",
     "cli": "^1.0.1",
-    "nestia": "^0.3.0",
+    "nestia": "^0.3.5",
     "pm2": "^4.5.6",
     "rimraf": "^3.0.2",
     "sloc": "^0.2.1",

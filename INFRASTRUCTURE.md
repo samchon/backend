@@ -1,13 +1,13 @@
 # INTRASTRUCTURE
 ## 1. DBMS
 ### 1.1. RDB Instance
-[`@samchon/backend`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
+[`@{ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
 
 Also, the accounts of the DBMS are separated to the `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
-CREATE SCHEMA bbs DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE SCHEMA test_db_schema DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET GLOBAL sql_mode = CONCAT_WS(',',
     'IGNORE_SPACE',
     'ONLY_FULL_GROUP_BY',
@@ -20,8 +20,8 @@ SET GLOBAL sql_mode = CONCAT_WS(',',
 );
 
 -- WRITABLE ACCOUNT
-CREATE USER samchon_w;
-SET password FOR samchon_w = PASSWORD('Some Password');
+CREATE USER writable_account;
+SET password FOR writable_account = PASSWORD('Some Password');
 GRANT SELECT, 
     INSERT, 
     UPDATE, 
@@ -38,19 +38,19 @@ GRANT SELECT,
     CREATE ROUTINE, 
     ALTER ROUTINE, 
     EXECUTE 
-ON bbs.* TO samchon_w;
+ON test_db_schema.* TO writable_account;
 
 -- READONLY ACCOUNT
-CREATE USER samchon_r;
-SET password FOR samchon_r = PASSWORD('Some Password');
-GRANT SELECT, EXECUTE ON bbs.* TO samchon_r;
+CREATE USER readonly_account;
+SET password FOR readonly_account = PASSWORD('Some Password');
+GRANT SELECT, EXECUTE ON test_db_schema.* TO readonly_account;
 
 -- FINALIZATION
 FLUSH PRIVILEGES;
 ```
 
 ### 1.2. EC2 Instance
-If you're planning to install the MariaDB on the EC2 instance, instead of the RDB instance, to reduce costs, you can install the MariaDB by inserting below commands. Of course, you should allow the MariaDB port number, `3303`.
+If you're planning to install the MariaDB on the EC2 instance, instead of the RDB instance, to reduce costs, you can install the MariaDB by inserting below commands. Of course, you should allow the MariaDB port number, `3306`.
 
 ```bash
 sudo apt-get install -y apt-transport-https
@@ -61,30 +61,23 @@ sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://sfo1.mirrors.digi
 sudo apt update
 
 sudo apt-get install -y mariadb-server
-sudo mysql_secure_installation # Remote connection 허용
-sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf # bind-address 주석 처리
+sudo mysql_secure_installation # Allow remote connection
+sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf # Disable bind-address
 sudo service mysql restart
 ```
 
-After the install, open the MariaDB terminal and create the new schema `bbs`. Also, you must separate accounts of the MariaDB to `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
+After the install, open the MariaDB terminal and create the new schema `test_db_schema`. Also, you must separate accounts of the MariaDB to `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
 
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
-CREATE SCHEMA bbs DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET GLOBAL sql_mode = CONCAT_WS(',',
-    'IGNORE_SPACE',
-    'ONLY_FULL_GROUP_BY',
-    'STRICT_TRANS_TABLES',
-    'NO_ZERO_IN_DATE',
-    'NO_ZERO_DATE',
-    'ERROR_FOR_DIVISION_BY_ZERO',
-    'NO_AUTO_CREATE_USER',
-    'NO_ENGINE_SUBSTITUTION'
-);
+CREATE SCHEMA test_db_schema 
+    DEFAULT CHARACTER SET utf8mb4 
+    COLLATE utf8mb4_unicode_ci;
+SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
 
 -- WRITABLE ACCOUNT
-CREATE USER samchon_w;
-SET password FOR samchon_w = PASSWORD('Some Password');
+CREATE USER writable_account;
+SET password FOR writable_account = PASSWORD('Some Password');
 GRANT SELECT, 
     INSERT, 
     UPDATE, 
@@ -101,12 +94,12 @@ GRANT SELECT,
     CREATE ROUTINE, 
     ALTER ROUTINE, 
     EXECUTE 
-ON bbs.* TO samchon_w;
+ON test_db_schema.* TO writable_account;
 
 -- READONLY ACCOUNT
-CREATE USER samchon_r;
-SET password FOR samchon_r = PASSWORD('Some Password');
-GRANT SELECT, EXECUTE ON bbs.* TO samchon_r;
+CREATE USER readonly_account;
+SET password FOR readonly_account = PASSWORD('Some Password');
+GRANT SELECT, EXECUTE ON bbs.* TO readonly_account;
 
 -- FINALIZATION
 FLUSH PRIVILEGES;
@@ -157,8 +150,8 @@ sudo sysctl net.core.somaxconn=2048
 ################################
 # CLONE REPOSITORY
 git config --global credential.helper store
-git clone https://github.com/archisketch-dev-team/erp-backend
-cd erp-backend
+git clone https://github.com/samchon/backend
+cd ${PROJECT}
 
 # INSTALL PROJECT
 npm install

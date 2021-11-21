@@ -40,7 +40,7 @@ export class Configuration
             port: 3306,
             username: account,
             password: (SGlobal.mode === "LOCAL") ? "root" : Configuration.SYSTEM_PASSWORD,
-            database: (SGlobal.mode === "LOCAL") ? "bbs_test" : "bbs",
+            database: "test_db_schema",
 
             // OPTIONS
             namingStrategy: new safe.SnakeCaseStrategy(),
