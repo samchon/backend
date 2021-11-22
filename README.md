@@ -24,7 +24,7 @@ When you've created a new backend project through this template project, you can
 |-----------------|----------------------------------------
 | ${ORGANIZATION} | Your account or corporation name
 | ${PROJECT}      | Your own project name
-| ${AUTHOR}       | Author Name
+| ${AUTHOR}       | Author name
 | test_db_schema  | Database schema to connnect
 | https://github.com/samchon/backend | Your repository URL
 

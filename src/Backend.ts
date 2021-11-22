@@ -1,7 +1,7 @@
+import express from "express";
 import * as helper from "encrypted-nestjs";
 import * as nest from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import { Request, Response } from "express";
 
 import { Configuration } from "./Configuration";
 import { SGlobal } from "./SGlobal";
@@ -62,10 +62,18 @@ export class Backend
         
         // EXIT FROM THE CRITICAL-SERVER
         if (await SGlobal.critical.is_loaded() === true)
-            await (await SGlobal.critical.get()).close();
+        {
+            const critical = await SGlobal.critical.get();
+            await critical.close();
+        }
     }
 
-    private middleware({}: Request, response: Response, next: Function): void
+    private middleware
+        (
+            _request: express.Request, 
+            response: express.Response, 
+            next: Function
+        ): void
     {
         if (this.is_closing_ === true)
             response.set("Connection", "close");

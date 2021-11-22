@@ -61,8 +61,9 @@ export namespace Configuration
         iv: "IXJBt4MflFxvxKkn"
     };
 
-    export const SYSTEM_PASSWORD: string = "https://github.com/samchon";
+    export const ASSETS = __dirname + "/../assets";
     export const CREATED_AT: Date = new Date();
+    export const SYSTEM_PASSWORD: string = "https://github.com/samchon";
 }
 
 // CUSTOM EXCEPTIION CONVERSION

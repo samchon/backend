@@ -1,5 +1,4 @@
 import * as orm from "typeorm";
-import { BbsAdministratorSeeder } from "./seeders/bbs/actors/BbsAdministratorSeeder";
 
 export namespace SetupWizard
 {
@@ -11,6 +10,6 @@ export namespace SetupWizard
     
     export async function seed(): Promise<void>
     {
-        await BbsAdministratorSeeder.seed();
+        
     }
 }

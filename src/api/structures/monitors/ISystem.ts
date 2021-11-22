@@ -1,14 +1,45 @@
+/**
+ * @packageDocumentation
+ * @module api.structures.monitors
+ */
+//================================================================
+/**
+ * System Information.
+ * 
+ * @author Jeongho Nam
+ */
 export interface ISystem
 {
+    /**
+     * Random Unique ID.
+     */
     uid: number;
+
+    /**
+     * `process.argv`
+     */
     arguments: string[];
+
+    /**
+     * Git commit information.
+     */
     commit: ISystem.ICommit;
+
+    /**
+     * `package.json`     */
     package: ISystem.IPackage;
+
+    /**
+     * Creation time of this system.
+     */
     created_at: string;
 }
 
 export namespace ISystem
 {
+    /**
+     * Git commit information.
+     */
     export interface ICommit
     {
         shortHash: string;
@@ -26,6 +57,9 @@ export namespace ISystem
     }
     export namespace ICommit
     {
+        /**
+         * Git user information.
+         */
         export interface IUser
         {
             name: string;
@@ -33,22 +67,25 @@ export namespace ISystem
         }
     }
 
+    /**
+     * NPM package information.
+     */
     export interface IPackage
     {
         name: string;
         version: string;
         description: string;
-        main: string;
-        typings: string;
         scripts: Record<string, string>;
         repository: { type: "git", url: string; };
         author: string;
         license: string;
         bugs: { url: string; };
         homepage: string;
-        devDependeicies: Record<string, string>;
+        devDependencies: Record<string, string>;
         dependencies: Record<string, string>;
-        publishConfig: { registry: string; };
-        files: string[];
+        publishConfig?: { registry: string; };
+        main?: string;
+        typings?: string;
+        files?: string[];
     }
 }
