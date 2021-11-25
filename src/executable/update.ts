@@ -1,4 +1,4 @@
-import { Driver } from "tgrid/components/Driver";
+import { Promisive } from "tgrid/typings/Promisive";
 import { MutexConnector, RemoteMutex } from "mutex-server";
 import { UniqueLock } from "tstl/thread/UniqueLock";
 
@@ -21,7 +21,7 @@ async function main(): Promise<void>
     const mutex: RemoteMutex = await connector.getMutex("update");
     const success: boolean = await UniqueLock.try_lock(mutex, async () =>
     {
-        const updator: Driver.Promisive<IUpdateController> = connector.getDriver();
+        const updator: Promisive<IUpdateController> = connector.getDriver();
         await updator.update();
     });
 

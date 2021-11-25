@@ -46,16 +46,16 @@
     "ts-node": "^10.4.0",
     "tslint": "^6.1.3",
     "ttypescript": "^1.5.12",
-    "typescript": "4.4.4",
+    "typescript": "^4.5.2",
     "typescript-is": "^0.18.2"
   },
   "dependencies": {
     "encrypted-nestjs": "^0.1.7",
     "git-last-commit": "^1.0.0",
-    "mutex-server": "^0.2.2",
+    "mutex-server": "^0.3.0",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
-    "safe-typeorm": "^0.2.4",
+    "safe-typeorm": "^0.2.6",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.0"
   },
