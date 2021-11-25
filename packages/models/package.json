@@ -1,5 +1,5 @@
 {
-  "name": "@samchon/${PROJECT}-models",
+  "name": "@${ORGANIZATION}/${PROJECT}-models",
   "version": "0.0.0",
   "description": "${PROJECT} ORM Models",
   "scripts": {
