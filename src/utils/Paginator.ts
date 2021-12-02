@@ -1,6 +1,7 @@
 import * as orm from "typeorm";
 import { HashMap } from "tstl/container/HashMap";
 
+import { Atomic } from "../api/typings/Atomic";
 import { IEntity } from "../api/structures/common/IEntity";
 import { IPage } from "../api/structures/common/IPage";
 
@@ -16,32 +17,36 @@ export namespace Paginator
             Output extends object> 
         = (records: Input[]) => (Output[] | Promise<Output[]>);
 
-    // export function regular<Input extends object, Output extends object>
-    //     (
-    //         stmt: orm.SelectQueryBuilder<Input>,
-    //         request: IPage.IRequest,
-    //         postProcess: PostProcess<Input, Output>
-    //     ): Promise<IPage<Output>>
-    // {
-    //     return _Paginate(stmt, request, postProcess, stmt => stmt.getMany());
-    // }
-
-    export function paginate<Output extends object>
+    export function regular<Input extends object, Output extends object>
         (
-            stmt: orm.SelectQueryBuilder<any>, 
+            stmt: orm.SelectQueryBuilder<Input>,
             request: IPage.IRequest,
-            postProcess?: PostProcess<any, Output>
+            postProcess: PostProcess<Input, Output>
+        ): Promise<IPage<Output>>
+    {
+        return _Paginate(stmt, request, postProcess, stmt => stmt.getMany());
+    }
+
+    export function raw<Input extends object, Output extends object>
+        (
+            stmt: orm.SelectQueryBuilder<Input>, 
+            request: IPage.IRequest,
+            postProcess?: PostProcess<any | Atomic<Output>, Output>
         ): Promise<IPage<Output>>
     {
         return _Paginate(stmt, request, postProcess, stmt => stmt.getRawMany());
     }
 
     export function stream<Raw extends IEntity, Regular extends IEntity>
-        (input: Raw[], output: Regular[]): void
+        (
+            input: Raw[], 
+            output: Regular[], 
+            getter: (elem: Regular) => string = elem => elem.id
+        ): void
     {
         const dict: HashMap<string, Regular> = new HashMap();
         for (const o of output)
-            dict.emplace(o.id, o);
+            dict.emplace(getter(o), o);
         
         input.forEach((item, index) =>
         {
@@ -73,11 +78,6 @@ export namespace Paginator
         const index: orm.SelectQueryBuilder<any> = stmt.clone()
             .offset(request.limit * Math.max(request.page - 1, 0))
             .limit(request.limit);
-        // console.log(index.getQueryAndParameters());
-
-        // SORT
-        if (request.sort !== undefined)
-            sort(index, request.sort);
         
         // GET DATA WITH POST-PROCESSING    
         let data: any[] = await accessor(index);
@@ -99,12 +99,18 @@ export namespace Paginator
     /**
      * @hidden
      */
-    function sort(stmt: orm.SelectQueryBuilder<any>, fieldList: string[]): void
+    export function sort
+        (
+            stmt: orm.SelectQueryBuilder<any>, 
+            fieldList: string[],
+            dictionary?: Map<string, string>
+        ): void
     {
+        // SPECIALIZATION
+        let direction: "ASC" | "DESC";
         fieldList.forEach((field, index) =>
         {
-            // SPECIALIZATION
-            let direction: "ASC" | "DESC";
+            // PARAMETERS
             if (field[0] === "+")
             {
                 direction = "ASC";
@@ -117,7 +123,15 @@ export namespace Paginator
             }
             else
                 direction = "ASC";
-            
+        
+            // DICTIONARY MAPPING
+            if (dictionary)
+            {
+                const found = dictionary.get(field);
+                if (found)
+                    field = found;
+            }
+
             // DO ORDER
             if (index === 0)
                 stmt.orderBy(field, direction);
