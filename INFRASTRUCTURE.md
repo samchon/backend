@@ -8,16 +8,7 @@ Also, the accounts of the DBMS are separated to the `readonly` and `writable`. I
 ```sql
 -- CREATE SCHEMA WITH STRICT MODE
 CREATE SCHEMA test_db_schema DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET GLOBAL sql_mode = CONCAT_WS(',',
-    'IGNORE_SPACE',
-    'ONLY_FULL_GROUP_BY',
-    'STRICT_TRANS_TABLES',
-    'NO_ZERO_IN_DATE',
-    'NO_ZERO_DATE',
-    'ERROR_FOR_DIVISION_BY_ZERO',
-    'NO_AUTO_CREATE_USER',
-    'NO_ENGINE_SUBSTITUTION'
-);
+SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
 
 -- WRITABLE ACCOUNT
 CREATE USER writable_account;
