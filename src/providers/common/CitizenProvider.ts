@@ -36,7 +36,7 @@ export namespace CitizenProvider
         let citizen: Citizen | undefined = await Citizen
             .createQueryBuilder()
             .andWhere(...Citizen.getWhereArguments("mobile", 
-                safe.AesPkcs5.encode
+                safe.AesPkcs5.encrypt
                 (
                     input.mobile, 
                     Citizen.ENCRYPTION_PASSWORD.key, 

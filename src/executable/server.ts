@@ -2,7 +2,7 @@ const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js")
     require("source-map-support/register");
 
-import * as fs from "fs";
+import fs from "fs";
 import * as orm from "typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 import { randint } from "tstl/algorithm/random";

@@ -1,4 +1,4 @@
-import { AesPkcs5 } from "encrypted-fetcher";
+import { AesPkcs5 } from "safe-typeorm";
 import { Pair } from "tstl/utility/Pair";
 import { randint } from "tstl/algorithm/random";
 import { v4 } from "uuid";
@@ -25,7 +25,7 @@ export namespace TokenManager
 
         // RETURNS WITH ENCRYPTION
         const iv: string = _Get_iv(table);
-        return AesPkcs5.encode(JSON.stringify(payload), ENCRYPT_KEY, iv);
+        return AesPkcs5.encrypt(JSON.stringify(payload), ENCRYPT_KEY, iv);
     }
 
     export function refresh(table: string, token: string, writable: boolean, duration: number): string | null
@@ -57,7 +57,7 @@ export namespace TokenManager
         let payload: IPayload;
         try
         {
-            let content: string = AesPkcs5.decode(token, ENCRYPT_KEY, iv);
+            let content: string = AesPkcs5.decrypt(token, ENCRYPT_KEY, iv);
             payload = JSON.parse(content);
         }
         catch

@@ -1,4 +1,4 @@
-import * as cli from "cli";
+import cli from "cli";
 import * as orm from "typeorm";
 import { Backend } from "../Backend";
 

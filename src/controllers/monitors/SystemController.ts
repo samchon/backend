@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as git from "git-last-commit";
-import * as helper from "encrypted-nestjs";
+import fs from "fs";
+import helper from "nestia-helper";
+import git from "git-last-commit";
 import * as nest from "@nestjs/common";
 import { Singleton } from "tstl/thread/Singleton";
 import { sleep_for } from "tstl/thread/global";

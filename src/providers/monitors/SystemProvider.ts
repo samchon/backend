@@ -1,5 +1,5 @@
 import fs from "fs";
-import * as git from "git-last-commit";
+import git from "git-last-commit";
 import { Singleton } from "tstl/thread/Singleton";
 import { randint } from "tstl/algorithm/random";
 

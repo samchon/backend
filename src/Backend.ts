@@ -1,5 +1,5 @@
 import express from "express";
-import * as helper from "encrypted-nestjs";
+import helper from "nestia-helper";
 import * as nest from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 

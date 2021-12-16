@@ -2,11 +2,12 @@ const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js")
     require("source-map-support").install();
     
-import * as helper from "encrypted-nestjs";
+import helper from "nestia-helper";
 import * as nest from "@nestjs/common";
 import * as orm from "typeorm";
 import safe from "safe-typeorm";
 import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
+import { IEncryptionPassword } from "nestia-fetcher";
 
 import { DomainError } from "tstl/exception/DomainError";
 import { InvalidArgument } from "tstl/exception/InvalidArgument";
@@ -56,7 +57,7 @@ export namespace Configuration
     export const API_PORT = 37001;
     export const UPDATOR_PORT = 37000;
     
-    export const ENCRYPTION_PASSWORD: Readonly<helper.IPassword> = {
+    export const ENCRYPTION_PASSWORD: Readonly<IEncryptionPassword> = {
         key: "pJXhbHlYfzkC1CBK8R67faaBgJWB9Myu",
         iv: "IXJBt4MflFxvxKkn"
     };
