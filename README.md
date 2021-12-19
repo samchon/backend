@@ -1,4 +1,6 @@
 # Backend
+> 한국어 브랜치: [samchon/backend/tree/korean](https://github.com/samchon/backend/tree/korean)
+
 ## 1. Outline
 ### 1.1. Introduction
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
@@ -359,7 +361,7 @@ npm run start local
 npm run stop
 ```
 
-Also, if someone else committed a new version into the master branch, you can update your local backend server without distruption. It means that, non-distruptive update system even works in the local environment. To activate the non-distruptive update system, run the updator program before mounting the backend server up on your local machine.
+Also, if someone else committed a new version into the master branch, you can update your local backend server without distruption. It means that, [non-distruptive update system](#41-non-distruptive-update-system) even works in the local environment. To activate the [non-distruptive update system](#41-non-distruptive-update-system), run the updator program before mounting the backend server up on your local machine.
 
 ```bash
 # START THE LOCAL BACKEND SERVER WITH UPDATOR PROGRAM
@@ -398,7 +400,7 @@ npm run start dev
 ```
 
 ### 4.4. Real Server
-To update the dev server is very easy. Just commit a new code into the `dev` branch, and type the `npm run update real` command on your local machine. By the command, the dev server will replace its code to the latest and the [Non-distruptive Update System](#41-non-distruptive-update-system) would be executed.
+To update the real server is very easy. Just commit a new code into the `real` branch, and type the `npm run update real` command on your local machine. By the command, the dev server will replace its code to the latest and the [Non-distruptive Update System](#41-non-distruptive-update-system) would be executed.
 
 ```bash
 npm run update real
