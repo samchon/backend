@@ -29,7 +29,7 @@ export class Configuration
 
     public static get DB_CONFIG(): MysqlConnectionOptions
     {
-        const account: string = (SGlobal.mode === "LOCAL") ? "root" : "bbs_w";
+        const account: string = (SGlobal.mode === "LOCAL") ? "root" : "account_w";
         const host: string = (SGlobal.mode === "REAL")
             ? "YOUR-RDS-ADDRESS"
             : "127.0.0.1";
@@ -47,7 +47,8 @@ export class Configuration
             namingStrategy: new safe.SnakeCaseStrategy(),
             bigNumberStrings: false,
             dateStrings: false,
-            entities: [ `${__dirname}/models/**/*.${EXTENSION}` ]
+            entities: [ `${__dirname}/models/**/*.${EXTENSION}` ],
+            charset: "UTF8MB4_UNICODE_CI",
         };
     }
 }
