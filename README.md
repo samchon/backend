@@ -3,12 +3,12 @@
 ### 1.1. Introduction
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 
-A template repository for the Typescript Backend Server using those libraries:
+본 템플릿 저장소는, 아래 라이브러리들을 사용하는, TypeScript 백엔드 서버를 대상으로 한다:
 
-  - [NestJS](https://nestjs.com) and [**`nestia`**](https://github.com/samchon/nestia): Automatic client SDK generator for NestJS
+  - [NestJS](https://nestjs.com) and [**`nestia`**](https://github.com/samchon/nestia): Automatic SDK generator for NestJS
   - [TypeORM](https://typeorm.io) and [**`safe-typeorm`**](https://github.com/samchon/safe-typeorm): Helper of TypeORM in the compilation level
 
-Also, I've prepared lots of example backend projects based on this template project. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
+본인은 현 템플릿 저장소와 위 라이브러리들을 기반으로 만들어진, 다양한 예제 프로젝트들을 준비해두었다. 현 README 문서를 읽고 아래 예제 프로젝트들을 탐방해나가다보면, 귀하는 TypeScript 백엔드 서버를 개발할 때 [nestia](https://github.com/samchon/nestia) 와 [safe-typeorm](https://github.com/samchon/safe-typeorm) 을 어떻게 활용해야할 지, 이내 곧 이해하게 될 것이다.
 
   - [samchon/bbs-backend](https://github.com/samchon/bbs-backend): Built-in Board System
   - [archidraw/payments](https://github.com/archidraw/payments): Integrated Payments Server using multiple PGs.
@@ -18,14 +18,14 @@ Also, I've prepared lots of example backend projects based on this template proj
   - delivery-backend: preparing...
 
 
-If you wanna new type of example backend project or you've something to ask me about the TypeScript backend server development, don't mine anything and just write an issue for help. I or another developers interested in this project will support you.
+만일 귀하가 새로운 종류의 백엔드 예제 프로젝트를 원하거나 혹여 타입스크립트 백엔드 서버 개발에 대하여 질문할 거리가 있다면, 부담 갖기 말고 언제든 issue 를 작성하시어 도움을 요청하시라. 본인 또는 다른 개발자가, 성심성의껏 답변해 줄 것이다.
 
-Also, if you've developed a TypeScript backend server and it seems like that its quality is enough good to be a good example for the backend programming learners, please write an issue or send a pull request about the project.
+또한 귀하가 개발한 공개 TypeScript 백엔드 서버의 완성도가 상당하여 백엔드 개발 입문자들에게 좋은 예제가 될 법하다면, 부디 이슈 혹은 풀 리퀘스트를 발행하여, 이를 본인에게 알려주시라.
 
 ### 1.2. Specializations
-Transform this template project to be yours.
+본 템플릿 프로젝트를 귀하의 것으로 만들기.
 
-When you've created a new backend project through this template project, you can specialize it to be suitable for you by changing some words. Replace below words through IDE specific function like `Edit > Replace in Files` (*Ctrl + Shift + H*), who've been supported by the VSCode.
+만일 본 템플릿 저장소를 통하여 새 백엔드 프로젝트를 만들었다면, 귀하는 단지 몇 몇 단어를 바꾸어주는 것 만으로도, 이를 귀하가 원하는 주제에 알맞게끔 탈바꿈시킬 수 있다. 아래 단어들을 Vscode 의 `Edit > Replace in Files` (*Ctrl + Shift + H*) 기능을 이용하여 전부 바꾸어주자.
 
 | Before          | After
 |-----------------|----------------------------------------
@@ -35,7 +35,7 @@ When you've created a new backend project through this template project, you can
 | test_db_schema  | Database schema to connnect
 | https://github.com/samchon/backend | Your repository URL
 
-After those replacements, you should specialize the [`src/Configuration.ts`](src/Configuration.ts), [.github/workflows/build.yml](.github/workflows/build.yml) files. Open those files and change constant values of these files to be suitable for your project. Also, open markdown files like this [README.md](README.md) and write your specific project story. Below is list of the markdown files.
+위 단어들을 모두 바꾼 다음에, 귀하는 [`src/Configuration.ts`](src/Configuration.ts), [.github/workflows/build.yml](.github/workflows/build.yml) 파일들을 수정해야 한다. 해당 파일들을 열고, 세부 상수값이나 컨텐츠 등을 귀하의 프로젝트에 맞게끔 변경해준다. 그리고 [README.md](README.md) 와 같은 마크다운 파일들을 열어, 귀하와 귀하의 프로젝트 이야기를 써 내려가면 된다. 아래는 이와같이 수정해야 할 마크다운 파일들의 리스트이다.
 
   - [.github/ISSUE_TEMPLATE/BUG_REPORT.md](.github/ISSUE_TEMPLATE/BUG_REPORT.md)
   - [.github/ISSUE_TEMPLATE/FEATURE_REQUEST.md](.github/ISSUE_TEMPLATE/FEATURE_REQUEST.md)
@@ -48,21 +48,21 @@ After those replacements, you should specialize the [`src/Configuration.ts`](src
   - [LICENSE](LICENSE)
 
 ### 1.3. Directories
-This template project has categorized directories like below.
+현 템플릿 프로젝트는 디렉토리 구조를 아래와 같이 분류한다.
 
-As you can see from the below, all of the TypeScript source files are placed into the [src](src/) directory. When you build the TypeScript source files, compiled files would be placed into the `bin` directory following the [tsconfig.json](tsconfig.json) configuration. Otherwise you build client [SDK](#32-sdk) library or ORM models for the private npm module publishing, their compiled files would be placed into the [packages](packages) directory.
+아래 목록에서 확인할 수 있다시피, 모든 타입스크립트 소스 파일들은 모두 [src](src/) 디렉토리에 저장된다. 만일 귀하가 타입스크립트 소스를 빌드한다면, 컴파일된 파일들은 [tsconfig.json](tsconfig.json) 의 설정에 따라, `bin` 폴더에 저장될 것이다. 반대로 private npm 모듈로 배포할 SDK 라이브러리나 ORM 모델을 빌드하는 경우, 그것들의 컴파일된 파일들은 [packages](packages) 폴더에 위치할 것이다.
 
-If you want to customize configurations of the [Github Action](#52-github-action) or debugging who can be started by the pressing the `F5` key, edit the [.github/workflows/build.yml](.github/workflows/build.yml) or [.vscode/launch.json](.vscode/launch.json) file. Default of their configurations are using the [3.3. Test Automation Program](#33-test-automation-program) without any special argument.
+만일 귀하가 [Github Action](#52-github-actions) 내지 디버깅 (F5 키를 눌러 시작할 수 있다) 에 대한 설정을 따로이 하고 싶다면, [.github/workflows/build.yml](.github/workflows/build.yml) 내지 [.vscode/launch.json](.vscode/launch.json) 파일을 수정하면 된다. 참고로 이들의 기본 설정은 모두, [3.3. Test Automation Program](#33-test-automation-program) 을 기본 옵션으로 가동하는 것이다.
 
-When you're planning to deploy the backend server, read the [INFRASTRUCTURE.md](INFRASTRUCTURE.md) file and follow the steps. Following the steps, you may run some executable programs of the [src/executable](src/executable) directory.
+그리고 귀하가 백엔드 서버를 배포하는 때가 온다면, [INFRASTRUCTURE.md](INFRASTRUCTURE.md) 파일을 읽고 그 과정을 차례대로 따라가면 된다. 각 과정들을 따라가며, 귀하는 [src/executable](src/executable) 에 정의된 프로그램들을 하나씩 실행하게 될 것이다.
 
   - [.github/workflows/build.yml](.github/workflows/build.yml): Configuration file of the [Github Action](#52-github-action)
   - [.vscode/launch.json](.vscode/launch.json): Configuration for debugging
   - [packages](packages/): Packages to publish as private npm modules
-    - [packges/api](packages/api): Client [SDK](#32-sdk) library for the client developers
+    - [packges/api](packages/api): [SDK](#32-sdk) library for the client developers
     - [packges/models](packages/models): ORM library for the DB developers
   - [src/](src/): TypeScript Source directory
-    - [src/api/](src/api/): Client SDK that would be published to the `@${ORGANIZATION}/${PROJECT}-api`
+    - [src/api/](src/api/): SDK that would be published to the `@${ORGANIZATION}/${PROJECT}-api`
       - [**src/api/functional/**](src/api/functional/): API functions generated by the [`nestia`](https://github.com/samchon/nestia)
       - [**src/api/structures/**](src/api/structures/): Data structures for the API functions
     - [src/controllers/](src/controllers/): Controller classes of the Main Program
@@ -84,28 +84,29 @@ When you're planning to deploy the backend server, read the [INFRASTRUCTURE.md](
 
 ## 2. Installation
 ### 2.1. NodeJS
-This backend server has implemented through TypeScript and it runs on the NodeJS. Therefore, to mount this backend server on your local machine, you've to install the NodeJS.
+본 백엔드 서버 프로그램은 TypeScript 로 만들어졌으며, NodeJS 에서 구동된다. 고로 귀하의 로컬 머신에 백엔드 서버를 구동하기 위하여 제일 먼저 할 일은, 바로 NodeJS 를 설치하는 것이다.
 
   - https://nodejs.org/en/
 
-Also as you can see from the [package.json](package.json) file, this project requires the private npm module `@${ORGANIZATION}`, provided from the Github. Therefore, to develop this backend server, you've configure the `.npmrc` file. Open the below link and complete the configuration.
+그리고 [package.json](package.json) 파일을 열어보면 알 수 있듯이, 본 프로젝트는 Github 가 제공하는 npm private module 을 필요로 한다. 따라서 본 백엔드 서버를 개발하기 위하여, 귀하는 필히 `.npmrc` 파일을 설정하여야하니, 아래 링크를 참조하여 해당 설정을 완료하기 바란다.
 
   - https://github.com/features/packages
 
 ### 2.2. MariaDB
-This backend server has adopted MariaDB as principle DB. Therefore, to mount this backend server on your local machine, you've to install the MariaDB. Click the below link, download and install the `MariaDB@10.5`.
+현 백엔드 서버는 MariaD 를 주 DB 로 채택하여 사용하고 잇있다. 고로 본 백엔드 서버를 귀하의 로컬 머신에서 가동하려면, 귀하는 MariaDB 또한 설치하여야 한다. 아래 링크를 열고, `MariaDB@10.5` 버전을 다운로드하여 설치하기 바란다.
 
   - https://downloads.mariadb.org/mariadb/10.5/
 
-After the installation, open a terminal and configure account and password to be `root`.
+설치가 끝난 후에는, 터미널을 열어 로컬 계정과 비밀번호 모두를 `root` 로 설정해준다.
+
 
 > ```bash
 > sudo mysqladmin -u root password 'root'
 > ```
 
-After the account configuration, connect to the MariaDB and create a new DB schema `test_db_schema`. Also, you should change the `sql_mode` options like below to enhance the strict grammer check for the safe development. 
+MariaDB 계정 설정을 마친 후, MariaDB 로 접속하여 새 DB 스키마 `test_db_schema` 를 생성해준다. 그리고 `sql_mode` 옵션을 아래와 같이 변경함으로써, 문법 검사를 강화하여 보다 안전한 DB 개발을 할 수 있도록 한다. 
 
-For a representatively of such strict grammer checking for the safe development, the `ANSI` mode contains the `ONLY_FULL_GROUP_BY` condition. The `ONLY_FULL_GROUP_BY` option occurs a syntax error when non-aggregated field has been appeared in the `SELECT` statement who've not specialized in the `GROUP BY` statement.
+이 안전한 개발에 대하여 예로써 설명하자면, `ANSI` 모드에는 `ONLY_FULL_GROUP_BY` 라는 조건이 함유되어있다. 이는 `GROUP BY` 문으로 묶지 않은 항목을 `SELECT` 문에서 아무런 집계 함수없이 사용하였을 때, 문법 오류가 발생하게끔 해주는 설정이다.
 
 ```sql
 -- CREATE A NEW SCHEMA
@@ -118,9 +119,9 @@ SET GLOBAL sql_mode = 'ANSI,TRADITIONAL';
 ```
 
 ### 2.3. Repository
-From now on, you can start the backend server development, right now. 
+NodeJS 와 MariaDB 설치가 끝났다면, 바로 백엔드 서버 개발을 시작할 수 있다.
 
-Just download this project through the git clone command and install dependencies by the npm install command. After those preparations, you can start the development by typing the `npm run dev` command.
+제일 먼저 `git clone` 을 통하여, 본 백엔드 프로젝트를 로컬 저장소에 복사한다. 그리고 해당 폴더로 이동하여 `npm install` 명령어를 실행함으로써, 백엔드 서버를 구동하는 데 필요한 라이브러리들을 다운로드한다. 마지막으로 `npm run dev` 를 입력하여, 개발을 시작한다.
 
 ```bash
 # CLONE REPOSITORY
@@ -135,11 +136,11 @@ npm run dev
 ```
 
 ### 2.4. Data
-When those installations have been all completed, you can mount the basic data up or start the local backend server by typing below commands.
+위 설치 과정을 모두 마쳤다면, 아래 명령어를 입력함으로써, 기본 데이터를 적재하거나 로컬 서버를 가동하거나 할 수 있다.
 
-At first, `npm run setup` is a command seed the initial data. Range of the initial data means that minimum data that is required for running the local backend server. Therefore, to mount the backend server up, you've to run the `npm run setup` command, at least.
+첫째, `npm run setup` 은 초기 데이터를 적재하는 명령어이다. 여기서 초기 데이터란, 로컬 백엔드 서버를 구동하는 데 필요한 최소한의 데이터를 말한다. 따라서 로컬 백엔드 서버를 구동하기 위해서라면, 당연하게도 `npm run setup` 명령어를 반드시 실행해야 한다.
 
-At second, `npm run test` is a command running the test automation program. The test automation program not only seeds the initial data, but also generates sample data during the testing. Also, you've to know that, whenever run the `npm run test` command, the local DB would be reset. Therefore, you've consider it carefully, whenever calling the `npm run test` command.
+둘째, `npm run test` 는 테스트 자동화 프로그램을 실행하는 명령어이다. 그리고 테스트 자동화 프로그램은, 앞서의 초기 데이터를 적재할 뿐 아니라, 테스트 과정에서의 다양한 샘플 데이터들이 함께 기록된다. 또한, `npm run setup` 과 `npm run test` 모두 로컬 DB 의 모든 데이터를 초기화하니, 이 에 주의토록 하자.
 
 ```bash
 # Seed initial data
@@ -165,30 +166,30 @@ npm run stop
 ### 3.1. Definition
 ![ERD](designs/erd.png)
 
-If you want to add a new feature or update ordinary thing in the API level, you should write the code down to the matched *API controller*, who is stored in the [src/controllers](src/controllers) directory as the [Main Program](#34-main-program). 
+귀하기 API 수준의 새 기능을 추가하거나 혹은 기존의 API 를 수정하려거든, 당연지사 [src/controllers](src/controller) 에 정의된 API controller 를 편집하여 [메인 프로그램](#34-main-program)을 변경해야 한다.
 
-However, [@samchon](https://github.com/samchon) does not recommend to writing code down into the [Main Program](#34-main-program) first, without any consideration. Instead, [@samchon](https://github.com/samchon) recommends to declare the definition first and implement the [Main Program](#34-main-program) later.
+하지만, [@samchon](https://github.com/samchon) 은 신규 API 가 필요하거나 혹은 기존 API 에 변경이 필요할 때, 대뜸 [메인 프로그램](#34-main-program)의 코드부터 작성하고 보는 것을 매우 지양한다. 그 대신, [@samchon](https://github.com/samchon) 은 API 의 인터페이스를 먼저 청의하고, [메인 프로그램](#34-main-program)의 구현을 그 다음으로 미루는 것을 지향한다.
 
-Therefore, if you want to add a new feature in the API level, define the matched data entity in the [src/models](src/models) and [src/api/structures](src/api/structures) directories. After the data entity definition, declare function header in the matched API controller class in the [src/controllers](src/controllers). Note that, it's only the declaration, header only, not meaning to implement the function body.
+따라서 귀하가 새 API 를 개발하려거든, 먼저 [src/models](src/models) 과 [src/api/structures](src/api/structures) 폴더에 관련 데이터 엔티티를 먼저 정의해주도록 한다. 그 다음 [src/controllers](src/controllers) 에 새 API 함수의 헤더를 정의해준다. 명심컨데, 오직 선언부 헤더만을 정의해주어야지, 여기서 바로 함수 본문을 작성하라는 것이 아니다.
 
-After those declarations, build the client [SDK](#32-sdk) through the `npm run build:api` command and implement the [Test Automation Program](#33-test-automation-program) using the [SDK](#32-sdk) with use case scenarios. Development of the [Main Program](#34-main-program) should be started after those preparations are all being ready. Of course, the [Main Program](#34-main-program) can be verified with the pre-developed [Test Automation Program](#33-test-automation-program) in everytime.
+위 정의가 모두 끝나거든, 그 다음 `npm run build:api` 명령어를 통하여 클라이언트 [SDK](#32-sdk) 를 빌드하고, 이후 [테스트 자동화 프로그램](#33-test-automation-program) 에 해당 [SDK](#32-sdk) 를 활용한 유즈케이스 시나리오를 구현해주도록 한다. [메인 프로그램](#34-main-program)의 제작은, 이처럼 모든 사전 준비 작업을 거친 다음에 하는 것이다. 물론, 이처럼 미리 개발해 둔 데이터 엔티티 정의와 클라이언트 [SDK](#32-sdk) 및 [메인 프로그램](#34-main-program)이 미리 개발해 둔 [테스트 자동화 프로그램](#33-test-automation-program) 덕분에, [메인 프로그램](#34-main-program)이 상시 검증될 수 있음은 당연한 이야기.
 
-  - Declare data entity
-  - Declare API function header
-  - Build the client [SDK](32-sdk)
-  - Implement the [Test Automation Program](#33-test-automation-program)
-  - Develop the [Main Program](#34-main-program)
-  - Validate the [Main Program](#34-main-program) through the [Test Automation Program](#33-test-automation-program)
-  - Deploy to the Dev and Real servers.
+  - 데이터 엔티티 정의하기
+  - API 함수 정의하기
+  - 클라이언트 [SDK](32-sdk) 빌드하기
+  - [테스트 자동화 프로그램](#33-test-automation-program) 구현하기
+  - [메인 프로그램](#34-main-program) 개발하기
+  - [메인 프로그램](#34-main-program)을 [테스트 자동화 프로그램](#33-test-automation-program)으로 상시 검증하기
+  - DEV 및 REAL 서버 배포하기.
 
 ### 3.2. SDK
-[`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) provides SDK (Software Development Kit) for convenience.
+[`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) 는 클라이언트 SDK 라이브러리를 제공한다.
 
-For the client developers who are connecting to this backend server, [`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) provides not API documents like the Swagger, but provides the API interaction library, one of the typical SDK (Software Development Kit) for the convenience.
+백엔드 서버와 연동하게 될 클라이언트 개발자들의 편의를 위하여, [`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) 는 Swagger 와 같은 API 문서가 아닌, API 연동 라이브러리를 제공한다. 즉, 클라이언트 개발자가 사용할 수 있는 SDK (Software Development Kit) 를 제공한다는 뜻.
 
-With the SDK, client developers never need to re-define the duplicated API interfaces. Just utilize the provided interfaces and asynchronous functions defined in the SDK. It would be much convenient than any other Rest API solutions.
+이 SDK 덕분에, 클라이언트 개발자는 Swagger 문서를 읽어가며 API 인터페이스 및 연동 라이브러리를 개발하는 등의, 무의미한 중복 개발을 할 필요가 전혀 없다. 단지 SDK 에서 제공되는 인터페이스와 함수들을 활용하기만 하면 될 뿐이다. 이 SDK 는 아마, 종래의 그 어떠한 API 연동 수단보다 훨씬 더 편할 것이다.
 
-To build the SDK, just type the `npm run build:api` command. The SDK would be generated by [`nestia`](https://github.com/samchon/nestia), by analyzing source code of the [controller](src/controllers) classes in the compilation level, automatically. After the SDK building, you can publish the SDK through the `npm run package:api` command.
+이러한 SDK 는 빌드하는 것도 간단하여, 단지 `npm run build:api` 명령어를 실행하기만 하면 될 뿐이다. 이 SDK 는 [`nestia`](https://github.com/samchon/nestia) 를 통하여 빌드되는데, 이 [`nestia`](https://github.com/samchon/nestia) 는 귀하의 백엔드 소스 코드를 컴파일 단계에서 분석하여, 이를 클라이언트가 활용할 수 있는 SDK 로 만들어준다. SDK 의 빌드 작업이 끝나거든, `npm run package:api` 명령어를 통하여 이를 npm private module 에 배포할 수 있다.
 
 ```bash
 # BUILD SDK AND PUBLISH IT
@@ -196,7 +197,7 @@ npm run build:api
 npm run package:api
 ```
 
-When the SDK has been published, client programmers can interact with this backend server very easily. Just let them to install the SDK and call the SDK functions with the `await` symbol like below.
+SDK 의 배포 작업이 끝나거든, 클라이언트 개발자는 이 SDK 를 활용, 본격적으로 백엔드 서버와의 연동 작업을 매우 쉽게 구현할수 있다. 단지 SDK 를 설치하고, 그것의 내장 함수들을 `await` 문을 사용하여, 아래와 같이 호출하기만 하면 될 뿐이다.
 
 ```typescript
 import api from "@samchon/bbs-api";
@@ -270,26 +271,27 @@ async function main(): Promise<void>
 ### 3.3. Test Automation Program
 > TDD (Test Driven Development)
 
-After the [Definition](#31-definition) and client [SDK](#32-sdk) generation, you've to design the use-case scenario and implement a test automation program who represents the use-case scenario and guarantees the [Main Program](#34-main-program).
+새로이 개발할 API 의 [인터페이스 정의](#31-definition) 및 클라이언트 [SDK](#32-sdk) 빌드를 모두 마쳤다면, 그 다음에 할 일은 바로 해당 API 에 대한 유즈케이스 시나리오를 세우고 이를 테스트 자동화 프로그램으로 만들어, [메인 프로그램](#34-main-program)을 상시 검증할 수 있는 수단을 구비해두는 것이다.
 
-To add a new test function in the Test Automation Program, create a new TS file under the [src/test/features](src/test/features) directory following the below category and implement the test scenario function with representative function name and `export` symbol. I think many all of the ordinary files wrote in the [src/test/features](src/test/features) directory would be good sample for you. Therefore, I will not describe how the make the test function detaily.
+테스트 자동화 프로그램에 새 테스트 함수를 추가하려거든, [src/test/features](src/test/features) 폴더에 새 TS 파일을 아래의 분류 및 용도에 맞게 추가한 뒤, 해당 함수의 시나리오를 대표할만한 이름을 지어 `export` 심벌을 부여하는 것이다. 본인 생각에 [src/test/features](src/test/features) 폴더에 있는 파일들은 모두 각각이 훌륭한 예제이기에, 굳이 테스트 함수를 어떻게 만드는 지에 대하여는 자세히 설명하지 않겠다.
 
   - [src/test/features/api](src/test/features/api)
-    - About the cllient [SDK](#32-sdk) that would be provided to the frontend developers,
-    - Validate the matched API implemented in the [Main Program](#34-main-program)
-    - Use all of the API functions, through lots of scenarios
-    - Most of the test functions are belonged to this category
+    - 프론트 개발자들에게 제공해주는 [SDK](#32-sdk) 에 대하여
+    - 백엔드 서버와 제대로 연동되는지 검증
+    - API Library 의 모든 기능 요소들을, 다양한 시나리오에서 사용해 봄
+    - 테스트 자동화 프로그램 중, 가장 큰 비중을 차지하는 영역
   - [src/test/features/models](src/test/features/models)
-    - About the ORM Model classes
-    - Validate tables, methods, and even materialized views
-    - through lots of scenarios
+    - MariaDB 의 테이블에 대하여 정의해놓은 ORM Model 클래스들과
+    - 그 클래스에 정의해놓은 절차 method 나 materialized view 등에 관하여
+    - 다양한 시나리오에서 사용해봄으로써 검증
   - [src/test/features/external](src/test/features/external)
-    - Open virtual external systems
-    - Validate interactions with this backend server
+    - 백엔드 서버와 연동하는 다양한 외부 시스템들을 가상으로 개설
+    - 백엔드 서버와 연동이 정상적으로 이루어지는지 검증
+    - 아직 외부 연동 사례가 없어 활성화되지 아니함
 
-Anyway, you've to remind that, the Test Automation Program resets the DB schema whenever being run. Therefore, you've to be careful if import data has been stored in the local (or dev) DB server. To avoid the resetting the DB, configure the `skipReset` option like below.
+단, 앞서도 얘기했듯이, 테스트 자동화 프로그램은 가동시마다 매번 DB 스키마를 리셋한다. 따라서 만일 귀하가 로컬 DB 에 중요한 데이터를 저장하고 있다면, 이 점에 대해서는 필의 주의하여야 한다. 만일 테스트 자동화 프로그램 구동시, 이러한 DB 리셋을 피하고자 한다면, 아래와 같이 `skipReset` 옵션을 부여해주면 된다.
 
-Also, the Test Automation Program runs all of the test functions placed into the [src/test/features](src/test/features) directory. However, those full testing may consume too much time. Therefore, if you want to reduce the testing time by specializing some test functions, use the `include` option like below.
+또한, `npm run test` 명령어를 실행할 때마다 [src/test/features](src/test/features) 폴더 내에 등록된 모든 프로그램을 실행하게 된다. 하지만 이런 식의 *entire level test* 가 매번 필요한 것은 아닐 것이다. 새로 개발한 기능이 극히 일부 요소에 국한되어 부분 테스트가 필요하다면, 아래 옵션값을 참조, `--include` 나 `--exclude` 태그를 사용하여 시간을 절약하자.
 
   - supported options
     - `mode`: mode of the target server
@@ -314,24 +316,24 @@ npm run test -- --include=something --skipReset
 ```
 
 ### 3.4. Main Program
-After [Definition](#31-definition), client [SDK](#32-sdk) building and [Test Automation Program](#33-test-automation-program) are all prepared, finally you can develop the Main Program. Also, when you complete the Main Program implementation, it would better to validate the implementation through the pre-built [SDK](#32-sdk) and [Test Automation Program](#33-test-automation-program).
+[API 인터페이스를 정의](#31-api-interface-definition)하고 그에 관련된 [테스트 자동화 프로그램](#33-test-automation-program)을 제작하였다면, 마지막으로 남은 일은 바로 서버의 메인 프로그램을 작성, 해당 API 를 완성하는 것이다. 그리고 메인 프로그램의 작성을 완료하거든, 이를 앞서 개발한 클라이언트 [SDK](#32-sdk) 및 [테스트 자동화 프로그램](#33-test-automation-program)을 활용하여, 상시 검증하도록 하자.
 
-However, do not commit a mistake that writing source codes only in the [controller](src/controllers) classes. The API Controller must have a role that only intermediation. The main source code should be write down separately following the directory categorizing. For example, source code about DB I/O should be written into the [src/providers](src/providers) directory.
+단, 모든 소스 코드를 전부 API 컨트롤러의 메서드에 작성하는 우는 범하지 않기를 바란다. API 컨트롤러는 단지 매개체 + a 의 역할만을 해야 할 뿐이며, 주 소스 코드는 [src](src) 폴더 내 각 폴더의 분류에 따라 알맞게 나뉘어 작성되어야 한다. 특히, DB 를 통한 데이터 입출력에 관해서는 가급 [src/providers](src/providers) 를 경유하도록 할 것.
 
 
 
 
 ## 4. Deploy
 ### 4.1. Non-distruptive Update System
-If you committed a new version and pushed it into the repository, you can update the backend server without any distruption. By the `npm run update` command, you can let backend server to act those non-distruptive update processes.
+귀하가 본 저장소에 새 버전의 커밋을 푸시하여도, 본 백엔드 서버는 그 어떠한 중단 작업 없이, 업데이트 작업을 수행할 수 있다. 단지 `npm run update` 명령어를 입력하는 것 만으로, 귀하는 아래 절차의 무중단 업데이트를 실시할 수 있다.
 
   - Pull new commit
   - Build the new soure code
   - Restart the backend server without distruption
 
-To accomplish the non-distruptive update system, the server instance must run the updator program before mounting the backend server program up. If the target backend system is composed with multiple server instances like ELB (Elastic Load Balancer) and target instance is not a type of the master instance, you should write the `npm run start:updator:slave` command. 
+다만 무중단 업데이트 시스템을 활용하기 위해서는, 이를 설치한 서버 인스턴스가 반드시 업데이트 관리자 프로그램을 백엔드 서버 프로그램에 앞서 실행해줘야 한다. 만일 대상 백엔드 서버가 아마존의 ELB (Elastic Load Balancer) 등을 통하여 여러 대의 인스턴스로 구성되어있다면, 그리고 현재의 인스턴스가 마스터 인스턴스가 아니라면, `npm run start:updator:slave` 명령어를 실행해주도록 한다.
 
-Otherwise, use the `npm run start:updator:master` command.
+그 반대의 상황이라면, `npm run start:updator:master` 명령어를 실행해준다.
 
 ```bash
 #----
@@ -350,16 +352,16 @@ npm run start real
 ```
 
 ### 4.2. Local Server
-Sometimes, you may desire to mount the backend server on your local system, not for running the [Test Automation Program](#33-test-automation-program), but for other reason like the *Front-end Application Development*. 
+간혹 로컬에, [테스트 자동화 프로그램](#33-test-automation-program)이 아닌, 백엔드 서버 그 자체를 구동해야 할 때가 있다. 보통 프론트 어플리케이션을 개발할 때, 이처럼 로컬에 백엔드 서버를 직접 구동하는 경우가 왕왕 있다.
 
-In that case, you can mount the local backend server up and let it to keep the opening status, until the `npm run stop` command be executed, by typing the `npm run start local` command.
+이러한 경우, 귀하는 단지 `npm run start local` 명령어만을 실행하면 될 뿐이다. 이렇게 구동된 로컬 백엔드 서버는, 귀하가 별도로 `npm run stop` 명령어를 실행하여 직접 중단하기 전까지, 계속 구동 상태를 유지한다.
 
 ```bash
 npm run start local
 npm run stop
 ```
 
-Also, if someone else committed a new version into the master branch, you can update your local backend server without distruption. It means that, non-distruptive update system even works in the local environment. To activate the non-distruptive update system, run the updator program before mounting the backend server up on your local machine.
+또한, 누군가 백엔드 저장소에 새 브랜치를 커밋했다면, 귀하는 현재 구동 중인 로컬 백엔드 서버를 아무런 중단없이 실시간으로 업데이트 할 수 있다. 이 말인즉슨, 본 프로젝트는 로컬 수준의 무중단 배포 또한 가능하다는 이야기다. [무중단 업데이트 시스템](#41-non-distruptive-update-system)을 활성화하기 위하여, 귀하는 로컬 백엔드 서버의 개시 전 업데이트 관리자 프로그램을 실행해 줄 필요가 있다.
 
 ```bash
 # START THE LOCAL BACKEND SERVER WITH UPDATOR PROGRAM
@@ -371,13 +373,15 @@ npm run update local
 ```
 
 ### 4.3. Dev Server
+Dev 서버를 업데이트하는 것은 매우 간단하다. 그저 소스 코드를 `dev` 브랜치에 커밋한 후, 로컬 개발환경에서 `npm run update dev` 명령어를 입력해주면 끝이다. 이로써 Dev 서버의 소스 코드는 가장 최신의 것으로 바뀌며, 이 때 [무중단 업데이트](#41-non-distruptive-update-system) 프로그램이 실행될 뿐이다.
+
 To update the dev server is very easy. Just commit a new code into the `dev` branch, and type the `npm run update dev` command on your local machine. By the command, the dev server will replace its code to the latest and the [Non-distruptive Update System](#41-non-distruptive-update-system) would be executed.
 
 ```bash
 npm run update dev
 ```
 
-Also, the dev server is designed to test and validate the newly commited source code before releasing to the [Real Server](#44-real-server). Therefore, even dev server may required to reset its DB like the [Local Server](#42-local-server) who oftens run the [Test Automation Program](#33-test-automation-program).
+또한, DEV 서버라는 게 보통 [REAL 서버](#44-real-server)의 배포에 앞서, 새로이 커밋된 소스를 사전에 테스트하고 검증해보는 용도이기 마련이다. 따라서 DEV 서버 또한 [로컬 서버](#42-local-server)와 마찬가지로, 종종 [테스트 자동화 프로그램](#33-test-automation-program)에 의한 DB 리셋이 필요할 수 있다.
 
 ```bash
 # MOVE TO THE PROJECT DIRECTORY
@@ -398,7 +402,7 @@ npm run start dev
 ```
 
 ### 4.4. Real Server
-To update the dev server is very easy. Just commit a new code into the `dev` branch, and type the `npm run update real` command on your local machine. By the command, the dev server will replace its code to the latest and the [Non-distruptive Update System](#41-non-distruptive-update-system) would be executed.
+Real 서버를 업데이트하는 일 또한 [DEV](#43-dev-server) 서버 때와 마찬가지로 매우 간단하다. 그저 편집한 소스 코드를 `master` 브랜치에 커밋하고, 로컬 개발 환경에서 `npm run update real` 명령어를 실행함으로써, 마스터 서버가 스스로 [무중단 업데이트](#41-non-distruptive-update-system)를 수행토록 할 수 있다.
 
 ```bash
 npm run update real
@@ -406,12 +410,13 @@ npm run update real
 
 
 
+
 ## 5. Appendix
 ### 5.1. NPM Run Commands
-List of the run commands defined in the [package.json](package.json) are like below:
+현재 [package.json](package.json) 에 정의된 run command 의 역할은 다음과 같다.
 
   - `build`: Compile the source code
-    - `build:api`: Build client SDK libray for the client developers
+    - `build:api`: Build SDK libray for the client developers
     - `build:models`: Build ORM library
   - `dev`: Incremental compilation using the `--watch` option
   - `reset:dev`: Restart the dev backend server with DB reset
@@ -436,9 +441,11 @@ List of the run commands defined in the [package.json](package.json) are like be
 ### 5.2. Github Action
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 
-This backend project utilizes the Github Action to run the cloud CI (Continuous Integration) test whenever a commit or PR event occurs. The CI test starts from installing the backend server program to a clean Ubuntu system that nothing has been installed yet.
+본 백엔드 프로젝트는 Github Action 을 사용하여, 매 commit 또는 PR 이벤트가 발생할 때마다, 클라우드 CI (Continous Integration) 테스트를 실시하고 있다. Github Action 의 테스트 대상 인스턴스는 초기 상태의 우분투 서버로써 (`ubuntu-latest`), 아무것도 설치되지 않은 깨끗한 우분투 서버에, 백엔드 서버 프로그램을 클린 설치하는 것으로부터 시작된다.
 
-You know what? All of CI processes, like installing required programs into the clean Ubuntu and compiling and running the Test Automation Program, are defined in the [`.github/workflows/build.yml`](.github/workflows/build.yml) script file. Also <font color="green">passing</font> or <font color="red">failure</font> expressed from the above [badge](https://github.com/samchon/backend/actions?query=workflow%3Abuild) represents outcome of the CI test.
+물론 Github Action 을 통한 CI 테스트 역시, 위 [3.2. Test Automation Program](#32-test-automation-program) 에서의 테스트 자동화 프로그램 (`npm run test`) 을 사용하고 있다. 다만, 로컬에서 행하는 테스트 자동화는 대개 Windows 또는 Mac OS 에서 이루어지기 마련이다. 실서버가 사용할 Linux Ubuntun 와는 괴리가 있기 때문에, 가급 비슷한 환경을 맞추고자 Github Action 을 이용해 CI 테스트를 한 번 더 하는 것이다.
+
+참고로 Github Action 에서 우분투 인스턴스에 이러저러한 프로그램들을 설치하고, 백엔드 서버를 구동하여 테스트를 진행하는 일련의 시나리오는 모두, [`.github/workflows/build.yml`](.github/workflows/build.yml) 스크립트에 정의되어있다. 그리고 위 뱃지에서 표현하는 <font color="green">passing</font> 또는 <font color="red">failure</font> 는 바로, 해당 [시나리오 스크립트](.github/workflows/build.yml)를 수행한 결과에 대한 측정값이다.
 
 ### 5.3. Related Repositories
-> Write the related repositories down.
+> 연관 저장소들을 기재할 것
