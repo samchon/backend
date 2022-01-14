@@ -166,7 +166,7 @@ npm run stop
 ### 3.1. Definition
 ![ERD](designs/erd.png)
 
-귀하기 API 수준의 새 기능을 추가하거나 혹은 기존의 API 를 수정하려거든, 당연지사 [src/controllers](src/controller) 에 정의된 API controller 를 편집하여 [메인 프로그램](#34-main-program)을 변경해야 한다.
+귀하기 API 수준의 새 기능을 추가하거나 혹은 기존의 API 를 수정하려거든, 당연지사 [src/controllers](src/controllers) 에 정의된 API controller 를 편집하여 [메인 프로그램](#34-main-program)을 변경해야 한다.
 
 하지만, [@samchon](https://github.com/samchon) 은 신규 API 가 필요하거나 혹은 기존 API 에 변경이 필요할 때, 대뜸 [메인 프로그램](#34-main-program)의 코드부터 작성하고 보는 것을 매우 지양한다. 그 대신, [@samchon](https://github.com/samchon) 은 API 의 인터페이스를 먼저 청의하고, [메인 프로그램](#34-main-program)의 구현을 그 다음으로 미루는 것을 지향한다.
 
