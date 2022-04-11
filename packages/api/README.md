@@ -1,4 +1,4 @@
-# SDK for Client DEvelopers
+# SDK for Client Developers
 ## Outline
 [`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) provides SDK (Software Development Kit) for convenience.
 

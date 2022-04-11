@@ -15,6 +15,6 @@
   },
   "homepage": "https://github.com/samchon/backend#readme",
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "nestia-fetcher": "^2.0.0"
   }
 }
