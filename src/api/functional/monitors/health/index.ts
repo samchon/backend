@@ -3,7 +3,7 @@
  * @module api.functional.monitors.health
  */
 //================================================================
-import { AesPkcs5, Fetcher, Primitive } from "nestia-fetcher";
+import { Fetcher } from "nestia-fetcher";
 import type { IConnection } from "nestia-fetcher";
 
 /**
@@ -40,11 +40,3 @@ export namespace get
     }
 }
 
-
-
-//---------------------------------------------------------
-// TO PREVENT THE UNUSED VARIABLE ERROR
-//---------------------------------------------------------
-AesPkcs5;
-Fetcher;
-Primitive;
