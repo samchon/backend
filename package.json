@@ -1,5 +1,5 @@
 {
-  "name": "${ORGANIZATION}/${PROJECT}",
+  "name": "@samchon/backend",
   "version": "0.0.0",
   "description": "Backend for ${PROJECT}",
   "scripts": {
