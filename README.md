@@ -205,6 +205,10 @@ To build the SDK, just type the `npm run build:api` command. The SDK would be ge
 # BUILD SDK AND PUBLISH IT
 npm run build:api
 npm run package:api
+
+# BUILDING SWAGGER IS ALSO POSSIBLE, 
+# BUT NOT RECOMMENDED
+npm run build:swagger
 ```
 
 When the SDK has been published, client programmers can interact with this backend server very easily. Just let them to install the SDK and call the SDK functions with the `await` symbol like below.
