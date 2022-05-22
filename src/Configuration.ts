@@ -3,8 +3,9 @@ if (EXTENSION === "js")
     require("source-map-support").install();
     
 import helper from "nestia-helper";
-import * as nest from "@nestjs/common";
-import * as orm from "typeorm";
+import nest from "@modules/nestjs";
+import orm from "@modules/typeorm";
+import pg from "pg";
 import safe from "safe-typeorm";
 import { IEncryptionPassword } from "nestia-fetcher";
 
@@ -35,12 +36,11 @@ export class Configuration
             host: SGlobal.mode === "REAL"
                 ? "YOUR-REAL-DB-HOST"
                 : "127.0.0.1",
-            port: 3306,
-            username: "account_w",
-            readonlyUsername: "account_r",
+            username: "${DB_ACCOUNT}_w",
+            readonlyUsername: "${DB_ACCOUNT}_r",
             password: Configuration.SYSTEM_PASSWORD,
-            database: "YOUR_DB_NAME",
-            schema: "YOUR_SCHEMA_NAME",
+            database: "${DB_NAME}",
+            schema: "${DB_SCHEMA}",
 
             // OPTIONS
             namingStrategy: new safe.SnakeCaseStrategy(),

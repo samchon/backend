@@ -1,18 +1,17 @@
 import cli from "cli";
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
+import { MutexServer } from "mutex-server";
+import { sleep_for } from "tstl/thread/global";
+
 import { Backend } from "../Backend";
-
-import api from "../api";
-
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
 
 import { DynamicImportIterator } from "./internal/DynamicImportIterator";
+import { IUpdateController } from "../updator/internal/IUpdateController";
 import { SetupWizard } from "../setup/SetupWizard";
 import { StopWatch } from "./internal/StopWatch";
-import { MutexServer } from "mutex-server";
 import { start_updator_master } from "../updator/internal/start_updator_master";
-import { IUpdateController } from "../updator/internal/IUpdateController";
 
 interface ICommand
 {
@@ -45,21 +44,23 @@ async function main(): Promise<void>
     //----
     // CLINET CONNECTOR
     //----
-    // CONNECTION INFO
-    const connection: api.IConnection = {
-        host: `http://127.0.0.1:${Configuration.API_PORT}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD
-    };
-
     // DO TEST
     const exceptions: Error[] = await DynamicImportIterator.force
     (
         __dirname + "/features", 
         {
             prefix: "test", 
-            parameters: [connection]
+            parameters: () => [
+                {
+                    host: `http://127.0.0.1:${Configuration.API_PORT}`,
+                    encryption: Configuration.ENCRYPTION_PASSWORD
+                }
+            ]
         }
     );
+
+    // WAIT FOR A WHILE FOR THE EVENTS
+    await sleep_for(2500);
 
     // TERMINATE
     await backend.close();

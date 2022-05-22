@@ -1,4 +1,4 @@
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 import { __MvBbsArticleLastContent } from "../../../material/common/__MvBbsArticleLastContent";

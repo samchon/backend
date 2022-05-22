@@ -29,8 +29,8 @@ Transform this template project to be yours.
 
 When you've created a new backend project through this template project, you can specialize it to be suitable for you by changing some words. Replace below words through IDE specific function like `Edit > Replace in Files` (*Ctrl + Shift + H*), who've been supported by the VSCode.
 
-| Before           | After
-|------------------|----------------------------------------
+| Before          | After
+|-----------------|----------------------------------------
 | ${ORGANIZATION} | Your account or corporation name
 | ${PROJECT}      | Your own project name
 | ${AUTHOR}       | Author name

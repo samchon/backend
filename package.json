@@ -1,5 +1,5 @@
 {
-  "name": "@samchon/backend",
+  "name": "${ORGANIZATION}/${PROJECT}",
   "version": "0.0.0",
   "description": "Backend for ${PROJECT}",
   "scripts": {
@@ -10,6 +10,7 @@
     "package:api": "npm run build:api && cd packages/api && npm publish",
     "package:models": "npm run build:models && cd packags/models && npm publish",
     "reset:dev": "git pull && npm install && npm run build && npm run stop && npm run test -- --mode=dev && npm run start:updator:master && npm run start dev",
+    "schema": "node bin/executable/schema",
     "start": "pm2 start bin/executable/server.js -i 0 --name ${PROJECT}-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
     "start:local": "pm2 start bin/executable/server.js -i 2 --name ${PROJECT}-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
     "start:updator:master": "pm2 start --name bbs-backend-updator-master bin/updator/master.js",
@@ -40,7 +41,7 @@
     "@types/pg": "^8.6.5",
     "@types/uuid": "^8.3.0",
     "cli": "^1.0.1",
-    "nestia": "^2.0.14",
+    "nestia": "^2.1.4",
     "pm2": "^4.5.6",
     "rimraf": "^3.0.2",
     "sloc": "^0.2.1",
@@ -48,13 +49,14 @@
   },
   "dependencies": {
     "git-last-commit": "^1.0.0",
-    "mutex-server": "^0.3.0",
-    "mysql": "^2.18.1",
-    "nestia-helper": "^2.0.1",
+    "mutex-server": "^0.3.1",
+    "nestia-helper": "^2.0.3",
     "pg": "^8.7.3",
     "safe-typeorm": "^1.0.11",
     "source-map-support": "^0.5.19",
-    "tstl": "^2.5.3"
+    "tstl": "^2.5.6",
+    "typescript-is": "^0.19.0",
+    "typescript-json": "^2.0.10"
   },
   "private": true
 }

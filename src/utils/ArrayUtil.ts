@@ -4,48 +4,84 @@ export namespace ArrayUtil
 {
     export async function asyncFilter<Input>
         (
-            elements: Input[],
-            pred: (elem: Input, index: number, array: Input[]) => Promise<boolean>
+            elements: readonly Input[],
+            pred: (elem: Input, index: number, array: readonly Input[]) => Promise<boolean>
         ): Promise<Input[]>
     {
         const ret: Input[] = [];
-        for (let i: number = 0; i < elements.length; ++i)
-            if (await pred(elements[i], i, elements) === true)
-                ret.push(elements[i]);
+        await asyncForEach(elements, async (elem, index, array) =>
+        {
+            const flag: boolean = await pred(elem, index, array);
+            if (flag === true)
+                ret.push(elem);
+        });
         return ret;
+    }
+
+    export async function asyncForEach<Input>
+        (
+            elements: readonly Input[],
+            closure: (elem: Input, index: number, array: readonly Input[]) => Promise<any>
+        ): Promise<void>
+    {
+        await asyncRepeat
+        (
+            elements.length, 
+            index => closure(elements[index], index, elements)
+        );
     }
 
     export async function asyncMap<Input, Output>
         (
-            elements: Input[], 
-            closure: (elem: Input, index: number, array: Input[]) => Promise<Output>
+            elements: readonly Input[], 
+            closure: (elem: Input, index: number, array: readonly Input[]) => Promise<Output>
         ): Promise<Output[]>
     {
         const ret: Output[] = [];
-        for (let i: number = 0; i < elements.length; ++i)
-            ret.push(await closure(elements[i], i, elements));
-        
+        await asyncForEach(elements, async (elem, index, array) =>
+        {
+            const output: Output = await closure(elem, index, array);
+            ret.push(output);
+        });
         return ret;
     }
 
-    export async function asyncRepeat<T>(count: number, closure: (index: number) => Promise<T>): Promise<T[]>
+    export async function asyncRepeat<T>
+        (
+            count: number, 
+            closure: (index: number) => Promise<T>
+        ): Promise<T[]>
     {
-        const ret: T[] = [];
-        for (let i: number = 0; i < count; ++i)
-            ret.push(await closure(i));
-        return ret;
+        const indexes: number[] = new Array(count)
+            .fill(1)
+            .map((_, index) => index);
+
+        const output: T[] = [];
+        for (const index of indexes)
+            output.push(await closure(index));
+        
+        return output;
     }
 
-    export function has<T>(elements: T[], pred: (elem: T) => boolean): boolean
+    export function has<T>(elements: readonly T[], pred: (elem: T) => boolean): boolean
     {
         return elements.find(pred) !== undefined;
     }
 
     export function repeat<T>(count: number, closure: (index: number) => T): T[]
     {
-        const ret: T[] = [];
-        for (let i: number = 0; i < count; ++i)
-            ret.push(closure(i));
-        return ret;
+        return new Array(count)
+            .fill("")
+            .map((_, index) => closure(index));
+    }
+
+    export function last<T>(array: T[]): T
+    {
+        return array[array.length - 1];
+    }
+
+    export function flip<T>(matrix: T[][]): T[]
+    {
+        return ([] as T[]).concat(...matrix);
     }
 }

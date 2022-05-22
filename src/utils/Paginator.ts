@@ -1,9 +1,10 @@
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import { HashMap } from "tstl/container/HashMap";
 
-import { Atomic } from "../api/typings/Atomic";
-import { IEntity } from "../api/structures/common/IEntity";
-import { IPage } from "../api/structures/common/IPage";
+import { Atomic } from "@${ORGANIZATION}/${PROJECT}-api/lib/typings/Atomic";
+
+import { IPage } from "@${ORGANIZATION}/${PROJECT}-api/lib/structures/common/IPage";
+import { IEntity } from "@${ORGANIZATION}/${PROJECT}-api/lib/structures/common/IEntity";
 
 /**
  * Pagination 유틸리티 클래스
@@ -12,6 +13,8 @@ import { IPage } from "../api/structures/common/IPage";
  */
 export namespace Paginator
 {
+    export const DEFAULT_LIMIT = 100;
+
     export type PostProcess<
             Input extends object, 
             Output extends object> 
@@ -63,7 +66,7 @@ export namespace Paginator
         ): Promise<IPage<any>>
     {
         // NORMALIZE INPUT
-        request.limit = request.limit !== undefined ? Number(request.limit) : LIMIT;
+        request.limit = request.limit !== undefined ? Number(request.limit) : DEFAULT_LIMIT;
 
         const total_count: number = await stmt.getCount();
         const total_pages: number = request.limit !== 0 
@@ -80,10 +83,11 @@ export namespace Paginator
             .limit(request.limit);
         
         // GET DATA WITH POST-PROCESSING    
-        let data: any[] = await accessor(index);
-        if (postProcess && data.length !== 0)
-            data = await postProcess(data);
-
+        const raw: any[] = await accessor(index);
+        const data: any[] = postProcess && raw.length !== 0
+            ? await postProcess(raw)
+            : raw;
+            
         // RETURNS
         return {
             pagination: {
@@ -107,22 +111,11 @@ export namespace Paginator
         ): void
     {
         // SPECIALIZATION
-        let direction: "ASC" | "DESC";
         fieldList.forEach((field, index) =>
         {
-            // PARAMETERS
-            if (field[0] === "+")
-            {
-                direction = "ASC";
+            const direction = field[0] !== "-" ? "ASC" : "DESC";
+            if (field[0] === "-" || field[0] === "+")
                 field = field.substr(1);
-            }
-            else if (field[0] === "-")
-            {
-                direction = "DESC";
-                field = field.substr(1);
-            }
-            else
-                direction = "ASC";
         
             // DICTIONARY MAPPING
             if (dictionary)
@@ -140,5 +133,3 @@ export namespace Paginator
         });
     }
 }
-
-const LIMIT = 100;

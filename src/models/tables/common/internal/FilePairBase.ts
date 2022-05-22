@@ -3,7 +3,7 @@
  * @module models.tables.common
  */
 //================================================================
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 import { AttachmentFile } from "../AttachmentFile";

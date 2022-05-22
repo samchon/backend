@@ -2,8 +2,15 @@ function array_equal_to(items: string[], name: string, x: any[], y: any[]): void
 {
     if (x.length !== y.length)
         items.push(`${name}.length`);
-    for (let i: number = 0; i < x.length; ++i)
-        any_equal_to(items, `${name}[${i}]`, x[i], y[i]);
+    x.forEach((xItem, i) => 
+        any_equal_to
+        (
+            items, 
+            `${name}[${i}]`, 
+            xItem, 
+            y[i]
+        )
+    );
 }
 
 function object_equal_to(items: string[], name: string, x: any, y: any): boolean

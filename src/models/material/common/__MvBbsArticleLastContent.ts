@@ -3,7 +3,7 @@
  * @module models.material.common
  */
 //================================================================
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 import { BbsArticle } from "../../tables/common/bbs/BbsArticle";
@@ -41,29 +41,45 @@ export class __MvBbsArticleLastContent extends safe.Model
         ): Promise<__MvBbsArticleLastContent>
     {
         // FIND ORDINARY MATERIAL
-        let material: __MvBbsArticleLastContent | undefined = await this
+        const oldbie: __MvBbsArticleLastContent | undefined = await this
             .createQueryBuilder()
             .andWhere(...this.getWhereArguments("article", "=", article))
             .getOne();
-        if (material !== undefined)
-        {
-            await material.content.set(content);
-            await material.update();
-        }
-        else
-        {
-            // SPECIAL CASE, CREATE NEW ONE
-            material = this.initialize({
-                article,
-                content
-            });
-            await article.__mv_last.set(material);
-            await content.__mv_last.set(material);
-            await material.insert();
-        }
-
-        // RETURNS WITH MATERIAL
+        if (oldbie)
+            await update(content, oldbie);
+        
+        // OR INSERT NEW MATERIAL
+        const material: __MvBbsArticleLastContent = oldbie || await insert(article, content);
+        
+        // RETURNS WITH PAIRING
         await content.__mv_last.set(material);
         return material;
     }
+}
+
+async function update
+    (
+        content: BbsArticleContent, 
+        material: __MvBbsArticleLastContent
+    ): Promise<void>
+{
+    await material.content.set(content);
+    await material.update();
+}
+
+async function insert
+    (
+        article: BbsArticle,
+        content: BbsArticleContent
+    ): Promise<__MvBbsArticleLastContent>
+{
+    const material: __MvBbsArticleLastContent = __MvBbsArticleLastContent.initialize({
+        article,
+        content
+    });
+    await article.__mv_last.set(material);
+    await content.__mv_last.set(material);
+
+    await material.insert();
+    return material;
 }
