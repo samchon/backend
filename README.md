@@ -106,26 +106,26 @@ Therefore, to mount this backend server on your local machine, you've to install
 
 When the installation has been finnished, you'd better to configure `bin` directory of the PostgreSQL as a environment variable PATH. If your operating system is the Windows, the path may be `C:\Program Files\PostgreSQL\14\bin`. Otherwise you're using the MacOS, it would be the `/Applications/Postgres.app/Contents/MacOS/bin`.
 
-After the environmenta variable PATH configuration, connect to the PostgreSQL terminal and create each `test_db` database and `test_db_schema` schema. Also, create two accounts `user_w` and `user_r`, grant writable and readonly privileges to them.
+After the environmenta variable PATH configuration, connect to the PostgreSQL terminal and create each `${DB_NAME}` database and `${DB_SCHEMA}` schema. Also, create two accounts `${DB_ACCOUNT}_w` and `${DB_ACCOUNT}_r`, grant writable and readonly privileges to them.
 
 Anyway, you can replace below SQL scripts by running the `npm run schema <account> <password>`. Running the npm run schema command, replace the `<account>` and `<password>` words to the root account of the local PostgreSQL server and its password.
 
 ```sql
 -- CREATE USER
-CREATE USER ${DB_ACCOUNT}_w WITH ENCRYPTED PASSWORD 'your_password';
-GRANT ${DB_ACCOUNT}_w TO postgres;
+CREATE USER "${DB_ACCOUNT}_w" WITH ENCRYPTED PASSWORD 'your_password';
+GRANT "${DB_ACCOUNT}_w" TO postgres;
 
 -- CREATE DB & SCHEMA
-CREATE DATABASE ${DB_NAME} OWNER ${DB_ACCOUNT}_w;
-\connect ${DB_NAME};
-CREATE SCHEMA ${DB_SCHEMA} AUTHORIZATION ${DB_ACCOUNT}_w;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${DB_SCHEMA} TO ${DB_ACCOUNT}_w;
+CREATE DATABASE "${DB_NAME}" OWNER "${DB_ACCOUNT}_w";
+\connect "${DB_NAME}";
+CREATE SCHEMA "${DB_SCHEMA}" AUTHORIZATION "${DB_ACCOUNT}_w";
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA "${DB_SCHEMA}" TO "${DB_ACCOUNT}_w";
 
 -- READABLE ACCOUNT
-CREATE USER ${DB_ACCOUNT}_r WITH ENCRYPTED PASSWORD 'your_password';
-GRANT CONNECT ON DATABASE ${DB_NAME} TO ${DB_ACCOUNT}_r;
-GRANT USAGE ON SCHEMA ${DB_SCHEMA} TO ${DB_ACCOUNT}_r;
-GRANT SELECT ON ALL TABLES IN SCHEMA ${DB_SCHEMA} TO ${DB_ACCOUNT}_r;
+CREATE USER "${DB_ACCOUNT}_r" WITH ENCRYPTED PASSWORD 'your_password';
+GRANT CONNECT ON DATABASE "${DB_NAME}" TO "${DB_ACCOUNT}_r";
+GRANT USAGE ON SCHEMA "${DB_SCHEMA}" TO "${DB_ACCOUNT}_r";
+GRANT SELECT ON ALL TABLES IN SCHEMA "${DB_SCHEMA}" TO "${DB_ACCOUNT}_r";
 ```
 
 ### 2.3. Repository
