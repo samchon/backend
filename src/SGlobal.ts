@@ -20,7 +20,7 @@ export class SGlobal
      */
     public static get mode(): "LOCAL" | "DEV" | "REAL"
     {
-        return mode_;
+        return env.mode;
     }
 
     /**
@@ -31,7 +31,7 @@ export class SGlobal
     public static setMode(mode: typeof SGlobal.mode): void
     {
         assertType<typeof mode>(mode);
-        mode_ = mode;
+        env.mode = mode;
     }
 }
 
@@ -45,4 +45,10 @@ export namespace SGlobal
     });
 }
 
-let mode_: "LOCAL" | "DEV" | "REAL" = "LOCAL";
+interface IEnvironments
+{
+    mode: "LOCAL" | "DEV" | "REAL";
+}
+const env: IEnvironments = {
+    mode: "LOCAL"
+};

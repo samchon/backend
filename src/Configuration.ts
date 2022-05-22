@@ -3,10 +3,10 @@ if (EXTENSION === "js")
     require("source-map-support").install();
     
 import helper from "nestia-helper";
-import * as nest from "@nestjs/common";
-import * as orm from "typeorm";
+import nest from "@modules/nestjs";
+import orm from "@modules/typeorm";
+import pg from "pg";
 import safe from "safe-typeorm";
-import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
 import { IEncryptionPassword } from "nestia-fetcher";
 
 import { DomainError } from "tstl/exception/DomainError";
@@ -27,28 +27,24 @@ export class Configuration
             return "YOUR-REAL-SERVER-HOST";
     }
 
-    public static get DB_CONFIG(): MysqlConnectionOptions
+    public static get DB_CONFIG()
     {
-        const account: string = (SGlobal.mode === "LOCAL") ? "root" : "account_w";
-        const host: string = (SGlobal.mode === "REAL")
-            ? "YOUR-RDS-ADDRESS"
-            : "127.0.0.1";
-
+        pg.types.setTypeParser(20, parseInt);
         return {
             // CONNECTION INFO
-            type: "mariadb" as const,
-            host: host,
-            port: 3306,
-            username: account,
-            password: (SGlobal.mode === "LOCAL") ? "root" : Configuration.SYSTEM_PASSWORD,
-            database: "test_db_schema",
+            type: "postgres" as const,
+            host: SGlobal.mode === "REAL"
+                ? "YOUR-REAL-DB-HOST"
+                : "127.0.0.1",
+            username: "${DB_ACCOUNT}_w",
+            readonlyUsername: "${DB_ACCOUNT}_r",
+            password: Configuration.SYSTEM_PASSWORD,
+            database: "${DB_NAME}",
+            schema: "${DB_SCHEMA}",
 
             // OPTIONS
             namingStrategy: new safe.SnakeCaseStrategy(),
-            bigNumberStrings: false,
-            dateStrings: false,
             entities: [ `${__dirname}/models/**/*.${EXTENSION}` ],
-            charset: "UTF8MB4_UNICODE_CI",
         };
     }
 }

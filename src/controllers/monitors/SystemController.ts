@@ -1,7 +1,7 @@
 import fs from "fs";
 import helper from "nestia-helper";
 import git from "git-last-commit";
-import * as nest from "@nestjs/common";
+import nest from "@modules/nestjs";
 import { Singleton } from "tstl/thread/Singleton";
 import { sleep_for } from "tstl/thread/global";
 import { randint } from "tstl/algorithm/random";

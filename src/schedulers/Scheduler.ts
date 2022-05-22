@@ -1,31 +1,45 @@
+import mutex from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
+
 import { SGlobal } from "../SGlobal";
 import { DynamicImportIterator } from "../test/internal/DynamicImportIterator";
+import { MapUtil } from "../utils/MapUtil";
 
 export namespace Scheduler
 {
-    export async function repeat(): Promise<void>
+    export async function repeat(): Promise<never>
     {
-        const critical = await SGlobal.critical.get();
-        const mutex = await critical.getMutex("scheduler");
+        const critical: mutex.MutexConnector<string, null> = await SGlobal.critical.get();
+        const mutex: mutex.RemoteMutex = await critical.getMutex("scheduler");
+        await mutex.lock();
 
-        if (await mutex.try_lock() === false)
-            return;
+        const dict: Map<string, number> = new Map();
+        await once(dict, Date.now());
 
-        let time: number = 0;
         while (true)
         {
-            const now: number = Date.now();
-            const interval: number = now - time;
-            time = now;
-
-            await DynamicImportIterator.main(__dirname + "/features", 
-            {
-                prefix: "schedule", 
-                parameters: [ interval ]
-            });
             await sleep_for(INTERVAL);
+            await once(dict, INTERVAL);
         }
+    }
+
+    async function once
+        (
+            dict: Map<string, number>, 
+            interval: number
+        ): Promise<void>
+    {
+        await DynamicImportIterator.main(__dirname + "/features", 
+        {
+            prefix: "schedule", 
+            parameters: key => [MapUtil.take(dict, key, () => interval)],
+            wrapper: async (key, closure) =>
+            {
+                const slept: number = MapUtil.take(dict, key, () => interval);
+                if (await closure(slept) === false)
+                    dict.set(key, slept + interval);
+            }
+        });
     }
 }
 

@@ -4,6 +4,8 @@ if (EXTENSION === "js")
 
 import cli from "cli";
 import fs from  "fs";
+import { IPointer } from "tstl/functional/IPointer";
+
 import { StopWatch } from "./StopWatch";
 
 interface ICommand
@@ -14,17 +16,18 @@ interface ICommand
 
 export namespace DynamicImportIterator
 {
-    export type Closure<Arguments extends any[]> = (...args: Arguments) => Promise<void>;
+    export type Closure<Arguments extends any[], Ret = any> = (...args: Arguments) => Promise<Ret>;
     type Module<Arguments extends any[]> = 
     {
         [key: string]: Closure<Arguments>;
     };
 
-    export interface IOptions<Parameters extends any[]>
+    export interface IOptions<Parameters extends any[], Ret = any>
     {
         prefix: string;
-        parameters: Parameters;
-        wrapper?: (name: string, closure: Closure<Parameters>) => Promise<void>;
+        parameters: (name: string) => Parameters;
+        wrapper?: (name: string, closure: Closure<Parameters, Ret>) => Promise<any>;
+        counter?: IPointer<number>
         showElapsedTime?: boolean;
     }
 
@@ -75,6 +78,9 @@ export namespace DynamicImportIterator
 
             const external: Module<Arguments> = await import(current);
             await execute(options, command, external, exceptions);
+            
+            if (options.counter)
+                ++options.counter.value;
         }
     }
 
@@ -102,7 +108,7 @@ export namespace DynamicImportIterator
                     if (options.wrapper !== undefined)
                         await options.wrapper(key, closure);
                     else
-                        await closure(...options.parameters);
+                        await closure(...options.parameters(key));
                 };
 
                 try

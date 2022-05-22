@@ -3,7 +3,7 @@
  * @module models.tables.common
  */
 //================================================================
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 @orm.Entity()
@@ -22,6 +22,6 @@ export class AttachmentFile extends safe.Model
     public readonly extension!: string | null;
 
     @orm.Index()
-    @orm.Column("varchar", { length: 1000 })
+    @orm.Column("varchar", { length: 1024 })
     public readonly url!: string;
 }

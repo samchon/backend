@@ -1,4 +1,4 @@
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 import { __MvBbsArticleLastContent } from "../../../material/common/__MvBbsArticleLastContent";
@@ -30,7 +30,7 @@ export class BbsArticleContent
     @orm.Column("varchar", { length: 1024 })
     public readonly title!: string;
 
-    @orm.Column("longtext")
+    @orm.Column("text")
     public readonly body!: string;
 
     @orm.CreateDateColumn()

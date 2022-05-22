@@ -1,4 +1,4 @@
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 
 export namespace SetupWizard
 {

@@ -1,5 +1,5 @@
 import helper from "nestia-helper";
-import * as nest from "@nestjs/common";
+import nest from "@modules/nestjs";
 
 import { IPerformance } from "../../api/structures/monitors/IPerformance";
 

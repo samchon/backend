@@ -1,4 +1,4 @@
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 import { BbsArticle } from "./BbsArticle";
@@ -26,7 +26,7 @@ export class BbsArticleComment
     @orm.Column("varchar")
     public readonly format!: "TEXT" | "MARKDOWN" | "HTML";
 
-    @orm.Column("longtext")
+    @orm.Column("text")
     public readonly content!: string;
 
     @orm.CreateDateColumn()

@@ -3,7 +3,7 @@ if (EXTENSION === "js")
     require("source-map-support/register");
 
 import fs from "fs";
-import * as orm from "typeorm";
+import orm from "@modules/typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 import { randint } from "tstl/algorithm/random";
 

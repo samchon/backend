@@ -1,6 +1,6 @@
 import express from "express";
 import helper from "nestia-helper";
-import * as nest from "@nestjs/common";
+import nest from "@modules/nestjs";
 import { NestFactory } from "@nestjs/core";
 
 import { Configuration } from "./Configuration";

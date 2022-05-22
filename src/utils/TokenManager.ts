@@ -1,38 +1,48 @@
-import { AesPkcs5 } from "safe-typeorm";
+import nest from "@modules/nestjs";
+import { AesPkcs5 } from "nestia-fetcher";
 import { Pair } from "tstl/utility/Pair";
 import { randint } from "tstl/algorithm/random";
 import { v4 } from "uuid";
 
 export namespace TokenManager
 {
+    export const options = 
+    {
+        duration: 3 * 60 * 60 * 1000
+    };
+
     export function generate
         (
             table: string, 
             id: string, 
             writable: boolean,
-            duration: number
-        ): string
+            duration: number = options.duration
+        ): Pair<string, Date>
     {
         // PAYLOAD DATA WITH CONFUSER
+        const expired_at: Date = new Date(Date.now() + duration);
         const payload: IPayload = {
             [v4()]: v4(),
             table,
             id,
             writable,
-            expired_at: Date.now() + duration,
+            expired_at: expired_at.getTime(),
             [v4()]: randint(10000, 100000)
         };
 
         // RETURNS WITH ENCRYPTION
         const iv: string = _Get_iv(table);
-        return AesPkcs5.encrypt(JSON.stringify(payload), ENCRYPT_KEY, iv);
+        return new Pair
+        (
+            AesPkcs5.encrypt(JSON.stringify(payload), ENCRYPT_KEY, iv),
+            expired_at
+        );
     }
 
-    export function refresh(table: string, token: string, writable: boolean, duration: number): string | null
+    export function refresh(table: string, token: string, writable: boolean, duration: number): Pair<string, Date> | null
     {
         // PARSE PAYLOAD
-        let iv: string = _Get_iv(table);
-        let payload: IPayload | null = _Parse(table, token, iv);
+        const payload: IPayload | null = _Parse(table, token);
         if (payload === null)
             return null;
 
@@ -51,24 +61,40 @@ export namespace TokenManager
     /* -----------------------------------------------------------
         HIDDEN MEMBERS
     ----------------------------------------------------------- */
-    function _Parse(table: string, token: string, iv: string = _Get_iv(table)): IPayload | null
+    function _Parse
+        (
+            table: string, 
+            token: string
+        ): IPayload | null
     {
+        // INITIALIZATION VECTOR
+        const iv: string = _Get_iv(table);
+        
         // PARSE PAYLOAD
-        let payload: IPayload;
-        try
+        const closure = () =>
         {
-            let content: string = AesPkcs5.decrypt(token, ENCRYPT_KEY, iv);
-            payload = JSON.parse(content);
+            try
+            {
+                const content: string = AesPkcs5.decrypt(token, ENCRYPT_KEY, iv);
+                const payload: IPayload = JSON.parse(content)
+                return payload;
+            }
+            catch
+            {
+                return null;
+            }            
         }
-        catch
-        {
+        const payload: IPayload | null = closure();
+        if (payload === null)
             return null;
-        }
 
         // JUDGEMENT
-        return (payload.table !== table || payload.expired_at < Date.now())
-            ? null
-            : payload;
+        if (payload.table !== table)
+            return null;
+        else if (payload.expired_at < Date.now())
+            throw new nest.ForbiddenException("Your token has been expired.");
+        else
+            return payload;
     }
 
     function _Get_iv(table: string): string
@@ -81,7 +107,7 @@ export namespace TokenManager
         return table;
     }
 
-    const ENCRYPT_KEY = "12iDCMJDvwwCjYeJE6TSEDL8CQlJQcgN";
+    const ENCRYPT_KEY = "fvXOJ3unu76SAijPnJG6VoKiqFOFqvr6";
 
     interface IPayload
     {
