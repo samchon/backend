@@ -10,55 +10,50 @@ import { BbsArticleCommentFile } from "../../../models/tables/common/bbs/BbsArti
 
 import { AttachmentFileProvider } from "../AttachmentFileProvider";
 
-export namespace BbsArticleCommentProvider
-{
+export namespace BbsArticleCommentProvider {
     /* ----------------------------------------------------------------
         READERS
     ---------------------------------------------------------------- */
-    export function json(): safe.JsonSelectBuilder<BbsArticleComment, any, IBbsArticleComment>
-    {
+    export function json(): safe.JsonSelectBuilder<
+        BbsArticleComment,
+        any,
+        IBbsArticleComment
+    > {
         return json_builder_.get();
     }
 
-    const json_builder_ = new Singleton(() => BbsArticleComment.createJsonSelectBuilder
-    (
-        {
-            files: "join" as const
-        }
-    ));
+    const json_builder_ = new Singleton(() =>
+        BbsArticleComment.createJsonSelectBuilder({
+            files: "join" as const,
+        }),
+    );
 
     /* ----------------------------------------------------------------
         STORE
     ---------------------------------------------------------------- */
-    export async function collect
-        (
-            collection: safe.InsertCollection,
-            article: BbsArticle,
-            input: IBbsArticleComment.IStore
-        ): Promise<BbsArticleComment>
-    {
+    export async function collect(
+        collection: safe.InsertCollection,
+        article: BbsArticle,
+        input: IBbsArticleComment.IStore,
+    ): Promise<BbsArticleComment> {
         const comment: BbsArticleComment = BbsArticleComment.initialize({
             id: safe.DEFAULT,
             article,
             format: input.format,
             content: input.content,
             created_at: safe.DEFAULT,
-            deleted_at: null
+            deleted_at: null,
         });
 
-        const files: AttachmentFile[] = (input.files || []).map
-        (
-            (file, index) => AttachmentFileProvider.collect
-            (
-                collection,
-                file,
-                file => BbsArticleCommentFile.initialize({
+        const files: AttachmentFile[] = (input.files || []).map((file, index) =>
+            AttachmentFileProvider.collect(collection, file, (file) =>
+                BbsArticleCommentFile.initialize({
                     id: safe.DEFAULT,
                     comment,
                     file,
-                    sequence: index + 1
-                })
-            )
+                    sequence: index + 1,
+                }),
+            ),
         );
         await comment.files.set(files);
 

@@ -6,8 +6,7 @@ import { BbsArticleComment } from "./BbsArticleComment";
 import { BbsArticleContent } from "./BbsArticleContent";
 
 @orm.Entity()
-export class BbsArticle extends safe.Model
-{
+export class BbsArticle extends safe.Model {
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
@@ -24,26 +23,23 @@ export class BbsArticle extends safe.Model
     /* -----------------------------------------------------------
         HAS
     ----------------------------------------------------------- */
-    @safe.Has.OneToOne
-    (
+    @safe.Has.OneToOne(
         () => __MvBbsArticleLastContent,
-        material => material.article,
+        (material) => material.article,
     )
     public readonly __mv_last!: safe.Has.OneToOne<__MvBbsArticleLastContent>;
 
-    @safe.Has.OneToMany
-    (
+    @safe.Has.OneToMany(
         () => BbsArticleComment,
-        comment => comment.article,
-        (x, y) => x.created_at.getTime() - y.created_at.getTime()
+        (comment) => comment.article,
+        (x, y) => x.created_at.getTime() - y.created_at.getTime(),
     )
     public readonly comments!: safe.Has.OneToMany<BbsArticleComment>;
 
-    @safe.Has.OneToMany
-    (
+    @safe.Has.OneToMany(
         () => BbsArticleContent,
-        content => content.article,
-        (x, y) => x.created_at.getTime() - y.created_at.getTime()
+        (content) => content.article,
+        (x, y) => x.created_at.getTime() - y.created_at.getTime(),
     )
     public readonly contents!: safe.Has.OneToMany<BbsArticleContent>;
 }

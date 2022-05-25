@@ -1,4 +1,3 @@
-export interface IUpdateController
-{
+export interface IUpdateController {
     update(): Promise<void>;
 }

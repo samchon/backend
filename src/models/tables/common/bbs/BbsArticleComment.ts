@@ -7,16 +7,15 @@ import { AttachmentFile } from "../AttachmentFile";
 
 @orm.Index(["bbs_article_id", "created_at"])
 @orm.Entity()
-export class BbsArticleComment 
-    extends safe.Model
-{
+export class BbsArticleComment extends safe.Model {
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
     @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
-    @safe.Belongs.ManyToOne(() => BbsArticle,
+    @safe.Belongs.ManyToOne(
+        () => BbsArticle,
         "uuid",
         "bbs_article_id",
         // INDEX
@@ -38,13 +37,15 @@ export class BbsArticleComment
     /* -----------------------------------------------------------
         HAS
     ----------------------------------------------------------- */
-    @safe.Has.ManyToMany
-    (
+    @safe.Has.ManyToMany(
         () => AttachmentFile,
         () => BbsArticleCommentFile,
-        router => router.file,
-        router => router.comment,
-        (x, y) => x.router.sequence - y.router.sequence
+        (router) => router.file,
+        (router) => router.comment,
+        (x, y) => x.router.sequence - y.router.sequence,
     )
-    public readonly files!: safe.Has.ManyToMany<AttachmentFile, BbsArticleCommentFile>;
+    public readonly files!: safe.Has.ManyToMany<
+        AttachmentFile,
+        BbsArticleCommentFile
+    >;
 }

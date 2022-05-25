@@ -1,15 +1,10 @@
-export async function exception_must_be_thrown
-(
+export async function exception_must_be_thrown(
     title: string,
-    task: () => Promise<any>
-): Promise<void>
-{
-    try
-    {
+    task: () => Promise<any>,
+): Promise<void> {
+    try {
         await task();
-    }
-    catch 
-    {
+    } catch {
         return;
     }
     throw new Error(`Bug on ${title}: exception must be thrown.`);

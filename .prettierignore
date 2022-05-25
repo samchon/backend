@@ -1,0 +1,6 @@
+dist
+bin
+node_modules
+packages
+src/api
+README.md

@@ -5,13 +5,12 @@ import { BbsArticleContent } from "./BbsArticleContent";
 import { FilePairBase } from "../internal/FilePairBase";
 
 @orm.Entity()
-export class BbsArticleContentFile 
-    extends FilePairBase
-{
-    @safe.Belongs.ManyToOne(() => BbsArticleContent, 
+export class BbsArticleContentFile extends FilePairBase {
+    @safe.Belongs.ManyToOne(
+        () => BbsArticleContent,
         "uuid",
         "bbs_article_content_id",
-        { index: true }
+        { index: true },
     )
     public readonly content!: safe.Belongs.ManyToOne<BbsArticleContent, "uuid">;
 }

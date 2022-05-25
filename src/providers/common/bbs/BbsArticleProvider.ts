@@ -10,114 +10,110 @@ import { BbsArticleContent } from "../../../models/tables/common/bbs/BbsArticleC
 
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
 
-export namespace BbsArticleProvider
-{
+export namespace BbsArticleProvider {
     /* ----------------------------------------------------------------
         INDEX
     ---------------------------------------------------------------- */
-    export function summarize()
-    {
+    export function summarize() {
         return summarize_builder_.get();
     }
 
-    const summarize_builder_ = new Singleton(() => BbsArticle.createJsonSelectBuilder
-    (
-        {
-            __mv_last: __MvBbsArticleLastContent.createJsonSelectBuilder
-            (
-                {
-                    content: "join" as const
-                },
-                output => output.content
-            ),
-        },
-        output => 
-        {
-            const content = output.__mv_last;
-            if (content === null)
-                throw new OutOfRange("Error on ArticleProvider.summarize(): no content exists.");
+    const summarize_builder_ = new Singleton(() =>
+        BbsArticle.createJsonSelectBuilder(
+            {
+                __mv_last: __MvBbsArticleLastContent.createJsonSelectBuilder(
+                    {
+                        content: "join" as const,
+                    },
+                    (output) => output.content,
+                ),
+            },
+            (output) => {
+                const content = output.__mv_last;
+                if (content === null)
+                    throw new OutOfRange(
+                        "Error on ArticleProvider.summarize(): no content exists.",
+                    );
 
-            return {
-                id: output.id,
-                title: content.title,
-                created_at: output.created_at,
-                updated_at: content.created_at
-            };
-        }
-    ));
+                return {
+                    id: output.id,
+                    title: content.title,
+                    created_at: output.created_at,
+                    updated_at: content.created_at,
+                };
+            },
+        ),
+    );
 
-    export function abridge()
-    {
+    export function abridge() {
         return abridge_builder_.get();
     }
 
-    const abridge_builder_ = new Singleton(() => BbsArticle.createJsonSelectBuilder
-    (
-        {
-            __mv_last: __MvBbsArticleLastContent.createJsonSelectBuilder
-            ({
-                content: BbsArticleContentProvider.json()
-            }),
-        },
-        article => 
-        {
-            const output: IBbsArticle.IAbridge = {
-                ...article.__mv_last!.content,
-                id: article.id,
-                created_at: article.created_at,
-                updated_at: article.__mv_last!.content.created_at
-            };
-            return output;
-        }
-    ));
+    const abridge_builder_ = new Singleton(() =>
+        BbsArticle.createJsonSelectBuilder(
+            {
+                __mv_last: __MvBbsArticleLastContent.createJsonSelectBuilder({
+                    content: BbsArticleContentProvider.json(),
+                }),
+            },
+            (article) => {
+                const output: IBbsArticle.IAbridge = {
+                    ...article.__mv_last!.content,
+                    id: article.id,
+                    created_at: article.created_at,
+                    updated_at: article.__mv_last!.content.created_at,
+                };
+                return output;
+            },
+        ),
+    );
 
     /* ----------------------------------------------------------------
         READERS
     ---------------------------------------------------------------- */
-    export function json()
-    {
+    export function json() {
         return json_builder_.get();
     }
 
-    const json_builder_ = new Singleton(() => BbsArticle.createJsonSelectBuilder({
-        contents: BbsArticleContentProvider.json(),
-    }));
+    const json_builder_ = new Singleton(() =>
+        BbsArticle.createJsonSelectBuilder({
+            contents: BbsArticleContentProvider.json(),
+        }),
+    );
 
-    export async function replica(article: BbsArticle): Promise<IBbsArticle.IStore | null>
-    {
-        const pair: __MvBbsArticleLastContent | null = await article.__mv_last.get();
-        if (pair === null)
-            return null;
+    export async function replica(
+        article: BbsArticle,
+    ): Promise<IBbsArticle.IStore | null> {
+        const pair: __MvBbsArticleLastContent | null =
+            await article.__mv_last.get();
+        if (pair === null) return null;
 
-        const content: BbsArticleContent = await pair.content.get();        
+        const content: BbsArticleContent = await pair.content.get();
         return await BbsArticleContentProvider.replica(content);
     }
 
     /* ----------------------------------------------------------------
         STORE
     ---------------------------------------------------------------- */
-    export async function collect
-        (
-            collection: safe.InsertCollection,
-            input: IBbsArticle.IStore | null
-        ): Promise<BbsArticle>
-    {
+    export async function collect(
+        collection: safe.InsertCollection,
+        input: IBbsArticle.IStore | null,
+    ): Promise<BbsArticle> {
         const article: BbsArticle = BbsArticle.initialize({
             id: safe.DEFAULT,
             created_at: safe.DEFAULT,
-            deleted_at: null
+            deleted_at: null,
         });
 
-        if (input !== null)
-        {
-            const content: BbsArticleContent = await BbsArticleContentProvider.collect
-            (
-                collection, 
-                article, 
-                input
-            );
-            await article.contents.set([ content ]);
-        }        
+        if (input !== null) {
+            const content: BbsArticleContent =
+                await BbsArticleContentProvider.collect(
+                    collection,
+                    article,
+                    input,
+                );
+            await article.contents.set([content]);
+        }
         return collection.push(article);
     }
 }

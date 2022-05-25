@@ -8,16 +8,15 @@ import { BbsArticleContentFile } from "./BbsArticleContentFile";
 
 @orm.Index(["bbs_article_id", "created_at"])
 @orm.Entity()
-export class BbsArticleContent 
-    extends safe.Model
-{
+export class BbsArticleContent extends safe.Model {
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
     @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
-    @safe.Belongs.ManyToOne(() => BbsArticle,
+    @safe.Belongs.ManyToOne(
+        () => BbsArticle,
         "uuid",
         "bbs_article_id",
         // INDEXED
@@ -39,20 +38,21 @@ export class BbsArticleContent
     /* -----------------------------------------------------------
         HAS
     ----------------------------------------------------------- */
-    @safe.Has.OneToOne
-    (
+    @safe.Has.OneToOne(
         () => __MvBbsArticleLastContent,
-        material => material.content,
+        (material) => material.content,
     )
     public readonly __mv_last!: safe.Has.OneToOne<__MvBbsArticleLastContent>;
 
-    @safe.Has.ManyToMany
-    (
+    @safe.Has.ManyToMany(
         () => AttachmentFile,
         () => BbsArticleContentFile,
-        router => router.file,
-        router => router.content,
-        (x, y) => x.router.sequence - y.router.sequence
+        (router) => router.file,
+        (router) => router.content,
+        (x, y) => x.router.sequence - y.router.sequence,
     )
-    public readonly files!: safe.Has.ManyToMany<AttachmentFile, BbsArticleContentFile>;
+    public readonly files!: safe.Has.ManyToMany<
+        AttachmentFile,
+        BbsArticleContentFile
+    >;
 }

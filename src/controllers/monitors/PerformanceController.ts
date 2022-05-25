@@ -4,15 +4,13 @@ import nest from "@modules/nestjs";
 import { IPerformance } from "../../api/structures/monitors/IPerformance";
 
 @nest.Controller("monitors/performance")
-export class PerformanceController
-{
+export class PerformanceController {
     @helper.EncryptedRoute.Get()
-    public async get(): Promise<IPerformance>
-    {
+    public async get(): Promise<IPerformance> {
         return {
             cpu: process.cpuUsage(),
             memory: process.memoryUsage(),
-            resource: process.resourceUsage()
+            resource: process.resourceUsage(),
         };
     }
 }

@@ -10,73 +10,69 @@ import { BbsArticle } from "../../tables/common/bbs/BbsArticle";
 import { BbsArticleContent } from "../../tables/common/bbs/BbsArticleContent";
 
 @orm.Entity()
-export class __MvBbsArticleLastContent extends safe.Model
-{
+export class __MvBbsArticleLastContent extends safe.Model {
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
-    @safe.Belongs.OneToOne(() => BbsArticle,
-        article => article.__mv_last,
+    @safe.Belongs.OneToOne(
+        () => BbsArticle,
+        (article) => article.__mv_last,
         "uuid",
         "bbs_article_id",
-        { primary: true }
+        { primary: true },
     )
     public readonly article!: safe.Belongs.OneToOne<BbsArticle, "uuid">;
 
-    @safe.Belongs.OneToOne(() => BbsArticleContent,
-        content => content.__mv_last,
+    @safe.Belongs.OneToOne(
+        () => BbsArticleContent,
+        (content) => content.__mv_last,
         "uuid",
         "bbs_article_content_id",
-        { unique: true }
+        { unique: true },
     )
     public readonly content!: safe.Belongs.OneToOne<BbsArticleContent, "uuid">;
 
     /* -----------------------------------------------------------
         EMPLACER
     ----------------------------------------------------------- */
-    public static async emplace
-        (
-            article: BbsArticle,
-            content: BbsArticleContent
-        ): Promise<__MvBbsArticleLastContent>
-    {
+    public static async emplace(
+        article: BbsArticle,
+        content: BbsArticleContent,
+    ): Promise<__MvBbsArticleLastContent> {
         // FIND ORDINARY MATERIAL
-        const oldbie: __MvBbsArticleLastContent | undefined = await this
-            .createQueryBuilder()
-            .andWhere(...this.getWhereArguments("article", "=", article))
-            .getOne();
-        if (oldbie)
-            await update(content, oldbie);
-        
+        const oldbie: __MvBbsArticleLastContent | undefined =
+            await this.createQueryBuilder()
+                .andWhere(...this.getWhereArguments("article", "=", article))
+                .getOne();
+        if (oldbie) await update(content, oldbie);
+
         // OR INSERT NEW MATERIAL
-        const material: __MvBbsArticleLastContent = oldbie || await insert(article, content);
-        
+        const material: __MvBbsArticleLastContent =
+            oldbie || (await insert(article, content));
+
         // RETURNS WITH PAIRING
         await content.__mv_last.set(material);
         return material;
     }
 }
 
-async function update
-    (
-        content: BbsArticleContent, 
-        material: __MvBbsArticleLastContent
-    ): Promise<void>
-{
+async function update(
+    content: BbsArticleContent,
+    material: __MvBbsArticleLastContent,
+): Promise<void> {
     await material.content.set(content);
     await material.update();
 }
 
-async function insert
-    (
-        article: BbsArticle,
-        content: BbsArticleContent
-    ): Promise<__MvBbsArticleLastContent>
-{
-    const material: __MvBbsArticleLastContent = __MvBbsArticleLastContent.initialize({
-        article,
-        content
-    });
+async function insert(
+    article: BbsArticle,
+    content: BbsArticleContent,
+): Promise<__MvBbsArticleLastContent> {
+    const material: __MvBbsArticleLastContent =
+        __MvBbsArticleLastContent.initialize({
+            article,
+            content,
+        });
     await article.__mv_last.set(material);
     await content.__mv_last.set(material);
 

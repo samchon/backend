@@ -5,8 +5,7 @@ import { SGlobal } from "../SGlobal";
 import { IPerformance } from "../api/structures/monitors/IPerformance";
 import { ISystem } from "../api/structures/monitors/ISystem";
 
-async function main(): Promise<void>
-{
+async function main(): Promise<void> {
     // CONFIGURE MODE
     if (process.argv[2])
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
@@ -14,16 +13,18 @@ async function main(): Promise<void>
     // GET PERFORMANCE & SYSTEM INFO
     const connection: api.IConnection = {
         host: `http://${Configuration.MASTER_IP}:${Configuration.API_PORT}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD
+        encryption: Configuration.ENCRYPTION_PASSWORD,
     };
-    const performance: IPerformance = await api.functional.monitors.performance.get(connection);
-    const system: ISystem = await api.functional.monitors.system.get(connection);
-    
+    const performance: IPerformance =
+        await api.functional.monitors.performance.get(connection);
+    const system: ISystem = await api.functional.monitors.system.get(
+        connection,
+    );
+
     // TRACE THEM
     console.log({ performance, system });
 }
-main().catch(exp =>
-{
+main().catch((exp) => {
     console.log(exp);
     process.exit(-1);
 });

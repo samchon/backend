@@ -7,8 +7,7 @@ import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 @orm.Entity()
-export class AttachmentFile extends safe.Model
-{
+export class AttachmentFile extends safe.Model {
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */

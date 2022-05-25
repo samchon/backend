@@ -8,19 +8,18 @@ import safe from "safe-typeorm";
 
 import { AttachmentFile } from "../AttachmentFile";
 
-export abstract class FilePairBase 
-    extends safe.Model
-{
+export abstract class FilePairBase extends safe.Model {
     /* -----------------------------------------------------------
         COLUMNS
     ----------------------------------------------------------- */
     @orm.PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
-    @safe.Belongs.ManyToOne(() => AttachmentFile, 
+    @safe.Belongs.ManyToOne(
+        () => AttachmentFile,
         "uuid",
-        "attachment_file_id", 
-        { index: true }
+        "attachment_file_id",
+        { index: true },
     )
     public readonly file!: safe.Belongs.ManyToOne<AttachmentFile, "uuid">;
 
