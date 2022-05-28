@@ -15,6 +15,7 @@ module.exports = {
             files: ["src/**/*.ts"],
             rules: {
                 "@typescript-eslint/consistent-type-definitions": "off",
+                "@typescript-eslint/consistent-type-definitions": "off",
                 "@typescript-eslint/no-duplicate-imports": "error",
                 "@typescript-eslint/no-empty-function": "off",
                 "@typescript-eslint/no-empty-interface": "off",

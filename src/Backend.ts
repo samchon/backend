@@ -62,9 +62,11 @@ export class Backend {
     private middleware(
         _request: express.Request,
         response: express.Response,
-        next: Function,
+        next: FunctionLike,
     ): void {
         if (this.is_closing_ === true) response.set("Connection", "close");
         next();
     }
 }
+
+type FunctionLike = (...args: any[]) => any;
