@@ -47,7 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
     "cli": "^1.0.1",
-    "nestia": "^2.1.12",
+    "nestia": "^3.0.6",
     "pm2": "^4.5.6",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
@@ -56,13 +56,12 @@
   "dependencies": {
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.3.1",
-    "nestia-helper": "^2.1.1",
+    "nestia-helper": "^3.0.4",
     "pg": "^8.7.3",
     "safe-typeorm": "^1.0.11",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.6",
-    "typescript-is": "^0.19.0",
-    "typescript-json": "^2.1.4"
+    "typescript-json": "^3.0.7"
   },
   "private": true
 }

@@ -1,6 +1,6 @@
 import { MutexConnector } from "mutex-server";
 import { MutableSingleton } from "tstl/thread/MutableSingleton";
-import { assertType } from "typescript-is";
+import { assertType } from "typescript-json";
 
 import { Configuration } from "./Configuration";
 

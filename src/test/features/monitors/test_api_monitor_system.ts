@@ -1,4 +1,4 @@
-import { assertType } from "typescript-is";
+import { assertType } from "typescript-json";
 import api from "../../../api";
 import { ISystem } from "../../../api/structures/monitors/ISystem";
 

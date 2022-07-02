@@ -268,7 +268,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "nullable": false
+              "nullable": false,
+              "description": "`process.argv`"
             },
             "nullable": false,
             "description": "`process.argv`"
@@ -467,14 +468,16 @@
       "__type": {
         "type": "object",
         "properties": {},
-        "nullable": false,
-        "required": []
+        "nullable": false
       },
       "__type.o1": {
         "type": "object",
         "properties": {
           "type": {
             "type": "string",
+            "enum": [
+              "git"
+            ],
             "nullable": false
           },
           "url": {
