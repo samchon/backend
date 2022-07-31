@@ -9,11 +9,19 @@ export namespace RandomGenerator {
         IDENTIFICATIONS
     ---------------------------------------------------------------- */
     const CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const LETTERS: string = "0123456789" + CHARACTERS;
 
     export function alphabets(length: number): string {
         return new Array(length)
             .fill("")
             .map(() => CHARACTERS[randint(0, CHARACTERS.length - 1)])
+            .join("");
+    }
+
+    export function alpha_numeric(length: number): string {
+        return new Array(length)
+            .fill("")
+            .map(() => LETTERS[randint(0, LETTERS.length - 1)])
             .join("");
     }
 
