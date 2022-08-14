@@ -1,7 +1,7 @@
 import { IAttachmentFile } from "../IAttachmentFile";
 
 /**
- * 모든 게시물ㄹ의 슈퍼타입.
+ * 모든 게시물의 슈퍼타입.
  * 
  * @template Content 게시물의 컨텐츠 타입
  * @author Samchon
