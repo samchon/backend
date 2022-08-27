@@ -1,14 +1,9 @@
-import nest from "@modules/nestjs";
-import orm from "@modules/typeorm";
 import { IEncryptionPassword } from "nestia-fetcher";
-import helper from "nestia-helper";
 import pg from "pg";
 import safe from "safe-typeorm";
-import { DomainError } from "tstl/exception/DomainError";
-import { InvalidArgument } from "tstl/exception/InvalidArgument";
-import { OutOfRange } from "tstl/exception/OutOfRange";
 
 import { SGlobal } from "./SGlobal";
+import "./configure/ExceptionConfiguration";
 
 const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support").install();
@@ -52,32 +47,3 @@ export namespace Configuration {
     export const CREATED_AT: Date = new Date();
     export const SYSTEM_PASSWORD: string = "https://github.com/samchon";
 }
-
-// CUSTOM EXCEPTIION CONVERSION
-helper.ExceptionManager.insert(
-    orm.EntityNotFoundError,
-    (exp) => new nest.NotFoundException(exp.message),
-);
-helper.ExceptionManager.insert(
-    OutOfRange,
-    (exp) => new nest.NotFoundException(exp.message),
-);
-helper.ExceptionManager.insert(
-    InvalidArgument,
-    (exp) => new nest.ConflictException(exp.message),
-);
-helper.ExceptionManager.insert(
-    DomainError,
-    (exp) => new nest.UnprocessableEntityException(exp.message),
-);
-
-// TRACE EXACT SERVER INTERNAL ERROR
-helper.ExceptionManager.insert(
-    Error,
-    (exp) =>
-        new nest.InternalServerErrorException({
-            message: exp.message,
-            name: exp.name,
-            stack: exp.stack,
-        }),
-);

@@ -10,13 +10,25 @@ export async function start_updator_master(): Promise<
     // PREPARE ASSETS
     const server: MutexServer<string, IUpdateController | null> =
         new MutexServer();
-    const clientSet: HashSet<MutexAcceptor<string, any>> = new HashSet();
+    const slaveSet: HashSet<MutexAcceptor<string, any>> = new HashSet();
     const provider: IUpdateController = {
         update: async () => {
-            for (const client of [...clientSet])
-                try {
-                    await client.getDriver<IUpdateController>().update();
-                } catch {}
+            await Promise.all(
+                [...slaveSet].map(async (slave) => {
+                    try {
+                        await slave.getDriver<IUpdateController>().update();
+                    } catch {}
+                }),
+            );
+        },
+        revert: async (id: string) => {
+            await Promise.all(
+                [...slaveSet].map(async (slave) => {
+                    try {
+                        await slave.getDriver<IUpdateController>().revert(id);
+                    } catch {}
+                }),
+            );
         },
     };
 
@@ -28,10 +40,10 @@ export async function start_updator_master(): Promise<
         } else if (acceptor.path === "/slave") {
             await acceptor.accept(null);
 
-            clientSet.insert(acceptor);
+            slaveSet.insert(acceptor);
             acceptor
                 .join()
-                .then(() => clientSet.erase(acceptor))
+                .then(() => slaveSet.erase(acceptor))
                 .catch(() => {});
         } else if (acceptor.path === "/api") await acceptor.accept(null);
         else if (acceptor.path === "/update") await acceptor.accept(provider);

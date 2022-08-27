@@ -1,5 +1,5 @@
 {
-  "name": "@samchon/backend",
+  "name": "@ORGINAZATION/PROJECT-backend",
   "version": "0.0.0",
   "description": "Backend for PROJECT",
   "scripts": {
@@ -16,6 +16,7 @@
     "package:models": "npm run build:models && cd packags/models && npm publish",
     "prettier": "prettier src --write",
     "reset:dev": "git pull && npm install && npm run build && npm run stop && npm run test -- --mode=dev && npm run start:updator:master && npm run start dev",
+    "revert": "node bin/executable/revert",
     "schema": "node bin/executable/schema",
     "start": "pm2 start bin/executable/server.js -i 0 --name PROJECT-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
     "start:local": "pm2 start bin/executable/server.js -i 2 --name PROJECT-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
@@ -49,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
     "cli": "^1.0.1",
-    "nestia": "^3.0.10",
+    "nestia": "^3.0.13",
     "pm2": "^4.5.6",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
@@ -62,9 +63,9 @@
   "dependencies": {
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.3.1",
-    "nestia-helper": "^3.0.5",
+    "nestia-helper": "^3.0.9",
     "pg": "^8.7.3",
-    "safe-typeorm": "^1.0.12",
+    "safe-typeorm": "^1.0.14",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.8",
     "typescript-json": "^3.1.1"
