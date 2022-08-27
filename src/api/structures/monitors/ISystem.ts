@@ -20,23 +20,24 @@ export interface ISystem {
     arguments: string[];
 
     /**
-     * Git commit information.
+     * Git commit info.
      */
     commit: ISystem.ICommit;
 
     /**
-     * `package.json`     */
+     * `package.json`
+     */
     package: ISystem.IPackage;
 
     /**
-     * Creation time of this system.
+     * Creation time of this server.
      */
     created_at: string;
 }
 
 export namespace ISystem {
     /**
-     * Git commit information.
+     * Git commit info.
      */
     export interface ICommit {
         shortHash: string;
@@ -54,7 +55,7 @@ export namespace ISystem {
     }
     export namespace ICommit {
         /**
-         * Git user information.
+         * Git user account info.
          */
         export interface IUser {
             name: string;
@@ -63,23 +64,23 @@ export namespace ISystem {
     }
 
     /**
-     * NPM package information.
+     * NPM package info.
      */
     export interface IPackage {
         name: string;
         version: string;
         description: string;
+        main?: string;
+        typings?: string;
         scripts: Record<string, string>;
         repository: { type: "git"; url: string };
         author: string;
         license: string;
         bugs: { url: string };
         homepage: string;
-        devDependencies: Record<string, string>;
+        devDependencies?: Record<string, string>;
         dependencies: Record<string, string>;
         publishConfig?: { registry: string };
-        main?: string;
-        typings?: string;
         files?: string[];
     }
 }

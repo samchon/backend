@@ -93,6 +93,32 @@
         },
         "description": ""
       }
+    },
+    "/monitors/system/internal_server_error": {
+      "get": {
+        "tags": [],
+        "summary": "encrypted",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "## Warning\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/nestia-helper#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.\n\n-----------------\n\n"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/monitors/system/uncaught_exception": {
+      "get": {
+        "tags": [],
+        "summary": "encrypted",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "## Warning\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/nestia-helper#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.\n\n-----------------\n\n"
+          }
+        },
+        "description": ""
+      }
     }
   },
   "components": {
@@ -276,7 +302,7 @@
           },
           "commit": {
             "$ref": "#/components/schemas/ISystem.ICommit",
-            "description": "Git commit information."
+            "description": "Git commit info."
           },
           "package": {
             "$ref": "#/components/schemas/ISystem.IPackage",
@@ -285,7 +311,7 @@
           "created_at": {
             "type": "string",
             "nullable": false,
-            "description": "Creation time of this system."
+            "description": "Creation time of this server."
           }
         },
         "nullable": false,
@@ -366,7 +392,7 @@
           "commited_at",
           "tags"
         ],
-        "description": "Git commit information."
+        "description": "Git commit info."
       },
       "ISystem.ICommit.IUser": {
         "type": "object",
@@ -385,7 +411,7 @@
           "name",
           "email"
         ],
-        "description": "Git user information."
+        "description": "Git user account info."
       },
       "ISystem.IPackage": {
         "type": "object",
@@ -399,6 +425,14 @@
             "nullable": false
           },
           "description": {
+            "type": "string",
+            "nullable": false
+          },
+          "main": {
+            "type": "string",
+            "nullable": false
+          },
+          "typings": {
             "type": "string",
             "nullable": false
           },
@@ -432,14 +466,6 @@
           "publishConfig": {
             "$ref": "#/components/schemas/__type.o3"
           },
-          "main": {
-            "type": "string",
-            "nullable": false
-          },
-          "typings": {
-            "type": "string",
-            "nullable": false
-          },
           "files": {
             "type": "array",
             "items": {
@@ -460,10 +486,9 @@
           "license",
           "bugs",
           "homepage",
-          "devDependencies",
           "dependencies"
         ],
-        "description": "NPM package information."
+        "description": "NPM package info."
       },
       "__type": {
         "type": "object",

@@ -10,7 +10,7 @@ export class Backend {
     private application_?: nest.INestApplication;
     private is_closing_: boolean = false;
 
-    public async open(port: number = Configuration.API_PORT): Promise<void> {
+    public async open(): Promise<void> {
         //----
         // OPEN THE BACKEND SERVER
         //----
@@ -18,7 +18,7 @@ export class Backend {
         this.application_ = await NestFactory.create(
             await helper.EncryptedModule.dynamic(
                 __dirname + "/controllers",
-                Configuration.ENCRYPTION_PASSWORD,
+                await Configuration.ENCRYPTION_PASSWORD(),
             ),
             { logger: false },
         );
@@ -29,7 +29,7 @@ export class Backend {
         this.application_.use(this.middleware.bind(this));
 
         // DO OPEN
-        await this.application_.listen(port);
+        await this.application_.listen(await Configuration.API_PORT());
 
         //----
         // POST-PROCESSES

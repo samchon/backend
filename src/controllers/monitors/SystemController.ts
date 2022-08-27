@@ -1,14 +1,11 @@
 import nest from "@modules/nestjs";
-import fs from "fs";
-import git from "git-last-commit";
 import helper from "nestia-helper";
-import { randint } from "tstl/algorithm/random";
-import { Singleton } from "tstl/thread/Singleton";
 import { sleep_for } from "tstl/thread/global";
 
 import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
-import { Configuration } from "../../Configuration";
+import { SystemProvider } from "../../providers/monitors/SystemProvider";
+
 import { DateUtil } from "../../utils/DateUtil";
 
 @nest.Controller("monitors/system")
@@ -16,11 +13,11 @@ export class SystemController {
     @helper.EncryptedRoute.Get()
     public async get(): Promise<ISystem> {
         return {
-            uid: uid_,
+            uid: SystemProvider.uid,
             arguments: process.argv,
-            created_at: DateUtil.to_string(Configuration.CREATED_AT, true),
-            package: await package_.get(),
-            commit: await commit_.get(),
+            created_at: DateUtil.to_string(SystemProvider.created_at, true),
+            package: await SystemProvider.package(),
+            commit: await SystemProvider.commit(),
         };
     }
 
@@ -31,38 +28,22 @@ export class SystemController {
         await sleep_for(ms);
         return await this.get();
     }
+
+    /**
+     * @internal
+     */
+    @helper.EncryptedRoute.Get("internal_server_error")
+    public async internal_server_error(): Promise<void> {
+        throw new Error("The manual 500 error for the testing.");
+    }
+
+    /**
+     * @internal
+     */
+    @helper.EncryptedRoute.Get("uncaught_exception")
+    public uncaught_exception(): void {
+        new Promise(() => {
+            throw new Error("The manul uncaught exception for the testing.");
+        }).catch(() => {});
+    }
 }
-
-const uid_: number = randint(0, Number.MAX_SAFE_INTEGER);
-const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
-    () =>
-        new Promise((resolve, reject) => {
-            git.getLastCommit((err, commit) => {
-                if (err) reject(err);
-                else
-                    resolve({
-                        ...commit,
-                        authored_at: DateUtil.to_string(
-                            new Date(Number(commit.authoredOn) * 1000),
-                            true,
-                        ),
-                        commited_at: DateUtil.to_string(
-                            new Date(Number(commit.committedOn) * 1000),
-                            true,
-                        ),
-                    });
-            });
-        }),
-);
-const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(
-    async () => {
-        const content: string = await fs.promises.readFile(
-            `${__dirname}/../../../package.json`,
-            "utf8",
-        );
-        return JSON.parse(content);
-    },
-);
-
-commit_.get().catch(() => {});
-package_.get().catch(() => {});

@@ -8,7 +8,7 @@ async function main(): Promise<void> {
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
 
     // START THE CLIENT
-    await start_updator_slave(Configuration.MASTER_IP);
+    await start_updator_slave(await Configuration.MASTER_IP());
 }
 main().catch((exp) => {
     console.log(exp);

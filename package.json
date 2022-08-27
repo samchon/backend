@@ -42,14 +42,14 @@
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
-    "@types/cli": "^0.11.19",
+    "@types/cli": "^0.11.19",@
     "@types/express": "^4.17.12",
     "@types/node": "^15.6.1",
     "@types/pg": "^8.6.5",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
-    "cli": "^1.0.1",
+    "cli": "^1.0.1",@
     "nestia": "^3.0.13",
     "pm2": "^4.5.6",
     "prettier": "^2.6.2",

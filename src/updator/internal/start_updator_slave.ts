@@ -8,9 +8,11 @@ export async function start_updator_slave(
 ): Promise<MutexConnector<string, Updator>> {
     const updator: Updator = new Updator();
     const connector: MutexConnector<string, Updator> = new MutexConnector(
-        Configuration.SYSTEM_PASSWORD,
+        await Configuration.SYSTEM_PASSWORD(),
         updator,
     );
-    await connector.connect(`ws://${host}:${Configuration.UPDATOR_PORT}/slave`);
+    await connector.connect(
+        `ws://${host}:${await Configuration.UPDATOR_PORT()}/slave`,
+    );
     return connector;
 }
