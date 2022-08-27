@@ -1,10 +1,10 @@
 import safe from "safe-typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { IAttachmentFile } from "../../api/structures/common/IAttachmentFile";
+import { IAttachmentFile } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IAttachmentFile";
 
-import { AttachmentFile } from "../../models/tables/common/AttachmentFile";
-import { FilePairBase } from "../../models/tables/common/internal/FilePairBase";
+import { AttachmentFile } from "@ORGANIZATION/PROJECT-models/lib/tables/common/AttachmentFile";
+import { FilePairBase } from "@ORGANIZATION/PROJECT-models/lib/tables/common/internal/FilePairBase";
 
 export namespace AttachmentFileProvider {
     /* ----------------------------------------------------------------

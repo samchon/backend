@@ -1,5 +1,6 @@
-import pg from "pg";
 import orm from "@modules/typeorm";
+import pg from "pg";
+
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
 

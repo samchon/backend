@@ -1,15 +1,15 @@
-import fs from "fs";
-import helper from "nestia-helper";
-import git from "git-last-commit";
 import nest from "@modules/nestjs";
+import fs from "fs";
+import git from "git-last-commit";
+import helper from "nestia-helper";
+import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
 import { sleep_for } from "tstl/thread/global";
-import { randint } from "tstl/algorithm/random";
+
+import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
 import { Configuration } from "../../Configuration";
 import { DateUtil } from "../../utils/DateUtil";
-
-import { ISystem } from "../../api/structures/monitors/ISystem";
 
 @nest.Controller("monitors/system")
 export class SystemController {

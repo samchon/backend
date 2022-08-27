@@ -1,8 +1,8 @@
 import { sleep_for } from "tstl/thread/global";
 
-import api from "../../api";
-import { Configuration } from "../../Configuration";
+import api from "@ORGANIZATION/PROJECT-api";
 
+import { Configuration } from "../../Configuration";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 import { Terminal } from "../../utils/Terminal";
 

@@ -1,10 +1,9 @@
 import orm from "@modules/typeorm";
 import { HashMap } from "tstl/container/HashMap";
 
-import { Atomic } from "@${ORGANIZATION}/${PROJECT}-api/lib/typings/Atomic";
-
-import { IPage } from "@${ORGANIZATION}/${PROJECT}-api/lib/structures/common/IPage";
-import { IEntity } from "@${ORGANIZATION}/${PROJECT}-api/lib/structures/common/IEntity";
+import { IEntity } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IEntity";
+import { IPage } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IPage";
+import { Atomic } from "@ORGANIZATION/PROJECT-api/lib/typings/Atomic";
 
 /**
  * Pagination 유틸리티 클래스

@@ -1,11 +1,11 @@
 import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 import { HashMap } from "tstl/container/HashMap";
-import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
 import { hash } from "tstl/functional/hash";
 import { equal } from "tstl/ranges/algorithm/iterations";
+import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
 
-import { IEntity } from "@${ORGANIZATION}/${PROJECT}-api/lib/structures/common/IEntity";
+import { IEntity } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IEntity";
 
 export namespace EntityUtil {
     /* -----------------------------------------------------------

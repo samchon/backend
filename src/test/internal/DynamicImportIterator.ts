@@ -1,11 +1,11 @@
-const EXTENSION = __filename.substr(-2);
-if (EXTENSION === "js") require("source-map-support/register");
-
 import cli from "cli";
 import fs from "fs";
 import { IPointer } from "tstl/functional/IPointer";
 
 import { StopWatch } from "./StopWatch";
+
+const EXTENSION = __filename.substr(-2);
+if (EXTENSION === "js") require("source-map-support/register");
 
 interface ICommand {
     include?: string;
