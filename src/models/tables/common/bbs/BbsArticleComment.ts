@@ -1,9 +1,9 @@
 import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
+import { AttachmentFile } from "../AttachmentFile";
 import { BbsArticle } from "./BbsArticle";
 import { BbsArticleCommentFile } from "./BbsArticleCommentFile";
-import { AttachmentFile } from "../AttachmentFile";
 
 @orm.Index(["bbs_article_id", "created_at"])
 @orm.Entity()

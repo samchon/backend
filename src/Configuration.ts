@@ -1,18 +1,17 @@
-const EXTENSION = __filename.substr(-2);
-if (EXTENSION === "js") require("source-map-support").install();
-
-import helper from "nestia-helper";
 import nest from "@modules/nestjs";
 import orm from "@modules/typeorm";
+import { IEncryptionPassword } from "nestia-fetcher";
+import helper from "nestia-helper";
 import pg from "pg";
 import safe from "safe-typeorm";
-import { IEncryptionPassword } from "nestia-fetcher";
-
 import { DomainError } from "tstl/exception/DomainError";
 import { InvalidArgument } from "tstl/exception/InvalidArgument";
 import { OutOfRange } from "tstl/exception/OutOfRange";
 
 import { SGlobal } from "./SGlobal";
+
+const EXTENSION = __filename.substr(-2);
+if (EXTENSION === "js") require("source-map-support").install();
 
 export class Configuration {
     public static get MASTER_IP(): string {
@@ -27,11 +26,11 @@ export class Configuration {
             // CONNECTION INFO
             type: "postgres" as const,
             host: SGlobal.mode === "REAL" ? "YOUR-REAL-DB-HOST" : "127.0.0.1",
-            username: "${DB_ACCOUNT}_w",
-            readonlyUsername: "${DB_ACCOUNT}_r",
+            username: "DB_ACCOUNT_w",
+            readonlyUsername: "DB_ACCOUNT_r",
             password: Configuration.SYSTEM_PASSWORD,
-            database: "${DB_NAME}",
-            schema: "${DB_SCHEMA}",
+            database: "DB_NAME",
+            schema: "DB_SCHEMA",
 
             // OPTIONS
             namingStrategy: new safe.SnakeCaseStrategy(),

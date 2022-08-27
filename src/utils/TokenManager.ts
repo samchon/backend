@@ -1,7 +1,7 @@
 import nest from "@modules/nestjs";
 import { AesPkcs5 } from "nestia-fetcher";
-import { Pair } from "tstl/utility/Pair";
 import { randint } from "tstl/algorithm/random";
+import { Pair } from "tstl/utility/Pair";
 import { v4 } from "uuid";
 
 export namespace TokenManager {

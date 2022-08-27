@@ -1,13 +1,13 @@
 import safe from "safe-typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { IBbsArticle } from "../../../api/structures/common/bbs/IBbsArticle";
+import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/bbs/IBbsArticle";
 
-import { __MvBbsArticleLastContent } from "../../../models/material/common/__MvBbsArticleLastContent";
-import { BbsArticle } from "../../../models/tables/common/bbs/BbsArticle";
-import { BbsArticleContent } from "../../../models/tables/common/bbs/BbsArticleContent";
-import { BbsArticleContentFile } from "../../../models/tables/common/bbs/BbsArticleContentFile";
-import { AttachmentFile } from "../../../models/tables/common/AttachmentFile";
+import { __MvBbsArticleLastContent } from "@ORGANIZATION/PROJECT-models/lib/material/common/__MvBbsArticleLastContent";
+import { AttachmentFile } from "@ORGANIZATION/PROJECT-models/lib/tables/common/AttachmentFile";
+import { BbsArticle } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticle";
+import { BbsArticleContent } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticleContent";
+import { BbsArticleContentFile } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticleContentFile";
 
 import { AttachmentFileProvider } from "../AttachmentFileProvider";
 

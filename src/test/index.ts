@@ -1,17 +1,16 @@
-import cli from "cli";
 import orm from "@modules/typeorm";
+import cli from "cli";
 import { MutexServer } from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
 
 import { Backend } from "../Backend";
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
-
-import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-import { IUpdateController } from "../updator/internal/IUpdateController";
 import { SetupWizard } from "../setup/SetupWizard";
-import { StopWatch } from "./internal/StopWatch";
+import { IUpdateController } from "../updator/internal/IUpdateController";
 import { start_updator_master } from "../updator/internal/start_updator_master";
+import { DynamicImportIterator } from "./internal/DynamicImportIterator";
+import { StopWatch } from "./internal/StopWatch";
 
 interface ICommand {
     mode?: string;

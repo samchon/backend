@@ -1,4 +1,4 @@
-import api from "../../../api";
+import api from "@ORGANIZATION/PROJECT-api";
 
 export async function test_api_monitor_health_check(
     connection: api.IConnection,

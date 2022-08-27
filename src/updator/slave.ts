@@ -1,6 +1,5 @@
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
-
 import { start_updator_slave } from "./internal/start_updator_slave";
 
 async function main(): Promise<void> {

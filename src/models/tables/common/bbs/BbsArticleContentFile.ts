@@ -1,8 +1,8 @@
 import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
-import { BbsArticleContent } from "./BbsArticleContent";
 import { FilePairBase } from "../internal/FilePairBase";
+import { BbsArticleContent } from "./BbsArticleContent";
 
 @orm.Entity()
 export class BbsArticleContentFile extends FilePairBase {

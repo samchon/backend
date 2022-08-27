@@ -1,5 +1,5 @@
-import { IUpdateController } from "./IUpdateController";
 import { Terminal } from "../../utils/Terminal";
+import { IUpdateController } from "./IUpdateController";
 
 export class Updator implements IUpdateController {
     public async update(): Promise<void> {

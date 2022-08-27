@@ -1,7 +1,7 @@
 # INTRASTRUCTURE
 ## 1. DBMS
 ### 1.1. RDB Instance
-[`@${ORGANIZATION}/${PROJECT}`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
+[`@ORGANIZATION/PROJECT`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
 
 Also, the accounts of the DBMS are separated to the `readonly` and `writable`. In the policy, `writable` account only can be used in automated program like the backend server. The developer or someone else need to connect to the DBMS directly, they're allowed to use only the `readonly` account.
 
@@ -142,7 +142,7 @@ sudo sysctl net.core.somaxconn=2048
 # CLONE REPOSITORY
 git config --global credential.helper store
 git clone https://github.com/samchon/backend
-cd ${PROJECT}
+cd PROJECT
 
 # INSTALL PROJECT
 npm install

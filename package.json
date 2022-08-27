@@ -1,7 +1,7 @@
 {
   "name": "@samchon/backend",
   "version": "0.0.0",
-  "description": "Backend for ${PROJECT}",
+  "description": "Backend for PROJECT",
   "scripts": {
     "build": "rimraf bin && ttsc",
     "build:api": "rimraf packages/api/lib && nestia sdk && tsc -p tsconfig.api.json",
@@ -11,19 +11,20 @@
     "dev": "npm run build -- --watch",
     "eslint": "eslint src",
     "eslint:fix": "eslint src --fix",
+    "generate:password": "npx ts-node src/test/manual/password",
     "package:api": "npm run build:api && cd packages/api && npm publish",
     "package:models": "npm run build:models && cd packags/models && npm publish",
     "prettier": "prettier src --write",
     "reset:dev": "git pull && npm install && npm run build && npm run stop && npm run test -- --mode=dev && npm run start:updator:master && npm run start dev",
     "schema": "node bin/executable/schema",
-    "start": "pm2 start bin/executable/server.js -i 0 --name ${PROJECT}-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
-    "start:local": "pm2 start bin/executable/server.js -i 2 --name ${PROJECT}-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
-    "start:updator:master": "pm2 start --name bbs-backend-updator-master bin/updator/master.js",
-    "start:updator:slave": "pm2 start --name bbs-backend-updator-slave bin/updator/slave.js",
-    "start:reload": "pm2 reload ${PROJECT}-backend-server",
-    "stop": "pm2 delete ${PROJECT}-backend-server",
-    "stop:updator:master": "pm2 delete bbs-backend-updator-master",
-    "stop:updator:slave": "pm2 delete bbs-backend-updator-slave",
+    "start": "pm2 start bin/executable/server.js -i 0 --name PROJECT-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 --",
+    "start:local": "pm2 start bin/executable/server.js -i 2 --name PROJECT-backend-server --wait-ready --listen-timeout 120000 --kill-timeout 15000 -- local",
+    "start:updator:master": "pm2 start --name PROJECT-backend-updator-master bin/updator/master.js",
+    "start:updator:slave": "pm2 start --name PROJECT-backend-updator-slave bin/updator/slave.js",
+    "start:reload": "pm2 reload PROJECT-backend-server",
+    "stop": "pm2 delete PROJECT-backend-server",
+    "stop:updator:master": "pm2 delete PROJECT-backend-updator-master",
+    "stop:updator:slave": "pm2 delete PROJECT-backend-updator-slave",
     "update": "node bin/executable/update",
     "test": "node bin/test",
     "test:update": "node bin/test/manual/update"
@@ -32,13 +33,14 @@
     "type": "git",
     "url": "https://github.com/samchon/backend"
   },
-  "author": "${AUTHOR}",
+  "author": "AUTHOR",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/samchon/backend/issues"
   },
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/cli": "^0.11.19",
     "@types/express": "^4.17.12",
     "@types/node": "^15.6.1",

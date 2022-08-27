@@ -1,6 +1,5 @@
-export interface IPerformance
-{
+export interface IPerformance {
     cpu: NodeJS.CpuUsage;
     memory: NodeJS.MemoryUsage;
-    resource: NodeJS.ResourceUsage
+    resource: NodeJS.ResourceUsage;
 }

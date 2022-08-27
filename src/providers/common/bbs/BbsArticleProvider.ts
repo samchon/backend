@@ -2,11 +2,11 @@ import safe from "safe-typeorm";
 import { OutOfRange } from "tstl/exception/OutOfRange";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { IBbsArticle } from "../../../api/structures/common/bbs/IBbsArticle";
+import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/bbs/IBbsArticle";
 
-import { __MvBbsArticleLastContent } from "../../../models/material/common/__MvBbsArticleLastContent";
-import { BbsArticle } from "../../../models/tables/common/bbs/BbsArticle";
-import { BbsArticleContent } from "../../../models/tables/common/bbs/BbsArticleContent";
+import { __MvBbsArticleLastContent } from "@ORGANIZATION/PROJECT-models/lib/material/common/__MvBbsArticleLastContent";
+import { BbsArticle } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticle";
+import { BbsArticleContent } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticleContent";
 
 import { BbsArticleContentProvider } from "./BbsArticleContentProvider";
 

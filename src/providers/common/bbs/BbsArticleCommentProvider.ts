@@ -1,12 +1,12 @@
 import safe from "safe-typeorm";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { IBbsArticleComment } from "../../../api/structures/common/bbs/IBbsArticleComment";
+import { IBbsArticleComment } from "@ORGANIZATION/PROJECT-api/lib/structures/common/bbs/IBbsArticleComment";
 
-import { AttachmentFile } from "../../../models/tables/common/AttachmentFile";
-import { BbsArticle } from "../../../models/tables/common/bbs/BbsArticle";
-import { BbsArticleComment } from "../../../models/tables/common/bbs/BbsArticleComment";
-import { BbsArticleCommentFile } from "../../../models/tables/common/bbs/BbsArticleCommentFile";
+import { AttachmentFile } from "@ORGANIZATION/PROJECT-models/lib/tables/common/AttachmentFile";
+import { BbsArticle } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticle";
+import { BbsArticleComment } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticleComment";
+import { BbsArticleCommentFile } from "@ORGANIZATION/PROJECT-models/lib/tables/common/bbs/BbsArticleCommentFile";
 
 import { AttachmentFileProvider } from "../AttachmentFileProvider";
 

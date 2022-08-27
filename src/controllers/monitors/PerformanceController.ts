@@ -1,7 +1,7 @@
-import helper from "nestia-helper";
 import nest from "@modules/nestjs";
+import helper from "nestia-helper";
 
-import { IPerformance } from "../../api/structures/monitors/IPerformance";
+import { IPerformance } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/IPerformance";
 
 @nest.Controller("monitors/performance")
 export class PerformanceController {

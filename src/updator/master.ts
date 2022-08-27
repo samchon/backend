@@ -1,5 +1,5 @@
-import { start_updator_slave } from "./internal/start_updator_slave";
 import { start_updator_master } from "./internal/start_updator_master";
+import { start_updator_slave } from "./internal/start_updator_slave";
 
 async function main(): Promise<void> {
     await start_updator_master();
