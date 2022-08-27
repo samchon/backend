@@ -1,6 +1,7 @@
 import { assertType } from "typescript-json";
-import api from "../../../api";
-import { ISystem } from "../../../api/structures/monitors/ISystem";
+
+import api from "@ORGANIZATION/PROJECT-api";
+import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
 export async function test_api_monitor_system(
     connection: api.IConnection,

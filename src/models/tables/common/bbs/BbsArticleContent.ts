@@ -2,8 +2,8 @@ import orm from "@modules/typeorm";
 import safe from "safe-typeorm";
 
 import { __MvBbsArticleLastContent } from "../../../material/common/__MvBbsArticleLastContent";
-import { BbsArticle } from "./BbsArticle";
 import { AttachmentFile } from "../AttachmentFile";
+import { BbsArticle } from "./BbsArticle";
 import { BbsArticleContentFile } from "./BbsArticleContentFile";
 
 @orm.Index(["bbs_article_id", "created_at"])

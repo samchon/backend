@@ -1,17 +1,16 @@
-const EXTENSION = __filename.substr(-2);
-if (EXTENSION === "js") require("source-map-support/register");
-
-import fs from "fs";
 import orm from "@modules/typeorm";
-import { Singleton } from "tstl/thread/Singleton";
+import fs from "fs";
 import { randint } from "tstl/algorithm/random";
+import { Singleton } from "tstl/thread/Singleton";
 
 import { Backend } from "../Backend";
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
-
-import { ErrorUtil } from "../utils/ErrorUtil";
 import { Scheduler } from "../schedulers/Scheduler";
+import { ErrorUtil } from "../utils/ErrorUtil";
+
+const EXTENSION = __filename.substr(-2);
+if (EXTENSION === "js") require("source-map-support/register");
 
 const directory = new Singleton(async () => {
     await mkdir(`${__dirname}/../../assets`);

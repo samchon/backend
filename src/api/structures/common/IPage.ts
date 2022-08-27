@@ -5,13 +5,12 @@
 //================================================================
 /**
  * A page.
- * 
+ *
  * Collection of records with pagination indformation.
- * 
+ *
  * @author Samchon
  */
-export interface IPage<T extends object>
-{
+export interface IPage<T extends object> {
     /**
      * Page information.
      */
@@ -22,13 +21,11 @@ export interface IPage<T extends object>
      */
     data: T[];
 }
-export namespace IPage
-{
+export namespace IPage {
     /**
      * Page information.
      */
-    export interface IPagination
-    {
+    export interface IPagination {
         /**
          * Current page number.
          */
@@ -36,7 +33,7 @@ export namespace IPage
 
         /**
          * Limitation of records per a page.
-         * 
+         *
          * @default 100
          */
         limit: number;
@@ -48,7 +45,7 @@ export namespace IPage
 
         /**
          * Total pages.
-         * 
+         *
          * Equal to {@link total_count} / {@link limit} with ceiling.
          */
         total_pages: number;
@@ -57,8 +54,7 @@ export namespace IPage
     /**
      * Page request data
      */
-    export interface IRequest
-    {
+    export interface IRequest {
         /**
          * Page number.
          */
@@ -69,13 +65,14 @@ export namespace IPage
          */
         limit?: number;
     }
-    export namespace IRequest
-    {
+    export namespace IRequest {
         /**
          * Sorting column specialization.
-         * 
+         *
          * The plus means ascending order and the minus means descending order.
          */
-        export type Sort<Literal extends string> = Array<`-${Literal}` | `+${Literal}`>;
+        export type Sort<Literal extends string> = Array<
+            `-${Literal}` | `+${Literal}`
+        >;
     }
 }

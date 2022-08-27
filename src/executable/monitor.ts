@@ -1,7 +1,6 @@
-import api from "../api";
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
-
+import api from "../api";
 import { IPerformance } from "../api/structures/monitors/IPerformance";
 import { ISystem } from "../api/structures/monitors/ISystem";
 

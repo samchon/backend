@@ -2,12 +2,10 @@ import { IAttachmentFile } from "../IAttachmentFile";
 
 /**
  * 게시물의 댓글.
- * 
+ *
  * @author Samchon
  */
-export interface IBbsArticleComment
-    extends IBbsArticleComment.IStore
-{
+export interface IBbsArticleComment extends IBbsArticleComment.IStore {
     /**
      * Primary Key.
      */
@@ -18,12 +16,10 @@ export interface IBbsArticleComment
      */
     created_at: string;
 }
-export namespace IBbsArticleComment
-{
+export namespace IBbsArticleComment {
     export type Format = "TEXT" | "MARKDOWN" | "HTML";
 
-    export interface IStore
-    {
+    export interface IStore {
         /**
          * 본문의 데이터 포맷.
          */

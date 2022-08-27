@@ -1,11 +1,10 @@
-import { Promisive } from "tgrid/typings/Promisive";
 import { MutexConnector, RemoteMutex } from "mutex-server";
+import { Promisive } from "tgrid/typings/Promisive";
 import { UniqueLock } from "tstl/thread/UniqueLock";
-
-import { IUpdateController } from "../updator/internal/IUpdateController";
 
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
+import { IUpdateController } from "../updator/internal/IUpdateController";
 
 async function main(): Promise<void> {
     // CONFIGURE MODE

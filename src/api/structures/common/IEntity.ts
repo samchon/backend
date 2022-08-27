@@ -1,4 +1,3 @@
-export interface IEntity
-{
+export interface IEntity {
     id: string;
 }
