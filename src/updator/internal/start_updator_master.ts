@@ -33,8 +33,8 @@ export async function start_updator_master(): Promise<
     };
 
     // OPEN SERVER
-    await server.open(Configuration.UPDATOR_PORT, async (acceptor) => {
-        if (acceptor.header !== Configuration.SYSTEM_PASSWORD) {
+    await server.open(await Configuration.UPDATOR_PORT(), async (acceptor) => {
+        if (acceptor.header !== (await Configuration.SYSTEM_PASSWORD())) {
             await acceptor.reject();
             return;
         } else if (acceptor.path === "/slave") {

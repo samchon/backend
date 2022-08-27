@@ -104,6 +104,10 @@ Therefore, to mount this backend server on your local machine, you've to install
  - https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
  - https://postgis.net/workshops/postgis-intro/installation.html
 
+![PostgreSQL installer](assets/images/postgresql-installer.png)
+
+![StackBuilder installer](assets/images/stackbuilder-installer.png)
+
 When the installation has been finnished, you'd better to configure `bin` directory of the PostgreSQL as a environment variable PATH. If your operating system is the Windows, the path may be `C:\Program Files\PostgreSQL\14\bin`. Otherwise you're using the MacOS, it would be the `/Applications/Postgres.app/Contents/MacOS/bin`.
 
 After the environmenta variable PATH configuration, connect to the PostgreSQL terminal and create each `DB_NAME` database and `DB_SCHEMA` schema. Also, create two accounts `DB_ACCOUNT_w` and `DB_ACCOUNT_r`, grant writable and readonly privileges to them.

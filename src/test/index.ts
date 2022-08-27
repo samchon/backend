@@ -3,6 +3,8 @@ import cli from "cli";
 import { MutexServer } from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
 
+import api from "@ORGANIZATION/PROJECT-api";
+
 import { Backend } from "../Backend";
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
@@ -25,7 +27,7 @@ async function main(): Promise<void> {
 
     // PREPARE DATABASE
     const db: orm.Connection = await orm.createConnection(
-        Configuration.DB_CONFIG,
+        await Configuration.DB_CONFIG(),
     );
     if (command.skipReset === undefined) {
         await StopWatch.trace("Reset DB", () => SetupWizard.schema(db));
@@ -38,22 +40,21 @@ async function main(): Promise<void> {
 
     // BACKEND SERVER
     const backend: Backend = new Backend();
-    await backend.open(Configuration.API_PORT);
+    await backend.open();
 
     //----
     // CLINET CONNECTOR
     //----
     // DO TEST
+    const connection: api.IConnection = {
+        host: `http://127.0.0.1:${await Configuration.API_PORT()}`,
+        encryption: await Configuration.ENCRYPTION_PASSWORD(),
+    };
     const exceptions: Error[] = await DynamicImportIterator.force(
         __dirname + "/features",
         {
             prefix: "test",
-            parameters: () => [
-                {
-                    host: `http://127.0.0.1:${Configuration.API_PORT}`,
-                    encryption: Configuration.ENCRYPTION_PASSWORD,
-                },
-            ],
+            parameters: () => [connection],
         },
     );
 
