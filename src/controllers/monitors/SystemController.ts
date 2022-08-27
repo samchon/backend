@@ -15,9 +15,9 @@ export class SystemController {
         return {
             uid: SystemProvider.uid,
             arguments: process.argv,
-            created_at: DateUtil.to_string(SystemProvider.created_at, true),
-            package: await SystemProvider.package(),
             commit: await SystemProvider.commit(),
+            package: await SystemProvider.package(),
+            created_at: DateUtil.to_string(SystemProvider.created_at, true),
         };
     }
 
