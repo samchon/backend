@@ -430,6 +430,11 @@ List of the run commands defined in the [package.json](package.json) are like be
     - `build:models`: Build ORM library
   - `dev`: Incremental compilation using the `--watch` option
   - `reset:dev`: Restart the dev backend server with DB reset
+  - `revert`: Revert the backend server to previous commit
+    - `npm run revert local e245tjfg345tq453tae`
+    - `npm run revert dev e245tjfg345tq453tae`
+    - `npm run revert real e245tjfg345tq453tae`
+  - `schema`: Create DB, users and schemas on Local
   - `start`: Start the backend server
     - `npm run start local`
     - `npm run start dev`

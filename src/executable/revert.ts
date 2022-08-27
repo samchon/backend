@@ -10,12 +10,17 @@ import { SGlobal } from "../SGlobal";
 import { IUpdateController } from "../updator/internal/IUpdateController";
 
 async function main(): Promise<void> {
-    // CONFIGURE MODE
-    if (!process.argv[2])
+    // CONFIGURE MODE & COMMIT-ID
+    const commit = process.argv[3];
+    if (!commit)
         throw new Error(
-            "Error on ShoppingUpdator.update(): no mode specified.",
+            "Error on ShoppingUpdator.revert(): no commit-id specified.",
         );
-    SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
+    else if (!process.argv[2])
+        throw new Error(
+            "Error on ShoppingUpdator.revert(): no mode specified.",
+        );
+    SGlobal.setMode(process.argv[2].toUpperCase() as "LOCAL");
 
     // CONNECT TO THE UPDATOR SERVER
     const connector: MutexConnector<string, null> = new MutexConnector(
@@ -30,13 +35,13 @@ async function main(): Promise<void> {
     const mutex: RemoteMutex = await connector.getMutex("update");
     const success: boolean = await UniqueLock.try_lock(mutex, async () => {
         const updator: Promisive<IUpdateController> = connector.getDriver();
-        await updator.update();
+        await updator.revert(commit);
     });
     await connector.close();
 
     // SUCCESS OR NOT
     if (success === false) {
-        console.log("Already on updating.");
+        console.log("Already on reverting.");
         process.exit(-1);
     }
 

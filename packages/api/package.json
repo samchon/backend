@@ -1,5 +1,5 @@
 {
-  "name": "@samchon/PROJECT-api",
+  "name": "@ORGANIZATION/PROJECT-api",
   "version": "0.0.0",
   "description": "API for PROJECT",
   "main": "lib/index.js",
@@ -16,6 +16,6 @@
   "homepage": "https://github.com/samchon/backend#readme",
   "dependencies": {
     "nestia-fetcher": "^2.0.1",
-    "typescript-json": "^2.0.4"
+    "typescript-json": "^3.1.1"
   }
 }
