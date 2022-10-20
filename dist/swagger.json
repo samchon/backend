@@ -141,7 +141,8 @@
           "cpu",
           "memory",
           "resource"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       },
       "process.global.NodeJS.CpuUsage": {
         "type": "object",
@@ -159,7 +160,8 @@
         "required": [
           "user",
           "system"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       },
       "process.global.NodeJS.MemoryUsage": {
         "type": "object",
@@ -192,7 +194,8 @@
           "heapUsed",
           "external",
           "arrayBuffers"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       },
       "process.global.NodeJS.ResourceUsage": {
         "type": "object",
@@ -280,7 +283,8 @@
           "unsharedStackSize",
           "userCPUTime",
           "voluntaryContextSwitches"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       },
       "ISystem": {
         "type": "object",
@@ -322,7 +326,18 @@
           "package",
           "created_at"
         ],
-        "description": "System Information."
+        "description": "System Information.",
+        "x-tson_jsDocTags": [
+          {
+            "name": "author",
+            "text": [
+              {
+                "text": "Jeongho Nam",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
       },
       "ISystem.ICommit": {
         "type": "object",
@@ -392,7 +407,8 @@
           "commited_at",
           "tags"
         ],
-        "description": "Git commit info."
+        "description": "Git commit info.",
+        "x-tson_jsDocTags": []
       },
       "ISystem.ICommit.IUser": {
         "type": "object",
@@ -411,7 +427,8 @@
           "name",
           "email"
         ],
-        "description": "Git user account info."
+        "description": "Git user account info.",
+        "x-tson_jsDocTags": []
       },
       "ISystem.IPackage": {
         "type": "object",
@@ -488,12 +505,18 @@
           "homepage",
           "dependencies"
         ],
-        "description": "NPM package info."
+        "description": "NPM package info.",
+        "x-tson_jsDocTags": []
       },
       "__type": {
         "type": "object",
         "properties": {},
-        "nullable": false
+        "additionalProperties": {
+          "type": "string",
+          "nullable": false
+        },
+        "nullable": false,
+        "x-tson_jsDocTags": []
       },
       "__type.o1": {
         "type": "object",
@@ -514,7 +537,8 @@
         "required": [
           "type",
           "url"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       },
       "__type.o2": {
         "type": "object",
@@ -527,7 +551,8 @@
         "nullable": false,
         "required": [
           "url"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       },
       "__type.o3": {
         "type": "object",
@@ -540,7 +565,8 @@
         "nullable": false,
         "required": [
           "registry"
-        ]
+        ],
+        "x-tson_jsDocTags": []
       }
     }
   }
