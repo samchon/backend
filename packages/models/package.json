@@ -16,6 +16,6 @@
   },
   "homepage": "https://github.com/samchon/backend#readme",
   "dependencies": {
-    "safe-typeorm": "^1.0.0"
+    "safe-typeorm": "^2.0.1"
   }
 }

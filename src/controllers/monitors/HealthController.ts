@@ -1,8 +1,8 @@
 import nest from "@modules/nestjs";
-import helper from "nestia-helper";
+import core from "@nestia/core";
 
 @nest.Controller("monitors/health")
 export class HealthController {
-    @helper.TypedRoute.Get()
+    @core.TypedRoute.Get()
     public get(): void {}
 }

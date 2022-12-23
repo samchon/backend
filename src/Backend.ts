@@ -1,7 +1,7 @@
 import nest from "@modules/nestjs";
+import core from "@nestia/core";
 import { NestFactory } from "@nestjs/core";
 import express from "express";
-import helper from "nestia-helper";
 
 import { Configuration } from "./Configuration";
 import { SGlobal } from "./SGlobal";
@@ -16,7 +16,7 @@ export class Backend {
         //----
         // MOUNT CONTROLLERS
         this.application_ = await NestFactory.create(
-            await helper.EncryptedModule.dynamic(
+            await core.EncryptedModule.dynamic(
                 __dirname + "/controllers",
                 await Configuration.ENCRYPTION_PASSWORD(),
             ),

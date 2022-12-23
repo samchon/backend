@@ -1,30 +1,30 @@
 import nest from "@modules/nestjs";
 import orm from "@modules/typeorm";
-import helper from "nestia-helper";
+import core from "@nestia/core";
 import { DomainError, InvalidArgument, OutOfRange } from "tstl";
 
 import { ErrorUtil } from "../utils/ErrorUtil";
 
 // CUSTOM EXCEPTIION CONVERSION
-helper.ExceptionManager.insert(
+core.ExceptionManager.insert(
     orm.EntityNotFoundError,
     (exp) => new nest.NotFoundException(exp.message),
 );
-helper.ExceptionManager.insert(
+core.ExceptionManager.insert(
     OutOfRange,
     (exp) => new nest.NotFoundException(exp.message),
 );
-helper.ExceptionManager.insert(
+core.ExceptionManager.insert(
     InvalidArgument,
     (exp) => new nest.ConflictException(exp.message),
 );
-helper.ExceptionManager.insert(
+core.ExceptionManager.insert(
     DomainError,
     (exp) => new nest.UnprocessableEntityException(exp.message),
 );
 
 // ERROR FROM THE DATABASE
-helper.ExceptionManager.insert(orm.QueryFailedError, (exp) => {
+core.ExceptionManager.insert(orm.QueryFailedError, (exp) => {
     if (exp.message.indexOf("ER_DUP_ENTRY: ") !== -1)
         return new nest.ConflictException("Blocked by unique constraint.");
     else if (exp.message.indexOf("ER_NO_REFERENCED_ROW_2") !== -1)
@@ -33,7 +33,7 @@ helper.ExceptionManager.insert(orm.QueryFailedError, (exp) => {
 });
 
 // TRACE EXACT SERVER INTERNAL ERROR
-helper.ExceptionManager.insert(
+core.ExceptionManager.insert(
     Error,
     (exp) =>
         new nest.InternalServerErrorException({

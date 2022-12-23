@@ -1,5 +1,5 @@
 import nest from "@modules/nestjs";
-import helper from "nestia-helper";
+import core from "@nestia/core";
 import { sleep_for } from "tstl/thread/global";
 
 import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
@@ -10,7 +10,7 @@ import { DateUtil } from "../../utils/DateUtil";
 
 @nest.Controller("monitors/system")
 export class SystemController {
-    @helper.EncryptedRoute.Get()
+    @core.EncryptedRoute.Get()
     public async get(): Promise<ISystem> {
         return {
             uid: SystemProvider.uid,
@@ -21,9 +21,9 @@ export class SystemController {
         };
     }
 
-    @helper.EncryptedRoute.Get(":ms")
+    @core.EncryptedRoute.Get(":ms")
     public async sleep(
-        @helper.TypedParam("ms", "number") ms: number,
+        @core.TypedParam("ms", "number") ms: number,
     ): Promise<ISystem> {
         await sleep_for(ms);
         return await this.get();
@@ -32,7 +32,7 @@ export class SystemController {
     /**
      * @internal
      */
-    @helper.EncryptedRoute.Get("internal_server_error")
+    @core.EncryptedRoute.Get("internal_server_error")
     public async internal_server_error(): Promise<void> {
         throw new Error("The manual 500 error for the testing.");
     }
@@ -40,7 +40,7 @@ export class SystemController {
     /**
      * @internal
      */
-    @helper.EncryptedRoute.Get("uncaught_exception")
+    @core.EncryptedRoute.Get("uncaught_exception")
     public uncaught_exception(): void {
         new Promise(() => {
             throw new Error("The manul uncaught exception for the testing.");

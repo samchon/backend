@@ -1,11 +1,11 @@
 import nest from "@modules/nestjs";
-import helper from "nestia-helper";
+import core from "@nestia/core";
 
 import { IPerformance } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/IPerformance";
 
 @nest.Controller("monitors/performance")
 export class PerformanceController {
-    @helper.EncryptedRoute.Get()
+    @core.EncryptedRoute.Get()
     public async get(): Promise<IPerformance> {
         return {
             cpu: process.cpuUsage(),

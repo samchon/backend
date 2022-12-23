@@ -1,6 +1,6 @@
 import { MutexConnector } from "mutex-server";
 import { MutableSingleton } from "tstl/thread/MutableSingleton";
-import { assertType } from "typescript-json";
+import { assert } from "typia";
 
 import { Configuration } from "./Configuration";
 
@@ -27,7 +27,7 @@ export class SGlobal {
      * @param mode The new mode
      */
     public static setMode(mode: typeof SGlobal.mode): void {
-        assertType<typeof mode>(mode);
+        assert<typeof mode>(mode);
         env.mode = mode;
     }
 }

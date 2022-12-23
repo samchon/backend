@@ -1,1 +1,1 @@
-export { HttpError } from "nestia-fetcher";
+export { HttpError } from "@nestia/fetcher";

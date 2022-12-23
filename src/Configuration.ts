@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { IEncryptionPassword } from "nestia-fetcher";
+import { IEncryptionPassword } from "@nestia/fetcher";
 import pg from "pg";
 import safe from "safe-typeorm";
 

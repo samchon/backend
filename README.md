@@ -1,24 +1,19 @@
 # Backend
-> 한국어 브랜치: [samchon/backend/tree/korean](https://github.com/samchon/backend/tree/korean)
-
 ## 1. Outline
 ### 1.1. Introduction
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 
 A template repository for the Typescript Backend Server using those libraries:
 
-  - [NestJS](https://nestjs.com) and [**`nestia`**](https://github.com/samchon/nestia): Automatic SDK and Swagger generator for the NestJS
+  - [NestJS](https://nestjs.com): NodeJS Backend Framework
+    - [`@nestia/core`](https://github.com/samchon/nestia): validation decorators 15,000x faster than `class-validator`
+    - [`@nestia/sdk`](https://github.com/samchon/sdk): SDK and Swagger Documents generator
   - [TypeORM](https://typeorm.io) and [**`safe-typeorm`**](https://github.com/samchon/safe-typeorm): Helper of TypeORM in the compilation level
 
-Also, I've prepared lots of example backend projects based on this template project. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
+Also, I've prepared lots of some backend projects based on this template project. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
 
-  - [samchon/bbs-backend](https://github.com/samchon/bbs-backend): Built-in Board System
-  - [archidraw/payments](https://github.com/archidraw/payments): Integrated Payments Server using multiple PGs.
-    - [samchon/fake-iamport-server](https://github.com/samchon/fake-iamport-server): Fake iamport server, but real SDK
-    - [samchon/fake-toss-payments-server](https://github.com/samchon/fake-toss-payments-server): Fake toss-payments server, but real SDK
-  - academic-backend: preparing...
-  - delivery-backend: preparing...
-
+  - [samchon/fake-iamport-server](https://github.com/samchon/fake-iamport-server): Fake iamport server, but real SDK
+  - [samchon/fake-toss-payments-server](https://github.com/samchon/fake-toss-payments-server): Fake toss-payments server, but real SDK
 
 If you wanna new type of example backend project or you've something to ask me about the TypeScript backend server development, don't mine anything and just write an issue for help. I or another developers interested in this project will support you.
 
