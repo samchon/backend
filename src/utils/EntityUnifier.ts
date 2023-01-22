@@ -5,22 +5,26 @@ import { hash } from "tstl/functional/hash";
 import { equal } from "tstl/ranges/algorithm/iterations";
 import { VariadicSingleton } from "tstl/thread/VariadicSingleton";
 
-import { IEntity } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IEntity";
+import { IEntity } from "../api/structures/common/IEntity";
 
 export namespace EntityUtil {
     /* -----------------------------------------------------------
         UNIFIER
     ----------------------------------------------------------- */
     /**
-     * 중복된 레코드들을 하나로 통합한다.
+     * Unify records into one.
      *
-     * 복수의 `Entity` 레코드들을, 하나의 레코드로 흡수-병합한다. 즉, *duplicates* 에 기입된 모든
-     * 레코드들을 삭제하고, 그 대신 중복 레코드들에 종속되어있는 모든 레코드의 *Entity* 에 대한 참조
-     * 내역을, 모두 *original* 의 것으로 교체해준다.
+     * Absorb and merge multiple records into one. That is, delete all *duplicates*
+     * records, and replace all reference of *Entity* in all records that depend on
+     * *duplicates* with *original*.
      *
-     * @template Entity 타깃 엔티티의 클래스 타입.
-     * @param original 원본 레코드, 중복 레코드가 모두 이리로 통합된다.
-     * @param duplicates 중복 레코드 리스트, 모두 원본으로 통합된다.
+     * If there's an unique constraint in dependent records, the dependent records
+     * would also be unified. Of course, when grand-children records have such unique
+     * constraint too, they would also be unified recursively.
+     *
+     * @template Entity Type of the target entity
+     * @param original Original record, would absorb every duplicated records
+     * @param duplicates Duplicated records, would be merged into original
      */
     export async function unify<Entity extends safe.Model>(
         original: Entity,
@@ -96,14 +100,14 @@ export namespace EntityUtil {
         const group: string[] = columns.filter((col) => col !== child.foreign);
         if (group.length !== 0) {
             const sql: string = `
-                UPDATE ${child.info.schema}.${child.info.name}
+                UPDATE ${getTableAlias(child.info)}
                 SET ${child.foreign} = $1
                 WHERE ${child.info.primary} IN
                 (
                     SELECT CAST(MIN(CAST(${
                         child.info.primary
                     } AS VARCHAR(36))) AS UUID) AS ${child.info.primary}
-                    FROM ${child.info.schema}.${child.info.name}
+                    FROM ${getTableAlias(child.info)}
                     WHERE ${child.foreign} IN ($1, ${deprecates
                 .map((_, index) => `$${index + 2}`)
                 .join(", ")})
@@ -121,11 +125,11 @@ export namespace EntityUtil {
             .findRepository(child.info.target)
             .query(
                 `SELECT * 
-            FROM ${child.info.schema}.${child.info.name} 
-            WHERE ${child.foreign} IN (${[keep, ...deprecates]
+                FROM ${getTableAlias(child.info)} 
+                WHERE ${child.foreign} IN (${[keep, ...deprecates]
                     .map((_, index) => `$${index + 1}`)
                     .join(", ")})
-            ORDER BY ${child.info.primary} ASC`,
+                ORDER BY ${child.info.primary} ASC`,
                 [keep, ...deprecates],
             );
 
@@ -144,12 +148,14 @@ export namespace EntityUtil {
                 (rec) => rec[child.foreign] === keep,
             );
             const master: any = it.second[index];
-            const slaves: any[] = it.second.filter((_, i) => i !== index);
+            if (master === undefined) continue;
 
             await _Unify(
                 child.info,
                 master[child.info.primary],
-                slaves.map((s) => s[child.info.primary]),
+                it.second
+                    .filter((_, i) => i !== index, keep)
+                    .map((s) => s[child.info.primary]),
             );
         }
     }
@@ -159,7 +165,7 @@ export namespace EntityUtil {
     ----------------------------------------------------------- */
     export interface ITableInfo {
         target: safe.typings.Creator<object>;
-        schema: string;
+        schema?: string;
         name: string;
         primary: string;
         uniques: string[][];
@@ -188,12 +194,16 @@ export namespace EntityUtil {
         return dict.get(table)!;
     }
 
+    function getTableAlias(info: ITableInfo): string {
+        return info.schema ? `${info.schema}.${info.name}` : info.name;
+    }
+
     const table_infos_ = new VariadicSingleton((connection: orm.Connection) => {
         const dict: Map<string, ITableInfo> = new Map();
         for (const entity of connection.entityMetadatas) {
             const info: ITableInfo = {
                 target: entity.target as safe.typings.Creator<object>,
-                schema: entity.schema!,
+                schema: entity.schema,
                 name: entity.tableName,
                 primary: entity.primaryColumns[0].databaseName,
                 uniques: entity.uniques.map((u) =>

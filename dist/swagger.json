@@ -20,7 +20,8 @@
             "description": ""
           }
         },
-        "description": ""
+        "description": "",
+        "x-nestia-jsDocTags": []
       }
     },
     "/monitors/performance": {
@@ -40,7 +41,8 @@
             }
           }
         },
-        "description": ""
+        "description": "",
+        "x-nestia-jsDocTags": []
       }
     },
     "/monitors/system": {
@@ -60,7 +62,8 @@
             }
           }
         },
-        "description": ""
+        "description": "",
+        "x-nestia-jsDocTags": []
       }
     },
     "/monitors/system/{ms}": {
@@ -91,7 +94,8 @@
             }
           }
         },
-        "description": ""
+        "description": "",
+        "x-nestia-jsDocTags": []
       }
     },
     "/monitors/system/internal_server_error": {
@@ -104,7 +108,12 @@
             "description": "## Warning\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/@nestia/core#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.\n\n-----------------\n\n"
           }
         },
-        "description": ""
+        "description": "",
+        "x-nestia-jsDocTags": [
+          {
+            "name": "internal"
+          }
+        ]
       }
     },
     "/monitors/system/uncaught_exception": {
@@ -117,7 +126,12 @@
             "description": "## Warning\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/@nestia/core#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.\n\n-----------------\n\n"
           }
         },
-        "description": ""
+        "description": "",
+        "x-nestia-jsDocTags": [
+          {
+            "name": "internal"
+          }
+        ]
       }
     }
   },
@@ -145,7 +159,7 @@
           "memory",
           "resource"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "_singlequote_process_singlequote_.global.NodeJS.CpuUsage": {
         "type": "object",
@@ -166,7 +180,7 @@
           "user",
           "system"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "_singlequote_process_singlequote_.global.NodeJS.MemoryUsage": {
         "type": "object",
@@ -205,7 +219,7 @@
           "external",
           "arrayBuffers"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "_singlequote_process_singlequote_.global.NodeJS.ResourceUsage": {
         "type": "object",
@@ -310,7 +324,7 @@
           "userCPUTime",
           "voluntaryContextSwitches"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ISystem": {
         "type": "object",
@@ -359,7 +373,7 @@
           "created_at"
         ],
         "description": "System Information.",
-        "x-typia_jsDocTags": [
+        "x-typia-jsDocTags": [
           {
             "name": "author",
             "text": [
@@ -453,7 +467,7 @@
           "tags"
         ],
         "description": "Git commit info.",
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ISystem.ICommit.IUser": {
         "type": "object",
@@ -475,7 +489,7 @@
           "email"
         ],
         "description": "Git user account info.",
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "ISystem.IPackage": {
         "type": "object",
@@ -569,18 +583,23 @@
           "dependencies"
         ],
         "description": "NPM package info.",
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_string_gt_": {
         "type": "object",
         "properties": {},
-        "additionalProperties": {
+        "nullable": false,
+        "x-typia-jsDocTags": [],
+        "x-typia-additionalProperties": {
           "type": "string",
           "nullable": false,
           "x-typia-required": true
         },
-        "nullable": false,
-        "x-typia_jsDocTags": []
+        "additionalProperties": {
+          "type": "string",
+          "nullable": false,
+          "x-typia-required": true
+        }
       },
       "__type": {
         "type": "object",
@@ -604,7 +623,7 @@
           "type",
           "url"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "__type.o1": {
         "type": "object",
@@ -619,7 +638,7 @@
         "required": [
           "url"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       },
       "__type.o2": {
         "type": "object",
@@ -634,7 +653,7 @@
         "required": [
           "registry"
         ],
-        "x-typia_jsDocTags": []
+        "x-typia-jsDocTags": []
       }
     }
   }
