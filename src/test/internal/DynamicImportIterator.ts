@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import cli from "cli";
 import fs from "fs";
 import { IPointer } from "tstl/functional/IPointer";
@@ -68,8 +69,6 @@ export namespace DynamicImportIterator {
 
             const external: Module<Arguments> = await import(current);
             await execute(options, command, external, exceptions);
-
-            if (options.counter) ++options.counter.value;
         }
     }
 
@@ -86,29 +85,34 @@ export namespace DynamicImportIterator {
                 continue;
             else if (key.substr(0, options.prefix.length) !== options.prefix)
                 continue;
-            else if (external[key] instanceof Function) {
-                const closure: Closure<Arguments> = external[key];
-                const func = async () => {
-                    if (options.wrapper !== undefined)
-                        await options.wrapper(key, closure);
-                    else await closure(...options.parameters(key));
-                };
+            else if (!(external[key] instanceof Function)) continue;
 
-                try {
-                    if (options.showElapsedTime === false) {
-                        await func();
-                        console.log(`  - ${key}`);
-                    } else {
-                        const time: number = await StopWatch.measure(func);
-                        console.log(`  - ${key}: ${time.toLocaleString()} ms`);
-                    }
-                } catch (exp) {
-                    if (!(exp instanceof Error)) return;
-
-                    console.log(`  - ${key} -> ${exp.name}`);
-                    if (exceptions !== undefined) exceptions.push(exp);
-                    else throw exp;
+            const closure: Closure<Arguments> = external[key];
+            const func = async () => {
+                if (options.wrapper !== undefined)
+                    await options.wrapper(key, closure);
+                else await closure(...options.parameters(key));
+            };
+            const label: string = chalk.greenBright(key);
+            try {
+                if (options.counter) ++options.counter.value;
+                if (options.showElapsedTime === false) {
+                    await func();
+                    console.log(`  - ${label}`);
+                } else {
+                    const time: number = await StopWatch.measure(func);
+                    console.log(
+                        `  - ${label}: ${chalk.yellowBright(
+                            time.toLocaleString(),
+                        )} ms`,
+                    );
                 }
+            } catch (exp) {
+                if (!(exp instanceof Error)) return;
+
+                console.log(`  - ${label} -> ${chalk.redBright(exp.name)}`);
+                if (exceptions !== undefined) exceptions.push(exp);
+                else throw exp;
             }
         }
     }
