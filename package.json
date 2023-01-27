@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
-    "@nestia/sdk": "^1.0.4",
+    "@nestia/sdk": "^1.0.5",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/cli": "^0.11.19",
     "@types/express": "^4.17.12",
@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "chalk": "^4.1.2",
     "cli": "^1.0.1",
-    "nestia": "^4.0.4",
+    "nestia": "^4.0.5",
     "pm2": "^4.5.6",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
@@ -63,7 +63,7 @@
     "typescript-transform-paths": "^3.4.4"
   },
   "dependencies": {
-    "@nestia/core": "^1.0.9",
+    "@nestia/core": "^1.0.10",
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.3.1",
     "pg": "^8.7.3",
