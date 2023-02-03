@@ -1,4 +1,6 @@
 import orm from "@modules/typeorm";
+import { StopWatch } from "@nestia/e2e";
+import { DynamicExecutor } from "@nestia/e2e/lib/DynamicExecutor";
 import cli from "cli";
 import { MutexServer } from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
@@ -11,8 +13,6 @@ import { SGlobal } from "../SGlobal";
 import { SetupWizard } from "../setup/SetupWizard";
 import { IUpdateController } from "../updator/internal/IUpdateController";
 import { start_updator_master } from "../updator/internal/start_updator_master";
-import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-import { StopWatch } from "./internal/StopWatch";
 
 interface ICommand {
     mode?: string;
@@ -50,13 +50,10 @@ async function main(): Promise<void> {
         host: `http://127.0.0.1:${await Configuration.API_PORT()}`,
         encryption: await Configuration.ENCRYPTION_PASSWORD(),
     };
-    const exceptions: Error[] = await DynamicImportIterator.force(
-        __dirname + "/features",
-        {
-            prefix: "test",
-            parameters: () => [connection],
-        },
-    );
+    const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
+        prefix: "test",
+        parameters: () => [connection],
+    })(__dirname + "/features");
 
     // WAIT FOR A WHILE FOR THE EVENTS
     await sleep_for(2500);
@@ -66,9 +63,10 @@ async function main(): Promise<void> {
     await db.close();
     await updator.close();
 
-    if (exceptions.length === 0) console.log("Success");
+    const executions: DynamicExecutor.IReport.IExecution[] = report.executions;
+    if (executions.length === 0) console.log("Success");
     else {
-        for (const exp of exceptions) console.log(exp);
+        for (const exec of executions) console.log(exec.error);
         process.exit(-1);
     }
 }

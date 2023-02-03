@@ -1,8 +1,8 @@
+import { DynamicExecutor } from "@nestia/e2e";
 import mutex from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
 
 import { SGlobal } from "../SGlobal";
-import { DynamicImportIterator } from "../test/internal/DynamicImportIterator";
 import { MapUtil } from "../utils/MapUtil";
 
 export namespace Scheduler {
@@ -25,7 +25,7 @@ export namespace Scheduler {
         dict: Map<string, number>,
         interval: number,
     ): Promise<void> {
-        await DynamicImportIterator.main(__dirname + "/features", {
+        await DynamicExecutor.assert({
             prefix: "schedule",
             parameters: (key) => [MapUtil.take(dict, key, () => interval)],
             wrapper: async (key, closure) => {
@@ -33,7 +33,7 @@ export namespace Scheduler {
                 if ((await closure(slept)) === false)
                     dict.set(key, slept + interval);
             },
-        });
+        })(__dirname + "/features");
     }
 }
 
