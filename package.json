@@ -68,7 +68,7 @@
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.3.1",
     "pg": "^8.7.3",
-    "safe-typeorm": "^2.0.1",
+    "safe-typeorm": "^2.0.3",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
     "typia": "^3.4.22"
