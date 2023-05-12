@@ -63,10 +63,11 @@ async function main(): Promise<void> {
     await db.close();
     await updator.close();
 
-    const executions: DynamicExecutor.IReport.IExecution[] = report.executions;
-    if (executions.length === 0) console.log("Success");
+    const failures: DynamicExecutor.IReport.IExecution[] =
+        report.executions.filter((exec) => exec.error !== null);
+    if (failures.length === 0) console.log("Success");
     else {
-        for (const exec of executions) console.log(exec.error);
+        for (const f of failures) console.log(f.error);
         process.exit(-1);
     }
 }

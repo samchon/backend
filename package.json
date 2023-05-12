@@ -8,7 +8,7 @@
     "build:api": "rimraf packages/api/lib && nestia sdk && tsc -p packages/api/tsconfig.json",
     "build:main": "rimraf lib && tsc",
     "build:models": "rimraf packages/models/lib && tsc -p packages/models/tsconfig.json",
-    "build:sdk": "nestia sdk",
+    "build:sdk": "rimraf src/api/functional && nestia sdk",
     "build:swagger": "nestia swagger",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
