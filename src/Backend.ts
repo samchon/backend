@@ -1,14 +1,17 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
 import { NestFactory } from "@nestjs/core";
-import express from "express";
+import {
+    FastifyAdapter,
+    NestFastifyApplication,
+} from "@nestjs/platform-fastify";
+import cp from "child_process";
+import fs from "fs";
 
 import { Configuration } from "./Configuration";
 import { SGlobal } from "./SGlobal";
 
 export class Backend {
-    private application_?: nest.INestApplication;
-    private is_closing_: boolean = false;
+    private application_?: NestFastifyApplication;
 
     public async open(): Promise<void> {
         //----
@@ -20,15 +23,13 @@ export class Backend {
                 __dirname + "/controllers",
                 await Configuration.ENCRYPTION_PASSWORD(),
             ),
+            new FastifyAdapter(),
             { logger: false },
         );
 
-        // CONFIGURATIONS
-        this.is_closing_ = false;
-        this.application_.enableCors();
-        this.application_.use(this.middleware.bind(this));
-
         // DO OPEN
+        this.application_.enableCors();
+        if (SGlobal.testing === false) await this.swagger(this.application_);
         await this.application_.listen(await Configuration.API_PORT());
 
         //----
@@ -39,7 +40,6 @@ export class Backend {
 
         // WHEN KILL COMMAND COMES
         process.on("SIGINT", async () => {
-            this.is_closing_ = true;
             await this.close();
             process.exit(0);
         });
@@ -59,14 +59,25 @@ export class Backend {
         }
     }
 
-    private middleware(
-        _request: express.Request,
-        response: express.Response,
-        next: FunctionLike,
-    ): void {
-        if (this.is_closing_ === true) response.set("Connection", "close");
-        next();
+    private async swagger(app: NestFastifyApplication): Promise<void> {
+        // CREATE DIRECTORY
+        const location: string = `${Configuration.PROJECT_DIR}/dist`;
+        if (fs.existsSync(location) === false)
+            await fs.promises.mkdir(location);
+
+        // BUILD SWAGGER
+        cp.execSync("npm run build:swagger");
+
+        // OPEN SWAGGER
+        await app.register(await import("@fastify/swagger"), {
+            mode: "static",
+            specification: {
+                path: `${location}/swagger.json`,
+                baseDir: process.cwd(),
+            },
+        });
+        await app.register(await import("@fastify/swagger-ui"), {
+            routePrefix: "/docs",
+        });
     }
 }
-
-type FunctionLike = (...args: any[]) => any;

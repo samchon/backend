@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "target": "ES5",
+        "declaration": true,
+        "outDir": "lib",
+        "downlevelIteration": true,
+        "lib": [
+            "DOM",
+            "ES2015",
+        ]
+    },
+    "include": ["../../src/api"],
+    "exclude": ["node_modules"],
+}

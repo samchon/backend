@@ -3,8 +3,8 @@ import { sleep_for } from "tstl/thread/global";
 
 import api from "@ORGANIZATION/PROJECT-api";
 
-import { Configuration } from "../../Configuration";
-import { Terminal } from "../../utils/Terminal";
+import { Configuration } from "../../src/Configuration";
+import { Terminal } from "../../src/utils/Terminal";
 
 async function main(): Promise<void> {
     //----
@@ -34,9 +34,9 @@ async function main(): Promise<void> {
 
     try {
         await Promise.all(
-            ArrayUtil.repeat(600, async (i) => {
+            ArrayUtil.repeat(600)(async (i) => {
                 await sleep_for(i * 10);
-                await api.functional.monitors.system.sleep(connection, 3000);
+                await api.functional.monitors.system.get(connection);
             }),
         );
     } catch (exp) {

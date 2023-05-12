@@ -1,18 +1,17 @@
 import orm from "@modules/typeorm";
-import { StopWatch } from "@nestia/e2e";
-import { DynamicExecutor } from "@nestia/e2e/lib/DynamicExecutor";
+import { DynamicExecutor, StopWatch } from "@nestia/e2e";
 import cli from "cli";
 import { MutexServer } from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
 
 import api from "@ORGANIZATION/PROJECT-api";
 
-import { Backend } from "../Backend";
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
-import { SetupWizard } from "../setup/SetupWizard";
-import { IUpdateController } from "../updator/internal/IUpdateController";
-import { start_updator_master } from "../updator/internal/start_updator_master";
+import { Backend } from "../src/Backend";
+import { Configuration } from "../src/Configuration";
+import { SGlobal } from "../src/SGlobal";
+import { SetupWizard } from "../src/setup/SetupWizard";
+import { IUpdateController } from "../src/updator/internal/IUpdateController";
+import { start_updator_master } from "../src/updator/internal/start_updator_master";
 
 interface ICommand {
     mode?: string;
@@ -30,8 +29,8 @@ async function main(): Promise<void> {
         await Configuration.DB_CONFIG(),
     );
     if (command.skipReset === undefined) {
-        await StopWatch.trace("Reset DB", () => SetupWizard.schema(db));
-        await StopWatch.trace("Seed Data", () => SetupWizard.seed());
+        await StopWatch.trace("Reset DB")(() => SetupWizard.schema(db));
+        await StopWatch.trace("Seed Data")(() => SetupWizard.seed());
     }
 
     // UPDATOR SERVER
@@ -39,6 +38,7 @@ async function main(): Promise<void> {
         await start_updator_master();
 
     // BACKEND SERVER
+    SGlobal.testing = true;
     const backend: Backend = new Backend();
     await backend.open();
 

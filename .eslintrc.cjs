@@ -1,18 +1,22 @@
 module.exports = {
     root: true,
     plugins: [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "deprecation",
     ],
     extends: [
         "plugin:@typescript-eslint/recommended",
     ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        project: "tsconfig.json"
+        project: [
+            "tsconfig.json",
+            "test/tsconfig.json",
+        ]
     },
     overrides: [
         {
-            files: ["src/**/*.ts"],
+            files: ["src/**/*.ts", "test/**/*.ts"],
             rules: {
                 "@typescript-eslint/consistent-type-definitions": "off",
                 "@typescript-eslint/consistent-type-definitions": "off",

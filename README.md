@@ -6,7 +6,7 @@
 A template repository for the Typescript Backend Server using those libraries:
 
   - [NestJS](https://nestjs.com): NodeJS Backend Framework
-    - [`@nestia/core`](https://github.com/samchon/nestia): validation decorators 15,000x faster than `class-validator`
+    - [`@nestia/core`](https://github.com/samchon/nestia): validation decorators 20,000x faster than `class-validator`
     - [`@nestia/sdk`](https://github.com/samchon/sdk): SDK and Swagger Documents generator
   - [TypeORM](https://typeorm.io) and [**`safe-typeorm`**](https://github.com/samchon/safe-typeorm): Helper of TypeORM in the compilation level
 

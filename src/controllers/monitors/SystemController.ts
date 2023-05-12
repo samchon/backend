@@ -1,6 +1,5 @@
 import nest from "@modules/nestjs";
 import core from "@nestia/core";
-import { sleep_for } from "tstl/thread/global";
 
 import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
@@ -19,14 +18,6 @@ export class SystemController {
             package: await SystemProvider.package(),
             created_at: DateUtil.to_string(SystemProvider.created_at, true),
         };
-    }
-
-    @core.EncryptedRoute.Get(":ms")
-    public async sleep(
-        @core.TypedParam("ms", "number") ms: number,
-    ): Promise<ISystem> {
-        await sleep_for(ms);
-        return await this.get();
     }
 
     /**

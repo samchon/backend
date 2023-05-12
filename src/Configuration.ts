@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { IEncryptionPassword } from "@nestia/fetcher";
+import path from "path";
 import pg from "pg";
 import safe from "safe-typeorm";
 
@@ -10,6 +11,13 @@ const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support").install();
 
 export namespace Configuration {
+    export const PROJECT_DIR = (() => {
+        const splitted: string[] = __dirname.split(path.sep);
+        return splitted.at(-1) === "src" && splitted.at(-2) === "bin"
+            ? path.resolve(__dirname + "/../..")
+            : path.resolve(__dirname + "/..");
+    })();
+
     export let API_PORT = async () => 37001;
     export let UPDATOR_PORT = async () => 37000;
     export let MASTER_IP = async (): Promise<string> => {

@@ -30,6 +30,8 @@ export class SGlobal {
         assert<typeof mode>(mode);
         env.mode = mode;
     }
+
+    public static testing: boolean = false;
 }
 
 export namespace SGlobal {
