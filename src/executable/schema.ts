@@ -52,8 +52,8 @@ async function main(): Promise<void> {
 
     await execute(
         config.database,
-        "postgres",
-        "root",
+        process.argv[2] || "postgres",
+        process.argv[3] || "root",
         `
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA "${config.schema}" TO "${config.username}";
 
