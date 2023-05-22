@@ -23,7 +23,7 @@ jobs:
         run: npm run build
       
       - name: Create DB Schema
-        run: npm run schema postgres root
+        run: npm run schema -- --username postgres --password root
 
       - name: Test Backend-Server
         run: npm run test

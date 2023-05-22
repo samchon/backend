@@ -1,10 +1,12 @@
 import orm from "@modules/typeorm";
+import commander from "commander";
 import pg from "pg";
 
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
 
 async function execute(
+    host: string,
     database: string,
     username: string,
     password: string,
@@ -12,7 +14,7 @@ async function execute(
 ): Promise<void> {
     const db: orm.Connection = await orm.createConnection({
         type: "postgres",
-        host: "127.0.0.1",
+        host,
         database,
         username,
         password,
@@ -30,11 +32,23 @@ async function main(): Promise<void> {
     SGlobal.setMode("LOCAL");
 
     const config = await Configuration.DB_CONFIG();
+    const program = new commander.Command();
+    program
+        .option("--host [host]", "HOST")
+        .option("--username <username>", "USERNAME")
+        .option("--password <password>", "PASSWORD")
+        .parse(process.argv);
+
+    const options = program.opts();
+    const host = options.host ?? config.host;
+    const username = options.username ?? "postgres";
+    const password = options.password ?? "root";
 
     await execute(
+        host,
         "postgres",
-        process.argv[2] || "postgres",
-        process.argv[3] || "root",
+        username,
+        password,
         `
         CREATE USER "${config.username}" WITH ENCRYPTED PASSWORD '${config.password}';
         CREATE DATABASE "${config.database}" OWNER "${config.username}";
@@ -42,6 +56,7 @@ async function main(): Promise<void> {
     );
 
     await execute(
+        host,
         config.database,
         config.username,
         config.password,
@@ -51,9 +66,10 @@ async function main(): Promise<void> {
     );
 
     await execute(
+        host,
         config.database,
-        process.argv[2] || "postgres",
-        process.argv[3] || "root",
+        username,
+        password,
         `
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA "${config.schema}" TO "${config.username}";
 
