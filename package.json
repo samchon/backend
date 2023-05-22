@@ -75,6 +75,7 @@
     "@fastify/swagger": "^8.3.1",
     "@fastify/swagger-ui": "^1.8.1",
     "@nestia/core": "^1.2.2",
+    "commander": "^10.0.1",
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.3.1",
     "pg": "^8.7.3",
