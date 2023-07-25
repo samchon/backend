@@ -22,7 +22,6 @@
             "x-nestia-encrypted": false
           }
         },
-        "description": "",
         "x-nestia-namespace": "monitors.health.get",
         "x-nestia-jsDocTags": []
       }
@@ -44,7 +43,6 @@
             "x-nestia-encrypted": true
           }
         },
-        "description": "",
         "x-nestia-namespace": "monitors.performance.get",
         "x-nestia-jsDocTags": []
       }
@@ -66,7 +64,6 @@
             "x-nestia-encrypted": true
           }
         },
-        "description": "",
         "x-nestia-namespace": "monitors.system.get",
         "x-nestia-jsDocTags": []
       }
@@ -78,22 +75,13 @@
         "type": "object",
         "properties": {
           "cpu": {
-            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.CpuUsage",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.CpuUsage"
           },
           "memory": {
-            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.MemoryUsage",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.MemoryUsage"
           },
           "resource": {
-            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.ResourceUsage",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.ResourceUsage"
           }
         },
         "nullable": false,
@@ -108,13 +96,11 @@
         "type": "object",
         "properties": {
           "user": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "system": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -131,31 +117,26 @@
         "type": "object",
         "properties": {
           "rss": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "heapTotal": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "heapUsed": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "external": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "arrayBuffers": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -175,97 +156,81 @@
         "type": "object",
         "properties": {
           "fsRead": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "fsWrite": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "involuntaryContextSwitches": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "ipcReceived": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "ipcSent": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "majorPageFault": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "maxRSS": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "minorPageFault": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "sharedMemorySize": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "signalsCount": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "swappedOut": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "systemCPUTime": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "unsharedDataSize": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "unsharedStackSize": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "userCPUTime": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
           },
           "voluntaryContextSwitches": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
@@ -314,16 +279,10 @@
             }
           },
           "commit": {
-            "$ref": "#/components/schemas/ISystem.ICommit",
-            "description": "Git commit info.",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ISystem.ICommit"
           },
           "package": {
-            "$ref": "#/components/schemas/ISystem.IPackage",
-            "description": "`package.json`",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ISystem.IPackage"
           },
           "created_at": {
             "description": "Creation time of this server.",
@@ -340,7 +299,7 @@
           "package",
           "created_at"
         ],
-        "description": "System Information.",
+        "description": "Creation time of this server.",
         "x-typia-jsDocTags": [
           {
             "name": "author",
@@ -357,78 +316,61 @@
         "type": "object",
         "properties": {
           "shortHash": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "branch": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "hash": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "subject": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "sanitizedSubject": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "body": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "author": {
-            "$ref": "#/components/schemas/ISystem.ICommit.IUser",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ISystem.ICommit.IUser"
           },
           "committer": {
-            "$ref": "#/components/schemas/ISystem.ICommit.IUser",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ISystem.ICommit.IUser"
           },
           "authored_at": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "commited_at": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "notes": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
           },
           "tags": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "",
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "string"
@@ -456,13 +398,11 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "email": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -480,96 +420,68 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "version": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "description": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "main": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
           },
           "typings": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "string"
           },
           "scripts": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_string_gt_",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_string_gt_"
           },
           "repository": {
-            "$ref": "#/components/schemas/__type",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/__type"
           },
           "author": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "license": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "bugs": {
-            "$ref": "#/components/schemas/__type.o1",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/__type.o1"
           },
           "homepage": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
           },
           "devDependencies": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_string_gt_",
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_string_gt_"
           },
           "dependencies": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_string_gt_",
-            "description": "",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_string_gt_"
           },
           "publishConfig": {
-            "$ref": "#/components/schemas/__type.o2",
-            "description": "",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            "$ref": "#/components/schemas/__type.o2"
           },
           "files": {
-            "description": "",
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "description": "",
               "x-typia-required": false,
               "x-typia-optional": true,
               "type": "string"
@@ -598,13 +510,11 @@
         "nullable": false,
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false,
           "type": "string"
         },
         "additionalProperties": {
-          "description": "",
           "x-typia-required": true,
           "x-typia-optional": false,
           "type": "string"
@@ -614,7 +524,6 @@
         "type": "object",
         "properties": {
           "type": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string",
@@ -623,7 +532,6 @@
             ]
           },
           "url": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -640,7 +548,6 @@
         "type": "object",
         "properties": {
           "url": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -656,7 +563,6 @@
         "type": "object",
         "properties": {
           "registry": {
-            "description": "",
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"

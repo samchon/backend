@@ -11,8 +11,8 @@ async function main(): Promise<void> {
 
     // GET PERFORMANCE & SYSTEM INFO
     const connection: api.IConnection = {
-        host: `http://${await Configuration.MASTER_IP()}:${await Configuration.API_PORT()}`,
-        encryption: await Configuration.ENCRYPTION_PASSWORD(),
+        host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+        encryption: Configuration.ENCRYPTION_PASSWORD(),
     };
     const performance: IPerformance =
         await api.functional.monitors.performance.get(connection);

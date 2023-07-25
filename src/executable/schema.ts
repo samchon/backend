@@ -29,7 +29,7 @@ async function main(): Promise<void> {
     pg.defaults.poolSize = 1;
     SGlobal.setMode("LOCAL");
 
-    const config = await Configuration.DB_CONFIG();
+    const config = Configuration.DB_CONFIG();
 
     await execute(
         "postgres",

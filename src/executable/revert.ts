@@ -24,11 +24,11 @@ async function main(): Promise<void> {
 
     // CONNECT TO THE UPDATOR SERVER
     const connector: MutexConnector<string, null> = new MutexConnector(
-        await Configuration.SYSTEM_PASSWORD(),
+        Configuration.SYSTEM_PASSWORD(),
         null,
     );
     await connector.connect(
-        `ws://${await Configuration.MASTER_IP()}:${await Configuration.UPDATOR_PORT()}/update`,
+        `ws://${Configuration.MASTER_IP()}:${Configuration.UPDATOR_PORT()}/update`,
     );
 
     // REQUEST UPDATE WITH MONOPOLYING A GLOBAL MUTEX
@@ -47,8 +47,8 @@ async function main(): Promise<void> {
 
     // PRINT THE COMMIT STATUS
     const connection: api.IConnection = {
-        host: `http://${await Configuration.MASTER_IP()}:${await Configuration.API_PORT()}`,
-        encryption: await Configuration.ENCRYPTION_PASSWORD(),
+        host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+        encryption: Configuration.ENCRYPTION_PASSWORD(),
     };
     const system: ISystem = await api.functional.monitors.system.get(
         connection,

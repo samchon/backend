@@ -1,10 +1,11 @@
-import sdk from "@nestia/sdk";
+import { INestiaConfig } from "@nestia/sdk";
 
-export const NESTIA_CONFIG: sdk.INestiaConfig = {
+export const NESTIA_CONFIG: INestiaConfig = {
+    simulate: true,
     input: "src/controllers",
     output: "src/api",
     swagger: {
-        output: "dist/swagger.json",
+        output: "packages/api/swagger.json",
         servers: [
             {
                 url: "http://localhost:37001",

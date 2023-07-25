@@ -57,7 +57,7 @@ async function main(): Promise<void> {
         SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
 
     // CONNECT TO THE DB FIRST
-    await orm.createConnection(await Configuration.DB_CONFIG());
+    await orm.createConnection(Configuration.DB_CONFIG());
 
     // BACKEND SEVER LATER
     const backend: Backend = new Backend();

@@ -34,7 +34,7 @@ export namespace ErrorUtil {
 
             await directory.get();
             await fs.promises.writeFile(
-                `${Configuration.ASSETS}/logs/errors/${prefix}_${fileName}.log`,
+                `${Configuration.ROOT}/logs/errors/${prefix}_${fileName}.log`,
                 content,
                 "utf8",
             );
@@ -48,6 +48,6 @@ function cipher(val: number): string {
 }
 
 const directory = new Singleton(async () => {
-    await DirectoryUtil.mkdir(`${Configuration.ASSETS}/logs`);
-    await DirectoryUtil.mkdir(`${Configuration.ASSETS}/logs/errors`);
+    await DirectoryUtil.mkdir(`${Configuration.ROOT}/logs`);
+    await DirectoryUtil.mkdir(`${Configuration.ROOT}/logs/errors`);
 });

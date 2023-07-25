@@ -4,8 +4,6 @@ import {
     FastifyAdapter,
     NestFastifyApplication,
 } from "@nestjs/platform-fastify";
-import cp from "child_process";
-import fs from "fs";
 
 import { Configuration } from "./Configuration";
 import { SGlobal } from "./SGlobal";
@@ -21,7 +19,7 @@ export class Backend {
         this.application_ = await NestFactory.create(
             await core.EncryptedModule.dynamic(
                 __dirname + "/controllers",
-                await Configuration.ENCRYPTION_PASSWORD(),
+                Configuration.ENCRYPTION_PASSWORD(),
             ),
             new FastifyAdapter(),
             { logger: false },
@@ -29,8 +27,7 @@ export class Backend {
 
         // DO OPEN
         this.application_.enableCors();
-        if (SGlobal.testing === false) await this.swagger(this.application_);
-        await this.application_.listen(await Configuration.API_PORT());
+        await this.application_.listen(Configuration.API_PORT());
 
         //----
         // POST-PROCESSES
@@ -57,27 +54,5 @@ export class Backend {
             const critical = await SGlobal.critical.get();
             await critical.close();
         }
-    }
-
-    private async swagger(app: NestFastifyApplication): Promise<void> {
-        // CREATE DIRECTORY
-        const location: string = `${Configuration.PROJECT_DIR}/dist`;
-        if (fs.existsSync(location) === false)
-            await fs.promises.mkdir(location);
-
-        // BUILD SWAGGER
-        cp.execSync("npm run build:swagger");
-
-        // OPEN SWAGGER
-        await app.register(await import("@fastify/swagger"), {
-            mode: "static",
-            specification: {
-                path: `${location}/swagger.json`,
-                baseDir: process.cwd(),
-            },
-        });
-        await app.register(await import("@fastify/swagger-ui"), {
-            routePrefix: "/docs",
-        });
     }
 }

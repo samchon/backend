@@ -44,7 +44,7 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
 const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(
     async () => {
         const content: string = await fs.promises.readFile(
-            `${Configuration.PROJECT_DIR}/package.json`,
+            `${Configuration.ROOT}/package.json`,
             "utf8",
         );
         return JSON.parse(content);

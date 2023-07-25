@@ -74,7 +74,7 @@ export async function test_bbs_customer_join_after_activate
             connection,
             {
                 email: `${RandomGenerator.alphabets(16)}@samchon.org`,
-                password: await Configuration.SYSTEM_PASSWORD(),
+                password: Configuration.SYSTEM_PASSWORD(),
                 citizen: prepare_random_citizen()
             }
         )
@@ -86,7 +86,7 @@ export async function test_bbs_customer_join_after_activate
         connection,
         {
             email: `${RandomGenerator.alphabets(16)}@samchon.org`,
-            password: await Configuration.SYSTEM_PASSWORD(),
+            password: Configuration.SYSTEM_PASSWORD(),
             citizen: customer.citizen
         }
     );
