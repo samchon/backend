@@ -18,6 +18,7 @@
                 // through `npm run reset-for-debugging` command
                 //----
                 "--reset", "false",
+                "--mode", "local",
 
                 //----
                 // You can run specific test functions
