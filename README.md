@@ -3,7 +3,7 @@
 ### 1.1. Introduction
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 
-A template repository for the Typescript Backend Server using those libraries:
+A template repository for the Typescript Backend Server powered by these libraries:
 
   - [NestJS](https://nestjs.com): NodeJS Backend Framework
     - [`@nestia/core`](https://github.com/samchon/nestia): validation decorators 20,000x faster than `class-validator`
