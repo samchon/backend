@@ -75,7 +75,7 @@
     "typescript-transform-paths": "^3.4.6"
   },
   "dependencies": {
-    "@nestia/core": "^1.5.1",
+    "@nestia/core": "^1.5.6",
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
     "git-last-commit": "^1.0.0",
