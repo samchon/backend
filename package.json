@@ -51,7 +51,7 @@
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
     "@nestia/e2e": "^0.3.6",
-    "@nestia/sdk": "^1.5.6",
+    "@nestia/sdk": "^1.6.1",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/cli": "^0.11.19",
     "@types/inquirer": "^8.2.5",
