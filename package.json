@@ -84,7 +84,7 @@
     "safe-typeorm": "^2.0.5",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
-    "typia": "^4.2.0"
+    "typia": "^4.2.1"
   },
   "private": true
 }
