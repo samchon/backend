@@ -3,21 +3,22 @@
 ### 1.1. Introduction
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 
-A template repository for the Typescript Backend Server using those libraries:
+Template for a NodeJS Backend Server powered by:
 
-  - [NestJS](https://nestjs.com): NodeJS Backend Framework
+  - [NestJS](https://nestjs.com): NodeJS Typescript Backend Framework
     - [`@nestia/core`](https://github.com/samchon/nestia): validation decorators 20,000x faster than `class-validator`
     - [`@nestia/sdk`](https://github.com/samchon/sdk): SDK and Swagger Documents generator
   - [TypeORM](https://typeorm.io) and [**`safe-typeorm`**](https://github.com/samchon/safe-typeorm): Helper of TypeORM in the compilation level
 
-Also, I've prepared lots of some backend projects based on this template project. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
+Prior, to making this template opensource, I've prepared a couple of backend projects leveraging this template.
+Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
 
   - [samchon/fake-iamport-server](https://github.com/samchon/fake-iamport-server): Fake iamport server, but real SDK
   - [samchon/fake-toss-payments-server](https://github.com/samchon/fake-toss-payments-server): Fake toss-payments server, but real SDK
 
-If you wanna new type of example backend project or you've something to ask me about the TypeScript backend server development, don't mine anything and just write an issue for help. I or another developers interested in this project will support you.
+If you have got queries like "building a new type of backend template" or "regarding backend server development using Typescript", feel free to ask it out over [here](https://github.com/samchon/backend/issues).
 
-Also, if you've developed a TypeScript backend server and it seems like that its quality is enough good to be a good example for the backend programming learners, please write an issue or send a pull request about the project.
+Also, if you've already developed a TypeScript backend server and it seems like that its quality is enough good to be a good example for the backend programming learners, please leave an issue or a pull request.
 
 ### 1.2. Specializations
 Transform this template project to be yours.
