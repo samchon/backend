@@ -1,4 +1,4 @@
-# INTRASTRUCTURE
+# INFRASTRUCTURE
 ## 1. DBMS
 ### 1.1. RDB Instance
 [`@ORGANIZATION/PROJECT`](https://github.com/samchon/backend) is using the `MariaDB@10.5` as its DBMS.
