@@ -26,4 +26,4 @@ jobs:
         run: npm run schema postgres root
 
       - name: Test Backend-Server
-        run: npm run test -- --mode local --reset true
+        run: npm run test -- --reset true
