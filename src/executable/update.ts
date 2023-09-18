@@ -43,7 +43,6 @@ async function main(): Promise<void> {
     // PRINT THE COMMIT STATUS
     const connection: api.IConnection = {
         host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD(),
     };
     const system: ISystem = await api.functional.monitors.system.get(
         connection,

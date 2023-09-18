@@ -7,29 +7,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Shopping Backend Test",
-            "program": "${workspaceRoot}/test/index.ts",
+            "name": "JavaScript Test using SourceMap",
+            "program": "${workspaceRoot}/bin/test/index.js",
             "cwd": "${workspaceRoot}",
-            "args": [
-                //----
-                // Not possible to reset DB in debugging mode
-                //
-                // Therefore, if you need DB reset, then do it 
-                // through `npm run reset-for-debugging` command
-                //----
-                "--reset", "false",
-                "--mode", "local",
 
-                //----
-                // You can run specific test functions
-                //
-                // If you want to include or exclude multiple words,
-                // then separate them with space character
-                //----
-                // "--include", "some-words-to-include",
-                // "--exclude", "some-word another-word",
+            // TypeScript
+            "sourceMaps": true,
+            "outFiles": ["${workspaceRot}/**.js"],
+            "args": [
+                "--include=monitor",
+                "--skipReset",
             ],
-            "outFiles": ["${workspaceRoot}/bin/**/*.js"],
         }
     ]
 }

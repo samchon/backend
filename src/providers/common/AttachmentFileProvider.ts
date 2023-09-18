@@ -1,57 +1,32 @@
-import safe from "safe-typeorm";
-import { Singleton } from "tstl/thread/Singleton";
+import { v4 } from "uuid";
 
 import { IAttachmentFile } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IAttachmentFile";
 
-import { AttachmentFile } from "@ORGANIZATION/PROJECT-models/lib/tables/common/AttachmentFile";
-import { FilePairBase } from "@ORGANIZATION/PROJECT-models/lib/tables/common/internal/FilePairBase";
+import { Prisma } from ".prisma/client";
 
 export namespace AttachmentFileProvider {
-    /* ----------------------------------------------------------------
-        ACCESSORS
-    ---------------------------------------------------------------- */
-    export function json() {
-        return builder.get();
-    }
-
-    const builder = new Singleton(() =>
-        AttachmentFile.createJsonSelectBuilder({}),
-    );
-
-    export function replica(file: AttachmentFile): IAttachmentFile.IStore {
-        return file.toPrimitive("id");
-    }
-
-    /* ----------------------------------------------------------------
-        STORE
-    ---------------------------------------------------------------- */
-    export function collect(
-        collection: safe.InsertCollection,
-        input: IAttachmentFile.IStore,
-    ): AttachmentFile;
-    export function collect<Pair extends FilePairBase>(
-        collection: safe.InsertCollection,
-        input: IAttachmentFile.IStore,
-        closure: (file: AttachmentFile) => Pair,
-    ): AttachmentFile;
-
-    export function collect<Pair extends FilePairBase>(
-        collection: safe.InsertCollection,
-        input: IAttachmentFile.IStore,
-        closure?: (file: AttachmentFile) => Pair,
-    ): AttachmentFile {
-        const file: AttachmentFile = AttachmentFile.initialize({
-            id: safe.DEFAULT,
+    export namespace json {
+        export const select = () => ({});
+        export const transform = (
+            input: Prisma.attachment_filesGetPayload<ReturnType<typeof select>>,
+        ): IAttachmentFile => ({
+            id: input.id,
             name: input.name,
             extension: input.extension,
             url: input.url,
+            created_at: input.created_at.toISOString(),
         });
-        collection.push(file);
+    }
 
-        if (closure) {
-            const pair: Pair = closure(file);
-            collection.push(pair);
-        }
-        return file;
+    export function collect(
+        input: IAttachmentFile.IStore,
+    ): Prisma.attachment_filesCreateInput {
+        return {
+            id: v4(),
+            name: input.name,
+            extension: input.extension,
+            url: input.url,
+            created_at: new Date(),
+        };
     }
 }

@@ -21,7 +21,6 @@ async function main(): Promise<void> {
     // API LIBRARY
     const connection: api.IConnection = {
         host: `http://127.0.0.1:${Configuration.API_PORT()}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD(),
     };
 
     sleep_for(1000)

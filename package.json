@@ -8,6 +8,7 @@
     "build:api": "rimraf packages/api/lib && nestia sdk && tsc -p packages/api/tsconfig.json",
     "build:main": "rimraf lib && tsc",
     "build:models": "rimraf packages/models/lib && tsc -p packages/models/tsconfig.json",
+    "build:prisma": "prisma generate --schema=src/schema.prisma",
     "build:sdk": "rimraf src/api/functional && nestia sdk",
     "build:swagger": "nestia swagger",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
@@ -51,7 +52,7 @@
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
     "@nestia/e2e": "^0.3.6",
-    "@nestia/sdk": "^1.6.2",
+    "@nestia/sdk": "^2.0.3",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/cli": "^0.11.19",
     "@types/inquirer": "^8.2.5",
@@ -64,27 +65,28 @@
     "cli": "^1.0.1",
     "eslint-plugin-deprecation": "^1.4.1",
     "inquirer": "^8.2.5",
-    "nestia": "^4.4.0",
+    "nestia": "^4.5.0",
     "pm2": "^4.5.6",
     "prettier": "^2.6.2",
+    "prisma-markdown": "^1.0.0",
     "rimraf": "^3.0.2",
     "sloc": "^0.2.1",
     "ts-node": "^10.9.1",
     "ts-patch": "^3.0.2",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "typescript-transform-paths": "^3.4.6"
   },
   "dependencies": {
-    "@nestia/core": "^1.6.2",
+    "@nestia/core": "^2.0.3",
+    "@prisma/client": "^5.3.1",
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
     "git-last-commit": "^1.0.0",
     "mutex-server": "^0.3.1",
-    "pg": "^8.7.3",
-    "safe-typeorm": "^2.0.5",
+    "prisma": "^5.3.1",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
-    "typia": "^4.2.3"
+    "typia": "^5.0.4"
   },
   "private": true
 }

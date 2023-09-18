@@ -6,7 +6,7 @@ export namespace DateUtil {
     export const WEEK = 7 * DAY;
     export const MONTH = 30 * DAY;
 
-    export function to_string(date: Date, hms: boolean = false): string {
+    export function toString(date: Date, hms: boolean = false): string {
         const ymd: string = [
             date.getFullYear(),
             date.getMonth() + 1,
@@ -24,21 +24,21 @@ export namespace DateUtil {
         );
     }
 
-    export function to_uuid(date: Date = new Date()): string {
-        const elements: number[] = [
-            date.getFullYear(),
-            date.getMonth() + 1,
-            date.getDate(),
-            date.getHours(),
-            date.getMinutes(),
-            date.getSeconds(),
-        ];
-        return (
-            elements.map((value) => _To_cipher_string(value)).join("") +
-            ":" +
-            Math.random().toString().substr(2)
-        );
-    }
+    // export function to_uuid(date: Date = new Date()): string {
+    //     const elements: number[] = [
+    //         date.getFullYear(),
+    //         date.getMonth() + 1,
+    //         date.getDate(),
+    //         date.getHours(),
+    //         date.getMinutes(),
+    //         date.getSeconds(),
+    //     ];
+    //     return (
+    //         elements.map((value) => _To_cipher_string(value)).join('') +
+    //         ':' +
+    //         Math.random().toString().substr(2)
+    //     );
+    // }
 
     export interface IDifference {
         year: number;
@@ -62,7 +62,7 @@ export namespace DateUtil {
         //----
         // DATE
         if (ret.date < 0) {
-            const last: number = last_date(y.getFullYear(), y.getMonth());
+            const last: number = lastDate(y.getFullYear(), y.getMonth());
 
             --ret.month;
             ret.date = x.getDate() + (last - y.getDate());
@@ -76,7 +76,7 @@ export namespace DateUtil {
         return ret;
     }
 
-    export function last_date(year: number, month: number): number {
+    export function lastDate(year: number, month: number): number {
         // LEAP MONTH
         if (
             month == 1 &&
@@ -87,28 +87,28 @@ export namespace DateUtil {
         else return LAST_DATES[month];
     }
 
-    export function add_years(date: Date, value: number): Date {
+    export function addYears(date: Date, value: number): Date {
         date = new Date(date);
         date.setFullYear(date.getFullYear() + value);
 
         return date;
     }
 
-    export function add_months(date: Date, value: number): Date {
+    export function addMonths(date: Date, value: number): Date {
         date = new Date(date);
 
-        const newYear: number =
+        const year: number =
             date.getFullYear() + Math.floor((date.getMonth() + value) / 12);
-        const newMonth: number = (date.getMonth() + value) % 12;
-        const lastDate: number = last_date(newYear, newMonth - 1);
+        const month: number = (date.getMonth() + value) % 12;
+        const last: number = lastDate(year, month - 1);
 
-        if (lastDate < date.getDate()) date.setDate(lastDate);
+        if (last < date.getDate()) date.setDate(last);
 
         date.setMonth(value - 1);
         return date;
     }
 
-    export function add_days(date: Date, value: number): Date {
+    export function addDays(date: Date, value: number): Date {
         date = new Date();
         date.setDate(date.getDate() + value);
 

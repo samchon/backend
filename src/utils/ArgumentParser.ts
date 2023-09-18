@@ -1,5 +1,5 @@
-import commander from 'commander';
-import * as inquirer from 'inquirer';
+import commander from "commander";
+import * as inquirer from "inquirer";
 
 export namespace ArgumentParser {
     export type Inquiry<T> = (
@@ -45,7 +45,7 @@ export namespace ArgumentParser {
             async <Choice extends string>(choices: Choice[]): Promise<Choice> =>
                 (
                     await inquirer.createPromptModule()({
-                        type: 'list',
+                        type: "list",
                         name,
                         message,
                         choices,
@@ -54,7 +54,7 @@ export namespace ArgumentParser {
         const boolean = (name: string) => async (message: string) =>
             (
                 await inquirer.createPromptModule()({
-                    type: 'confirm',
+                    type: "confirm",
                     name,
                     message,
                 })

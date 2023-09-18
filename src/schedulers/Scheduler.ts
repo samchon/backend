@@ -27,9 +27,9 @@ export namespace Scheduler {
     ): Promise<void> {
         await DynamicExecutor.assert({
             prefix: "schedule",
-            parameters: (key) => [MapUtil.take(dict, key, () => interval)],
+            parameters: (key) => [MapUtil.take(dict)(key, () => interval)],
             wrapper: async (key, closure) => {
-                const slept: number = MapUtil.take(dict, key, () => interval);
+                const slept: number = MapUtil.take(dict)(key, () => interval);
                 if ((await closure(slept)) === false)
                     dict.set(key, slept + interval);
             },

@@ -17,10 +17,7 @@ export class Backend {
         //----
         // MOUNT CONTROLLERS
         this.application_ = await NestFactory.create(
-            await core.EncryptedModule.dynamic(
-                __dirname + "/controllers",
-                Configuration.ENCRYPTION_PASSWORD(),
-            ),
+            await core.DynamicModule.mount(__dirname + "/controllers"),
             new FastifyAdapter(),
             { logger: false },
         );
