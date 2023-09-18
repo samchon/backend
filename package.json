@@ -17,7 +17,7 @@
     "eslint:fix": "eslint src --fix && eslint test --fix",
     "package:api": "npm run build:api && cd packages/api && npm publish",
     "package:models": "npm run build:models && cd packags/models && npm publish",
-    "prepare": "ts-patch install",
+    "prepare": "ts-patch install && npm run build:prisma",
     "prettier": "prettier src --write && prettier test --write",
     "-----------------------------------------------": "",
     "reset-for-debugging": "npm run test -- --mode local --reset true --include __nothing__",
