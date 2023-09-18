@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgis/postgis:16-3.2
+        image: postgis/postgis:16-3.4
         env:
           POSTGRES_PASSWORD: root
         ports:
