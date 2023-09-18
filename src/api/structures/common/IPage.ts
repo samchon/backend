@@ -1,13 +1,11 @@
-/**
- * @packageDocumentation
- * @module api.structures.common
- */
-//================================================================
+import { tags } from "typia";
+
 /**
  * A page.
  *
  * Collection of records with pagination indformation.
  *
+ * @template T Record type
  * @author Samchon
  */
 export interface IPage<T extends object> {
@@ -29,26 +27,26 @@ export namespace IPage {
         /**
          * Current page number.
          */
-        page: number;
+        current: number & tags.Type<"uint32">;
 
         /**
          * Limitation of records per a page.
          *
          * @default 100
          */
-        limit: number;
+        limit: number & tags.Type<"uint32">;
 
         /**
          * Total records in the database.
          */
-        total_count: number;
+        records: number & tags.Type<"uint32">;
 
         /**
          * Total pages.
          *
-         * Equal to {@link total_count} / {@link limit} with ceiling.
+         * Equal to {@link records} / {@link limit} with ceiling.
          */
-        total_pages: number;
+        pages: number & tags.Type<"uint32">;
     }
 
     /**
@@ -58,21 +56,22 @@ export namespace IPage {
         /**
          * Page number.
          */
-        page?: number;
+        page?: number & tags.Type<"uint32">;
 
         /**
          * Limitation of records per a page.
-         */
-        limit?: number;
-    }
-    export namespace IRequest {
-        /**
-         * Sorting column specialization.
          *
-         * The plus means ascending order and the minus means descending order.
+         * @default 100
          */
-        export type Sort<Literal extends string> = Array<
-            `-${Literal}` | `+${Literal}`
-        >;
+        limit?: number & tags.Type<"uint32">;
     }
+
+    /**
+     * Sorting column specialization.
+     *
+     * The plus means ascending order and the minus means descending order.
+     */
+    export type Sort<Literal extends string> = Array<
+        `-${Literal}` | `+${Literal}`
+    >;
 }

@@ -9,7 +9,10 @@
   "info": {
     "version": "0.0.0",
     "title": "@ORGANIZATION/PROJECT-backend",
-    "description": "Backend for PROJECT"
+    "description": "Backend for PROJECT",
+    "license": {
+      "name": "MIT"
+    }
   },
   "paths": {
     "/monitors/health": {
@@ -23,7 +26,8 @@
           }
         },
         "x-nestia-namespace": "monitors.health.get",
-        "x-nestia-jsDocTags": []
+        "x-nestia-jsDocTags": [],
+        "x-nestia-method": "GET"
       }
     },
     "/monitors/performance": {
@@ -32,9 +36,9 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "## Warning\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/@nestia/core#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.\n\n-----------------\n\n",
+            "description": "## Warning\n\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/@nestia/core#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
                   "$ref": "#/components/schemas/IPerformance"
                 }
@@ -44,7 +48,8 @@
           }
         },
         "x-nestia-namespace": "monitors.performance.get",
-        "x-nestia-jsDocTags": []
+        "x-nestia-jsDocTags": [],
+        "x-nestia-method": "GET"
       }
     },
     "/monitors/system": {
@@ -53,7 +58,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "## Warning\nResponse data have been encrypted.\n\nThe response body data would be encrypted as \"AES-128(256) / CBC mode / PKCS#5 Padding / Base64 Encoding\", through the [EncryptedRoute.G.et](https://github.com/samchon/@nestia/core#encryptedroute) component.\n\nTherefore, just utilize this swagger editor only for referencing. If you need to call the real API, using [SDK](https://github.com/samchon/nestia#software-development-kit) would be much better.\n\n-----------------\n\n",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -61,11 +66,12 @@
                 }
               }
             },
-            "x-nestia-encrypted": true
+            "x-nestia-encrypted": false
           }
         },
         "x-nestia-namespace": "monitors.system.get",
-        "x-nestia-jsDocTags": []
+        "x-nestia-jsDocTags": [],
+        "x-nestia-method": "GET"
       }
     }
   },
@@ -75,13 +81,13 @@
         "type": "object",
         "properties": {
           "cpu": {
-            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.CpuUsage"
+            "$ref": "#/components/schemas/_singlequote_node:process_singlequote_.global.NodeJS.CpuUsage"
           },
           "memory": {
-            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.MemoryUsage"
+            "$ref": "#/components/schemas/_singlequote_node:process_singlequote_.global.NodeJS.MemoryUsage"
           },
           "resource": {
-            "$ref": "#/components/schemas/_singlequote_process_singlequote_.global.NodeJS.ResourceUsage"
+            "$ref": "#/components/schemas/_singlequote_node:process_singlequote_.global.NodeJS.ResourceUsage"
           }
         },
         "nullable": false,
@@ -92,7 +98,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "_singlequote_process_singlequote_.global.NodeJS.CpuUsage": {
+      "_singlequote_node:process_singlequote_.global.NodeJS.CpuUsage": {
         "type": "object",
         "properties": {
           "user": {
@@ -113,7 +119,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "_singlequote_process_singlequote_.global.NodeJS.MemoryUsage": {
+      "_singlequote_node:process_singlequote_.global.NodeJS.MemoryUsage": {
         "type": "object",
         "properties": {
           "rss": {
@@ -152,7 +158,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "_singlequote_process_singlequote_.global.NodeJS.ResourceUsage": {
+      "_singlequote_node:process_singlequote_.global.NodeJS.ResourceUsage": {
         "type": "object",
         "properties": {
           "fsRead": {
@@ -299,13 +305,13 @@
           "package",
           "created_at"
         ],
-        "description": "Creation time of this server.",
+        "description": "System Information.",
         "x-typia-jsDocTags": [
           {
             "name": "author",
             "text": [
               {
-                "text": "Jeongho Nam",
+                "text": "Samchon",
                 "kind": "text"
               }
             ]

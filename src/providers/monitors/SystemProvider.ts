@@ -29,11 +29,11 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
                 else
                     resolve({
                         ...commit,
-                        authored_at: DateUtil.to_string(
+                        authored_at: DateUtil.toString(
                             new Date(Number(commit.authoredOn) * 1000),
                             true,
                         ),
-                        commited_at: DateUtil.to_string(
+                        commited_at: DateUtil.toString(
                             new Date(Number(commit.committedOn) * 1000),
                             true,
                         ),

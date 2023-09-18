@@ -1,8 +1,8 @@
+import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { MutexConnector } from "mutex-server";
-import { Singleton } from "tstl";
-import { MutableSingleton } from "tstl/thread/MutableSingleton";
+import { MutableSingleton, Singleton } from "tstl";
 import typia from "typia";
 
 import { Configuration } from "./Configuration";
@@ -14,6 +14,18 @@ import { Configuration } from "./Configuration";
  */
 export class SGlobal {
     public static testing: boolean = false;
+
+    public static readonly prisma: PrismaClient = new PrismaClient();
+
+    public static get env(): IEnvironments {
+        return this.env_.get();
+    }
+
+    private static env_ = new Singleton(() => {
+        const env = dotenv.config();
+        dotenvExpand.expand(env);
+        return typia.assert<IEnvironments>(process.env);
+    });
 
     /**
      * Current mode.
@@ -48,39 +60,24 @@ export class SGlobal {
         );
         return connector;
     });
+}
+interface IEnvironments {
+    MODE: "LOCAL" | "DEV" | "REAL";
+    UPDATOR_PORT: `${number}`;
+    API_PORT: `${number}`;
+    // MASTER_IP: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+    SYSTEM_PASSWORD: string;
 
-    public static get env(): IEnvironments {
-        return this.env_.get();
-    }
-
-    private static env_ = new Singleton(() => {
-        const env = dotenv.config();
-        dotenvExpand.expand(env);
-        return typia.assert<IEnvironments>(process.env);
-    });
+    POSTGRES_HOST: string;
+    POSTGRES_PORT: `${number}`;
+    POSTGRES_DATABASE: string;
+    POSTGRES_SCHEMA: string;
+    POSTGRES_USERNAME: string;
+    POSTGRES_USERNAME_READONLY: string;
+    POSTGRES_PASSWORD: string;
 }
 
 interface IMode {
     value?: "LOCAL" | "DEV" | "REAL";
 }
 const modeWrapper: IMode = {};
-
-interface IEnvironments {
-    MODE: "LOCAL" | "DEV" | "REAL";
-    UPDATOR_PORT: `${number}`;
-    API_PORT: `${number}`;
-    API_ENCRYPTION_KEY: string;
-    API_ENCRYPTION_IV: string;
-    /**
-     * @format ip
-     */
-    MASTER_IP: string;
-    SYSTEM_PASSWORD: string;
-
-    DB_HOST: string;
-    DB_NAME: string;
-    DB_SCHEMA: string;
-    DB_USERNAME: string;
-    DB_USERNAME_READONLY: string;
-    DB_PASSWORD: string;
-}

@@ -1,12 +1,7 @@
 /**
- * @packageDocumentation
- * @module api.structures.monitors
- */
-//================================================================
-/**
  * System Information.
  *
- * @author Jeongho Nam
+ * @author Samchon
  */
 export interface ISystem {
     /**

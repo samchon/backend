@@ -1,75 +1,85 @@
-import orm from "@modules/typeorm";
 import { DynamicExecutor, StopWatch } from "@nestia/e2e";
-import { MutexServer } from "mutex-server";
+import fs from "fs";
+import { Singleton, randint } from "tstl";
 import { sleep_for } from "tstl/thread/global";
-
-import api from "@ORGANIZATION/PROJECT-api";
 
 import { Backend } from "../src/Backend";
 import { Configuration } from "../src/Configuration";
 import { SGlobal } from "../src/SGlobal";
+import api from "../src/api";
 import { SetupWizard } from "../src/setup/SetupWizard";
-import { IUpdateController } from "../src/updator/internal/IUpdateController";
-import { start_updator_master } from "../src/updator/internal/start_updator_master";
-import { ArgumentParser } from "./helpers/ArgumentParser";
+import { ArgumentParser } from "../src/utils/ArgumentParser";
+import { ErrorUtil } from "../src/utils/ErrorUtil";
 
 interface IOptions {
-    mode: string;
     reset: boolean;
     include?: string[];
     exclude?: string[];
+    trace: boolean;
 }
 
 const getOptions = () =>
     ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
-        command.option("--mode <string>", "target mode");
         command.option("--reset <true|false>", "reset local DB or not");
         command.option("--include <string...>", "include feature files");
         command.option("--exclude <string...>", "exclude feature files");
+        command.option("--trace <boolean>", "trace detailed errors");
 
         return action(async (options) => {
             if (typeof options.reset === "string")
                 options.reset = options.reset === "true";
-            options.mode ??= await prompt.select("mode")("Select mode")([
-                "LOCAL",
-                "DEV",
-                "REAL",
-            ]);
             options.reset ??= await prompt.boolean("reset")("Reset local DB");
+            options.trace = options.trace !== ("false" as any);
             return options as IOptions;
         });
     });
 
-async function main(): Promise<void> {
-    // SPECIALIZE MODE
-    const options: IOptions = await getOptions();
-    SGlobal.setMode(options.mode.toUpperCase() as typeof SGlobal.mode);
+function cipher(val: number): string {
+    if (val < 10) return "0" + val;
+    else return String(val);
+}
 
-    // PREPARE DATABASE
-    const db: orm.Connection = await orm.createConnection(
-        Configuration.DB_CONFIG(),
-    );
-    if (options.reset !== false) {
-        await StopWatch.trace("Reset DB")(() => SetupWizard.schema(db));
-        await StopWatch.trace("Seed Data")(() => SetupWizard.seed());
+async function handle_error(exp: any): Promise<void> {
+    try {
+        const date: Date = new Date();
+        const fileName: string = `${date.getFullYear()}${cipher(
+            date.getMonth() + 1,
+        )}${cipher(date.getDate())}${cipher(date.getHours())}${cipher(
+            date.getMinutes(),
+        )}${cipher(date.getSeconds())}.${randint(0, Number.MAX_SAFE_INTEGER)}`;
+        const content: string = JSON.stringify(ErrorUtil.toJSON(exp), null, 4);
+
+        await directory.get();
+        await fs.promises.writeFile(
+            `${__dirname}/../../assets/logs/errors/${fileName}.log`,
+            content,
+            "utf8",
+        );
+    } catch {}
+}
+
+async function main(): Promise<void> {
+    // UNEXPECTED ERRORS
+    global.process.on("uncaughtException", handle_error);
+    global.process.on("unhandledRejection", handle_error);
+
+    // CONFIGURE
+    const options: IOptions = await getOptions();
+    SGlobal.testing = true;
+
+    await sleep_for(5000);
+    if (options.reset) {
+        await StopWatch.trace("Reset DB")(SetupWizard.schema);
+        await StopWatch.trace("Seed Data")(SetupWizard.seed);
     }
 
-    // UPDATOR SERVER
-    const updator: MutexServer<string, IUpdateController | null> =
-        await start_updator_master();
-
-    // BACKEND SERVER
-    SGlobal.testing = true;
+    // OPEN SERVER
     const backend: Backend = new Backend();
     await backend.open();
 
-    //----
-    // CLINET CONNECTOR
-    //----
     // DO TEST
     const connection: api.IConnection = {
         host: `http://127.0.0.1:${Configuration.API_PORT()}`,
-        encryption: Configuration.ENCRYPTION_PASSWORD(),
     };
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
         prefix: "test",
@@ -86,19 +96,21 @@ async function main(): Promise<void> {
                 (options.exclude ?? []).every((str) => !func.includes(str))),
     })(__dirname + "/features");
 
-    // WAIT FOR A WHILE FOR THE EVENTS
-    await sleep_for(2500);
-
     // TERMINATE
+    await sleep_for(2500); // WAIT FOR BACKGROUND EVENTS
     await backend.close();
-    await db.close();
-    await updator.close();
 
-    const failures: DynamicExecutor.IReport.IExecution[] =
-        report.executions.filter((exec) => exec.error !== null);
-    if (failures.length === 0) console.log("Success");
-    else {
-        for (const f of failures) console.log(f.error);
+    const exceptions: Error[] = report.executions
+        .filter((exec) => exec.error !== null)
+        .map((exec) => exec.error!);
+    if (exceptions.length === 0) {
+        console.log("Success");
+        console.log("Elapsed time", report.time.toLocaleString(), `ms`);
+    } else {
+        if (options.trace !== false)
+            for (const exp of exceptions) console.log(exp);
+        console.log("Failed");
+        console.log("Elapsed time", report.time.toLocaleString(), `ms`);
         process.exit(-1);
     }
 }
@@ -106,3 +118,15 @@ main().catch((exp) => {
     console.log(exp);
     process.exit(-1);
 });
+
+const directory = new Singleton(async () => {
+    await mkdir(`${__dirname}/../../assets`);
+    await mkdir(`${__dirname}/../../assets/logs`);
+    await mkdir(`${__dirname}/../../assets/logs/errors`);
+});
+
+async function mkdir(path: string): Promise<void> {
+    try {
+        await fs.promises.mkdir(path);
+    } catch {}
+}
