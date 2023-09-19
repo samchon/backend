@@ -19,9 +19,9 @@ export namespace Configuration {
     export const API_PORT = () => Number(SGlobal.env.API_PORT);
     export const UPDATOR_PORT = () => Number(SGlobal.env.UPDATOR_PORT);
     export const MASTER_IP = () =>
-        SGlobal.mode === "LOCAL"
+        SGlobal.mode === "local"
             ? "127.0.0.1"
-            : SGlobal.mode === "DEV"
+            : SGlobal.mode === "dev"
             ? "your-dev-server-ip"
             : "your-real-server-master-ip";
     export const SYSTEM_PASSWORD = () => SGlobal.env.SYSTEM_PASSWORD;

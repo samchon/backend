@@ -12,10 +12,8 @@ import { IUpdateController } from "../updator/internal/IUpdateController";
 async function main(): Promise<void> {
     // CONFIGURE MODE
     if (!process.argv[2])
-        throw new Error(
-            "Error on ShoppingUpdator.update(): no mode specified.",
-        );
-    SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
+        throw new Error("Error on Updator.update(): no mode specified.");
+    SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
 
     // CONNECT TO THE UPDATOR SERVER
     const connector: MutexConnector<string, null> = new MutexConnector(

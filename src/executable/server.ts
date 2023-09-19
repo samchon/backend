@@ -59,7 +59,7 @@ async function main(): Promise<void> {
     global.process.on("unhandledRejection", handle_error);
 
     // SCHEDULER ONLY WHEN MASTER
-    if (SGlobal.env.MODE !== "REAL" || process.argv[3] === "master")
+    if (SGlobal.env.MODE !== "real" || process.argv[3] === "master")
         await Scheduler.repeat();
 }
 main().catch((exp) => {

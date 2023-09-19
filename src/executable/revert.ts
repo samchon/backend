@@ -13,14 +13,10 @@ async function main(): Promise<void> {
     // CONFIGURE MODE & COMMIT-ID
     const commit = process.argv[3];
     if (!commit)
-        throw new Error(
-            "Error on ShoppingUpdator.revert(): no commit-id specified.",
-        );
+        throw new Error("Error on Updator.revert(): no commit-id specified.");
     else if (!process.argv[2])
-        throw new Error(
-            "Error on ShoppingUpdator.revert(): no mode specified.",
-        );
-    SGlobal.setMode(process.argv[2].toUpperCase() as "LOCAL");
+        throw new Error("Error on Updator.revert(): no mode specified.");
+    SGlobal.setMode(process.argv[2] as "local");
 
     // CONNECT TO THE UPDATOR SERVER
     const connector: MutexConnector<string, null> = new MutexConnector(

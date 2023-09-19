@@ -18,24 +18,18 @@ export class SGlobal {
     public static readonly prisma: PrismaClient = new PrismaClient();
 
     public static get env(): IEnvironments {
-        return this.env_.get();
+        return environments.get();
     }
-
-    private static env_ = new Singleton(() => {
-        const env = dotenv.config();
-        dotenvExpand.expand(env);
-        return typia.assert<IEnvironments>(process.env);
-    });
 
     /**
      * Current mode.
      *
-     *   - LOCAL: The server is on your local machine.
-     *   - DEV: The server is for the developer.
-     *   - REAL: The server is for the real service.
+     *   - local: The server is on your local machine.
+     *   - dev: The server is for the developer.
+     *   - real: The server is for the real service.
      */
-    public static get mode(): "LOCAL" | "DEV" | "REAL" {
-        return (modeWrapper.value ??= this.env_.get().MODE);
+    public static get mode(): "local" | "dev" | "real" {
+        return (modeWrapper.value ??= environments.get().MODE);
     }
 
     /**
@@ -62,10 +56,9 @@ export class SGlobal {
     });
 }
 interface IEnvironments {
-    MODE: "LOCAL" | "DEV" | "REAL";
+    MODE: "local" | "dev" | "real";
     UPDATOR_PORT: `${number}`;
     API_PORT: `${number}`;
-    // MASTER_IP: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
     SYSTEM_PASSWORD: string;
 
     POSTGRES_HOST: string;
@@ -78,6 +71,13 @@ interface IEnvironments {
 }
 
 interface IMode {
-    value?: "LOCAL" | "DEV" | "REAL";
+    value?: "local" | "dev" | "real";
 }
+
 const modeWrapper: IMode = {};
+
+const environments = new Singleton(() => {
+    const env = dotenv.config();
+    dotenvExpand.expand(env);
+    return typia.assert<IEnvironments>(process.env);
+});

@@ -72,7 +72,7 @@ async function main(): Promise<void> {
         `
         GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.username};
 
-        CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD ${config.password};
+        CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD '${config.password}';
         GRANT USAGE ON SCHEMA ${config.schema} TO ${config.readonlyUsername};
         GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
     `,

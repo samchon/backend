@@ -68,7 +68,9 @@ async function main(): Promise<void> {
     SGlobal.testing = true;
 
     if (options.reset) {
-        await StopWatch.trace("Reset DB")(SetupWizard.schema);
+        await StopWatch.trace("Reset DB")(() =>
+            SetupWizard.schema(SGlobal.prisma),
+        );
         await StopWatch.trace("Seed Data")(SetupWizard.seed);
     }
 

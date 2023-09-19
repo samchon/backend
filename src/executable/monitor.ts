@@ -7,7 +7,7 @@ import { ISystem } from "../api/structures/monitors/ISystem";
 async function main(): Promise<void> {
     // CONFIGURE MODE
     if (process.argv[2])
-        SGlobal.setMode(process.argv[2].toUpperCase() as typeof SGlobal.mode);
+        SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
 
     // GET PERFORMANCE & SYSTEM INFO
     const connection: api.IConnection = {
