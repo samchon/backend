@@ -8,16 +8,25 @@
             "type": "node",
             "request": "launch",
             "name": "JavaScript Test using SourceMap",
-            "program": "${workspaceRoot}/bin/test/index.js",
+            "program": "${workspaceRoot}/test/index.ts",
             "cwd": "${workspaceRoot}",
-
-            // TypeScript
-            "sourceMaps": true,
-            "outFiles": ["${workspaceRot}/**.js"],
             "args": [
-                "--include=monitor",
-                "--skipReset",
+                //----
+                // Unable to reset DB in debugging mode.
+                //----
+                // Therefore, reset DB first by running 
+                // `npm run reset-for-debugging` command, 
+                // and run debugging mode later.
+                //----
+                "--reset", "false",
+
+                //----
+                // You can run specific test functions
+                //----
+                // "--include", "something",
+                // "--exclude", "nothing",
             ],
+            "outFiles": ["${workspaceRoot}/bin/**/*.js"],
         }
     ]
 }

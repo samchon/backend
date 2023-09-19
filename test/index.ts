@@ -67,7 +67,6 @@ async function main(): Promise<void> {
     const options: IOptions = await getOptions();
     SGlobal.testing = true;
 
-    await sleep_for(5000);
     if (options.reset) {
         await StopWatch.trace("Reset DB")(SetupWizard.schema);
         await StopWatch.trace("Seed Data")(SetupWizard.seed);
