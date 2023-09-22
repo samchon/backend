@@ -1,4 +1,4 @@
-import models from "@modules/models";
+import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
@@ -9,7 +9,7 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 export namespace BbsArticleProvider {
     export namespace json {
         export const transform = (
-            input: models.bbs_articlesGetPayload<ReturnType<typeof select>>,
+            input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
         ): IBbsArticle => ({
             id: input.id,
             snapshots: input.snapshots
@@ -27,7 +27,7 @@ export namespace BbsArticleProvider {
 
     export namespace abridge {
         export const transform = (
-            input: models.bbs_articlesGetPayload<ReturnType<typeof select>>,
+            input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
         ): IBbsArticle.IAbridge => ({
             id: input.id,
             title: input.mv_last!.snapshot.title,
@@ -60,7 +60,7 @@ export namespace BbsArticleProvider {
 
     export namespace summarize {
         export const transform = (
-            input: models.bbs_articlesGetPayload<ReturnType<typeof select>>,
+            input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
         ): IBbsArticle.ISummary => ({
             id: input.id,
             title: input.mv_last!.snapshot.title,
@@ -86,7 +86,7 @@ export namespace BbsArticleProvider {
     export const orderBy = (
         key: IBbsArticle.IRequest.SortableColumns,
         value: "asc" | "desc",
-    ): models.bbs_articlesOrderByWithRelationInput | null =>
+    ): Prisma.bbs_articlesOrderByWithRelationInput | null =>
         key === "title"
             ? { mv_last: { snapshot: { title: value } } }
             : key === "created_at"
@@ -99,9 +99,9 @@ export namespace BbsArticleProvider {
         <Input extends IBbsArticle.IStore>(
             snapshotFactory: (
                 input: Input,
-            ) => Omit<models.bbs_article_snapshotsCreateInput, "article">,
+            ) => Omit<Prisma.bbs_article_snapshotsCreateInput, "article">,
         ) =>
-        (input: Input): models.bbs_articlesCreateInput => {
+        (input: Input): Prisma.bbs_articlesCreateInput => {
             const snapshot = snapshotFactory(input);
             return {
                 id: v4(),

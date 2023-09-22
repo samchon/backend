@@ -1,4 +1,4 @@
-import models from "@modules/models";
+import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
@@ -19,7 +19,7 @@ export namespace BbsArticleSnapshotProvider {
             } as const,
         });
         export const transform = (
-            input: models.bbs_article_snapshotsGetPayload<
+            input: Prisma.bbs_article_snapshotsGetPayload<
                 ReturnType<typeof select>
             >,
         ): IBbsArticle.ISnapshot => ({
@@ -57,7 +57,7 @@ export namespace BbsArticleSnapshotProvider {
 
     export const collect = (
         input: IBbsArticle.IStore,
-    ): Omit<models.bbs_article_snapshotsCreateInput, "article"> => ({
+    ): Omit<Prisma.bbs_article_snapshotsCreateInput, "article"> => ({
         id: v4(),
         title: input.title,
         format: input.format,

@@ -1,4 +1,4 @@
-import models from "@modules/models";
+import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IBbsArticleComment } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticleComment";
@@ -19,7 +19,7 @@ export namespace BbsArticleCommentSnapshotProvider {
             } as const,
         });
         export const transform = (
-            input: models.bbs_article_comment_snapshotsGetPayload<
+            input: Prisma.bbs_article_comment_snapshotsGetPayload<
                 ReturnType<typeof select>
             >,
         ): IBbsArticleComment.ISnapshot => ({
@@ -51,7 +51,7 @@ export namespace BbsArticleCommentSnapshotProvider {
 
     export const collect = (
         input: IBbsArticleComment.IStore,
-    ): Omit<models.bbs_article_comment_snapshotsCreateInput, "comment"> => ({
+    ): Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment"> => ({
         id: v4(),
         format: input.format,
         body: input.body,

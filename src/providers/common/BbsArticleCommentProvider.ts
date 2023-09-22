@@ -1,4 +1,4 @@
-import models from "@modules/models";
+import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
@@ -14,7 +14,7 @@ export namespace BbsArticleCommentProvider {
             } as const,
         });
         export const transform = (
-            input: models.bbs_article_commentsGetPayload<
+            input: Prisma.bbs_article_commentsGetPayload<
                 ReturnType<typeof select>
             >,
         ): IBbsArticleComment => ({
@@ -30,7 +30,7 @@ export namespace BbsArticleCommentProvider {
     export const orderBy = (
         key: IBbsArticleComment.IRequest.SortableColumns,
         value: "asc" | "desc",
-    ): models.bbs_article_commentsOrderByWithRelationInput | null =>
+    ): Prisma.bbs_article_commentsOrderByWithRelationInput | null =>
         key === "created_at" ? { created_at: value } : null;
 
     export const collect =
@@ -38,12 +38,12 @@ export namespace BbsArticleCommentProvider {
             factory: (
                 input: Input,
             ) => Omit<
-                models.bbs_article_comment_snapshotsCreateInput,
+                Prisma.bbs_article_comment_snapshotsCreateInput,
                 "comment"
             >,
         ) =>
         (related: { article: Pick<IBbsArticle, "id"> }) =>
-        (input: Input): models.bbs_article_commentsCreateInput => ({
+        (input: Input): Prisma.bbs_article_commentsCreateInput => ({
             id: v4(),
             article: {
                 connect: { id: related.article.id },
