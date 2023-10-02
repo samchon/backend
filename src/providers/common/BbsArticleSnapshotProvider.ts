@@ -9,15 +9,6 @@ import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleSnapshotProvider {
     export namespace json {
-        export const select = () => ({
-            include: {
-                files: {
-                    include: {
-                        file: AttachmentFileProvider.json.select(),
-                    },
-                },
-            } as const,
-        });
         export const transform = (
             input: Prisma.bbs_article_snapshotsGetPayload<
                 ReturnType<typeof select>
@@ -32,6 +23,16 @@ export namespace BbsArticleSnapshotProvider {
                 .map((p) => AttachmentFileProvider.json.transform(p.file)),
             created_at: input.created_at.toISOString(),
         });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_article_snapshotsFindManyArgs>()({
+                include: {
+                    files: {
+                        include: {
+                            file: AttachmentFileProvider.json.select(),
+                        },
+                    },
+                } as const,
+            });
     }
 
     export const store =

@@ -18,11 +18,12 @@ export namespace BbsArticleProvider {
             created_at: input.created_at.toISOString(),
         });
 
-        export const select = () => ({
-            include: {
-                snapshots: BbsArticleSnapshotProvider.json.select(),
-            } as const,
-        });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+                include: {
+                    snapshots: BbsArticleSnapshotProvider.json.select(),
+                } as const,
+            });
     }
 
     export namespace abridge {

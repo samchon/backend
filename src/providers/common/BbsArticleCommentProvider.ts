@@ -8,11 +8,6 @@ import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotPr
 
 export namespace BbsArticleCommentProvider {
     export namespace json {
-        export const select = () => ({
-            include: {
-                snapshots: BbsArticleCommentSnapshotProvider.json.select(),
-            } as const,
-        });
         export const transform = (
             input: Prisma.bbs_article_commentsGetPayload<
                 ReturnType<typeof select>
@@ -25,6 +20,12 @@ export namespace BbsArticleCommentProvider {
                 .map(BbsArticleCommentSnapshotProvider.json.transform),
             created_at: input.created_at.toISOString(),
         });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_article_commentsFindManyArgs>()({
+                include: {
+                    snapshots: BbsArticleCommentSnapshotProvider.json.select(),
+                } as const,
+            });
     }
 
     export const orderBy = (

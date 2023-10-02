@@ -6,7 +6,6 @@ import { Prisma } from ".prisma/client";
 
 export namespace AttachmentFileProvider {
     export namespace json {
-        export const select = () => ({});
         export const transform = (
             input: Prisma.attachment_filesGetPayload<ReturnType<typeof select>>,
         ): IAttachmentFile => ({
@@ -16,6 +15,8 @@ export namespace AttachmentFileProvider {
             url: input.url,
             created_at: input.created_at.toISOString(),
         });
+        export const select = () =>
+            Prisma.validator<Prisma.attachment_filesFindManyArgs>()({});
     }
 
     export function collect(
