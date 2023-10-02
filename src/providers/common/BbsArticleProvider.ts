@@ -40,23 +40,24 @@ export namespace BbsArticleProvider {
                 AttachmentFileProvider.json.transform(p.file),
             ),
         });
-        export const select = () => ({
-            include: {
-                mv_last: {
-                    include: {
-                        snapshot: {
-                            include: {
-                                files: {
-                                    include: {
-                                        file: AttachmentFileProvider.json.select(),
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+                include: {
+                    mv_last: {
+                        include: {
+                            snapshot: {
+                                include: {
+                                    files: {
+                                        include: {
+                                            file: AttachmentFileProvider.json.select(),
+                                        },
                                     },
                                 },
                             },
                         },
                     },
-                },
-            } as const,
-        });
+                } as const,
+            });
     }
 
     export namespace summarize {
@@ -68,20 +69,21 @@ export namespace BbsArticleProvider {
             created_at: input.created_at.toISOString(),
             updated_at: input.mv_last!.snapshot.created_at.toISOString(),
         });
-        export const select = () => ({
-            include: {
-                mv_last: {
-                    include: {
-                        snapshot: {
-                            select: {
-                                title: true,
-                                created_at: true,
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+                include: {
+                    mv_last: {
+                        include: {
+                            snapshot: {
+                                select: {
+                                    title: true,
+                                    created_at: true,
+                                },
                             },
                         },
                     },
-                },
-            } as const,
-        });
+                } as const,
+            });
     }
 
     export const orderBy = (
