@@ -5,9 +5,9 @@ import { tags } from "typia";
  *
  * `IRecordMerge` is a structure for merging records.
  *
- * The `merge` means that merging multiple {@link IRecordMerge.merged}
+ * The `merge` means that merging multiple {@link IRecordMerge.absorbed}
  * records into {@link IRecordMerge.keep} instead of deleting
- * {@link IRecordMerge.merged} records.
+ * {@link IRecordMerge.absorbed} records.
  *
  * If there're some dependent tables of the target `table` having
  * unique constraint on foriegn key column, such dependent tables
@@ -24,13 +24,13 @@ export interface IRecordMerge {
     /**
      * Target record to keep after merging.
      *
-     * After merge process, {@link merged} records would be merged into
+     * After merge process, {@link absorbed} records would be merged into
      * this {@link keep} record.
      */
     keep: string & tags.Format<"uuid">;
 
     /**
-     * To be merged to {@link keep} after merging.
+     * To be absorbed to {@link keep} after merging.
      */
-    merged: Array<string & tags.Format<"uuid">>;
+    absorbed: Array<string & tags.Format<"uuid">>;
 }

@@ -36,7 +36,7 @@ export namespace BbsArticleProvider {
             format: input.mv_last!.snapshot.format as IBbsArticle.Format,
             created_at: input.created_at.toISOString(),
             updated_at: input.mv_last!.snapshot.created_at.toISOString(),
-            files: input.mv_last!.snapshot.files.map((p) =>
+            files: input.mv_last!.snapshot.to_files.map((p) =>
                 AttachmentFileProvider.json.transform(p.file),
             ),
         });
@@ -47,7 +47,7 @@ export namespace BbsArticleProvider {
                         include: {
                             snapshot: {
                                 include: {
-                                    files: {
+                                    to_files: {
                                         include: {
                                             file: AttachmentFileProvider.json.select(),
                                         },
@@ -99,14 +99,18 @@ export namespace BbsArticleProvider {
             : null;
 
     export const collect =
-        <Input extends IBbsArticle.IStore>(
-            snapshotFactory: (
-                input: Input,
-            ) => Omit<Prisma.bbs_article_snapshotsCreateInput, "article">,
+        <
+            Input extends IBbsArticle.IStore,
+            Snapshot extends Omit<
+                Prisma.bbs_article_snapshotsCreateInput,
+                "article"
+            >,
+        >(
+            snapshotFactory: (input: Input) => Snapshot,
         ) =>
-        (input: Input): Prisma.bbs_articlesCreateInput => {
+        (input: Input) => {
             const snapshot = snapshotFactory(input);
-            return {
+            return Prisma.validator<Prisma.bbs_articlesCreateInput>()({
                 id: v4(),
                 snapshots: {
                     create: [snapshot],
@@ -118,6 +122,6 @@ export namespace BbsArticleProvider {
                         snapshot: { connect: { id: snapshot.id } },
                     },
                 },
-            };
+            });
         };
 }

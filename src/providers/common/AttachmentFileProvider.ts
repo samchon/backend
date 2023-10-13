@@ -19,15 +19,12 @@ export namespace AttachmentFileProvider {
             Prisma.validator<Prisma.attachment_filesFindManyArgs>()({});
     }
 
-    export function collect(
-        input: IAttachmentFile.IStore,
-    ): Prisma.attachment_filesCreateInput {
-        return {
+    export const collect = (input: IAttachmentFile.IStore) =>
+        Prisma.validator<Prisma.attachment_filesCreateInput>()({
             id: v4(),
             name: input.name,
             extension: input.extension,
             url: input.url,
             created_at: new Date(),
-        };
-    }
+        });
 }

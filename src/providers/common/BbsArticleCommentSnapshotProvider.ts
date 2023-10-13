@@ -17,7 +17,7 @@ export namespace BbsArticleCommentSnapshotProvider {
             id: input.id,
             format: input.format as any,
             body: input.body,
-            files: input.files
+            files: input.to_files
                 .sort((a, b) => a.sequence - b.sequence)
                 .map((p) => AttachmentFileProvider.json.transform(p.file)),
             created_at: input.created_at.toISOString(),
@@ -26,7 +26,7 @@ export namespace BbsArticleCommentSnapshotProvider {
             Prisma.validator<Prisma.bbs_article_comment_snapshotsFindManyArgs>()(
                 {
                     include: {
-                        files: {
+                        to_files: {
                             include: {
                                 file: AttachmentFileProvider.json.select(),
                             },
@@ -52,21 +52,22 @@ export namespace BbsArticleCommentSnapshotProvider {
             return json.transform(snapshot);
         };
 
-    export const collect = (
-        input: IBbsArticleComment.IStore,
-    ): Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment"> => ({
-        id: v4(),
-        format: input.format,
-        body: input.body,
-        created_at: new Date(),
-        files: {
-            create: input.files.map((file, i) => ({
-                id: v4(),
-                file: {
-                    create: AttachmentFileProvider.collect(file),
-                },
-                sequence: i,
-            })),
-        },
-    });
+    export const collect = (input: IBbsArticleComment.IStore) =>
+        Prisma.validator<
+            Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment">
+        >()({
+            id: v4(),
+            format: input.format,
+            body: input.body,
+            created_at: new Date(),
+            to_files: {
+                create: input.files.map((file, i) => ({
+                    id: v4(),
+                    file: {
+                        create: AttachmentFileProvider.collect(file),
+                    },
+                    sequence: i,
+                })),
+            },
+        });
 }

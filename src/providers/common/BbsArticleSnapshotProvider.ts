@@ -18,7 +18,7 @@ export namespace BbsArticleSnapshotProvider {
             title: input.title,
             format: input.format as any,
             body: input.body,
-            files: input.files
+            files: input.to_files
                 .sort((a, b) => a.sequence - b.sequence)
                 .map((p) => AttachmentFileProvider.json.transform(p.file)),
             created_at: input.created_at.toISOString(),
@@ -26,7 +26,7 @@ export namespace BbsArticleSnapshotProvider {
         export const select = () =>
             Prisma.validator<Prisma.bbs_article_snapshotsFindManyArgs>()({
                 include: {
-                    files: {
+                    to_files: {
                         include: {
                             file: AttachmentFileProvider.json.select(),
                         },
@@ -56,22 +56,23 @@ export namespace BbsArticleSnapshotProvider {
             return json.transform(snapshot);
         };
 
-    export const collect = (
-        input: IBbsArticle.IStore,
-    ): Omit<Prisma.bbs_article_snapshotsCreateInput, "article"> => ({
-        id: v4(),
-        title: input.title,
-        format: input.format,
-        body: input.body,
-        created_at: new Date(),
-        files: {
-            create: input.files.map((file, i) => ({
-                id: v4(),
-                file: {
-                    create: AttachmentFileProvider.collect(file),
-                },
-                sequence: i,
-            })),
-        },
-    });
+    export const collect = (input: IBbsArticle.IStore) =>
+        Prisma.validator<
+            Omit<Prisma.bbs_article_snapshotsCreateInput, "article">
+        >()({
+            id: v4(),
+            title: input.title,
+            format: input.format,
+            body: input.body,
+            created_at: new Date(),
+            to_files: {
+                create: input.files.map((file, i) => ({
+                    id: v4(),
+                    file: {
+                        create: AttachmentFileProvider.collect(file),
+                    },
+                    sequence: i,
+                })),
+            },
+        });
 }

@@ -17,21 +17,21 @@ export namespace EntityUtil {
         /**
          * Target record to keep after merging.
          *
-         * After merge process, {@link merged} records would be merged into
+         * After merge process, {@link absorbed} records would be merged into
          * this {@link keep} record.
          */
         keep: Key;
 
         /**
-         * To be merged to {@link keep} after merging.
+         * To be absorbed to the {@link keep} record after merging.
          */
-        merged: Key[];
+        absorbed: Key[];
     }
 
     /**
      * Merge multiple records into one.
      *
-     * Merge multiple {@link IMergeProps.merged} records into
+     * Merge multiple {@link IMergeProps.absorbed} records into
      * {@link IMergeProps.keep} record, instead of deleting them.
      *
      * If there're some dependent tables of the target `table` having
@@ -112,7 +112,7 @@ export namespace EntityUtil {
                 else
                     await (client[table] as any).updateMany({
                         where: {
-                            [foreign.name]: { in: props.merged },
+                            [foreign.name]: { in: props.absorbed },
                         },
                         data: {
                             [foreign.name]: props.keep,
@@ -123,7 +123,7 @@ export namespace EntityUtil {
             // REMOVE TO BE MERGED RECORD
             await (client[table] as any).deleteMany({
                 where: {
-                    [key.name]: { in: props.merged },
+                    [key.name]: { in: props.absorbed },
                 },
             });
         };
@@ -156,7 +156,9 @@ export namespace EntityUtil {
                             primary.dbName
                         } AS VARCHAR(36))) AS UUID) AS ${primary.dbName}
                         FROM ${current.model.dbName}
-                        WHERE ${current.foreign.dbName} IN ($1, ${parent.merged
+                        WHERE ${
+                            current.foreign.dbName
+                        } IN ($1, ${parent.absorbed
                     .map((_, index) => `$${index + 2}`)
                     .join(", ")})
                         GROUP BY ${group.join(", ")}
@@ -166,7 +168,7 @@ export namespace EntityUtil {
                     )`;
                 await client.$executeRawUnsafe(sql, [
                     parent.keep,
-                    ...parent.merged,
+                    ...parent.absorbed,
                 ]);
             }
 
@@ -179,7 +181,7 @@ export namespace EntityUtil {
             ].findMany({
                 where: {
                     [current.foreign.name]: {
-                        in: [parent.keep, ...parent.merged],
+                        in: [parent.keep, ...parent.absorbed],
                     },
                 },
                 orderBy: [
@@ -203,7 +205,7 @@ export namespace EntityUtil {
 
                 await merge(client)(current.model.name as Prisma.ModelName)({
                     keep: master[primary.name],
-                    merged: slaves.map((slave) => slave[primary.name]),
+                    absorbed: slaves.map((slave) => slave[primary.name]),
                 });
             }
         };

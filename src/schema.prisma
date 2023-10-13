@@ -167,7 +167,7 @@ model bbs_article_snapshots {
     article bbs_articles @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
 
     /// List of wrappers of attachment files.
-    files bbs_article_snapshot_files[]
+    to_files bbs_article_snapshot_files[]
 
     mv_last mv_bbs_article_last_snapshots?
 
@@ -336,7 +336,7 @@ model bbs_article_comment_snapshots {
     comment bbs_article_comments @relation(fields: [bbs_article_comment_id], references: [id], onDelete: Cascade)
 
     /// List of wrappers of attachment files.
-    files bbs_article_comment_snapshot_files[]
+    to_files bbs_article_comment_snapshot_files[]
 
     @@index([bbs_article_comment_id, created_at])
 }

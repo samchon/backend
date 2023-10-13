@@ -26,10 +26,12 @@ export namespace EntityMergeProvider {
                 ? await finder(input)
                 : await (SGlobal.prisma[table] as any).count({
                       where: {
-                          [primary.name]: { in: [input.keep, ...input.merged] },
+                          [primary.name]: {
+                              in: [input.keep, ...input.absorbed],
+                          },
                       },
                   });
-            if (count !== input.merged.length + 1)
+            if (count !== input.absorbed.length + 1)
                 throw new nest.NotFoundException(
                     "Unable to find matched record(s).",
                 );
