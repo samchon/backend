@@ -2,7 +2,10 @@ import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
+import { IPage } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IPage";
 
+import { SGlobal } from "../../SGlobal";
+import { PaginationUtil } from "../../utils/PaginationUtil";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 
@@ -27,6 +30,19 @@ export namespace BbsArticleProvider {
     }
 
     export namespace abridge {
+        export const paginate = (
+            input: IBbsArticle.IRequest,
+        ): Promise<IPage<IBbsArticle.IAbridge>> =>
+            PaginationUtil.paginate({
+                schema: SGlobal.prisma.bbs_articles,
+                payload: abridge.select,
+                transform: abridge.transform,
+            })({
+                where: where(input.search ?? {}),
+                orderBy: input.sort?.length
+                    ? PaginationUtil.orderBy(orderBy)(input.sort)
+                    : [{ created_at: "desc" }],
+            })(input);
         export const transform = (
             input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
         ): IBbsArticle.IAbridge => ({
@@ -61,6 +77,19 @@ export namespace BbsArticleProvider {
     }
 
     export namespace summarize {
+        export const paginate = (
+            input: IBbsArticle.IRequest,
+        ): Promise<IPage<IBbsArticle.ISummary>> =>
+            PaginationUtil.paginate({
+                schema: SGlobal.prisma.bbs_articles,
+                payload: summarize.select,
+                transform: summarize.transform,
+            })({
+                where: where(input.search ?? {}),
+                orderBy: input.sort?.length
+                    ? PaginationUtil.orderBy(orderBy)(input.sort)
+                    : [{ created_at: "desc" }],
+            })(input);
         export const transform = (
             input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
         ): IBbsArticle.ISummary => ({
@@ -85,6 +114,54 @@ export namespace BbsArticleProvider {
                 } as const,
             });
     }
+
+    export const where = (input: IBbsArticle.IRequest.ISearch) => {
+        const conditions: Prisma.bbs_articlesWhereInput[] = [];
+        if (input.title?.length)
+            conditions.push({
+                mv_last: {
+                    snapshot: {
+                        title: { contains: input.title },
+                    },
+                },
+            });
+        if (input.body?.length)
+            conditions.push({
+                mv_last: {
+                    snapshot: {
+                        body: { contains: input.body },
+                    },
+                },
+            });
+        if (input.title_or_body?.length)
+            conditions.push({
+                OR: [
+                    {
+                        mv_last: {
+                            snapshot: {
+                                title: { contains: input.title_or_body },
+                            },
+                        },
+                    },
+                    {
+                        mv_last: {
+                            snapshot: {
+                                body: { contains: input.title_or_body },
+                            },
+                        },
+                    },
+                ],
+            });
+        if (input.from)
+            conditions.push({
+                created_at: { gte: new Date(input.from) },
+            });
+        if (input.to)
+            conditions.push({
+                created_at: { lte: new Date(input.to) },
+            });
+        return conditions.length ? { AND: conditions } : {};
+    };
 
     export const orderBy = (
         key: IBbsArticle.IRequest.SortableColumns,

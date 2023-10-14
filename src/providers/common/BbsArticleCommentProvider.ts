@@ -3,7 +3,10 @@ import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
 import { IBbsArticleComment } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticleComment";
+import { IPage } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IPage";
 
+import { SGlobal } from "../../SGlobal";
+import { PaginationUtil } from "../../utils/PaginationUtil";
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";
 
 export namespace BbsArticleCommentProvider {
@@ -27,6 +30,27 @@ export namespace BbsArticleCommentProvider {
                 } as const,
             });
     }
+
+    export const paginate = (
+        input: IBbsArticleComment.IRequest,
+    ): Promise<IPage<IBbsArticleComment>> =>
+        PaginationUtil.paginate({
+            schema: SGlobal.prisma.bbs_article_comments,
+            payload: json.select,
+            transform: json.transform,
+        })({
+            where: where(input.search ?? {}),
+            orderBy: input.sort?.length
+                ? PaginationUtil.orderBy(orderBy)(input.sort)
+                : [{ created_at: "asc" }],
+        })(input);
+
+    export const where = (input: IBbsArticleComment.IRequest.ISearch) =>
+        Prisma.validator<Prisma.bbs_article_commentsWhereInput>()(
+            input.body?.length
+                ? { snapshots: { some: { body: { contains: input.body } } } }
+                : {},
+        );
 
     export const orderBy = (
         key: IBbsArticleComment.IRequest.SortableColumns,
