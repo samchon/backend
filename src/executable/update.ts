@@ -5,23 +5,23 @@ import { UniqueLock } from "tstl/thread/UniqueLock";
 import api from "@ORGANIZATION/PROJECT-api";
 import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
+import { MyConfiguration } from "../MyConfiguration";
+import { MyGlobal } from "../MyGlobal";
 import { IUpdateController } from "../updator/internal/IUpdateController";
 
 async function main(): Promise<void> {
     // CONFIGURE MODE
     if (!process.argv[2])
         throw new Error("Error on Updator.update(): no mode specified.");
-    SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+    MyGlobal.setMode(process.argv[2] as typeof MyGlobal.mode);
 
     // CONNECT TO THE UPDATOR SERVER
     const connector: MutexConnector<string, null> = new MutexConnector(
-        Configuration.SYSTEM_PASSWORD(),
+        MyConfiguration.SYSTEM_PASSWORD(),
         null,
     );
     await connector.connect(
-        `ws://${Configuration.MASTER_IP()}:${Configuration.UPDATOR_PORT()}/update`,
+        `ws://${MyConfiguration.MASTER_IP()}:${MyConfiguration.UPDATOR_PORT()}/update`,
     );
 
     // REQUEST UPDATE WITH MONOPOLYING A GLOBAL MUTEX
@@ -40,7 +40,7 @@ async function main(): Promise<void> {
 
     // PRINT THE COMMIT STATUS
     const connection: api.IConnection = {
-        host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+        host: `http://${MyConfiguration.MASTER_IP()}:${MyConfiguration.API_PORT()}`,
     };
     const system: ISystem = await api.functional.monitors.system.get(
         connection,

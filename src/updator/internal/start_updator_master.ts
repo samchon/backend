@@ -1,7 +1,7 @@
 import { MutexAcceptor, MutexServer } from "mutex-server";
 import { HashSet } from "tstl/container/HashSet";
 
-import { Configuration } from "../../Configuration";
+import { MyConfiguration } from "../../MyConfiguration";
 import { IUpdateController } from "./IUpdateController";
 
 export async function start_updator_master(): Promise<
@@ -33,8 +33,8 @@ export async function start_updator_master(): Promise<
     };
 
     // OPEN SERVER
-    await server.open(Configuration.UPDATOR_PORT(), async (acceptor) => {
-        if (acceptor.header !== Configuration.SYSTEM_PASSWORD()) {
+    await server.open(MyConfiguration.UPDATOR_PORT(), async (acceptor) => {
+        if (acceptor.header !== MyConfiguration.SYSTEM_PASSWORD()) {
             await acceptor.reject();
             return;
         } else if (acceptor.path === "/slave") {

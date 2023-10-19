@@ -3,7 +3,7 @@ import { sleep_for } from "tstl/thread/global";
 
 import api from "@ORGANIZATION/PROJECT-api";
 
-import { Configuration } from "../../src/Configuration";
+import { MyConfiguration } from "../../src/MyConfiguration";
 import { Terminal } from "../../src/utils/Terminal";
 
 async function main(): Promise<void> {
@@ -20,7 +20,7 @@ async function main(): Promise<void> {
 
     // API LIBRARY
     const connection: api.IConnection = {
-        host: `http://127.0.0.1:${Configuration.API_PORT()}`,
+        host: `http://127.0.0.1:${MyConfiguration.API_PORT()}`,
     };
 
     sleep_for(1000)

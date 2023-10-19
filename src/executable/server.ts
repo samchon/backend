@@ -2,8 +2,8 @@ import fs from "fs";
 import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { Backend } from "../Backend";
-import { SGlobal } from "../SGlobal";
+import { MyBackend } from "../MyBackend";
+import { MyGlobal } from "../MyGlobal";
 import { Scheduler } from "../schedulers/Scheduler";
 import { ErrorUtil } from "../utils/ErrorUtil";
 
@@ -48,7 +48,7 @@ async function handle_error(exp: any): Promise<void> {
 
 async function main(): Promise<void> {
     // BACKEND SEVER LATER
-    const backend: Backend = new Backend();
+    const backend: MyBackend = new MyBackend();
     await backend.open();
 
     //----
@@ -59,7 +59,7 @@ async function main(): Promise<void> {
     global.process.on("unhandledRejection", handle_error);
 
     // SCHEDULER ONLY WHEN MASTER
-    if (SGlobal.env.MODE !== "real" || process.argv[3] === "master")
+    if (MyGlobal.env.MODE !== "real" || process.argv[3] === "master")
         await Scheduler.repeat();
 }
 main().catch((exp) => {

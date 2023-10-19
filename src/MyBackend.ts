@@ -1,14 +1,14 @@
-import core from "@nestia/core";
 import { NestFactory } from "@nestjs/core";
 import {
     FastifyAdapter,
     NestFastifyApplication,
 } from "@nestjs/platform-fastify";
 
-import { Configuration } from "./Configuration";
-import { SGlobal } from "./SGlobal";
+import { MyConfiguration } from "./MyConfiguration";
+import { MyGlobal } from "./MyGlobal";
+import { MyModule } from "./MyModule";
 
-export class Backend {
+export class MyBackend {
     private application_?: NestFastifyApplication;
 
     public async open(): Promise<void> {
@@ -17,14 +17,14 @@ export class Backend {
         //----
         // MOUNT CONTROLLERS
         this.application_ = await NestFactory.create(
-            await core.DynamicModule.mount(__dirname + "/controllers"),
+            await MyModule(),
             new FastifyAdapter(),
             { logger: false },
         );
 
         // DO OPEN
         this.application_.enableCors();
-        await this.application_.listen(Configuration.API_PORT());
+        await this.application_.listen(MyConfiguration.API_PORT());
 
         //----
         // POST-PROCESSES
@@ -47,8 +47,8 @@ export class Backend {
         delete this.application_;
 
         // EXIT FROM THE CRITICAL-SERVER
-        if ((await SGlobal.critical.is_loaded()) === true) {
-            const critical = await SGlobal.critical.get();
+        if ((await MyGlobal.critical.is_loaded()) === true) {
+            const critical = await MyGlobal.critical.get();
             await critical.close();
         }
     }

@@ -3,12 +3,12 @@ import { ExceptionManager } from "@nestia/core";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import path from "path";
 
-import { SGlobal } from "./SGlobal";
+import { MyGlobal } from "./MyGlobal";
 
 const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support").install();
 
-export namespace Configuration {
+export namespace MyConfiguration {
     export const ROOT = (() => {
         const splitted: string[] = __dirname.split(path.sep);
         return splitted.at(-1) === "src" && splitted.at(-2) === "bin"
@@ -16,15 +16,15 @@ export namespace Configuration {
             : path.resolve(__dirname + "/..");
     })();
 
-    export const API_PORT = () => Number(SGlobal.env.API_PORT);
-    export const UPDATOR_PORT = () => Number(SGlobal.env.UPDATOR_PORT);
+    export const API_PORT = () => Number(MyGlobal.env.API_PORT);
+    export const UPDATOR_PORT = () => Number(MyGlobal.env.UPDATOR_PORT);
     export const MASTER_IP = () =>
-        SGlobal.mode === "local"
+        MyGlobal.mode === "local"
             ? "127.0.0.1"
-            : SGlobal.mode === "dev"
+            : MyGlobal.mode === "dev"
             ? "your-dev-server-ip"
             : "your-real-server-master-ip";
-    export const SYSTEM_PASSWORD = () => SGlobal.env.SYSTEM_PASSWORD;
+    export const SYSTEM_PASSWORD = () => MyGlobal.env.SYSTEM_PASSWORD;
 }
 
 ExceptionManager.insert(PrismaClientKnownRequestError, (exp) => {

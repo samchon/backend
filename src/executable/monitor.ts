@@ -1,5 +1,5 @@
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
+import { MyConfiguration } from "../MyConfiguration";
+import { MyGlobal } from "../MyGlobal";
 import api from "../api";
 import { IPerformance } from "../api/structures/monitors/IPerformance";
 import { ISystem } from "../api/structures/monitors/ISystem";
@@ -7,11 +7,11 @@ import { ISystem } from "../api/structures/monitors/ISystem";
 async function main(): Promise<void> {
     // CONFIGURE MODE
     if (process.argv[2])
-        SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+        MyGlobal.setMode(process.argv[2] as typeof MyGlobal.mode);
 
     // GET PERFORMANCE & SYSTEM INFO
     const connection: api.IConnection = {
-        host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+        host: `http://${MyConfiguration.MASTER_IP()}:${MyConfiguration.API_PORT()}`,
     };
     const performance: IPerformance =
         await api.functional.monitors.performance.get(connection);

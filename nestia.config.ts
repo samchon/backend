@@ -1,8 +1,10 @@
 import { INestiaConfig } from "@nestia/sdk";
+import { NestFactory } from "@nestjs/core";
+
+import { MyModule } from "./src/MyModule";
 
 export const NESTIA_CONFIG: INestiaConfig = {
-    simulate: true,
-    input: "src/controllers",
+    input: async () => NestFactory.create(await MyModule()),
     output: "src/api",
     swagger: {
         output: "packages/api/swagger.json",
@@ -13,5 +15,6 @@ export const NESTIA_CONFIG: INestiaConfig = {
             },
         ],
     },
+    simulate: true,
 };
 export default NESTIA_CONFIG;

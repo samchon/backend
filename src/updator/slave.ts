@@ -1,14 +1,14 @@
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
+import { MyConfiguration } from "../MyConfiguration";
+import { MyGlobal } from "../MyGlobal";
 import { start_updator_slave } from "./internal/start_updator_slave";
 
 async function main(): Promise<void> {
     // CONFIGURE MODE
     if (process.argv[2])
-        SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+        MyGlobal.setMode(process.argv[2] as typeof MyGlobal.mode);
 
     // START THE CLIENT
-    await start_updator_slave(Configuration.MASTER_IP());
+    await start_updator_slave(MyConfiguration.MASTER_IP());
 }
 main().catch((exp) => {
     console.log(exp);

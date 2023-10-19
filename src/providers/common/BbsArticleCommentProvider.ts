@@ -5,7 +5,7 @@ import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBb
 import { IBbsArticleComment } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticleComment";
 import { IPage } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IPage";
 
-import { SGlobal } from "../../SGlobal";
+import { MyGlobal } from "../../MyGlobal";
 import { PaginationUtil } from "../../utils/PaginationUtil";
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";
 
@@ -35,7 +35,7 @@ export namespace BbsArticleCommentProvider {
         input: IBbsArticleComment.IRequest,
     ): Promise<IPage<IBbsArticleComment>> =>
         PaginationUtil.paginate({
-            schema: SGlobal.prisma.bbs_article_comments,
+            schema: MyGlobal.prisma.bbs_article_comments,
             payload: json.select,
             transform: json.transform,
         })({
@@ -45,18 +45,32 @@ export namespace BbsArticleCommentProvider {
                 : [{ created_at: "asc" }],
         })(input);
 
-    export const where = (input: IBbsArticleComment.IRequest.ISearch) =>
-        Prisma.validator<Prisma.bbs_article_commentsWhereInput>()(
-            input.body?.length
-                ? { snapshots: { some: { body: { contains: input.body } } } }
-                : {},
+    export const where = (
+        input: IBbsArticleComment.IRequest.ISearch | undefined,
+    ) =>
+        Prisma.validator<Prisma.bbs_article_commentsWhereInput["AND"]>()(
+            input?.body?.length
+                ? [
+                      {
+                          snapshots: {
+                              some: {
+                                  body: {
+                                      contains: input.body,
+                                  },
+                              },
+                          },
+                      },
+                  ]
+                : [],
         );
 
     export const orderBy = (
         key: IBbsArticleComment.IRequest.SortableColumns,
         value: "asc" | "desc",
-    ): Prisma.bbs_article_commentsOrderByWithRelationInput | null =>
-        key === "created_at" ? { created_at: value } : null;
+    ) =>
+        Prisma.validator<Prisma.bbs_article_commentsOrderByWithRelationInput | null>()(
+            key === "created_at" ? { created_at: value } : null,
+        );
 
     export const collect =
         <Input extends IBbsArticleComment.IStore>(

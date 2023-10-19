@@ -3,9 +3,9 @@ import fs from "fs";
 import { Singleton, randint } from "tstl";
 import { sleep_for } from "tstl/thread/global";
 
-import { Backend } from "../src/Backend";
-import { Configuration } from "../src/Configuration";
-import { SGlobal } from "../src/SGlobal";
+import { MyBackend } from "../src/MyBackend";
+import { MyConfiguration } from "../src/MyConfiguration";
+import { MyGlobal } from "../src/MyGlobal";
 import api from "../src/api";
 import { SetupWizard } from "../src/setup/SetupWizard";
 import { ArgumentParser } from "../src/utils/ArgumentParser";
@@ -65,22 +65,22 @@ async function main(): Promise<void> {
 
     // CONFIGURE
     const options: IOptions = await getOptions();
-    SGlobal.testing = true;
+    MyGlobal.testing = true;
 
     if (options.reset) {
         await StopWatch.trace("Reset DB")(() =>
-            SetupWizard.schema(SGlobal.prisma),
+            SetupWizard.schema(MyGlobal.prisma),
         );
         await StopWatch.trace("Seed Data")(SetupWizard.seed);
     }
 
     // OPEN SERVER
-    const backend: Backend = new Backend();
+    const backend: MyBackend = new MyBackend();
     await backend.open();
 
     // DO TEST
     const connection: api.IConnection = {
-        host: `http://127.0.0.1:${Configuration.API_PORT()}`,
+        host: `http://127.0.0.1:${MyConfiguration.API_PORT()}`,
     };
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
         prefix: "test",

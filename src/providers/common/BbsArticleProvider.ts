@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
 import { IPage } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IPage";
 
-import { SGlobal } from "../../SGlobal";
+import { MyGlobal } from "../../MyGlobal";
 import { PaginationUtil } from "../../utils/PaginationUtil";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
@@ -34,7 +34,7 @@ export namespace BbsArticleProvider {
             input: IBbsArticle.IRequest,
         ): Promise<IPage<IBbsArticle.IAbridge>> =>
             PaginationUtil.paginate({
-                schema: SGlobal.prisma.bbs_articles,
+                schema: MyGlobal.prisma.bbs_articles,
                 payload: abridge.select,
                 transform: abridge.transform,
             })({
@@ -81,7 +81,7 @@ export namespace BbsArticleProvider {
             input: IBbsArticle.IRequest,
         ): Promise<IPage<IBbsArticle.ISummary>> =>
             PaginationUtil.paginate({
-                schema: SGlobal.prisma.bbs_articles,
+                schema: MyGlobal.prisma.bbs_articles,
                 payload: summarize.select,
                 transform: summarize.transform,
             })({
@@ -115,65 +115,93 @@ export namespace BbsArticleProvider {
             });
     }
 
-    export const where = (input: IBbsArticle.IRequest.ISearch) => {
-        const conditions: Prisma.bbs_articlesWhereInput[] = [];
-        if (input.title?.length)
-            conditions.push({
-                mv_last: {
-                    snapshot: {
-                        title: { contains: input.title },
-                    },
-                },
-            });
-        if (input.body?.length)
-            conditions.push({
-                mv_last: {
-                    snapshot: {
-                        body: { contains: input.body },
-                    },
-                },
-            });
-        if (input.title_or_body?.length)
-            conditions.push({
-                OR: [
-                    {
-                        mv_last: {
-                            snapshot: {
-                                title: { contains: input.title_or_body },
-                            },
-                        },
-                    },
-                    {
-                        mv_last: {
-                            snapshot: {
-                                body: { contains: input.title_or_body },
-                            },
-                        },
-                    },
-                ],
-            });
-        if (input.from)
-            conditions.push({
-                created_at: { gte: new Date(input.from) },
-            });
-        if (input.to)
-            conditions.push({
-                created_at: { lte: new Date(input.to) },
-            });
-        return conditions.length ? { AND: conditions } : {};
-    };
+    export const where = (input: IBbsArticle.IRequest.ISearch | undefined) =>
+        Prisma.validator<Prisma.bbs_articlesWhereInput["AND"]>()([
+            ...(input?.title?.length
+                ? [
+                      {
+                          mv_last: {
+                              snapshot: {
+                                  title: {
+                                      contains: input.title,
+                                  },
+                              },
+                          },
+                      },
+                  ]
+                : []),
+            ...(input?.body?.length
+                ? [
+                      {
+                          mv_last: {
+                              snapshot: {
+                                  body: {
+                                      contains: input.body,
+                                  },
+                              },
+                          },
+                      },
+                  ]
+                : []),
+            ...(input?.title_or_body?.length
+                ? [
+                      {
+                          OR: [
+                              {
+                                  mv_last: {
+                                      snapshot: {
+                                          title: {
+                                              contains: input.title_or_body,
+                                          },
+                                      },
+                                  },
+                              },
+                              {
+                                  mv_last: {
+                                      snapshot: {
+                                          body: {
+                                              contains: input.title_or_body,
+                                          },
+                                      },
+                                  },
+                              },
+                          ],
+                      },
+                  ]
+                : []),
+            ...(input?.from?.length
+                ? [
+                      {
+                          created_at: {
+                              gte: new Date(input.from),
+                          },
+                      },
+                  ]
+                : []),
+            ...(input?.to?.length
+                ? [
+                      {
+                          created_at: {
+                              lte: new Date(input.to),
+                          },
+                      },
+                  ]
+                : []),
+        ]);
 
     export const orderBy = (
         key: IBbsArticle.IRequest.SortableColumns,
         value: "asc" | "desc",
-    ): Prisma.bbs_articlesOrderByWithRelationInput | null =>
-        key === "title"
-            ? { mv_last: { snapshot: { title: value } } }
-            : key === "created_at"
-            ? { created_at: value }
-            : key === "updated_at"
-            ? { mv_last: { snapshot: { created_at: value } } }
-            : null;
+    ) =>
+        Prisma.validator<Prisma.bbs_articlesOrderByWithRelationInput | null>()(
+            key === "title"
+                ? { mv_last: { snapshot: { title: value } } }
+                : key === "created_at"
+                ? { created_at: value }
+                : key === "updated_at"
+                ? { mv_last: { snapshot: { created_at: value } } }
+                : null,
+        );
 
     export const collect =
         <

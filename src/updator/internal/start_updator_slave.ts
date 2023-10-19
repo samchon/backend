@@ -1,6 +1,6 @@
 import { MutexConnector } from "mutex-server";
 
-import { Configuration } from "../../Configuration";
+import { MyConfiguration } from "../../MyConfiguration";
 import { Updator } from "./Updator";
 
 export async function start_updator_slave(
@@ -8,11 +8,11 @@ export async function start_updator_slave(
 ): Promise<MutexConnector<string, Updator>> {
     const updator: Updator = new Updator();
     const connector: MutexConnector<string, Updator> = new MutexConnector(
-        Configuration.SYSTEM_PASSWORD(),
+        MyConfiguration.SYSTEM_PASSWORD(),
         updator,
     );
     await connector.connect(
-        `ws://${host}:${Configuration.UPDATOR_PORT()}/slave`,
+        `ws://${host}:${MyConfiguration.UPDATOR_PORT()}/slave`,
     );
     return connector;
 }

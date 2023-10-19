@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
 import { IEntity } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IEntity";
 
-import { SGlobal } from "../../SGlobal";
+import { MyGlobal } from "../../MyGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleSnapshotProvider {
@@ -38,14 +38,16 @@ export namespace BbsArticleSnapshotProvider {
     export const store =
         (article: IEntity) =>
         async (input: IBbsArticle.IUpdate): Promise<IBbsArticle.ISnapshot> => {
-            const snapshot = await SGlobal.prisma.bbs_article_snapshots.create({
-                data: {
-                    ...collect(input),
-                    article: { connect: { id: article.id } },
+            const snapshot = await MyGlobal.prisma.bbs_article_snapshots.create(
+                {
+                    data: {
+                        ...collect(input),
+                        article: { connect: { id: article.id } },
+                    },
+                    ...json.select(),
                 },
-                ...json.select(),
-            });
-            await SGlobal.prisma.mv_bbs_article_last_snapshots.update({
+            );
+            await MyGlobal.prisma.mv_bbs_article_last_snapshots.update({
                 where: {
                     bbs_article_id: article.id,
                 },

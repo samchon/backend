@@ -5,14 +5,14 @@ import { MutexConnector } from "mutex-server";
 import { MutableSingleton, Singleton } from "tstl";
 import typia from "typia";
 
-import { Configuration } from "./Configuration";
+import { MyConfiguration } from "./MyConfiguration";
 
 /**
  * Global variables of the server.
  *
  * @author Samchon
  */
-export class SGlobal {
+export class MyGlobal {
     public static testing: boolean = false;
 
     public static readonly prisma: PrismaClient = new PrismaClient();
@@ -37,7 +37,7 @@ export class SGlobal {
      *
      * @param mode The new mode
      */
-    public static setMode(mode: typeof SGlobal.mode): void {
+    public static setMode(mode: typeof MyGlobal.mode): void {
         typia.assert<typeof mode>(mode);
         modeWrapper.value = mode;
     }
@@ -46,11 +46,11 @@ export class SGlobal {
         MutexConnector<string, null>
     > = new MutableSingleton(async () => {
         const connector: MutexConnector<string, null> = new MutexConnector(
-            Configuration.SYSTEM_PASSWORD(),
+            MyConfiguration.SYSTEM_PASSWORD(),
             null,
         );
         await connector.connect(
-            `ws://${Configuration.MASTER_IP()}:${Configuration.UPDATOR_PORT()}/api`,
+            `ws://${MyConfiguration.MASTER_IP()}:${MyConfiguration.UPDATOR_PORT()}/api`,
         );
         return connector;
     });
