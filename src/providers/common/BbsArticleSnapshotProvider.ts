@@ -59,22 +59,22 @@ export namespace BbsArticleSnapshotProvider {
         };
 
     export const collect = (input: IBbsArticle.IStore) =>
-        Prisma.validator<
-            Omit<Prisma.bbs_article_snapshotsCreateInput, "article">
-        >()({
-            id: v4(),
-            title: input.title,
-            format: input.format,
-            body: input.body,
-            created_at: new Date(),
-            to_files: {
-                create: input.files.map((file, i) => ({
-                    id: v4(),
-                    file: {
-                        create: AttachmentFileProvider.collect(file),
-                    },
-                    sequence: i,
-                })),
+        Prisma.validator<Prisma.bbs_article_snapshotsCreateWithoutArticleInput>()(
+            {
+                id: v4(),
+                title: input.title,
+                format: input.format,
+                body: input.body,
+                created_at: new Date(),
+                to_files: {
+                    create: input.files.map((file, i) => ({
+                        id: v4(),
+                        file: {
+                            create: AttachmentFileProvider.collect(file),
+                        },
+                        sequence: i,
+                    })),
+                },
             },
-        });
+        );
 }

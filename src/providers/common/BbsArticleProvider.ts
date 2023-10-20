@@ -38,7 +38,7 @@ export namespace BbsArticleProvider {
                 payload: abridge.select,
                 transform: abridge.transform,
             })({
-                where: where(input.search ?? {}),
+                where: search(input.search ?? {}),
                 orderBy: input.sort?.length
                     ? PaginationUtil.orderBy(orderBy)(input.sort)
                     : [{ created_at: "desc" }],
@@ -85,7 +85,7 @@ export namespace BbsArticleProvider {
                 payload: summarize.select,
                 transform: summarize.transform,
             })({
-                where: where(input.search ?? {}),
+                where: search(input.search ?? {}),
                 orderBy: input.sort?.length
                     ? PaginationUtil.orderBy(orderBy)(input.sort)
                     : [{ created_at: "desc" }],
@@ -115,7 +115,7 @@ export namespace BbsArticleProvider {
             });
     }
 
-    export const where = (input: IBbsArticle.IRequest.ISearch | undefined) =>
+    export const search = (input: IBbsArticle.IRequest.ISearch | undefined) =>
         Prisma.validator<Prisma.bbs_articlesWhereInput["AND"]>()([
             ...(input?.title?.length
                 ? [
@@ -193,23 +193,19 @@ export namespace BbsArticleProvider {
         key: IBbsArticle.IRequest.SortableColumns,
         value: "asc" | "desc",
     ) =>
-        Prisma.validator<Prisma.bbs_articlesOrderByWithRelationInput | null>()(
+        Prisma.validator<Prisma.bbs_articlesOrderByWithRelationInput>()(
             key === "title"
                 ? { mv_last: { snapshot: { title: value } } }
                 : key === "created_at"
                 ? { created_at: value }
-                : key === "updated_at"
-                ? { mv_last: { snapshot: { created_at: value } } }
-                : null,
+                : // updated_at
+                  { mv_last: { snapshot: { created_at: value } } },
         );
 
     export const collect =
         <
             Input extends IBbsArticle.IStore,
-            Snapshot extends Omit<
-                Prisma.bbs_article_snapshotsCreateInput,
-                "article"
-            >,
+            Snapshot extends Prisma.bbs_article_snapshotsCreateWithoutArticleInput,
         >(
             snapshotFactory: (input: Input) => Snapshot,
         ) =>

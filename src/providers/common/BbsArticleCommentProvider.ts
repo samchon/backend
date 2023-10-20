@@ -39,13 +39,13 @@ export namespace BbsArticleCommentProvider {
             payload: json.select,
             transform: json.transform,
         })({
-            where: where(input.search ?? {}),
+            where: search(input.search ?? {}),
             orderBy: input.sort?.length
                 ? PaginationUtil.orderBy(orderBy)(input.sort)
                 : [{ created_at: "asc" }],
         })(input);
 
-    export const where = (
+    export const search = (
         input: IBbsArticleComment.IRequest.ISearch | undefined,
     ) =>
         Prisma.validator<Prisma.bbs_article_commentsWhereInput["AND"]>()(
@@ -65,31 +65,32 @@ export namespace BbsArticleCommentProvider {
         );
 
     export const orderBy = (
-        key: IBbsArticleComment.IRequest.SortableColumns,
+        _key: IBbsArticleComment.IRequest.SortableColumns,
         value: "asc" | "desc",
     ) =>
-        Prisma.validator<Prisma.bbs_article_commentsOrderByWithRelationInput | null>()(
-            key === "created_at" ? { created_at: value } : null,
+        Prisma.validator<Prisma.bbs_article_commentsOrderByWithRelationInput>()(
+            { created_at: value },
         );
 
     export const collect =
-        <Input extends IBbsArticleComment.IStore>(
-            factory: (
-                input: Input,
-            ) => Omit<
-                Prisma.bbs_article_comment_snapshotsCreateInput,
-                "comment"
-            >,
+        <
+            Input extends IBbsArticleComment.IStore,
+            Snapshot extends Prisma.bbs_article_comment_snapshotsCreateWithoutCommentInput,
+        >(
+            snapshotFactory: (input: Input) => Snapshot,
         ) =>
         (related: { article: Pick<IBbsArticle, "id"> }) =>
-        (input: Input): Prisma.bbs_article_commentsCreateInput => ({
-            id: v4(),
-            article: {
-                connect: { id: related.article.id },
-            },
-            snapshots: {
-                create: [factory(input)],
-            },
-            created_at: new Date(),
-        });
+        (input: Input) => {
+            const snapshot = snapshotFactory(input);
+            return Prisma.validator<Prisma.bbs_article_commentsCreateInput>()({
+                id: v4(),
+                article: {
+                    connect: { id: related.article.id },
+                },
+                snapshots: {
+                    create: [snapshot],
+                },
+                created_at: new Date(),
+            });
+        };
 }

@@ -53,21 +53,21 @@ export namespace BbsArticleCommentSnapshotProvider {
         };
 
     export const collect = (input: IBbsArticleComment.IStore) =>
-        Prisma.validator<
-            Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment">
-        >()({
-            id: v4(),
-            format: input.format,
-            body: input.body,
-            created_at: new Date(),
-            to_files: {
-                create: input.files.map((file, i) => ({
-                    id: v4(),
-                    file: {
-                        create: AttachmentFileProvider.collect(file),
-                    },
-                    sequence: i,
-                })),
+        Prisma.validator<Prisma.bbs_article_comment_snapshotsCreateWithoutCommentInput>()(
+            {
+                id: v4(),
+                format: input.format,
+                body: input.body,
+                created_at: new Date(),
+                to_files: {
+                    create: input.files.map((file, i) => ({
+                        id: v4(),
+                        file: {
+                            create: AttachmentFileProvider.collect(file),
+                        },
+                        sequence: i,
+                    })),
+                },
             },
-        });
+        );
 }
