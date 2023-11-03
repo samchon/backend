@@ -7,7 +7,7 @@ import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISyst
 
 import { MyConfiguration } from "../MyConfiguration";
 import { MyGlobal } from "../MyGlobal";
-import { IUpdateController } from "../updator/internal/IUpdateController";
+import { MyUpdator } from "../MyUpdator";
 
 async function main(): Promise<void> {
     // CONFIGURE MODE & COMMIT-ID
@@ -27,17 +27,17 @@ async function main(): Promise<void> {
         `ws://${MyConfiguration.MASTER_IP()}:${MyConfiguration.UPDATOR_PORT()}/update`,
     );
 
-    // REQUEST UPDATE WITH MONOPOLYING A GLOBAL MUTEX
+    // REQUEST REVERT WITH MONOPOLYING A GLOBAL MUTEX
     const mutex: RemoteMutex = await connector.getMutex("update");
     const success: boolean = await UniqueLock.try_lock(mutex, async () => {
-        const updator: Promisive<IUpdateController> = connector.getDriver();
+        const updator: Promisive<MyUpdator.IController> = connector.getDriver();
         await updator.revert(commit);
     });
     await connector.close();
 
     // SUCCESS OR NOT
     if (success === false) {
-        console.log("Already on reverting.");
+        console.log("Already on updating.");
         process.exit(-1);
     }
 

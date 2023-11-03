@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 import { MyGlobal } from "../MyGlobal";
+import { MySetupWizard } from "../setup/MySetupWizard";
 
 async function execute(
     database: string,
@@ -77,6 +78,9 @@ async function main(): Promise<void> {
         GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
     `,
     );
+
+    MyGlobal.testing = true;
+    await MySetupWizard.schema();
 }
 main().catch((exp) => {
     console.log(exp);

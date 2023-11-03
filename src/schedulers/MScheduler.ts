@@ -5,7 +5,7 @@ import { sleep_for } from "tstl/thread/global";
 import { MyGlobal } from "../MyGlobal";
 import { MapUtil } from "../utils/MapUtil";
 
-export namespace Scheduler {
+export namespace MyScheduler {
     export async function repeat(): Promise<never> {
         const critical: mutex.MutexConnector<string, null> =
             await MyGlobal.critical.get();

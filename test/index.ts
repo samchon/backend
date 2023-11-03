@@ -6,8 +6,9 @@ import { sleep_for } from "tstl/thread/global";
 import { MyBackend } from "../src/MyBackend";
 import { MyConfiguration } from "../src/MyConfiguration";
 import { MyGlobal } from "../src/MyGlobal";
+import { MyUpdator } from "../src/MyUpdator";
 import api from "../src/api";
-import { SetupWizard } from "../src/setup/SetupWizard";
+import { MySetupWizard } from "../src/setup/MySetupWizard";
 import { ArgumentParser } from "../src/utils/ArgumentParser";
 import { ErrorUtil } from "../src/utils/ErrorUtil";
 
@@ -68,13 +69,12 @@ async function main(): Promise<void> {
     MyGlobal.testing = true;
 
     if (options.reset) {
-        await StopWatch.trace("Reset DB")(() =>
-            SetupWizard.schema(MyGlobal.prisma),
-        );
-        await StopWatch.trace("Seed Data")(SetupWizard.seed);
+        await StopWatch.trace("Reset DB")(MySetupWizard.schema);
+        await StopWatch.trace("Seed Data")(MySetupWizard.seed);
     }
 
     // OPEN SERVER
+    const updator = await MyUpdator.master();
     const backend: MyBackend = new MyBackend();
     await backend.open();
 
@@ -100,6 +100,7 @@ async function main(): Promise<void> {
     // TERMINATE
     await sleep_for(2500); // WAIT FOR BACKGROUND EVENTS
     await backend.close();
+    await updator.close();
 
     const exceptions: Error[] = report.executions
         .filter((exec) => exec.error !== null)

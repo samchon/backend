@@ -2,18 +2,16 @@ import { MutexConnector, RemoteMutex } from "mutex-server";
 import { Promisive } from "tgrid/typings/Promisive";
 import { UniqueLock } from "tstl/thread/UniqueLock";
 
-import api from "@ORGANIZATION/PROJECT-api";
-import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
-
 import { MyConfiguration } from "../MyConfiguration";
 import { MyGlobal } from "../MyGlobal";
-import { IUpdateController } from "../updator/internal/IUpdateController";
+import { MyUpdator } from "../MyUpdator";
+import api from "../api";
+import { ISystem } from "../api/structures/monitors/ISystem";
 
 async function main(): Promise<void> {
     // CONFIGURE MODE
-    if (!process.argv[2])
-        throw new Error("Error on Updator.update(): no mode specified.");
-    MyGlobal.setMode(process.argv[2] as typeof MyGlobal.mode);
+    if (process.argv[2])
+        MyGlobal.setMode(process.argv[2].toUpperCase() as typeof MyGlobal.mode);
 
     // CONNECT TO THE UPDATOR SERVER
     const connector: MutexConnector<string, null> = new MutexConnector(
@@ -27,7 +25,7 @@ async function main(): Promise<void> {
     // REQUEST UPDATE WITH MONOPOLYING A GLOBAL MUTEX
     const mutex: RemoteMutex = await connector.getMutex("update");
     const success: boolean = await UniqueLock.try_lock(mutex, async () => {
-        const updator: Promisive<IUpdateController> = connector.getDriver();
+        const updator: Promisive<MyUpdator.IController> = connector.getDriver();
         await updator.update();
     });
     await connector.close();

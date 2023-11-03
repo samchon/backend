@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import cp from "child_process";
 
 import { MyGlobal } from "../MyGlobal";
 
-export namespace SetupWizard {
-    export async function schema(client: PrismaClient): Promise<void> {
+export namespace MySetupWizard {
+    export async function schema(): Promise<void> {
         if (MyGlobal.testing === false)
             throw new Error(
                 "Erron on SetupWizard.schema(): unable to reset database in non-test mode.",
@@ -17,7 +16,7 @@ export namespace SetupWizard {
         execute("reset")("--force");
         execute("dev")("--name init");
 
-        await client.$executeRawUnsafe(
+        await MyGlobal.prisma.$executeRawUnsafe(
             `GRANT SELECT ON ALL TABLES IN SCHEMA ${MyGlobal.env.POSTGRES_SCHEMA} TO ${MyGlobal.env.POSTGRES_USERNAME_READONLY}`,
         );
     }
