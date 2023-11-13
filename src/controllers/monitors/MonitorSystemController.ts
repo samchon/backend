@@ -1,5 +1,5 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
 
 import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
@@ -7,7 +7,7 @@ import { SystemProvider } from "../../providers/monitors/SystemProvider";
 
 import { DateUtil } from "../../utils/DateUtil";
 
-@nest.Controller("monitors/system")
+@Controller("monitors/system")
 export class MonitorSystemController {
   @core.TypedRoute.Get()
   public async get(): Promise<ISystem> {

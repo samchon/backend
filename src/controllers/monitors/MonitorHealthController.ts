@@ -1,7 +1,7 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
 
-@nest.Controller("monitors/health")
+@Controller("monitors/health")
 export class MonitorHealthController {
   @core.TypedRoute.Get()
   public get(): void {}

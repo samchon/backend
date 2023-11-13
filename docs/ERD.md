@@ -53,20 +53,14 @@ erDiagram
     String attachment_file_id FK
     Int sequence
 }
-"_bbs_article_commentsTobbs_article_comments" {
-    String A FK
-    String B FK
-}
 "bbs_article_snapshots" }|--|| "bbs_articles" : article
-"bbs_article_snapshot_files" }|--|| "bbs_article_snapshots" : snapshot
-"bbs_article_snapshot_files" }|--|| "attachment_files" : file
-"bbs_article_comments" }|--|| "bbs_articles" : article
+"bbs_article_snapshot_files" }o--|| "bbs_article_snapshots" : snapshot
+"bbs_article_snapshot_files" }o--|| "attachment_files" : file
+"bbs_article_comments" }o--|| "bbs_articles" : article
 "bbs_article_comments" }o--o| "bbs_article_comments" : parent
 "bbs_article_comment_snapshots" }|--|| "bbs_article_comments" : comment
-"bbs_article_comment_snapshot_files" }|--|| "bbs_article_comment_snapshots" : snapshot
-"bbs_article_comment_snapshot_files" }|--|| "attachment_files" : file
-"_bbs_article_commentsTobbs_article_comments" }|--|| "bbs_article_comments" : bbs_article_comments
-"_bbs_article_commentsTobbs_article_comments" }|--|| "bbs_article_comments" : bbs_article_comments
+"bbs_article_comment_snapshot_files" }o--|| "bbs_article_comment_snapshots" : snapshot
+"bbs_article_comment_snapshot_files" }o--|| "attachment_files" : file
 ```
 
 ### `attachment_files`
@@ -227,10 +221,3 @@ relationship between [bbs_article_comment_snapshots](#bbs_article_comment_snapsh
     > Sequence order.
     > 
     > Sequence order of the attached file in the belonged snapshot.
-
-### `_bbs_article_commentsTobbs_article_comments`
-Pair relationship table between [bbs_article_comments](#bbs_article_comments) and [bbs_article_comments](#bbs_article_comments)
-
-**Properties**
-  - `A`: 
-  - `B`: 

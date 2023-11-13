@@ -1,9 +1,9 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
 
 import { IPerformance } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/IPerformance";
 
-@nest.Controller("monitors/performance")
+@Controller("monitors/performance")
 export class MonitorPerformanceController {
   @core.TypedRoute.Get()
   public async get(): Promise<IPerformance> {

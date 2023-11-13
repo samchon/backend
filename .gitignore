@@ -1,6 +1,8 @@
 bin/
+dist/
 lib/
 node_modules/
+
 src/migrations
 
 *.DS_Store

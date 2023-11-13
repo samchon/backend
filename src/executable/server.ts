@@ -5,7 +5,7 @@ import { Singleton } from "tstl/thread/Singleton";
 import { MyBackend } from "../MyBackend";
 import { MyGlobal } from "../MyGlobal";
 import { MyUpdator } from "../MyUpdator";
-import { MyScheduler } from "../schedulers/MScheduler";
+import { MyScheduler } from "../schedulers/MyScheduler";
 import { ErrorUtil } from "../utils/ErrorUtil";
 
 const EXTENSION = __filename.substr(-2);
