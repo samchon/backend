@@ -1,4 +1,4 @@
-import { IDiagnosis } from '../../structures/common/IDiagnosis';
+import { IDiagnosis } from "../../structures/common/IDiagnosis";
 
 /**
  * Diagnoser of uniqueness.
@@ -8,55 +8,54 @@ import { IDiagnosis } from '../../structures/common/IDiagnosis';
  * @author Samchon
  */
 export namespace UniqueDiagnoser {
+  /**
+   * Configuration info.
+   */
+  export interface IConfig<Element> {
     /**
-     * Configuration info.
+     * Key getter function.
      */
-    export interface IConfig<Element> {
-        /**
-         * Key getter function.
-         */
-        key(x: Element): string;
-
-        /**
-         * Message generator when duplicated element be found.
-         */
-        message(elem: Element, index: number): IDiagnosis;
-
-        /**
-         * Filter function returning only target elements.
-         *
-         * @default undefined Accept every elements
-         */
-        filter?(elem: Element): boolean;
-    }
+    key(x: Element): string;
 
     /**
-     * Diagnose duplicated elements.
-     *
-     * Diagnose duplicated elements through {@link HashSet} and returns
-     * {@link IDiagnosis} objects describing about the duplicated elements.
-     *
-     * @param config Configuration info for diagnosing
-     * @returns Diagnoser function for specific elements
+     * Message generator when duplicated element be found.
      */
-    export const validate =
-        <Element>(config: IConfig<Element>) =>
-        /**
-         * @param elements Target elements to validate.
-         * @returns List of diagnoses messages about duplicated elements
-         */
-        (elements: Element[]) => {
-            const output: IDiagnosis[] = [];
-            const set: Set<string> = new Set();
+    message(elem: Element, index: number): IDiagnosis;
 
-            elements.forEach((elem, index) => {
-                if (config.filter && config.filter(elem) === false) return;
+    /**
+     * Filter function returning only target elements.
+     *
+     * @default undefined Accept every elements
+     */
+    filter?(elem: Element): boolean;
+  }
 
-                const key: string = config.key(elem);
-                if (set.has(key) === true)
-                    output.push(config.message(elem, index));
-                else set.add(key);
-            });
-            return output;
-        };
+  /**
+   * Diagnose duplicated elements.
+   *
+   * Diagnose duplicated elements through {@link HashSet} and returns
+   * {@link IDiagnosis} objects describing about the duplicated elements.
+   *
+   * @param config Configuration info for diagnosing
+   * @returns Diagnoser function for specific elements
+   */
+  export const validate =
+    <Element>(config: IConfig<Element>) =>
+    /**
+     * @param elements Target elements to validate.
+     * @returns List of diagnoses messages about duplicated elements
+     */
+    (elements: Element[]) => {
+      const output: IDiagnosis[] = [];
+      const set: Set<string> = new Set();
+
+      elements.forEach((elem, index) => {
+        if (config.filter && config.filter(elem) === false) return;
+
+        const key: string = config.key(elem);
+        if (set.has(key) === true) output.push(config.message(elem, index));
+        else set.add(key);
+      });
+      return output;
+    };
 }

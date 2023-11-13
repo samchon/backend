@@ -21,16 +21,16 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IRecordMerge {
-    /**
-     * Target record to keep after merging.
-     *
-     * After merge process, {@link absorbed} records would be merged into
-     * this {@link keep} record.
-     */
-    keep: string & tags.Format<"uuid">;
+  /**
+   * Target record to keep after merging.
+   *
+   * After merge process, {@link absorbed} records would be merged into
+   * this {@link keep} record.
+   */
+  keep: string & tags.Format<"uuid">;
 
-    /**
-     * To be absorbed to {@link keep} after merging.
-     */
-    absorbed: Array<string & tags.Format<"uuid">>;
+  /**
+   * To be absorbed to {@link keep} after merging.
+   */
+  absorbed: Array<string & tags.Format<"uuid">>;
 }

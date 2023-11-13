@@ -8,8 +8,8 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IEntity {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 }

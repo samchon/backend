@@ -1,6 +1,7 @@
 bin/
 lib/
 node_modules/
+src/migrations
 
 *.DS_Store
 package-lock.json

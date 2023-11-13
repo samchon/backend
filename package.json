@@ -51,7 +51,7 @@
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
     "@nestia/e2e": "^0.3.7",
-    "@nestia/sdk": "^2.3.4",
+    "@nestia/sdk": "^2.3.9",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/cli": "^0.11.19",
     "@types/inquirer": "^8.2.5",
@@ -77,7 +77,7 @@
     "typescript-transform-paths": "^3.4.6"
   },
   "dependencies": {
-    "@nestia/core": "^2.3.4",
+    "@nestia/core": "^2.3.9",
     "@prisma/client": "^5.3.1",
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
@@ -87,7 +87,7 @@
     "prisma": "^5.3.1",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
-    "typia": "^5.2.4"
+    "typia": "^5.2.6"
   },
   "private": true
 }

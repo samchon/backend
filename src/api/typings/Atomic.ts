@@ -10,5 +10,5 @@
  * @author Samchon
  */
 export type Atomic<Instance extends object> = {
-    [P in keyof Instance]: Instance[P] extends object ? never : Instance[P];
+  [P in keyof Instance]: Instance[P] extends object ? never : Instance[P];
 };

@@ -5,26 +5,26 @@ import { IAttachmentFile } from "@ORGANIZATION/PROJECT-api/lib/structures/common
 import { Prisma } from ".prisma/client";
 
 export namespace AttachmentFileProvider {
-    export namespace json {
-        export const transform = (
-            input: Prisma.attachment_filesGetPayload<ReturnType<typeof select>>,
-        ): IAttachmentFile => ({
-            id: input.id,
-            name: input.name,
-            extension: input.extension,
-            url: input.url,
-            created_at: input.created_at.toISOString(),
-        });
-        export const select = () =>
-            Prisma.validator<Prisma.attachment_filesFindManyArgs>()({});
-    }
+  export namespace json {
+    export const transform = (
+      input: Prisma.attachment_filesGetPayload<ReturnType<typeof select>>,
+    ): IAttachmentFile => ({
+      id: input.id,
+      name: input.name,
+      extension: input.extension,
+      url: input.url,
+      created_at: input.created_at.toISOString(),
+    });
+    export const select = () =>
+      Prisma.validator<Prisma.attachment_filesFindManyArgs>()({});
+  }
 
-    export const collect = (input: IAttachmentFile.IStore) =>
-        Prisma.validator<Prisma.attachment_filesCreateInput>()({
-            id: v4(),
-            name: input.name,
-            extension: input.extension,
-            url: input.url,
-            created_at: new Date(),
-        });
+  export const collect = (input: IAttachmentFile.IStore) =>
+    Prisma.validator<Prisma.attachment_filesCreateInput>()({
+      id: v4(),
+      name: input.name,
+      extension: input.extension,
+      url: input.url,
+      created_at: new Date(),
+    });
 }
