@@ -7,13 +7,14 @@ Template for a NodeJS Backend Server powered by:
 
   - [Typia](https://typia.io): Superfast/easy validators with only one line
   - [NestJS](https://nestjs.com): NodeJS Typescript Backend Framework
-    - [`@nestia/core`](https://github.com/samchon/nestia): validation decorators 20,000x faster than `class-validator`
+    - [`@nestia/core`](https://github.com/samchon/nestia): decorators maximum 20,000x faster than `class-validator`
     - [`@nestia/sdk`](https://github.com/samchon/sdk): SDK and Swagger Documents generator
   - [Prisma](https://www.prisma.io) and [`prisma-markdown`](https://github.com/samchon/prisma-markdown)
 
 Prior, to making this template opensource, I've prepared a couple of backend projects leveraging this template.
 Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
 
+  - [samchon/bbs-backend](https://github.com/samchon/bbs-backend): Simple Bullet-in Board System
   - [samchon/fake-iamport-server](https://github.com/samchon/fake-iamport-server): Fake iamport server, but real SDK
   - [samchon/fake-toss-payments-server](https://github.com/samchon/fake-toss-payments-server): Fake toss-payments server, but real SDK
 
@@ -92,39 +93,22 @@ Also as you can see from the [package.json](package.json) file, this project req
   - https://github.com/features/packages
 
 ### 2.2. PostgreSQL
-This backend server has adopted PostgreSQL as principle DB.
+> ```bash
+> bash postgres.sh
+>```
+>
+> If you've installed Docker, then run the script above.
 
-Therefore, to mount this backend server on your local machine, you've to install the PostgreSQL v14. Also, you've to install the StackBuilder and PostGIS, at the same time. Click the below link and install those PostgreSQL, StackBuilder and PostGIS.
+Otherwise, visit below PostgreSQL official site and install it manually.
 
- - https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
- - https://postgis.net/workshops/postgis-intro/installation.html
+https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
 
-![PostgreSQL installer](assets/images/postgresql-installer.png)
+After that, run the `npm run schema <root-account> <password>` command. 
 
-![StackBuilder installer](assets/images/stackbuilder-installer.png)
+Database schema for BBS backend system would be automatically constructed.
 
-When the installation has been finnished, you'd better to configure `bin` directory of the PostgreSQL as a environment variable PATH. If your operating system is the Windows, the path may be `C:\Program Files\PostgreSQL\14\bin`. Otherwise you're using the MacOS, it would be the `/Applications/Postgres.app/Contents/MacOS/bin`.
-
-After the environmenta variable PATH configuration, connect to the PostgreSQL terminal and create each `db_name` database and `db_schema` schema. Also, create two accounts `db_account_w` and `db_account_r`, grant writable and readonly privileges to them.
-
-Anyway, you can replace below SQL scripts by running the `npm run schema <account> <password>`. Running the npm run schema command, replace the `<account>` and `<password>` words to the root account of the local PostgreSQL server and its password.
-
-```sql
--- CREATE USER
-CREATE USER "db_account_w" WITH ENCRYPTED PASSWORD 'your_password';
-GRANT "db_account_w" TO postgres;
-
--- CREATE DB & SCHEMA
-CREATE DATABASE "db_name" OWNER "db_account_w";
-\connect "db_name";
-CREATE SCHEMA "db_schema" AUTHORIZATION "db_account_w";
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA "db_schema" TO "db_account_w";
-
--- READABLE ACCOUNT
-CREATE USER "db_account_r" WITH ENCRYPTED PASSWORD 'your_password';
-GRANT CONNECT ON DATABASE "db_name" TO "db_account_r";
-GRANT USAGE ON SCHEMA "db_schema" TO "db_account_r";
-GRANT SELECT ON ALL TABLES IN SCHEMA "db_schema" TO "db_account_r";
+```bash
+npm run schema postgres root
 ```
 
 ### 2.3. Repository
@@ -140,7 +124,7 @@ cd backend
 # INSTALL DEPENDENCIES
 npm install
 
-# START DEVELOPMENT (tsc --watch)
+# START DEVELOPMENT
 npm run dev
 ```
 
@@ -405,10 +389,7 @@ npm run update real
 List of the run commands defined in the [package.json](package.json) are like below:
 
   - `build`: Compile the source code
-    - `build:api`: Build client SDK libray for the client developers
-    - `build:models`: Build ORM library
   - `dev`: Incremental compilation using the `--watch` option
-  - `reset:dev`: Restart the dev backend server with DB reset
   - `revert`: Revert the backend server to previous commit
     - `npm run revert local e245tjfg345tq453tae`
     - `npm run revert dev e245tjfg345tq453tae`
@@ -419,18 +400,9 @@ List of the run commands defined in the [package.json](package.json) are like be
     - `npm run start dev`
     - `npm run start real`
   - `package:api`: Deploy the client SDK library
-  - `package:models`: Deploy the ORM library
   - `start:updator:master`: Start non-distruptive update system (master)
   - `start:updator:slave`: Start non-distruptive update system (slave)
-  - `start:reload`: Restart the backend server
-  - `stop`: Stop the backend server
-  - `stop:updator:master`: Stop non-distruptive update system (master)
-  - `stop:updator:salve`: Stop non-distruptive update system (slave)
   - `test`: Start the [Test Automation Program](#33-test-automation-program)
-  - `test:update`: Test the non-distruptive update system
-  - `update`: Start the non-distruptive update
-    - npm run update dev
-    - npm run update real
 
 ### 5.2. Github Action
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
