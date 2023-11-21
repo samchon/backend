@@ -59,10 +59,6 @@ module.exports = {
           from: "./node_modules/.prisma/client/*.node",
           to: () => Promise.resolve("[path][name][ext]"),
         },
-        {
-          from: "./node_modules/ws/**/*.*",
-          to: () => Promise.resolve("[path][name][ext]"),
-        },
       ],
     }),
     new WriteFilePlugin(),

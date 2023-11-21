@@ -11,9 +11,10 @@ const webpackTest = async (): Promise<void> => {
     throw new Error("Run npm run webpack command first.");
 
   // START BACKEND SERVER
-  const backend = cp.fork("server.js", {
+  const backend = cp.fork(`${MyConfiguration.ROOT}/dist/server.js`, {
     cwd: `${MyConfiguration.ROOT}/dist`,
   });
+  console.log(__dirname + "/features");
   await sleep_for(2_500);
 
   // DO TEST
