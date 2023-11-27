@@ -1,11 +1,11 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["postgresqlExtensions", "views"]
+}
+
 datasource db {
     provider = "postgresql"
     url      = env("POSTGRES_URL")
-}
-
-generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["views"]
 }
 
 generator markdown {
@@ -64,6 +64,8 @@ model attachment_files {
     //----
     bbs_article_snapshot_files          bbs_article_snapshot_files[]
     bbs_article_comment_snapshots_files bbs_article_comment_snapshot_files[]
+
+    @@index([url])
 }
 
 /// Article entity.
@@ -172,6 +174,8 @@ model bbs_article_snapshots {
     mv_last mv_bbs_article_last_snapshots?
 
     @@index([bbs_article_id, created_at])
+    @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
+    @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Attachment file of article snapshot.
@@ -339,6 +343,7 @@ model bbs_article_comment_snapshots {
     to_files bbs_article_comment_snapshot_files[]
 
     @@index([bbs_article_comment_id, created_at])
+    @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Attachment file of comment snapshot.
