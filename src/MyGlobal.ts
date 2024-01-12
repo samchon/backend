@@ -1,11 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
-import { MutexConnector } from "mutex-server";
-import { MutableSingleton, Singleton } from "tstl";
+import { Singleton } from "tstl";
 import typia from "typia";
-
-import { MyConfiguration } from "./MyConfiguration";
 
 /**
  * Global variables of the server.
@@ -41,24 +38,13 @@ export class MyGlobal {
     typia.assert<typeof mode>(mode);
     modeWrapper.value = mode;
   }
-
-  public static readonly critical: MutableSingleton<
-    MutexConnector<string, null>
-  > = new MutableSingleton(async () => {
-    const connector: MutexConnector<string, null> = new MutexConnector(
-      MyConfiguration.SYSTEM_PASSWORD(),
-      null,
-    );
-    await connector.connect(
-      `ws://${MyConfiguration.MASTER_IP()}:${MyConfiguration.UPDATOR_PORT()}/api`,
-    );
-    return connector;
-  });
 }
 interface IEnvironments {
   MODE: "local" | "dev" | "real";
   UPDATOR_PORT: `${number}`;
   API_PORT: `${number}`;
+  API_ENCRYPTION_KEY: string;
+  API_ENCRYPTION_IV: string;
   SYSTEM_PASSWORD: string;
 
   POSTGRES_HOST: string;

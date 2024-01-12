@@ -1,6 +1,6 @@
 {
   "name": "@ORGANIZATION/PROJECT-api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "API for PROJECT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -15,11 +15,13 @@
   },
   "homepage": "https://github.com/samchon/backend#readme",
   "dependencies": {
-    "@nestia/fetcher": "^2.4.0",
-    "typia": "^5.3.0"
+    "@nestia/fetcher": "^2.4.4",
+    "typia": "^5.3.9"
   },
   "include": [
     "lib",
+    "package.json",
+    "swagger.json",
     "README.md"
   ]
 }

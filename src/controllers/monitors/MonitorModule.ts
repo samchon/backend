@@ -1,14 +1,21 @@
-import { Module } from "@nestjs/common";
+import { EncryptedModule } from "@nestia/core";
 
+import { MyGlobal } from "../../MyGlobal";
 import { MonitorHealthController } from "./MonitorHealthController";
 import { MonitorPerformanceController } from "./MonitorPerformanceController";
 import { MonitorSystemController } from "./MonitorSystemController";
 
-@Module({
-  controllers: [
-    MonitorHealthController,
-    MonitorPerformanceController,
-    MonitorSystemController,
-  ],
-})
+@EncryptedModule(
+  {
+    controllers: [
+      MonitorHealthController,
+      MonitorPerformanceController,
+      MonitorSystemController,
+    ],
+  },
+  () => ({
+    key: MyGlobal.env.API_ENCRYPTION_KEY,
+    iv: MyGlobal.env.API_ENCRYPTION_IV,
+  }),
+)
 export class MonitorModule {}

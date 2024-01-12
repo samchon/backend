@@ -4,6 +4,7 @@ import fs from "fs";
 import { sleep_for } from "tstl";
 
 import { MyConfiguration } from "../src/MyConfiguration";
+import { MyGlobal } from "../src/MyGlobal";
 import MyApi from "../src/api";
 
 const webpackTest = async (): Promise<void> => {
@@ -20,6 +21,10 @@ const webpackTest = async (): Promise<void> => {
   // DO TEST
   const connection: MyApi.IConnection = {
     host: `http://127.0.0.1:${MyConfiguration.API_PORT()}`,
+    encryption: {
+      key: MyGlobal.env.API_ENCRYPTION_KEY,
+      iv: MyGlobal.env.API_ENCRYPTION_IV,
+    },
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",

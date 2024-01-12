@@ -4,29 +4,28 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "JavaScript Test using SourceMap",
-            "program": "${workspaceRoot}/test/index.ts",
-            "cwd": "${workspaceRoot}",
-            "args": [
-                //----
-                // Unable to reset DB in debugging mode.
-                //----
-                // Therefore, reset DB first by running 
-                // `npm run reset-for-debugging` command, 
-                // and run debugging mode later.
-                //----
-                "--reset", "false",
-
-                //----
-                // You can run specific test functions
-                //----
-                // "--include", "something",
-                // "--exclude", "nothing",
-            ],
-            "outFiles": ["${workspaceRoot}/bin/**/*.js"],
-        }
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "JavaScript Test using SourceMap",
+        "program": "${workspaceRoot}/test/index.ts",
+        "cwd": "${workspaceRoot}",
+        "args": [
+          //----
+          // Unable to reset DB in debugging mode.
+          //----
+          // Therefore, reset DB first by running 
+          // `npm run reset-for-debugging` command, 
+          // and run debugging mode later.
+          //----
+          "--reset", "false",
+          //----
+          // You can run specific test functions
+          //----
+          // "--include", "something",
+          // "--exclude", "nothing",
+        ],
+        "outFiles": ["${workspaceRoot}/bin/**/*.js"],
+      }
     ]
-}
+  }

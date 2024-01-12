@@ -2,11 +2,9 @@ bin/
 dist/
 lib/
 node_modules/
-
-src/migrations
+prisma/migrations
 
 *.DS_Store
 package-lock.json
 swagger.json
 .npmrc
-*.sh
