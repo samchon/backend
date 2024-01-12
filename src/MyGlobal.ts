@@ -41,7 +41,6 @@ export class MyGlobal {
 }
 interface IEnvironments {
   MODE: "local" | "dev" | "real";
-  UPDATOR_PORT: `${number}`;
   API_PORT: `${number}`;
   API_ENCRYPTION_KEY: string;
   API_ENCRYPTION_IV: string;
