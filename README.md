@@ -7,23 +7,22 @@
 [![Build Status](https://github.com/samchon/backend/workflows/build/badge.svg)](https://github.com/samchon/backend/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://nestia.io/docs/)
 
-Template for a NodeJS Backend Server powered by:
+Template repository for [`NestJS`](https://nestjs.com) + [`Prisma`](https://prisma.io) stack with **FP** and **TDD**.
 
-  - [Typia](https://typia.io): Superfast/easy validators with only one line
-  - [NestJS](https://nestjs.com): NodeJS Typescript Backend Framework
-    - [`@nestia/core`](https://github.com/samchon/nestia): decorators maximum 20,000x faster than `class-validator`
-    - [`@nestia/sdk`](https://github.com/samchon/sdk): SDK and Swagger Documents generator
-  - [Prisma](https://www.prisma.io) and [`prisma-markdown`](https://github.com/samchon/prisma-markdown)
+`@samchon/backend` is a template repsitory of backend project utilizing [`NestJS`](https://nestjs.com) and [`Prisma`](https://prisma.io). It has been prepared to educate and spread how to adapt **FP (Functional Programming)** in the NestJS development. Also, `@samchon/backend` guides how to utilize those 3rd party libraries (what I've developed) in the production, especially helpful for **TDD (Test Driven Development)** with dramatic productivity enhancement.
 
-Prior, to making this template opensource, I've prepared a couple of backend projects leveraging this template. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server with the [nestia](https://github.com/samchon/nestia) and [safe-typeorm](https://github.com/samchon/safe-typeorm).
+  - [`typia`](https://github.com/samchon/typia): Superfast runtime validator
+  - [`nestia`](https://github.com/samchon/nestia): NestJS helper libaries like SDK generation
+  - [`prisma-markdown`](https://github.com/samchon/prisma-markdown): Markdown generator of Prisma (ERD + documentation)
+
+Additionally, I've prepared a couple of example backend projects leveraging this template repository. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server of [`NestJS`](https://nestjs.com) following the **FP** and **TDD** paradigm with my 3rd party libraries. 
 
   - [samchon/bbs-backend](https://github.com/samchon/bbs-backend): Simple Bullet-in Board System
-  - [samchon/fake-iamport-server](https://github.com/samchon/fake-iamport-server): Fake iamport server, but real SDK
-  - [samchon/fake-toss-payments-server](https://github.com/samchon/fake-toss-payments-server): Fake toss-payments server, but real SDK
+  - Korean only
+    - [samchon/fake-iamport-server](https://github.com/samchon/payments/tree/master/packages/fake-iamport-server): Fake iamport server, but real SDK
+    - [samchon/fake-toss-payments-server](https://github.com/samchon/payments/tree/master/packages/fake-toss-payments-server): Fake toss-payments server, but real SDK
 
-If you have got queries like "building a new type of backend template" or "regarding backend server development using Typescript", feel free to ask it out over [here](https://github.com/samchon/backend/issues).
-
-Also, if you've already developed a TypeScript backend server and it seems like that its quality is enough good to be a good example for the backend programming learners, please leave an issue or a pull request.
+If you've already developed a TypeScript backend server with NestJS + Prisma, and its quality seems like enough good to be a good example for the backend programming learners with FP and TDD paradigm, please leave an issue or a pull request.
 
 ### 1.2. Specializations
 Transform this template project to be yours.
@@ -121,11 +120,13 @@ npm run dev
 > - D. Main Program Development
 
 ### 3.1. Definition
-![ERD](https://private-user-images.githubusercontent.com/13158709/285461559-9fa92ed4-1f9a-4fd9-bceb-dd4b20d45537.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDUwNjk5NzIsIm5iZiI6MTcwNTA2OTY3MiwicGF0aCI6Ii8xMzE1ODcwOS8yODU0NjE1NTktOWZhOTJlZDQtMWY5YS00ZmQ5LWJjZWItZGQ0YjIwZDQ1NTM3LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTEyVDE0Mjc1MlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTAyMjM0ZTliYjYyM2M0ZTVmNGM0MDk4OTlhZDg2ZTZhMGM0YmI2NzViMjY3NjgzZjJmZGM0MWE3Y2I4NzQ4NmImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.mBsBpuQ_xQwMVKKHNCdJ_XJRmn_dRosTz5a_SeYzvHs)
+![ERD](https://github-production-user-asset-6210df.s3.amazonaws.com/13158709/268175441-80ca9c8e-4c96-4deb-a8cb-674e9845ebf6.png)
 
 Before developing the main program, define it before.
 
-At first, design the DB architecture on the Prisma Schema file ([prisma/schema.prisma](prisma/schema.prisma)). Writing the schema definitions, don't forget to write the detailed descriptions on each tables and properties. After that, build ERD (Enterprise Relationship Diagram) document through `npm run build:prisma` command. The ERD document will be generated on the [docs/ERD.md](docs/ERD.md) path. If you share the ERD document with your companions, your team can enjoy increased productivity by standardizing words and entities.
+At first, design the DB architecture on the Prisma Schema file ([prisma/schema.prisma](prisma/schema.prisma)). 
+
+Writing the schema definitions, don't forget to write the detailed descriptions on each tables and properties. After that, build ERD (Enterprise Relationship Diagram) document through `npm run build:prisma` command. The ERD document will be generated on the [docs/ERD.md](docs/ERD.md) path. If you share the ERD document with your companions, your team can enjoy increased productivity by standardizing words and entities.
 
 At second, write DTO structures under the [src/api/structures](src/api/structures) directory and declare API endpoint specs under the [src/controllers](src/controllers) directory. Note that, do not implement the function body of the controller. Just write declaration only. Below code is never pseudo code, but actual code for current step.
 
@@ -147,9 +148,11 @@ export class BbsArticleController {
 
 [`@samchon/backend`](https://github.com/samchon/backend) provides SDK (Software Development Kit) for convenience.
 
-SDK library means a collection of `fetch` functions with proper types automatically generated by [nestia](https://github.com/samchon/nestia). As you can see from the above gif image, SDK library boosts up client developments by providing type hints and auto completions about the API endpoints of your backend server. 
+SDK library means a collection of `fetch` functions with proper types, automatically generated by [nestia](https://github.com/samchon/nestia). As you can see from the above gif image, SDK library boosts up client developments, by providing type hints and auto completions. 
 
-Furthermore, the SDK library supports mockup simulator. If client developer configures `simulate` option to be `true`, the SDK library will not send HTTP request to your backend server, but simulate the API endpoints by itself. With that feature, frontend developers can directly start the interaction development, even when the [main program development](#34-main-program) is on a progress.
+Furthermore, the SDK library supports [Mockup Simulator](https://nestia.io/docs/sdk/simulator/). 
+
+If client developer configures `simulate` option to be `true`, the SDK library will not send HTTP request to your backend server, but simulate the API endpoints by itself. With that feature, frontend developers can directly start the interaction development, even when the [main program development](#34-main-program) has not started.
 
 ```bash
 # BUILD SDK IN LOCAL
@@ -162,11 +165,11 @@ npm run package:api
 ### 3.3. Test Automation Program
 > TDD (Test Driven Development)
 
-After the [Definition](#31-definition) and client [SDK](#32-software-development-kit) generation, you've to design the use-case scenario and implement a test automation program who represents the use-case scenario and guarantees the [Main Program](#34-main-program).
+After the [Definition](#31-definition) and client [SDK](#32-software-development-kit) generation, you've to design the use-case scenarios and implement a test automation program who represents those use-case scenarios and guarantees the [Main Program](#34-main-program).
 
 To add a new test function in the Test Automation Program, create a new TS file under the [test/features](test/features) directory following the below category and implement the test scenario function with representative function name and `export` symbol.
 
-Note that, the Test Automation Program resets the local DB schema whenever being run. Therefore, you've to be careful if import data has been stored in the local DB server. To avoid the resetting the local DB, configure the `skipReset` option like below.
+Note that, the Test Automation Program resets the local DB schema whenever being run. Therefore, you've to be careful if import data has been stored in the local DB server. To avoid the resetting the local DB, configure the `reset` option like below.
 
 Also, the Test Automation Program runs all of the test functions placed into the [test/features](test/features) directory. However, those full testing may consume too much time. Therefore, if you want to reduce the testing time by specializing some test functions, use the `include` option like below.
 
