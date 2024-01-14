@@ -18,8 +18,6 @@ module.exports = {
   // CUSTOMIZE HERE
   entry: {
     server: "./src/executable/server.ts",
-    "updator-master": "./src/executable/updator-master.ts",
-    "updator-slave": "./src/executable/updator-slave.ts",
   },
   output: {
     path: path.join(__dirname, "dist"),

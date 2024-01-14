@@ -27,6 +27,3 @@ jobs:
 
       - name: Test Backend-Server
         run: npm run test -- --reset true
-
-      - name: Test Webpack
-        run: npm run test:webpack

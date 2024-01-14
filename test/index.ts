@@ -6,7 +6,6 @@ import { sleep_for } from "tstl/thread/global";
 import { MyBackend } from "../src/MyBackend";
 import { MyConfiguration } from "../src/MyConfiguration";
 import { MyGlobal } from "../src/MyGlobal";
-import { MyUpdator } from "../src/MyUpdator";
 import api from "../src/api";
 import { MySetupWizard } from "../src/setup/MySetupWizard";
 import { ArgumentParser } from "../src/utils/ArgumentParser";
@@ -74,13 +73,16 @@ async function main(): Promise<void> {
   }
 
   // OPEN SERVER
-  const updator = await MyUpdator.master();
   const backend: MyBackend = new MyBackend();
   await backend.open();
 
   // DO TEST
   const connection: api.IConnection = {
     host: `http://127.0.0.1:${MyConfiguration.API_PORT()}`,
+    encryption: {
+      key: MyGlobal.env.API_ENCRYPTION_KEY,
+      iv: MyGlobal.env.API_ENCRYPTION_IV,
+    },
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",
@@ -100,7 +102,6 @@ async function main(): Promise<void> {
   // TERMINATE
   await sleep_for(2500); // WAIT FOR BACKGROUND EVENTS
   await backend.close();
-  await updator.close();
 
   const exceptions: Error[] = report.executions
     .filter((exec) => exec.error !== null)

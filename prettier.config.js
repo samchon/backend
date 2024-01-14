@@ -5,16 +5,13 @@ module.exports = {
     tabWidth: 2,
     trailingComma: "all",
     importOrder: [
-        "<THIRD_PARTY_MODULES>",
-        "^@ORGANIZATION/PROJECT-api(.*)$",
-        "^@ORGANIZATION/PROJECT-models(.*)$",
-        "(.*)providers/(.*)$",
-        "^[./]"
+      "<THIRD_PARTY_MODULES>",
+      "^@samchon/shopping-api(.*)$",
+      "(.*)providers/(.*)$",
+      "^[./]",
     ],
     importOrderSeparation: true,
     importOrderSortSpecifiers: true,
-    importOrderParserPlugins: [
-        "decorators-legacy",
-        "typescript",
-    ]
-};
+    importOrderParserPlugins: ["decorators-legacy", "typescript"],
+  };
+  

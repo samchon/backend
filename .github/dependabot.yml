@@ -10,7 +10,9 @@ updates:
     allow:
       - dependency-name: "@nestia/*"
       - dependency-name: "@nestjs/*"
+      - dependency-name: "@prisma/*"
       - dependency-name: "nestia"
+      - dependency-name: "prisma"
       - dependency-name: "tstl"
       - dependency-name: "typia"
 #######################################################

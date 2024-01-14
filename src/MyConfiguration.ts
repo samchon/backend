@@ -18,14 +18,6 @@ export namespace MyConfiguration {
   })();
 
   export const API_PORT = () => Number(MyGlobal.env.API_PORT);
-  export const UPDATOR_PORT = () => Number(MyGlobal.env.UPDATOR_PORT);
-  export const MASTER_IP = () =>
-    MyGlobal.mode === "local"
-      ? "127.0.0.1"
-      : MyGlobal.mode === "dev"
-      ? "your-dev-server-ip"
-      : "your-real-server-master-ip";
-  export const SYSTEM_PASSWORD = () => MyGlobal.env.SYSTEM_PASSWORD;
 }
 
 ExceptionManager.insert(PrismaClientKnownRequestError, (exp) => {

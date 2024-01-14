@@ -26,9 +26,9 @@ export namespace IAttachmentFile {
     /**
      * File name, except extension.
      *
-     * Possible to omit like `.gitignore` case.
+     * If there's file `.gitignore`, then its name is an empty string.
      */
-    name: null | (string & tags.MinLength<1> & tags.MaxLength<255>);
+    name: string & tags.MaxLength<255>;
 
     /**
      * Extension.
