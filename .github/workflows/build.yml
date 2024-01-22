@@ -17,13 +17,13 @@ jobs:
       - uses: actions/setup-node@v3
       
       - name: Install Backend-Server
-        run: npm install
+        run: npm install -g pnpm && pnpm install
 
       - name: Compile Backend-Server
-        run: npm run build
+        run: pnpm run build
       
       - name: Create DB Schema
-        run: npm run schema postgres root
+        run: pnpm run schema postgres root
 
       - name: Test Backend-Server
-        run: npm run test -- --reset true
+        run: pnpm run test -- --reset true
