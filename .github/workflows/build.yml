@@ -15,15 +15,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       
       - name: Install Backend-Server
-        run: npm install -g pnpm && pnpm install
+        run: pnpm install
 
       - name: Compile Backend-Server
-        run: pnpm run build
+        run: npm run build
       
       - name: Create DB Schema
-        run: pnpm run schema postgres root
+        run: npm run schema postgres root
 
       - name: Test Backend-Server
-        run: pnpm run test -- --reset true
+        run: npm run test -- --reset true
