@@ -15,9 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       
       - name: Install Backend-Server
-        run: npm install
+        run: pnpm install
 
       - name: Compile Backend-Server
         run: npm run build

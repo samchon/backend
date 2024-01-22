@@ -53,6 +53,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "chalk": "^4.1.2",
     "cli": "^1.0.1",
+    "commander": "10.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "eslint-plugin-deprecation": "^1.4.1",
     "inquirer": "^8.2.5",
@@ -74,6 +75,7 @@
   },
   "dependencies": {
     "@nestia/core": "^2.4.5",
+    "@nestia/fetcher": "^2.4.5",
     "@nestjs/common": "^10.3.0",
     "@nestjs/core": "^10.3.0",
     "@nestjs/platform-fastify": "^10.3.0",
@@ -86,7 +88,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
-    "typia": "^5.3.10"
+    "typia": "^5.3.12"
   },
   "private": true
 }
