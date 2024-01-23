@@ -197,9 +197,9 @@ export namespace BbsArticleProvider {
       key === "title"
         ? { mv_last: { snapshot: { title: value } } }
         : key === "created_at"
-        ? { created_at: value }
-        : // updated_at
-          { mv_last: { snapshot: { created_at: value } } },
+          ? { created_at: value }
+          : // updated_at
+            { mv_last: { snapshot: { created_at: value } } },
     );
 
   export const collect =

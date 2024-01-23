@@ -73,7 +73,8 @@ export namespace BbsArticleCommentProvider {
   export const collect =
     <
       Input extends IBbsArticleComment.IStore,
-      Snapshot extends Prisma.bbs_article_comment_snapshotsCreateWithoutCommentInput,
+      Snapshot extends
+        Prisma.bbs_article_comment_snapshotsCreateWithoutCommentInput,
     >(
       snapshotFactory: (input: Input) => Snapshot,
     ) =>

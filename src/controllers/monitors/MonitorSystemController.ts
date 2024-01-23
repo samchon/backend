@@ -1,9 +1,9 @@
-import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
-import { SystemProvider } from "../../providers/monitors/SystemProvider";
+import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
+import { SystemProvider } from "../../providers/monitors/SystemProvider";
 import { DateUtil } from "../../utils/DateUtil";
 
 @Controller("monitors/system")
