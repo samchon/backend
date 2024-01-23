@@ -2,9 +2,8 @@ import { ExceptionManager } from "@nestia/core";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import path from "path";
 
-import { ErrorProvider } from "./providers/common/ErrorProvider";
-
 import { MyGlobal } from "./MyGlobal";
+import { ErrorProvider } from "./providers/common/ErrorProvider";
 
 const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support").install();

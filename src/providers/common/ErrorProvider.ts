@@ -15,8 +15,8 @@ export namespace ErrorProvider {
               },
             ]
           : Array.isArray(reason)
-          ? reason
-          : [reason];
+            ? reason
+            : [reason];
       return new HttpException(diagnoses, status);
     };
 

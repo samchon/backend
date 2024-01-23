@@ -1,8 +1,7 @@
+import { Prisma, PrismaClient } from "@prisma/client";
 import { HashMap, hash } from "tstl";
 import { equal } from "tstl/ranges";
 import typia from "typia";
-
-import { Prisma, PrismaClient } from "@prisma/client";
 
 /**
  * Utility for database entity.
