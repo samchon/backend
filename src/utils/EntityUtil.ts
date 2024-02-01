@@ -93,7 +93,7 @@ export namespace EntityUtil {
         )!;
 
         // CONSIDER UNIQUE CONSTRAINT -> CASCADE MERGING
-        const uniqueMatrix: string[][] = target.uniqueFields.filter((columns) =>
+        const uniqueMatrix: (readonly string[])[] = target.uniqueFields.filter((columns) =>
           columns.includes(foreign.name),
         );
         if (uniqueMatrix.length)
@@ -131,7 +131,7 @@ export namespace EntityUtil {
     async (current: {
       model: Prisma.DMMF.Model;
       foreign: Prisma.DMMF.Field;
-      unique: string[];
+      unique: readonly string[];
     }) => {
       // GET PRIMARY KEY AND OTHER UNIQUE COLUMNS
       const primary: Prisma.DMMF.Field = current.model.fields.find(
