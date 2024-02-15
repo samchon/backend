@@ -1,22 +1,15 @@
+import { INestApplication } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from "@nestjs/platform-fastify";
 
 import { MyConfiguration } from "./MyConfiguration";
 import { MyModule } from "./MyModule";
 
 export class MyBackend {
-  private application_?: NestFastifyApplication;
+  private application_?: INestApplication;
 
   public async open(): Promise<void> {
     // MOUNT CONTROLLERS
-    this.application_ = await NestFactory.create(
-      MyModule,
-      new FastifyAdapter(),
-      { logger: false },
-    );
+    this.application_ = await NestFactory.create(MyModule, { logger: false });
 
     // DO OPEN
     this.application_.enableCors();
