@@ -13,14 +13,12 @@ export class MonitorSystemController {
    *
    * Get system information with commit and package information.
    *
-   * As such information is a type of sensitive, response be encrypted.
-   *
    * @returns System info
    * @tag Monitor
    *
    * @author Samchon
    */
-  @core.EncryptedRoute.Get()
+  @core.TypedRoute.Get()
   public async get(): Promise<ISystem> {
     return {
       uid: SystemProvider.uid,

@@ -5,7 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { EncryptedFetcher } from "@nestia/fetcher/lib/EncryptedFetcher";
+import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
 import type { IPerformance } from "../../../structures/monitors/IPerformance";
@@ -14,8 +14,6 @@ import type { IPerformance } from "../../../structures/monitors/IPerformance";
  * Get performance information.
  *
  * Get perofmration information composed with CPU, memory and resource usage.
- *
- * As such information is a type of sensitive, response be encrypted.
  *
  * @returns Performance info
  * @tag Monitor
@@ -28,7 +26,7 @@ import type { IPerformance } from "../../../structures/monitors/IPerformance";
 export async function get(connection: IConnection): Promise<get.Output> {
   return !!connection.simulate
     ? get.simulate(connection)
-    : EncryptedFetcher.fetch(connection, {
+    : PlainFetcher.fetch(connection, {
         ...get.METADATA,
         path: get.path(),
       });
@@ -41,8 +39,8 @@ export namespace get {
     path: "/monitors/performance",
     request: null,
     response: {
-      type: "text/plain",
-      encrypted: true,
+      type: "application/json",
+      encrypted: false,
     },
     status: null,
   } as const;

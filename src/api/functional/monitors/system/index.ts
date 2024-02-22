@@ -5,7 +5,6 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { EncryptedFetcher } from "@nestia/fetcher/lib/EncryptedFetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
@@ -15,8 +14,6 @@ import type { ISystem } from "../../../structures/monitors/ISystem";
  * Get system information.
  *
  * Get system information with commit and package information.
- *
- * As such information is a type of sensitive, response be encrypted.
  *
  * @returns System info
  * @tag Monitor
@@ -29,7 +26,7 @@ import type { ISystem } from "../../../structures/monitors/ISystem";
 export async function get(connection: IConnection): Promise<get.Output> {
   return !!connection.simulate
     ? get.simulate(connection)
-    : EncryptedFetcher.fetch(connection, {
+    : PlainFetcher.fetch(connection, {
         ...get.METADATA,
         path: get.path(),
       });
@@ -42,8 +39,8 @@ export namespace get {
     path: "/monitors/system",
     request: null,
     response: {
-      type: "text/plain",
-      encrypted: true,
+      type: "application/json",
+      encrypted: false,
     },
     status: null,
   } as const;

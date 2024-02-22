@@ -1,15 +1,8 @@
-import { EncryptedModule } from "@nestia/core";
+import { Module } from "@nestjs/common";
 
-import { MyGlobal } from "./MyGlobal";
 import { MonitorModule } from "./controllers/monitors/MonitorModule";
 
-@EncryptedModule(
-  {
-    imports: [MonitorModule],
-  },
-  () => ({
-    key: MyGlobal.env.API_ENCRYPTION_KEY,
-    iv: MyGlobal.env.API_ENCRYPTION_IV,
-  }),
-)
+@Module({
+  imports: [MonitorModule],
+})
 export class MyModule {}

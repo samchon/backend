@@ -79,10 +79,6 @@ async function main(): Promise<void> {
   // DO TEST
   const connection: api.IConnection = {
     host: `http://127.0.0.1:${MyConfiguration.API_PORT()}`,
-    encryption: {
-      key: MyGlobal.env.API_ENCRYPTION_KEY,
-      iv: MyGlobal.env.API_ENCRYPTION_IV,
-    },
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",

@@ -42,8 +42,6 @@ export class MyGlobal {
 interface IEnvironments {
   MODE: "local" | "dev" | "real";
   API_PORT: `${number}`;
-  API_ENCRYPTION_KEY: string;
-  API_ENCRYPTION_IV: string;
   SYSTEM_PASSWORD: string;
 
   POSTGRES_HOST: string;
