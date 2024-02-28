@@ -1,5 +1,15 @@
 name: build
-on: [push, pull_request]
+on: 
+  push:
+    paths:
+      - 'prisma/**'
+      - 'src/**'
+      - 'test/**'
+  pull_request:
+    paths:
+      - 'prisma/**'
+      - 'src/**'
+      - 'test/**'
 
 jobs:
   Ubuntu:

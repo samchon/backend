@@ -8,13 +8,29 @@ updates:
     open-pull-requests-limit: 25
     # versioning-strategy: increase
     allow:
+      - dependency-name: "nestia"
       - dependency-name: "@nestia/*"
       - dependency-name: "@nestjs/*"
       - dependency-name: "@prisma/*"
-      - dependency-name: "nestia"
       - dependency-name: "prisma"
+      - dependency-name: "prisma-markdown"
       - dependency-name: "tstl"
       - dependency-name: "typia"
+    groups:
+      Samchon:
+        patterns:
+          - "@nestia/*"
+          - "nestia"
+          - "tstl"
+          - "typia"
+          - "prisma-markdown"
+      NestJS:
+        patterns:
+          - "@nestjs/*"
+      Prisma:
+        patterns:
+          - "@prisma/*"
+          - "prisma"
 #######################################################
   - package-ecosystem: 'npm'
     directory: '/packages/api'
@@ -22,4 +38,12 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 25
     # versioning-strategy: increase
+    allow:
+      - dependency-name: "@nestia/fetcher"
+      - dependency-name: "typia"
+    groups:
+      Samchon:
+        patterns:
+          - "@nestia/fetcher"
+          - "typia"
 #######################################################
