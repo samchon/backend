@@ -7,50 +7,50 @@
 ```mermaid
 erDiagram
 "attachment_files" {
-    String id PK
-    String name
-    String extension "nullable"
-    String url
-    DateTime created_at
+  String id PK
+  String name
+  String extension "nullable"
+  String url
+  DateTime created_at
 }
 "bbs_articles" {
-    String id PK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "bbs_article_snapshots" {
-    String id PK
-    String bbs_article_id FK
-    String format
-    String title
-    String body
-    DateTime created_at
+  String id PK
+  String bbs_article_id FK
+  String format
+  String title
+  String body
+  DateTime created_at
 }
 "bbs_article_snapshot_files" {
-    String id PK
-    String bbs_article_snapshot_id FK
-    String attachment_file_id FK
-    Int sequence
+  String id PK
+  String bbs_article_snapshot_id FK
+  String attachment_file_id FK
+  Int sequence
 }
 "bbs_article_comments" {
-    String id PK
-    String bbs_article_id FK
-    String parent_id FK "nullable"
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String bbs_article_id FK
+  String parent_id FK "nullable"
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "bbs_article_comment_snapshots" {
-    String id PK
-    String bbs_article_comment_id FK
-    String format
-    String body
-    DateTime created_at
+  String id PK
+  String bbs_article_comment_id FK
+  String format
+  String body
+  DateTime created_at
 }
 "bbs_article_comment_snapshot_files" {
-    String id PK
-    String bbs_article_comment_snapshot_id FK
-    String attachment_file_id FK
-    Int sequence
+  String id PK
+  String bbs_article_comment_snapshot_id FK
+  String attachment_file_id FK
+  Int sequence
 }
 "bbs_article_snapshots" }|--|| "bbs_articles" : article
 "bbs_article_snapshot_files" }o--|| "bbs_article_snapshots" : snapshot
