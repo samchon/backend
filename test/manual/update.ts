@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
-import { sleep_for } from "tstl/thread/global";
+import { sleep_for } from "tstl";
 
 import api from "@ORGANIZATION/PROJECT-api";
 

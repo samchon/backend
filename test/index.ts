@@ -1,7 +1,6 @@
 import { DynamicExecutor, StopWatch } from "@nestia/e2e";
 import fs from "fs";
-import { Singleton, randint } from "tstl";
-import { sleep_for } from "tstl/thread/global";
+import { Singleton, randint, sleep_for } from "tstl";
 
 import { MyBackend } from "../src/MyBackend";
 import { MyConfiguration } from "../src/MyConfiguration";

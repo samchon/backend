@@ -1,5 +1,5 @@
 import cp from "child_process";
-import { Pair } from "tstl/utility/Pair";
+import { Pair } from "tstl";
 
 export namespace Terminal {
   export function execute(

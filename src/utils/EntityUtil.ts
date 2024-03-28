@@ -1,6 +1,5 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { HashMap, hash } from "tstl";
-import { equal } from "tstl/ranges";
+import { HashMap, hash, ranges } from "tstl";
 import typia from "typia";
 
 /**
@@ -93,8 +92,8 @@ export namespace EntityUtil {
         )!;
 
         // CONSIDER UNIQUE CONSTRAINT -> CASCADE MERGING
-        const uniqueMatrix: (readonly string[])[] = target.uniqueFields.filter((columns) =>
-          columns.includes(foreign.name),
+        const uniqueMatrix: (readonly string[])[] = target.uniqueFields.filter(
+          (columns) => columns.includes(foreign.name),
         );
         if (uniqueMatrix.length)
           for (const unique of uniqueMatrix)
@@ -145,7 +144,7 @@ export namespace EntityUtil {
       const dict: HashMap<any[], any[]> = new HashMap(
         (elements) => hash(...elements.map((e) => JSON.stringify(e))),
         (x, y) =>
-          equal(x, y, (a, b) => JSON.stringify(a) === JSON.stringify(b)),
+          ranges.equal(x, y, (a, b) => JSON.stringify(a) === JSON.stringify(b)),
       );
       const recordList: any[] = await (client as any)[
         current.model.name

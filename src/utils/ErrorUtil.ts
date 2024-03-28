@@ -1,6 +1,5 @@
 import fs from "fs";
-import { randint } from "tstl/algorithm/random";
-import { Singleton } from "tstl/thread/Singleton";
+import { Singleton, randint } from "tstl";
 
 import { MyConfiguration } from "../MyConfiguration";
 import { DirectoryUtil } from "./DirectoryUtil";
