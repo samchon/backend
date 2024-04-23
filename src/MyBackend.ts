@@ -13,7 +13,7 @@ export class MyBackend {
 
     // DO OPEN
     this.application_.enableCors();
-    await this.application_.listen(MyConfiguration.API_PORT());
+    await this.application_.listen(MyConfiguration.API_PORT(), "0.0.0.0");
   }
 
   public async close(): Promise<void> {
