@@ -28,6 +28,7 @@ export async function get(connection: IConnection): Promise<get.Output> {
     ? get.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...get.METADATA,
+        template: get.METADATA.path,
         path: get.path(),
       });
 }
@@ -72,6 +73,7 @@ export async function internal_server_error(
     ? internal_server_error.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...internal_server_error.METADATA,
+        template: internal_server_error.METADATA.path,
         path: internal_server_error.path(),
       });
 }
@@ -114,6 +116,7 @@ export async function uncaught_exception(
     ? uncaught_exception.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...uncaught_exception.METADATA,
+        template: uncaught_exception.METADATA.path,
         path: uncaught_exception.path(),
       });
 }
