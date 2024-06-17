@@ -15,6 +15,7 @@ export namespace ArgumentParser {
       message: string,
     ) => <Choice extends string>(choices: Choice[]) => Promise<Choice>;
     boolean: (name: string) => (message: string) => Promise<boolean>;
+    number: (name: string) => (message: string) => Promise<number>;
   }
 
   export const parse = async <T>(
@@ -57,10 +58,24 @@ export namespace ArgumentParser {
           message,
         })
       )[name] as boolean;
+    const number = (name: string) => async (message: string) =>
+      Number(
+        (
+          await inquirer.createPromptModule()({
+            type: "number",
+            name,
+            message,
+          })
+        )[name],
+      );
 
     const output: T | Error = await (async () => {
       try {
-        return await inquiry(commander.program, { select, boolean }, action);
+        return await inquiry(
+          commander.program,
+          { select, boolean, number },
+          action,
+        );
       } catch (error) {
         return error as Error;
       }
