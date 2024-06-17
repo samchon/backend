@@ -186,6 +186,9 @@ npm run test -- --reset false
 npm run test -- --include something
 npm run test -- --include cart order issue
 npm run test -- --include cart order issue --exclude index deposit
+
+# run performance benchmark program
+npm run benchmark
 ```
 
 For reference, if you run `npm run benchmark` command, your test functions defined in the [test/features/api](test/features/api) directory would be utilized for performance benchmarking. If you want to see the performance bench result earlier, visit below link please:
