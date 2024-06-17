@@ -1,15 +1,18 @@
-import { DynamicBenchmarker } from "@nestia/e2e";
+import { DynamicBenchmarker, StopWatch } from "@nestia/e2e";
 import fs from "fs";
 import os from "os";
 
 import { MyBackend } from "../../src/MyBackend";
 import { MyConfiguration } from "../../src/MyConfiguration";
 import { MyGlobal } from "../../src/MyGlobal";
+import { MySetupWizard } from "../../src/setup/MySetupWizard";
 import { ArgumentParser } from "../../src/utils/ArgumentParser";
 
 interface IOptions {
+  reset: boolean;
   include?: string[];
   exclude?: string[];
+  trace: boolean;
   count: number;
   threads: number;
   simultaneous: number;
@@ -17,8 +20,8 @@ interface IOptions {
 
 const getOptions = () =>
   ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
-    // command.option("--mode <string>", "target mode");
-    // command.option("--reset <true|false>", "reset local DB or not");
+    command.option("--mode <string>", "target mode");
+    command.option("--reset <true|false>", "reset local DB or not");
     command.option("--include <string...>", "include feature files");
     command.option("--exclude <string...>", "exclude feature files");
     command.option("--count <number>", "number of requests to make");
@@ -28,14 +31,10 @@ const getOptions = () =>
       "number of simultaneous requests to make",
     );
     return action(async (options) => {
-      // if (typeof options.reset === "string")
-      //     options.reset = options.reset === "true";
-      // options.mode ??= await prompt.select("mode")("Select mode")([
-      //     "LOCAL",
-      //     "DEV",
-      //     "REAL",
-      // ]);
-      // options.reset ??= await prompt.boolean("reset")("Reset local DB");
+      if (typeof options.reset === "string")
+        options.reset = options.reset === "true";
+      options.reset ??= await prompt.boolean("reset")("Reset local DB");
+      options.trace = options.trace !== ("false" as any);
       options.count = Number(
         options.count ??
           (await prompt.number("count")("Number of requests to make")),
@@ -58,6 +57,11 @@ const main = async (): Promise<void> => {
   // CONFIGURATIONS
   const options: IOptions = await getOptions();
   MyGlobal.testing = true;
+
+  if (options.reset) {
+    await StopWatch.trace("Reset DB")(MySetupWizard.schema);
+    await StopWatch.trace("Seed Data")(MySetupWizard.seed);
+  }
 
   // BACKEND SERVER
   const backend: MyBackend = new MyBackend();
