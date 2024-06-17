@@ -238,7 +238,6 @@ List of the run commands defined in the [package.json](package.json) are like be
     - [src/providers/](src/providers/): Service providers (bridge between DB and controllers)
     - [src/executable/](src/executable/): Executable programs
   - [**test/**](test/): Test Automation Program
-    - [test/benchmark](test/benchmark): Performance Benchmark Program
 
 ### 4.3. Related Repositories
 > Write the related repositories down.
