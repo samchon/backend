@@ -1,6 +1,8 @@
 import { DynamicBenchmarker, StopWatch } from "@nestia/e2e";
+import cliProgress from "cli-progress";
 import fs from "fs";
 import os from "os";
+import { IPointer } from "tstl";
 
 import { MyBackend } from "../../src/MyBackend";
 import { MyConfiguration } from "../../src/MyConfiguration";
@@ -68,7 +70,15 @@ const main = async (): Promise<void> => {
   await backend.open();
 
   // DO BENCHMARK
+  const prev: IPointer<number> = { value: 0 };
+  const bar: cliProgress.SingleBar = new cliProgress.SingleBar(
+    {},
+    cliProgress.Presets.shades_classic,
+  );
+  bar.start(options.count, 0);
+
   const report: DynamicBenchmarker.IReport = await DynamicBenchmarker.master({
+    servant: `${__dirname}/servant.js`,
     count: options.count,
     threads: options.threads,
     simultaneous: options.simultaneous,
@@ -77,8 +87,15 @@ const main = async (): Promise<void> => {
         (options.include ?? []).some((str) => func.includes(str))) &&
       (!options.exclude?.length ||
         (options.exclude ?? []).every((str) => !func.includes(str))),
-    servant: `${__dirname}/servant.js`,
+    progress: (value: number) => {
+      if (value >= 100 + prev.value) {
+        bar.update(value);
+        prev.value = value;
+      }
+    },
+    stdio: "ignore",
   });
+  bar.stop();
 
   // DOCUMENTATION
   try {
