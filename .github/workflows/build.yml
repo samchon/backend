@@ -5,12 +5,13 @@ on:
       - 'prisma/**'
       - 'src/**'
       - 'test/**'
+      - 'package.json'
   pull_request:
     paths:
       - 'prisma/**'
       - 'src/**'
       - 'test/**'
-
+      - 'package.json'
 jobs:
   Ubuntu:
     runs-on: ubuntu-latest
