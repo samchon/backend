@@ -16,6 +16,9 @@ updates:
       - dependency-name: "prisma-markdown"
       - dependency-name: "tstl"
       - dependency-name: "typia"
+      - dependency-name: "tgrid"
+      - dependency-name: "typescript"
+      - dependency-name: "ts-patch"
     groups:
       Samchon:
         patterns:
@@ -23,6 +26,7 @@ updates:
           - "nestia"
           - "tstl"
           - "typia"
+          - "tgrid"
           - "prisma-markdown"
       NestJS:
         patterns:
@@ -31,6 +35,10 @@ updates:
         patterns:
           - "@prisma/*"
           - "prisma"
+      TypeScript:
+        patterns:
+          - "typescript"
+          - "ts-patch"
 #######################################################
   - package-ecosystem: 'npm'
     directory: '/packages/api'
