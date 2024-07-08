@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "API for PROJECT",
   "main": "lib/index.js",
+  "module": "lib/index.mjs",
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
@@ -15,8 +16,8 @@
   },
   "homepage": "https://github.com/samchon/backend#readme",
   "dependencies": {
-    "@nestia/fetcher": "^3.2.5",
-    "typia": "^6.2.1"
+    "@nestia/fetcher": "^3.5.0",
+    "typia": "^6.4.3"
   },
   "include": [
     "lib",
