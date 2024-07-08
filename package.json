@@ -7,7 +7,7 @@
     "test": "rimraf prisma/migrations && node bin/test",
     "------------------------BUILDS------------------------": "",
     "build": "npm run build:prisma && npm run build:sdk && npm run build:main && npm run build:test",
-    "build:api": "rimraf packages/api/lib && nestia sdk && tsc -p packages/api/tsconfig.json",
+    "build:api": "rimraf packages/api/lib && nestia sdk && rimraf packages/api/lib && tsc -p packages/api/tsconfig.json && rollup -c packages/api/rollup.config.js",
     "build:main": "rimraf lib && tsc",
     "build:prisma": "prisma generate --schema=prisma/schema.prisma",
     "build:sdk": "rimraf src/api/functional && nestia sdk",
@@ -40,7 +40,9 @@
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
     "@nestia/e2e": "^0.6.0",
-    "@nestia/sdk": "^3.2.5",
+    "@nestia/sdk": "^3.5.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/cli": "^0.11.19",
     "@types/cli-progress": "^3.11.5",
@@ -65,20 +67,21 @@
     "prettier-plugin-prisma": "^5.0.0",
     "prisma-markdown": "^1.0.9",
     "rimraf": "^3.0.2",
+    "rollup": "^4.18.0",
     "sloc": "^0.2.1",
     "swagger-ui-express": "^5.0.0",
     "ts-loader": "^9.5.0",
     "ts-node": "^10.9.2",
-    "ts-patch": "^3.1.2",
-    "typescript": "<5.6.0",
+    "ts-patch": "^3.2.1",
+    "typescript": "^5.5.3",
     "typescript-transform-paths": "^3.4.6",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "^3.2.5",
-    "@nestia/fetcher": "^3.2.5",
+    "@nestia/core": "^3.5.0",
+    "@nestia/fetcher": "^3.5.0",
     "@nestjs/common": "^10.3.8",
     "@nestjs/core": "^10.3.8",
     "@nestjs/platform-express": "^10.3.8",
@@ -90,9 +93,9 @@
     "prisma": "^5.13.0",
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
-    "tgrid": "^1.0.1",
+    "tgrid": "^1.0.2",
     "tstl": "^3.0.0",
-    "typia": "^6.2.1"
+    "typia": "^6.4.3"
   },
   "private": true
 }
