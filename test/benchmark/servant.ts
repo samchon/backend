@@ -1,4 +1,4 @@
-import { DynamicBenchmarker } from "@nestia/e2e";
+import { DynamicBenchmarker } from "@nestia/benchmark";
 
 import { MyConfiguration } from "../../src/MyConfiguration";
 

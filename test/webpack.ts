@@ -1,4 +1,5 @@
 import { DynamicExecutor } from "@nestia/e2e";
+import chalk from "chalk";
 import cp from "child_process";
 import fs from "fs";
 import { sleep_for } from "tstl";
@@ -23,13 +24,24 @@ const webpackTest = async (): Promise<void> => {
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",
+    location: __dirname + "/features",
     parameters: () => [
       {
         host: connection.host,
         encryption: connection.encryption,
       },
     ],
-  })(__dirname + "/features");
+    onComplete: (exec) => {
+      if (exec.error === null) {
+        const elapsed: number =
+          new Date(exec.completed_at).getTime() -
+          new Date(exec.started_at).getTime();
+        console.log(
+          `  - ${exec.name}: ${chalk.green(elapsed.toLocaleString())} ms`,
+        );
+      } else console.log(`  - ${exec.name}: ${chalk.red(exec.error.name)}`);
+    },
+  });
 
   backend.kill();
 

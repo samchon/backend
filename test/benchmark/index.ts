@@ -1,4 +1,4 @@
-import { DynamicBenchmarker, StopWatch } from "@nestia/e2e";
+import { DynamicBenchmarker } from "@nestia/benchmark";
 import cliProgress from "cli-progress";
 import fs from "fs";
 import os from "os";
@@ -9,6 +9,7 @@ import { MyConfiguration } from "../../src/MyConfiguration";
 import { MyGlobal } from "../../src/MyGlobal";
 import { MySetupWizard } from "../../src/setup/MySetupWizard";
 import { ArgumentParser } from "../../src/utils/ArgumentParser";
+import { StopWatch } from "../internal/StopWatch";
 
 interface IOptions {
   reset: boolean;
