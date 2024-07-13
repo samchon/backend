@@ -51,9 +51,8 @@
     "@types/inquirer": "^8.2.5",
     "@types/jsonwebtoken": "^9.0.4",
     "@types/node": "^20.11.22",
-    "@types/pg": "^8.6.5",
     "@types/swagger-ui-express": "^4.1.6",
-    "@types/uuid": "^8.3.0",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "chalk": "^4.1.2",
@@ -96,7 +95,8 @@
     "source-map-support": "^0.5.19",
     "tgrid": "^1.0.2",
     "tstl": "^3.0.0",
-    "typia": "^6.5.0"
+    "typia": "^6.5.0",
+    "uuid": "^10.0.0"
   },
   "private": true
 }
