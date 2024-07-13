@@ -32,14 +32,14 @@ const webpackTest = async (): Promise<void> => {
       },
     ],
     onComplete: (exec) => {
+      const trace = (str: string) =>
+        console.log(`  - ${chalk.green(exec.name)}: ${str}`);
       if (exec.error === null) {
         const elapsed: number =
           new Date(exec.completed_at).getTime() -
           new Date(exec.started_at).getTime();
-        console.log(
-          `  - ${exec.name}: ${chalk.green(elapsed.toLocaleString())} ms`,
-        );
-      } else console.log(`  - ${exec.name}: ${chalk.red(exec.error.name)}`);
+        trace(`${chalk.yellow(elapsed.toLocaleString())} ms`);
+      } else trace(chalk.red(exec.error.name));
     },
   });
 
