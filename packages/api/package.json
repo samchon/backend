@@ -16,8 +16,8 @@
   },
   "homepage": "https://github.com/samchon/backend#readme",
   "dependencies": {
-    "@nestia/fetcher": "^3.5.0",
-    "typia": "^6.4.3"
+    "@nestia/fetcher": "^3.7.0",
+    "typia": "^6.5.0"
   },
   "include": [
     "lib",
