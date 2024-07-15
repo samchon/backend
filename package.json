@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
-    "@nestia/benchmark": "^0.1.1",
+    "@nestia/benchmark": "^0.1.2",
     "@nestia/e2e": "^0.7.0",
     "@nestia/sdk": "^3.7.0",
     "@rollup/plugin-terser": "^0.4.4",
@@ -62,7 +62,7 @@
     "copy-webpack-plugin": "^12.0.2",
     "eslint-plugin-deprecation": "^2.0.0",
     "inquirer": "^8.2.5",
-    "nestia": "^5.3.1",
+    "nestia": "^5.4.0",
     "prettier": "^3.2.5",
     "prettier-plugin-prisma": "^5.0.0",
     "prisma-markdown": "^1.0.9",
