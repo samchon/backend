@@ -12,7 +12,6 @@
     "build:prisma": "prisma generate --schema=prisma/schema.prisma",
     "build:sdk": "rimraf src/api/functional && nestia sdk",
     "build:swagger": "nestia swagger",
-    "build:openai": "nestia openai",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
     "eslint": "eslint src && eslint test",
