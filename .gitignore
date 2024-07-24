@@ -8,4 +8,5 @@ prisma/migrations
 package-lock.json
 pnpm-lock.yaml
 swagger.json
+openai.json
 .npmrc

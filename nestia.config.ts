@@ -16,6 +16,11 @@ export const NESTIA_CONFIG: INestiaConfig = {
     ],
     beautify: true,
   },
+  openai: {
+    output: "packages/api/openai.json",
+    keyword: true,
+    beautify: true,
+  },
   primitive: false,
   simulate: true,
 };
