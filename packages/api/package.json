@@ -23,7 +23,6 @@
     "lib",
     "package.json",
     "swagger.json",
-    "openai.json",
     "README.md"
   ]
 }
