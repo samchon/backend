@@ -24,7 +24,7 @@
     "webpack:start": "node dist/server",
     "webpack:test": "npm run webpack && rimraf prisma/migrations && node bin/test/webpack.js",
     "------------------------DEPLOYS------------------------": "",
-    "package:api": "npm run build:swagger && npm run build:openai && npm run build:api && cd packages/api && npm publish --access public",
+    "package:api": "npm run build:swagger && npm run build:api && cd packages/api && npm publish --access public",
     "start": "node lib/executable/server",
     "start:swagger": "ts-node src/executable/swagger.ts",
     "schema": "ts-node src/executable/schema"
