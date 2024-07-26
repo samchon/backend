@@ -7,25 +7,41 @@
     - NodeJS Version: v20.10.0
     - Backend Server: 1 core / 1 thread
   - Arguments
-    - Count: 1,024
+    - Count: 80,000
     - Threads: 4
     - Simultaneous: 32
   - Time
-    - Start: 2024-07-15T15:34:52.096Z
-    - Complete: 2024-07-15T15:34:52.825Z
-    - Elapsed: 729 ms
+    - Start: 2024-07-26T17:42:01.478Z
+    - Complete: 2024-07-26T17:42:40.396Z
+    - Elapsed: 38,918 ms
 
 Type | Count | Success | Mean. | Stdev. | Minimum | Maximum
 ----|----|----|----|----|----|----
-Total | 1,052 | 1,052 | 20.39 | 8.57 | 3 | 89
+Total | 80,028 | 80,028 | 15.33 | 6.23 | 5 | 92
 
 > Unit: milliseconds
+
+## Memory Consumptions
+```mermaid
+xychart-beta
+  x-axis "Time (second)"
+  y-axis "Memory (MB)"
+  line "Resident Set Size" [104, 106, 106, 135, 132, 132, 151, 137, 142, 136, 136, 155, 138, 142, 142, 141, 142, 140, 152, 142, 145, 145, 145, 148, 142, 142, 150, 146, 147, 160, 147, 148, 143, 143, 158, 144, 144, 161]
+  line "Heap Total" [64, 65, 65, 94, 90, 90, 109, 95, 101, 95, 95, 114, 97, 101, 101, 99, 101, 99, 111, 100, 103, 103, 103, 106, 101, 101, 108, 105, 105, 119, 105, 106, 101, 101, 116, 102, 102, 119]
+  line "Heap Used + External" [27, 30, 39, 72, 41, 62, 93, 42, 75, 35, 61, 90, 57, 36, 73, 43, 85, 37, 89, 46, 75, 34, 53, 85, 41, 58, 90, 36, 63, 92, 58, 79, 43, 68, 96, 51, 67, 96]
+  line "Heap Used Only" [25, 27, 37, 69, 38, 59, 89, 39, 72, 32, 58, 87, 54, 33, 70, 40, 82, 34, 86, 43, 72, 31, 50, 82, 39, 55, 87, 33, 60, 89, 55, 76, 40, 65, 93, 48, 64, 93]
+```
+
+> - 🟦 Resident Set Size
+> - 🟢 Heap Total
+> - 🔴 Heap Used + External
+> - 🟡 Heap Used Only
 
 ## Endpoints
 Type | Count | Success | Mean. | Stdev. | Minimum | Maximum
 ----|----|----|----|----|----|----
-GET /monitors/system | 507 | 507 | 20.6 | 8.72 | 5 | 87
-GET /monitors/health | 545 | 545 | 20.19 | 8.43 | 3 | 89
+GET /monitors/system | 39,852 | 39,852 | 15.47 | 6.28 | 5 | 92
+GET /monitors/health | 40,176 | 40,176 | 15.2 | 6.18 | 5 | 91
 
 > Unit: milliseconds
 
