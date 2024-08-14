@@ -11,7 +11,6 @@ module.exports = {
       files: ["src/**/*.ts", "test/**/*.ts"],
       rules: {
         "@typescript-eslint/consistent-type-definitions": "off",
-        "@typescript-eslint/consistent-type-definitions": "off",
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",
@@ -21,6 +20,8 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
       },
     },
   ],
