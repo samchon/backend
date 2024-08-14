@@ -43,7 +43,7 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/monitors/system";
@@ -84,7 +84,7 @@ export namespace internal_server_error {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/monitors/system/internal_server_error";
@@ -125,7 +125,7 @@ export namespace uncaught_exception {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/monitors/system/uncaught_exception";
