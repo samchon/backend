@@ -18,6 +18,7 @@ Template repository for [`NestJS`](https://nestjs.com) + [`Prisma`](https://pris
 Additionally, I've prepared a couple of example backend projects leveraging this template repository. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server of [`NestJS`](https://nestjs.com) following the **FP** and **TDD** paradigm with my 3rd party libraries. 
 
   - [samchon/bbs-backend](https://github.com/samchon/bbs-backend): Simple Bullet-in Board System
+  - [samchon/shopping-backend](https://github.com/samchon/shopping-backend): Shopping Mall (E-Commerce) System
   - Korean only
     - [samchon/fake-iamport-server](https://github.com/samchon/payments/tree/master/packages/fake-iamport-server): Fake iamport server, but real SDK
     - [samchon/fake-toss-payments-server](https://github.com/samchon/payments/tree/master/packages/fake-toss-payments-server): Fake toss-payments server, but real SDK
