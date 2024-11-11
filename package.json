@@ -95,7 +95,7 @@
     "source-map-support": "^0.5.19",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "typia": "^6.11.3",
+    "typia": "^6.11.4",
     "uuid": "^10.0.0"
   },
   "private": true
