@@ -1,11 +1,5 @@
 name: build
-on: 
-  push:
-    paths:
-      - 'prisma/**'
-      - 'src/**'
-      - 'test/**'
-      - 'package.json'
+on:
   pull_request:
     paths:
       - 'prisma/**'
