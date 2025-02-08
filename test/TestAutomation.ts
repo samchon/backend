@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { MyConfiguration } from "../src/MyConfiguration";
 import api from "../src/api";
 import { MySetupWizard } from "../src/setup/MySetupWizard";
-import { ArgumentParser } from "../src/utils/ArgumentParser";
+import { ArgumentParser } from "./internal/ArgumentParser";
 import { StopWatch } from "./internal/StopWatch";
 
 export namespace TestAutomation {
@@ -83,6 +83,10 @@ const getOptions = () =>
   ArgumentParser.parse<TestAutomation.IOptions>(
     async (command, prompt, action) => {
       command.option("--reset <true|false>", "reset local DB or not");
+      command.option(
+        "--simultaneous <number>",
+        "number of simultaneous requests to make",
+      );
       command.option("--include <string...>", "include feature files");
       command.option("--exclude <string...>", "exclude feature files");
       command.option("--trace <boolean>", "trace detailed errors");
