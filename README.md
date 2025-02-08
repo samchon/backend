@@ -12,7 +12,7 @@ Template repository for [`NestJS`](https://nestjs.com) + [`Prisma`](https://pris
 `@samchon/backend` is a template repsitory of backend project utilizing [`NestJS`](https://nestjs.com) and [`Prisma`](https://prisma.io). It has been prepared to educate and spread how to adapt **FP (Functional Programming)** in the NestJS development. Also, `@samchon/backend` guides how to utilize those 3rd party libraries (what I've developed) in the production, especially helpful for **TDD (Test Driven Development)** with dramatic productivity enhancement.
 
   - [`typia`](https://github.com/samchon/typia): Superfast runtime validator
-  - [`nestia`](https://github.com/samchon/nestia): NestJS helper libaries like SDK generation
+  - [`nestia`](https://github.com/samchon/nestia): NestJS helper libraries like SDK generation
   - [`prisma-markdown`](https://github.com/samchon/prisma-markdown): Markdown generator of Prisma (ERD + documentation)
 
 Additionally, I've prepared a couple of example backend projects leveraging this template repository. Reading this [README.md](https://github.com/samchon/backend) document and traveling below example projects, you may understand how to develop the TypeScript backend server of [`NestJS`](https://nestjs.com) following the **FP** and **TDD** paradigm with my 3rd party libraries. 
@@ -35,7 +35,7 @@ When you've created a new backend project through this template project, you can
 | ORGANIZATION | Your account or corporation name
 | PROJECT      | Your own project name
 | AUTHOR       | Author name
-| db_name      | Database to connnect
+| db_name      | Database to connect
 | db_schema    | Database schema to use
 | db_account   | Database account to use, not root account
 | https://github.com/samchon/backend | Your repository URL
@@ -224,6 +224,7 @@ List of the run commands defined in the [package.json](package.json) are like be
     - `package:api`: Build and deploy the SDK library to the NPM
     - `schema`: Create DB, users and schemas on local database
     - `start`: Start the backend server
+    - `start:dev`: Start the backend server with incremental build and reload
   - Webpack
     - `webpack`: Run webpack bundler
     - `webpack:start`: Start the backend server built by webpack

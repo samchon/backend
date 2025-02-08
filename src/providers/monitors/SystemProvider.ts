@@ -32,7 +32,7 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
               new Date(Number(commit.authoredOn) * 1000),
               true,
             ),
-            commited_at: DateUtil.toString(
+            committed_at: DateUtil.toString(
               new Date(Number(commit.committedOn) * 1000),
               true,
             ),

@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
 /**
- * Commen Entity.
+ * Common Entity.
  *
  * Common entity definition for entities having UUID type primary key value.
  *

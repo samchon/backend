@@ -8,7 +8,7 @@ import { MyBackend } from "../../src/MyBackend";
 import { MyConfiguration } from "../../src/MyConfiguration";
 import { MyGlobal } from "../../src/MyGlobal";
 import { MySetupWizard } from "../../src/setup/MySetupWizard";
-import { ArgumentParser } from "../../src/utils/ArgumentParser";
+import { ArgumentParser } from "../internal/ArgumentParser";
 import { StopWatch } from "../internal/StopWatch";
 
 interface IOptions {
