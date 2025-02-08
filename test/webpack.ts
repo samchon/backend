@@ -1,64 +1,43 @@
-import { DynamicExecutor } from "@nestia/e2e";
-import chalk from "chalk";
 import cp from "child_process";
-import fs from "fs";
 import { sleep_for } from "tstl";
 
 import { MyConfiguration } from "../src/MyConfiguration";
-import MyApi from "../src/api";
+import { MyGlobal } from "../src/MyGlobal";
+import api from "../src/api";
+import { TestAutomation } from "./TestAutomation";
 
-const webpackTest = async (): Promise<void> => {
-  if (fs.existsSync(MyConfiguration.ROOT + "/dist/server.js") === false)
-    throw new Error("Run npm run webpack command first.");
-
-  // START BACKEND SERVER
-  const backend = cp.fork(`${MyConfiguration.ROOT}/dist/server.js`, {
-    cwd: `${MyConfiguration.ROOT}/dist`,
-  });
-  console.log(__dirname + "/features");
-  await sleep_for(2_500);
-
-  // DO TEST
-  const connection: MyApi.IConnection = {
-    host: `http://127.0.0.1:${MyConfiguration.API_PORT()}`,
+const wait = async (): Promise<void> => {
+  const connection: api.IConnection = {
+    host: `http://localhost:${MyConfiguration.API_PORT()}`,
   };
-  const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
-    prefix: "test",
-    location: __dirname + "/features",
-    parameters: () => [
-      {
-        host: connection.host,
-        encryption: connection.encryption,
-      },
-    ],
-    onComplete: (exec) => {
-      const trace = (str: string) =>
-        console.log(`  - ${chalk.green(exec.name)}: ${str}`);
-      if (exec.error === null) {
-        const elapsed: number =
-          new Date(exec.completed_at).getTime() -
-          new Date(exec.started_at).getTime();
-        trace(`${chalk.yellow(elapsed.toLocaleString())} ms`);
-      } else trace(chalk.red(exec.error.name));
+  while (true)
+    try {
+      await api.functional.monitors.health.get(connection);
+      return;
+    } catch {
+      await sleep_for(100);
+    }
+};
+
+const main = async (): Promise<void> => {
+  MyGlobal.testing = true;
+  await TestAutomation.execute({
+    open: async () => {
+      const backend: cp.ChildProcess = cp.fork(
+        `${MyConfiguration.ROOT}/dist/server.js`,
+        {
+          cwd: `${MyConfiguration.ROOT}/dist`,
+        },
+      );
+      await wait();
+      return backend;
+    },
+    close: async (backend) => {
+      backend.kill();
     },
   });
-
-  backend.kill();
-
-  // REPORT EXCEPTIONS
-  const exceptions: Error[] = report.executions
-    .filter((exec) => exec.error !== null)
-    .map((exec) => exec.error!);
-  if (exceptions.length === 0) {
-    console.log("Success");
-    console.log("Elapsed time", report.time.toLocaleString(), `ms`);
-  } else {
-    for (const exp of exceptions) console.log(exp);
-    console.log("Failed");
-    console.log("Elapsed time", report.time.toLocaleString(), `ms`);
-  }
 };
-webpackTest().catch((exp) => {
+main().catch((exp) => {
   console.log(exp);
   process.exit(-1);
 });

@@ -10,8 +10,8 @@ if (EXTENSION === "js") require("source-map-support").install();
 
 export namespace MyConfiguration {
   export const ROOT = (() => {
-    const splitted: string[] = __dirname.split(path.sep);
-    return splitted.at(-1) === "src" && splitted.at(-2) === "bin"
+    const split: string[] = __dirname.split(path.sep);
+    return split.at(-1) === "src" && split.at(-2) === "bin"
       ? path.resolve(__dirname + "/../..")
       : path.resolve(__dirname + "/..");
   })();

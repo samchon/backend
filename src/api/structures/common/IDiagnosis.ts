@@ -1,7 +1,7 @@
 /**
  * Result of diagnosis.
  *
- * A diagnosis describing which error has been occured.
+ * A diagnosis describing which error has been occurred.
  *
  * @author Samchon
  */

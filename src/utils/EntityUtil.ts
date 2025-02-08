@@ -33,7 +33,7 @@ export namespace EntityUtil {
    * {@link IMergeProps.keep} record, instead of deleting them.
    *
    * If there're some dependent tables of the target `table` having
-   * unique constraint on foriegn key column, such dependent tables
+   * unique constraint on foreign key column, such dependent tables
    * also perform the merge process, too.
    *
    * Of course, if there're another dependent tables under those

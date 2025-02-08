@@ -25,6 +25,7 @@
     "------------------------DEPLOYS------------------------": "",
     "package:api": "npm run build:api && cd packages/api && npm publish --access public",
     "start": "node lib/executable/server",
+    "start:dev": "nest start --watch",
     "start:swagger": "ts-node src/executable/swagger.ts",
     "schema": "ts-node src/executable/schema"
   },
@@ -42,6 +43,7 @@
     "@nestia/benchmark": "^0.3.0",
     "@nestia/e2e": "^0.8.0",
     "@nestia/sdk": "^4.6.1",
+    "@nestjs/cli": "^10.4.9",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
