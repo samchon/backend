@@ -65,6 +65,8 @@
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typia/lib/transform" },
       { 
         "transform": "@nestia/core/lib/transform",
         /**
@@ -73,21 +75,23 @@
          *   - "assert": Use typia.assert() function
          *   - "is": Use typia.is() function
          *   - "validate": Use typia.validate() function
+         *   - "assertEquals": Use typia.assertEquals() function
+         *   - "equals": Use typia.equals() function
+         *   - "validateEquals": Use typia.validateEquals() function
          */
-        "validate": "assert",
+        "validate": "validate",
         /**
          * Validate JSON typed response body.
          * 
-         *   - null: Just use JSON.stringify() function, without boosting
-         *   - "stringify": Use typia.stringify() function, but dangerous
          *   - "assert": Use typia.assertStringify() function
          *   - "is": Use typia.isStringify() function
          *   - "validate": Use typia.validateStringify() function
+         *   - "validate.log": typia.validateStringify(), but do not throw and just log it
+         *   - "stringify": Use typia.stringify() function, but dangerous
+         *   - null: Just use JSON.stringify() function, without boosting
          */
-        "stringify": "assert" 
+        "stringify": "assert",
       },
-      { "transform": "typia/lib/transform" },
-      { "transform": "typescript-transform-paths" }
     ]
   },
   "include": [
