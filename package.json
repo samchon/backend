@@ -43,7 +43,7 @@
     "@nestia/benchmark": "^0.3.0",
     "@nestia/e2e": "^0.8.2",
     "@nestia/sdk": "^4.6.2",
-    "@nestjs/cli": "^11.0.4",
+    "@nestjs/cli": "^11.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
