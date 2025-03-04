@@ -40,7 +40,7 @@
   },
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
-    "@nestia/benchmark": "^0.3.0",
+    "@nestia/benchmark": "^0.4.3",
     "@nestia/e2e": "^0.8.2",
     "@nestia/sdk": "^5.0.0",
     "@nestjs/cli": "^11.0.5",
