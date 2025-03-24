@@ -41,7 +41,7 @@
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
     "@nestia/benchmark": "^0.4.3",
-    "@nestia/e2e": "^0.8.2",
+    "@nestia/e2e": "^0.8.3",
     "@nestia/sdk": "^5.0.0",
     "@nestjs/cli": "^11.0.5",
     "@rollup/plugin-terser": "^0.4.4",
@@ -97,7 +97,7 @@
     "source-map-support": "^0.5.19",
     "tgrid": "^1.1.0",
     "tstl": "^3.0.0",
-    "typia": "^8.0.1",
+    "typia": "^8.0.3",
     "uuid": "^10.0.0"
   },
   "private": true
