@@ -84,9 +84,9 @@
   "dependencies": {
     "@nestia/core": "^6.0.1",
     "@nestia/fetcher": "^6.0.1",
-    "@nestjs/common": "^11.0.13",
-    "@nestjs/core": "^11.0.13",
-    "@nestjs/platform-express": "^11.0.13",
+    "@nestjs/common": "^11.0.14",
+    "@nestjs/core": "^11.0.14",
+    "@nestjs/platform-express": "^11.0.14",
     "@prisma/client": "^6.5.0",
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
