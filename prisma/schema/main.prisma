@@ -13,7 +13,7 @@ datasource db {
 generator markdown {
   provider = "prisma-markdown"
   title    = "PROJECT"
-  output   = "../docs/ERD.md"
+  output   = "../../docs/ERD.md"
 }
 
 //-----------------------------------------------------------

@@ -10,7 +10,7 @@ export namespace MySetupWizard {
       );
     const execute = (type: string) => (argv: string) =>
       cp.execSync(
-        `npx prisma migrate ${type} --schema=prisma/schema.prisma ${argv}`,
+        `npx prisma migrate ${type} --schema=prisma/schema ${argv}`,
         { stdio: "inherit" },
       );
     execute("reset")("--force");
