@@ -40,9 +40,9 @@
   },
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
-    "@nestia/benchmark": "^6.0.4",
-    "@nestia/e2e": "^6.0.4",
-    "@nestia/sdk": "^6.0.4",
+    "@nestia/benchmark": "^6.0.6",
+    "@nestia/e2e": "^6.0.6",
+    "@nestia/sdk": "^6.0.6",
     "@nestjs/cli": "^11.0.7",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -82,8 +82,8 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "^6.0.4",
-    "@nestia/fetcher": "^6.0.4",
+    "@nestia/core": "^6.0.6",
+    "@nestia/fetcher": "^6.0.6",
     "@nestjs/common": "^11.1.1",
     "@nestjs/core": "^11.1.1",
     "@nestjs/platform-express": "^11.1.1",
