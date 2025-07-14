@@ -16,7 +16,8 @@ export const NESTIA_CONFIG: INestiaConfig = {
     ],
     beautify: true,
   },
-  primitive: false,
+  keyword: true,
   simulate: true,
+  primitive: false,
 };
 export default NESTIA_CONFIG;
