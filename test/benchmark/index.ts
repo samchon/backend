@@ -8,8 +8,8 @@ import { MyBackend } from "../../src/MyBackend";
 import { MyConfiguration } from "../../src/MyConfiguration";
 import { MyGlobal } from "../../src/MyGlobal";
 import { MySetupWizard } from "../../src/setup/MySetupWizard";
-import { ArgumentParser } from "../internal/ArgumentParser";
-import { StopWatch } from "../internal/StopWatch";
+import { ArgumentParser } from "../helpers/ArgumentParser";
+import { StopWatch } from "../helpers/StopWatch";
 
 interface IOptions {
   reset: boolean;

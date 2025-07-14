@@ -4,7 +4,8 @@ import { sleep_for } from "tstl";
 import { MyConfiguration } from "../src/MyConfiguration";
 import { MyGlobal } from "../src/MyGlobal";
 import api from "../src/api";
-import { TestAutomation } from "./TestAutomation";
+import { TestAutomation } from "./helpers/TestAutomation";
+import { TestAutomationStdio } from "./helpers/TestAutomationStdio";
 
 const wait = async (): Promise<void> => {
   const connection: api.IConnection = {
@@ -35,6 +36,9 @@ const main = async (): Promise<void> => {
     close: async (backend) => {
       backend.kill();
     },
+    options: await TestAutomationStdio.getOptions(),
+    onComplete: TestAutomationStdio.onComplete,
+    onReset: TestAutomationStdio.onReset(new Date()),
   });
 };
 main().catch((exp) => {
