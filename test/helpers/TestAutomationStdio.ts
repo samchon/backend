@@ -50,7 +50,7 @@ export namespace TestAutomationStdio {
   export const onReset = (start: Date) => (): void => {
     const now: Date = new Date();
     console.log(
-      `  - Reset DB: ${(now.getDate() - start.getDate()).toLocaleString()} ms`,
+      `  - Reset DB: ${(now.getTime() - start.getTime()).toLocaleString()} ms`,
     );
   };
 
