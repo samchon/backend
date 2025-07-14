@@ -3,19 +3,15 @@ import { sleep_for } from "tstl";
 
 import { MyConfiguration } from "../src/MyConfiguration";
 import { MyGlobal } from "../src/MyGlobal";
-import api from "../src/api";
 import { TestAutomation } from "./helpers/TestAutomation";
 import { TestAutomationStdio } from "./helpers/TestAutomationStdio";
 
 const wait = async (): Promise<void> => {
-  const connection: api.IConnection = {
-    host: `http://localhost:${MyConfiguration.API_PORT()}`,
-  };
   while (true)
     try {
-      await api.functional.monitors.health.get(connection);
+      await fetch(`http://localhost:${MyConfiguration.API_PORT()}/dsafdsafsd`);
       return;
-    } catch {
+    } catch (exp) {
       await sleep_for(100);
     }
 };

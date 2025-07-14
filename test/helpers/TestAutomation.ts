@@ -1,4 +1,5 @@
 import { DynamicExecutor } from "@nestia/e2e";
+import { sleep_for } from "tstl";
 
 import api from "@ORGANIZATION/PROJECT-api";
 
@@ -57,6 +58,7 @@ export namespace TestAutomation {
     });
 
     // TERMINATE
+    await sleep_for(2500);
     await props.close(backend);
     return report;
   };
