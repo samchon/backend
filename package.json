@@ -40,9 +40,9 @@
   },
   "homepage": "https://github.com/samchon/backend",
   "devDependencies": {
-    "@nestia/benchmark": "^7.4.0",
-    "@nestia/e2e": "^7.4.0",
-    "@nestia/sdk": "^7.4.0",
+    "@nestia/benchmark": "^8.0.7",
+    "@nestia/e2e": "^8.0.7",
+    "@nestia/sdk": "^8.0.7",
     "@nestjs/cli": "^11.0.10",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -64,7 +64,7 @@
     "copy-webpack-plugin": "^12.0.2",
     "eslint-plugin-deprecation": "^3.0.0",
     "inquirer": "^8.2.5",
-    "nestia": "^7.4.0",
+    "nestia": "^8.0.7",
     "prettier": "^3.2.5",
     "prettier-plugin-prisma": "^5.0.0",
     "prisma-markdown": "^3.0.1",
@@ -82,8 +82,8 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "^7.4.0",
-    "@nestia/fetcher": "^7.4.0",
+    "@nestia/core": "^8.0.7",
+    "@nestia/fetcher": "^8.0.7",
     "@nestjs/common": "^11.1.6",
     "@nestjs/core": "^11.1.6",
     "@nestjs/platform-express": "^11.1.6",
@@ -97,7 +97,7 @@
     "source-map-support": "^0.5.19",
     "tgrid": "^1.2.0",
     "tstl": "^3.0.0",
-    "typia": "^9.7.1",
+    "typia": "^9.7.2",
     "uuid": "^10.0.0"
   },
   "private": true
