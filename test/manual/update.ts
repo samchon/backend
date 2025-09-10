@@ -33,7 +33,7 @@ async function main(): Promise<void> {
 
   try {
     await Promise.all(
-      ArrayUtil.repeat(600)(async (i) => {
+      ArrayUtil.repeat(600, async (i) => {
         await sleep_for(i * 10);
         await api.functional.monitors.system.get(connection);
       }),

@@ -50,9 +50,7 @@ export namespace PaginationUtil {
     async (input: IPage.IRequest): Promise<IPage<IProps.DeduceOutput<T>>> => {
       input.limit ??= 100;
 
-      const records: number = await props.schema.count({
-        where: spec.where,
-      });
+      const records: number = await props.schema.count({ where: spec.where });
       const pages: number =
         input.limit !== 0 ? Math.ceil(records / input.limit) : 1;
       input.page = input.page ? Math.max(1, Math.min(input.page, pages)) : 1;
@@ -65,15 +63,10 @@ export namespace PaginationUtil {
         orderBy: spec.orderBy,
       });
       return {
-        data: await ArrayUtil.asyncMap(data)(async (elem) =>
+        data: await ArrayUtil.asyncMap(data, async (elem) =>
           props.transform(elem),
         ),
-        pagination: {
-          records,
-          pages,
-          current: input.page,
-          limit: input.limit,
-        },
+        pagination: { records, pages, current: input.page, limit: input.limit },
       };
     };
 
