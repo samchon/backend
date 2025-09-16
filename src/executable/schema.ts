@@ -1,3 +1,4 @@
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 
 import { MyGlobal } from "../MyGlobal";
@@ -11,11 +12,12 @@ async function execute(
 ): Promise<void> {
   try {
     const prisma = new PrismaClient({
-      datasources: {
-        db: {
-          url: `postgresql://${username}:${password}@${MyGlobal.env.POSTGRES_HOST}:${MyGlobal.env.POSTGRES_PORT}/${database}`,
+      adapter: new PrismaPg(
+        {
+          connectionString: `postgresql://${username}:${password}@${MyGlobal.env.POSTGRES_HOST}:${MyGlobal.env.POSTGRES_PORT}/${database}?schema=${MyGlobal.env.POSTGRES_SCHEMA}`,
         },
-      },
+        { schema: MyGlobal.env.POSTGRES_SCHEMA },
+      ),
     });
     const queries: string[] = script
       .split("\n")
