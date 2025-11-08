@@ -9,7 +9,7 @@
 
 Template repository for [`NestJS`](https://nestjs.com) + [`Prisma`](https://prisma.io) stack with **FP** and **TDD**.
 
-`@samchon/backend` is a template repsitory of backend project utilizing [`NestJS`](https://nestjs.com) and [`Prisma`](https://prisma.io). It has been prepared to educate and spread how to adapt **FP (Functional Programming)** in the NestJS development. Also, `@samchon/backend` guides how to utilize those 3rd party libraries (what I've developed) in the production, especially helpful for **TDD (Test Driven Development)** with dramatic productivity enhancement.
+`@samchon/backend` is a template repository of backend project utilizing [`NestJS`](https://nestjs.com) and [`Prisma`](https://prisma.io). It has been prepared to educate and spread how to adapt **FP (Functional Programming)** in the NestJS development. Also, `@samchon/backend` guides how to utilize those 3rd party libraries (what I've developed) in the production, especially helpful for **TDD (Test Driven Development)** with dramatic productivity enhancement.
 
   - [`typia`](https://github.com/samchon/typia): Superfast runtime validator
   - [`nestia`](https://github.com/samchon/nestia): NestJS helper libraries like SDK generation
