@@ -51,14 +51,14 @@ export namespace EntityUtil {
       );
       if (model === undefined)
         throw new Error(
-          `Error on EntityUtil.unify(): table ${table} does not exist.`,
+          `Error on EntityUtil.merge(): table ${table} does not exist.`,
         );
       const key: DMMF.Field | undefined = model.fields.find(
         (field) => field.isId === true,
       );
       if (key === undefined)
         throw new Error(
-          `Error on EntityUtil.unify(): table ${table} does not have single columned primary key.`,
+          `Error on EntityUtil.merge(): table ${table} does not have single columned primary key.`,
         );
 
       // LIST UP DEPENDENCIES
