@@ -36,7 +36,6 @@ export namespace EntityUtil {
    * Such recursive merge process still works for self-recursive
    * (tree-structured) tables.
    *
-   * @param client Prisma Client
    * @param table Target table to perform merge
    * @param props Target records to merge
    */
