@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
@@ -22,11 +22,11 @@ export namespace BbsArticleCommentProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.bbs_article_commentsFindManyArgs>()({
+      ({
         include: {
           snapshots: BbsArticleCommentSnapshotProvider.json.select(),
         } as const,
-      });
+      }) satisfies Prisma.bbs_article_commentsFindManyArgs;
   }
 
   export const paginate = (
@@ -46,29 +46,27 @@ export namespace BbsArticleCommentProvider {
   export const search = (
     input: IBbsArticleComment.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.bbs_article_commentsWhereInput["AND"]>()(
-      input?.body?.length
-        ? [
-            {
-              snapshots: {
-                some: {
-                  body: {
-                    contains: input.body,
-                  },
+    (input?.body?.length
+      ? [
+          {
+            snapshots: {
+              some: {
+                body: {
+                  contains: input.body,
                 },
               },
             },
-          ]
-        : [],
-    );
+          },
+        ]
+      : []) satisfies Prisma.bbs_article_commentsWhereInput["AND"];
 
   export const orderBy = (
     _key: IBbsArticleComment.IRequest.SortableColumns,
     value: "asc" | "desc",
   ) =>
-    Prisma.validator<Prisma.bbs_article_commentsOrderByWithRelationInput>()({
+    ({
       created_at: value,
-    });
+    }) satisfies Prisma.bbs_article_commentsOrderByWithRelationInput;
 
   export const collect =
     <
@@ -81,7 +79,7 @@ export namespace BbsArticleCommentProvider {
     (related: { article: Pick<IBbsArticle, "id"> }) =>
     (input: Input) => {
       const snapshot = snapshotFactory(input);
-      return Prisma.validator<Prisma.bbs_article_commentsCreateInput>()({
+      return {
         id: v4(),
         article: {
           connect: { id: related.article.id },
@@ -90,6 +88,6 @@ export namespace BbsArticleCommentProvider {
           create: [snapshot],
         },
         created_at: new Date(),
-      });
+      } satisfies Prisma.bbs_article_commentsCreateInput;
     };
 }

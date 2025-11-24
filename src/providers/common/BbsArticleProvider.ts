@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
@@ -22,11 +22,11 @@ export namespace BbsArticleProvider {
     });
 
     export const select = () =>
-      Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+      ({
         include: {
           snapshots: BbsArticleSnapshotProvider.json.select(),
         } as const,
-      });
+      }) satisfies Prisma.bbs_articlesFindManyArgs;
   }
 
   export namespace abridge {
@@ -57,7 +57,7 @@ export namespace BbsArticleProvider {
       ),
     });
     export const select = () =>
-      Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+      ({
         include: {
           mv_last: {
             include: {
@@ -73,7 +73,7 @@ export namespace BbsArticleProvider {
             },
           },
         } as const,
-      });
+      }) satisfies Prisma.bbs_articlesFindManyArgs;
   }
 
   export namespace summarize {
@@ -99,7 +99,7 @@ export namespace BbsArticleProvider {
       updated_at: input.mv_last!.snapshot.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+      ({
         include: {
           mv_last: {
             include: {
@@ -112,11 +112,11 @@ export namespace BbsArticleProvider {
             },
           },
         } as const,
-      });
+      }) satisfies Prisma.bbs_articlesFindManyArgs;
   }
 
   export const search = (input: IBbsArticle.IRequest.ISearch | undefined) =>
-    Prisma.validator<Prisma.bbs_articlesWhereInput["AND"]>()([
+    [
       ...(input?.title?.length
         ? [
             {
@@ -187,20 +187,20 @@ export namespace BbsArticleProvider {
             },
           ]
         : []),
-    ]);
+    ] satisfies Prisma.bbs_articlesWhereInput["AND"];
 
   export const orderBy = (
     key: IBbsArticle.IRequest.SortableColumns,
     value: "asc" | "desc",
   ) =>
-    Prisma.validator<Prisma.bbs_articlesOrderByWithRelationInput>()(
-      key === "title"
-        ? { mv_last: { snapshot: { title: value } } }
-        : key === "created_at"
-          ? { created_at: value }
-          : // updated_at
-            { mv_last: { snapshot: { created_at: value } } },
-    );
+    (key === "title"
+      ? { mv_last: { snapshot: { title: value } } }
+      : key === "created_at"
+        ? { created_at: value }
+        : // updated_at
+          {
+            mv_last: { snapshot: { created_at: value } },
+          }) satisfies Prisma.bbs_articlesOrderByWithRelationInput;
 
   export const collect =
     <
@@ -211,7 +211,7 @@ export namespace BbsArticleProvider {
     ) =>
     (input: Input) => {
       const snapshot = snapshotFactory(input);
-      return Prisma.validator<Prisma.bbs_articlesCreateInput>()({
+      return {
         id: v4(),
         snapshots: {
           create: [snapshot],
@@ -223,6 +223,6 @@ export namespace BbsArticleProvider {
             snapshot: { connect: { id: snapshot.id } },
           },
         },
-      });
+      } satisfies Prisma.bbs_articlesCreateInput;
     };
 }
