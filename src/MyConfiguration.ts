@@ -1,5 +1,5 @@
 import { ExceptionManager } from "@nestia/core";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import path from "path";
 
 import { MyGlobal } from "./MyGlobal";

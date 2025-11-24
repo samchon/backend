@@ -4,6 +4,7 @@ lib/
 node_modules/
 prisma/migrations
 prisma/schema/migrations
+src/prisma
 
 *.DS_Store
 package-lock.json

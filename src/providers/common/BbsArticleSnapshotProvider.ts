@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
@@ -22,7 +22,7 @@ export namespace BbsArticleSnapshotProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.bbs_article_snapshotsFindManyArgs>()({
+      ({
         include: {
           to_files: {
             include: {
@@ -30,7 +30,7 @@ export namespace BbsArticleSnapshotProvider {
             },
           },
         } as const,
-      });
+      }) satisfies Prisma.bbs_article_snapshotsFindManyArgs;
   }
 
   export const store =
@@ -55,7 +55,7 @@ export namespace BbsArticleSnapshotProvider {
     };
 
   export const collect = (input: IBbsArticle.IStore) =>
-    Prisma.validator<Prisma.bbs_article_snapshotsCreateWithoutArticleInput>()({
+    ({
       id: v4(),
       title: input.title,
       format: input.format,
@@ -70,5 +70,5 @@ export namespace BbsArticleSnapshotProvider {
           sequence: i,
         })),
       },
-    });
+    }) satisfies Prisma.bbs_article_snapshotsCreateWithoutArticleInput;
 }
