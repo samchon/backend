@@ -2,9 +2,17 @@
   "name": "@ORGANIZATION/PROJECT-api",
   "version": "0.1.0",
   "description": "API for PROJECT",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
-  "typings": "lib/index.d.ts",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "pnpm build:sdk && pnpm build:ttsc && pnpm build:rollup",
+    "build:sdk": "cd ../backend && pnpm build:sdk",
+    "build:ttsc": "rimraf lib && ttsc -p tsconfig.json",
+    "build:rollup": "rollup -c",
+    "prepack": "pnpm build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/backend"
@@ -15,14 +23,35 @@
     "url": "https://github.com/samchon/backend/issues"
   },
   "homepage": "https://github.com/samchon/backend#readme",
-  "dependencies": {
-    "@nestia/fetcher": "^11.0.0",
-    "typia": "^12.0.0"
-  },
-  "include": [
+  "files": [
     "lib",
     "package.json",
     "swagger.json",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "@nestia/fetcher": "catalog:samchon",
+    "tgrid": "catalog:samchon",
+    "typia": "catalog:samchon"
+  },
+  "devDependencies": {
+    "@ORGANIZATION/PROJECT-api": "workspace:^",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rimraf": "catalog:utils",
+    "rollup": "^4.18.0",
+    "ttsc": "catalog:typescript",
+    "typescript": "catalog:typescript"
+  },
+  "publishConfig": {
+    "main": "./lib/index.js",
+    "module": "./lib/index.mjs",
+    "types": "./lib/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "default": "./lib/index.js"
+      }
+    }
+  }
 }

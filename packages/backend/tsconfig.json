@@ -3,7 +3,6 @@
     "target": "ES2015",
     "module": "commonjs",
     "lib": ["DOM", "ESNext"],
-    "declaration": true,
     "sourceMap": true,
     "outDir": "./lib",
     "rootDir": "./src",
@@ -14,7 +13,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@ORGANIZATION/PROJECT-api": ["./src"]
+      "@prisma/sdk": ["./src/prisma/client.ts"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,

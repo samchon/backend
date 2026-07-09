@@ -2,13 +2,13 @@ bin/
 dist/
 lib/
 node_modules/
-prisma/migrations
-prisma/schema/migrations
-src/prisma
+packages/backend/prisma/migrations
+packages/backend/prisma/schema/migrations
+packages/backend/src/prisma
 
 *.DS_Store
 package-lock.json
-pnpm-lock.yaml
 swagger.json
 openai.json
 .npmrc
+*.log

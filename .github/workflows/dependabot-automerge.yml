@@ -6,7 +6,9 @@ on:
     types: [opened, synchronize]
     paths:
       - "package.json"
+      - "pnpm-workspace.yaml"
       - "packages/api/package.json"
+      - "packages/backend/package.json"
 jobs:
   build-and-merge:
     if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'

@@ -1,11 +1,10 @@
 name: build
 on:
   pull_request:
-    paths:
-      - 'prisma/**'
-      - 'src/**'
-      - 'test/**'
-      - 'package.json'
+  push:
+    branches:
+      - master
+
 jobs:
   Ubuntu:
     runs-on: ubuntu-latest
@@ -20,20 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
       - uses: pnpm/action-setup@v4
-        with:
-          version: 8
-      
-      - name: Install Backend-Server
+
+      - name: Install
         run: pnpm install
 
-      - name: Compile Backend-Server
-        run: npm run build
-      
-      - name: Create DB Schema
-        run: npm run schema postgres root
+      - name: Build
+        run: pnpm build
 
-      - name: Test Backend-Server
-        run: npm run test -- --reset true --simultaneous 16
+      - name: Create DB Schema
+        working-directory: packages/backend
+        run: pnpm schema postgres root
+
+      - name: Test
+        working-directory: packages/backend
+        run: pnpm test --reset true --simultaneous 16
