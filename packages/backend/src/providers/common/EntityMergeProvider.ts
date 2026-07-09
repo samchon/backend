@@ -1,0 +1,43 @@
+import { DMMF } from "@prisma/client/runtime/client";
+import { Prisma } from "@prisma/sdk";
+
+import { IRecordMerge } from "@ORGANIZATION/PROJECT-api";
+
+import { MyGlobal } from "../../MyGlobal";
+import { EntityUtil } from "../../utils/EntityUtil";
+import { ErrorProvider } from "./ErrorProvider";
+
+export namespace EntityMergeProvider {
+  export const merge =
+    (
+      table: Prisma.ModelName,
+      finder?: (input: IRecordMerge) => Promise<number>,
+    ) =>
+    async (input: IRecordMerge): Promise<void> => {
+      // VALIDATE TABLE
+      const dmmf = await EntityUtil.getMetadata();
+      const primary: DMMF.Field | undefined = dmmf.datamodel.models
+        .find((model) => model.name === table)
+        ?.fields.find((field) => field.isId === true);
+      if (primary === undefined) throw ErrorProvider.internal("Invalid table.");
+
+      // FIND MATCHED RECORDS
+      const count: number = finder
+        ? await finder(input)
+        : await (MyGlobal.prisma[table] as any).count({
+            where: {
+              [primary.name]: {
+                in: [input.keep, ...input.absorbed],
+              },
+            },
+          });
+      if (count !== input.absorbed.length + 1)
+        throw ErrorProvider.notFound({
+          accessor: "input.keep | input.absorbed",
+          message: "Unable to find matched record.",
+        });
+
+      // DO MERGE
+      await EntityUtil.merge(table)(input);
+    };
+}

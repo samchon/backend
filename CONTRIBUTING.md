@@ -27,14 +27,14 @@ I always welcome your suggestion. When you publishing a suggestion, then please 
 
 ## Contributing Code
 ### Test your code
-Before sending a pull request, please test your new code. You type the command `npm run build &&& npm run test`, then compiling your code and test-automation will be all processed.
+Before sending a pull request, please test your new code. You type the command `pnpm build && pnpm test`, then compiling your code and test-automation will be all processed.
 
 ```bash
 # COMPILE
-npm run build
+pnpm build
 
 # DO TEST
-npm run test
+pnpm test
 ```
 
 If you succeeded to compile, but failed to pass the test-automation, then *debug* the test-automation module. I've configured the `.vscode/launch.json`. You just run the `VSCode` and click the `Start Debugging` button or press `F5` key. By the *debugging*, find the reason why the *test* is failed and fix it.

@@ -40,7 +40,7 @@ When you've created a new backend project through this template project, you can
 | db_account   | Database account to use, not root account
 | https://github.com/samchon/backend | Your repository URL
 
-After those replacements, you should specialize the [`src/Configuration.ts`](src/Configuration.ts), [.github/workflows/build.yml](.github/workflows/build.yml) files. Open those files and change constant values of these files to be suitable for your project. Also, open markdown files like this [README.md](README.md) and write your specific project story. Below is list of the markdown files.
+After those replacements, you should specialize the [`packages/backend/src/MyConfiguration.ts`](packages/backend/src/MyConfiguration.ts), [.github/workflows/build.yml](.github/workflows/build.yml) files. Open those files and change constant values of these files to be suitable for your project. Also, open markdown files like this [README.md](README.md) and write your specific project story. Below is list of the markdown files.
 
   - [.github/ISSUE_TEMPLATE/BUG_REPORT.md](.github/ISSUE_TEMPLATE/BUG_REPORT.md)
   - [.github/ISSUE_TEMPLATE/FEATURE_REQUEST.md](.github/ISSUE_TEMPLATE/FEATURE_REQUEST.md)
@@ -66,7 +66,7 @@ Also as you can see from the [package.json](package.json) file, this project req
 
 ### 2.2. PostgreSQL
 > ```bash
-> bash postgres.sh
+> bash packages/backend/postgres.sh
 >```
 >
 > If you've installed Docker, then run the script above.
@@ -75,18 +75,19 @@ Otherwise, visit below PostgreSQL official site and install it manually.
 
 https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
 
-After that, run the `npm run schema <root-account> <password>` command. 
+After that, run the `pnpm schema <root-account> <password>` command in the [packages/backend](packages/backend) directory. 
 
 Database schema for BBS backend system would be automatically constructed.
 
 ```bash
-npm run schema postgres root
+cd packages/backend
+pnpm schema postgres root
 ```
 
 ### 2.3. Repository
 From now on, you can start the backend server development, right now. 
 
-Just download this project through the git clone command and install dependencies by the npm install command. After those preparations, you can start the development by typing the `npm run dev` command.
+Just download this project through the git clone command and install dependencies by the [pnpm](https://pnpm.io) install command. After those preparations, you can start the development by typing the `pnpm dev` command.
 
 ```bash
 # CLONE REPOSITORY
@@ -94,10 +95,10 @@ git clone https://github.com/samchon/backend
 cd backend
 
 # INSTALL DEPENDENCIES
-npm install
+pnpm install
 
 # START DEVELOPMENT
-npm run dev
+pnpm dev
 ```
 
 
@@ -125,11 +126,11 @@ npm run dev
 
 Before developing the main program, define it before.
 
-At first, design the DB architecture on the Prisma Schema file ([prisma/schema](prisma/schema)). 
+At first, design the DB architecture on the Prisma Schema file ([packages/backend/prisma/schema](packages/backend/prisma/schema)). 
 
-Writing the schema definitions, don't forget to write the detailed descriptions on each tables and properties. After that, build ERD (Enterprise Relationship Diagram) document through `npm run build:prisma` command. The ERD document will be generated on the [docs/ERD.md](docs/ERD.md) path. If you share the ERD document with your companions, your team can enjoy increased productivity by standardizing words and entities.
+Writing the schema definitions, don't forget to write the detailed descriptions on each tables and properties. After that, build ERD (Enterprise Relationship Diagram) document through `pnpm build:prisma` command. The ERD document will be generated on the [packages/backend/docs/ERD.md](packages/backend/docs/ERD.md) path. If you share the ERD document with your companions, your team can enjoy increased productivity by standardizing words and entities.
 
-At second, write DTO structures under the [src/api/structures](src/api/structures) directory and declare API endpoint specs under the [src/controllers](src/controllers) directory. Note that, do not implement the function body of the controller. Just write declaration only. Below code is never pseudo code, but actual code for current step.
+At second, write DTO structures under the [packages/api/src/structures](packages/api/src/structures) directory and declare API endpoint specs under the [packages/backend/src/controllers](packages/backend/src/controllers) directory. Note that, do not implement the function body of the controller. Just write declaration only. Below code is never pseudo code, but actual code for current step.
 
 ```typescript
 @Controlleer("bbs/articles")
@@ -157,10 +158,11 @@ If client developer configures `simulate` option to be `true`, the SDK library w
 
 ```bash
 # BUILD SDK IN LOCAL
-npm run build:sdk
+pnpm build:sdk
 
 # BUILD SDK AND PUBLISH IT TO THE NPM
-npm run package:api
+cd ../api
+npm publish
 ```
 
 ### 3.3. Test Automation Program
@@ -168,7 +170,7 @@ npm run package:api
 
 After the [Definition](#31-definition) and client [SDK](#32-software-development-kit) generation, you've to design the use-case scenarios and implement a test automation program who represents those use-case scenarios and guarantees the [Main Program](#34-main-program).
 
-To add a new test function in the Test Automation Program, create a new TS file under the [test/features](test/features) directory following the below category and implement the test scenario function with representative function name and `export` symbol.
+To add a new test function in the Test Automation Program, create a new TS file under the [packages/backend/test/features](packages/backend/test/features) directory following the below category and implement the test scenario function with representative function name and `export` symbol.
 
 Note that, the Test Automation Program resets the local DB schema whenever being run. Therefore, you've to be careful if import data has been stored in the local DB server. To avoid the resetting the local DB, configure the `reset` option like below.
 
@@ -181,68 +183,69 @@ Also, the Test Automation Program runs all of the test functions placed into the
 
 ```bash
 # test without db reset
-npm run test -- --reset false
+pnpm test --reset false
 
 # include or exclude some features
-npm run test -- --include something
-npm run test -- --include cart order issue
-npm run test -- --include cart order issue --exclude index deposit
+pnpm test --include something
+pnpm test --include cart order issue
+pnpm test --include cart order issue --exclude index deposit
 
 # run performance benchmark program
-npm run benchmark
+pnpm benchmark
 ```
 
-For reference, if you run `npm run benchmark` command, your test functions defined in the `test/features/api` directory would be utilized for performance benchmarking. If you want to see the performance bench result earlier, visit below link please:
+For reference, if you run `pnpm benchmark` command, your test functions defined in the `packages/backend/test/features/api` directory would be utilized for performance benchmarking. If you want to see the performance bench result earlier, visit below link please:
 
-  - [docs/benchmarks/AMD Ryzen 9 7940HS w Radeon 780M Graphics.md](https://github.com/samchon/backend/blob/master/docs/benchmarks/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics.md)
+  - [packages/backend/docs/benchmarks/AMD Ryzen 9 7940HS w Radeon 780M Graphics.md](https://github.com/samchon/backend/blob/master/packages/backend/docs/benchmarks/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics.md)
 
 ### 3.4. Main Program
 After [Definition](#1-definition), client [SDK](#2-software-development-kit) building and [Test Automation Program](#3-test-automation-program) are all prepared, finally you can develop the Main Program. Also, when you complete the Main Program implementation, it would better to validate the implementation through the pre-built [SDK](#2-software-development-kit) and [Test Automation Program](#3-test-automation-program).
 
-However, do not commit a mistake that writing source codes only in the `src/controllers` classes. The API Controller must have a role that only intermediation. The main source code should be write down separately following the directory categorizing. For example, source code about DB I/O should be written into the `src/providers` directory.
+However, do not commit a mistake that writing source codes only in the `packages/backend/src/controllers` classes. The API Controller must have a role that only intermediation. The main source code should be write down separately following the directory categorizing. For example, source code about DB I/O should be written into the `packages/backend/src/providers` directory.
 
 
 
 
 ## 4. Appendix
-### 4.1. NPM Run Commands
-List of the run commands defined in the [package.json](package.json) are like below:
+### 4.1. PNPM Run Commands
+List of the run commands defined in the [packages/backend/package.json](packages/backend/package.json) are like below:
 
   - Test
     - **`test`**: **Run [Test Automation Program](#33-test-automation-program)**
     - `benchmark`: Run performance benchmark program
   - Build
     - `build`: Build every below programs
-    - `build:sdk`: Build SDK library, but only for local
-    - `build:test`: Build [Test Automation Program](#33-test-automation-program)
+    - `build:prisma`: Build Prisma Client and ERD document
+    - `build:sdk`: Build SDK library into the [packages/api](packages/api) directory
+    - `build:test`: Type check [Test Automation Program](#33-test-automation-program)
     - `build:main`: Build main program
-    - **`dev`**: **Incremental builder of the [Test Automation Program](#33-test-automation-program)**
-    - `eslint`: EsLint validator runner
-    - `pretter`: Adjust prettier to every source codes
-    - `webpack`: Run webpack bundler
+    - **`dev`**: **Incremental type checker of the [Test Automation Program](#33-test-automation-program)**
   - Deploy
-    - `package:api`: Build and deploy the SDK library to the NPM
     - `schema`: Create DB, users and schemas on local database
     - `start`: Start the backend server
     - `start:dev`: Start the backend server with incremental build and reload
+    - `start:prod`: Start the backend server with the compiled `lib` directory
   - Webpack
     - `webpack`: Run webpack bundler
     - `webpack:start`: Start the backend server built by webpack
     - `webpack:test`: Run test program to the webpack built
 
+To publish the SDK library, run `npm publish` in the [packages/api](packages/api) directory. The `prepack` script would build everything before the publishing.
+
 ### 4.2. Directories
   - [.vscode/launch.json](.vscode/launch.json): Configuration for debugging
   - [packages/api/](packages/api): Client [SDK](#32-software-development-kit) library for the client developers
-  - [**docs/**](docs/): Documents like ERD (Entity Relationship Diagram)
-  - [**prisma/schema**](prisma/schema): Prisma Schema File
-  - [src/](src/): TypeScript Source directory
-    - [src/api/](src/api/): Client SDK that would be published to the `@ORGANIZATION/PROJECT-api`
-      - [**src/api/functional/**](src/api/functional/): API functions generated by the [`nestia`](https://github.com/samchon/nestia)
-      - [**src/api/structures/**](src/api/structures/): DTO structures
-    - [src/controllers/](src/controllers/): Controller classes of the Main Program
-    - [src/providers/](src/providers/): Service providers (bridge between DB and controllers)
-    - [src/executable/](src/executable/): Executable programs
-  - [**test/**](test/): Test Automation Program
+    - [**packages/api/src/functional/**](packages/api/src/functional/): API functions generated by the [`nestia`](https://github.com/samchon/nestia)
+    - [**packages/api/src/structures/**](packages/api/src/structures/): DTO structures
+  - [packages/backend/](packages/backend): Backend server package
+    - [**packages/backend/docs/**](packages/backend/docs/): Documents like ERD (Entity Relationship Diagram)
+    - [**packages/backend/prisma/schema**](packages/backend/prisma/schema): Prisma Schema File
+    - [packages/backend/src/](packages/backend/src/): TypeScript Source directory
+      - [packages/backend/src/controllers/](packages/backend/src/controllers/): Controller classes of the Main Program
+      - [packages/backend/src/providers/](packages/backend/src/providers/): Service providers (bridge between DB and controllers)
+      - [packages/backend/src/executable/](packages/backend/src/executable/): Executable programs
+    - [**packages/backend/test/**](packages/backend/test/): Test Automation Program
+  - [pnpm-workspace.yaml](pnpm-workspace.yaml): Workspace and catalog configuration of [pnpm](https://pnpm.io)
 
 ### 4.3. Related Repositories
 > Write the related repositories down.

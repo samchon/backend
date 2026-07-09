@@ -1,11 +1,8 @@
-dist
-bin
-lib
+bin/
+dist/
+lib/
+node_modules/
 
-node_modules
-packages
-src/api/functional
-src/api/module.ts
-
+packages/api/src/functional
+packages/backend/src/prisma
 README.md
-tsconfig.json
