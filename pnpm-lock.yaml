@@ -77,7 +77,7 @@ importers:
         specifier: catalog:typescript
         version: 0.18.0
       typescript:
-        specifier: catalog:typescript
+        specifier: 7.0.2
         version: 7.0.2
 
   packages/api:
