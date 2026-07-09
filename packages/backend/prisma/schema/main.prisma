@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client"
   output          = "../../src/prisma"
+  moduleFormat    = "cjs"
   previewFeatures = ["postgresqlExtensions", "views"]
 }
 

@@ -1,7 +1,6 @@
 import { ExceptionManager } from "@nestia/core";
 import { Prisma } from "@prisma/sdk";
-import path from "path";
-
+import path from "node:path";
 import { MyGlobal } from "./MyGlobal";
 import { ErrorProvider } from "./providers/common/ErrorProvider";
 

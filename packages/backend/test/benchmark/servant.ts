@@ -9,7 +9,7 @@ DynamicBenchmarker.servant({
   location: `${__dirname}/../features`,
   parameters: (connection) => [connection],
   prefix: "test_api_",
-}).catch((exp) => {
+}).catch((exp: unknown) => {
   console.error(exp);
   process.exit(-1);
 });

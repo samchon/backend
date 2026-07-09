@@ -38,8 +38,8 @@ export namespace JwtTokenManager {
       );
       return {
         ...asset,
-        access,
-        refresh,
+        access: access!,
+        refresh: refresh!,
       };
     };
 

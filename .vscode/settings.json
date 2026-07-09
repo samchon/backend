@@ -1,9 +1,5 @@
 {
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
-  "[javascript][typescript][json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma",
   },

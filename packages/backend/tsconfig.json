@@ -1,25 +1,13 @@
 {
+  "extends": "../../config/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "commonjs",
-    "lib": ["DOM", "ESNext"],
-    "sourceMap": true,
-    "outDir": "./lib",
-    "rootDir": "./src",
-    "removeComments": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "outDir": "lib",
+    "rootDir": "src",
     "paths": {
       "@prisma/sdk": ["./src/prisma/client.ts"]
     },
-    "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "emitDecoratorMetadata": true
   },
   "include": ["src"]
 }

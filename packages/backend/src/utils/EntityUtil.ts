@@ -1,15 +1,14 @@
 import { DMMF } from "@prisma/client/runtime/client";
 import {
-  MultipleSchemas,
   formatSchema,
   getDMMF,
   mergeSchemas,
+  MultipleSchemas,
 } from "@prisma/internals";
 import { Prisma } from "@prisma/sdk";
-import fs from "fs";
-import { HashMap, Singleton, hash, ranges } from "tstl";
+import fs from "node:fs";
+import { hash, HashMap, ranges, Singleton } from "tstl";
 import typia from "typia";
-
 import { MyConfiguration } from "../MyConfiguration";
 import { MyGlobal } from "../MyGlobal";
 

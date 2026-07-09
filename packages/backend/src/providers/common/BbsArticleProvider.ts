@@ -1,8 +1,6 @@
+import { IBbsArticle, IPage } from "@ORGANIZATION/PROJECT-api";
 import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
-
-import { IBbsArticle, IPage } from "@ORGANIZATION/PROJECT-api";
-
 import { MyGlobal } from "../../MyGlobal";
 import { PaginationUtil } from "../../utils/PaginationUtil";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";

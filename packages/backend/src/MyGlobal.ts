@@ -57,7 +57,8 @@ export class MyGlobal {
    *   - real: The server is for the real service.
    */
   public static get mode(): "local" | "dev" | "real" {
-    return (modeWrapper.value ??= envSingleton.get().MODE);
+    modeWrapper.value ??= envSingleton.get().MODE;
+    return modeWrapper.value;
   }
 
   /**

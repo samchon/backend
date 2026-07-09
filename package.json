@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "description": "Backend for PROJECT",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "pnpm -r --if-present build",
     "dev": "pnpm -C packages/backend dev",
-    "format": "prettier --write \"**/*.ts\"",
-    "format:check": "prettier --check \"**/*.ts\"",
+    "format": "pnpm -r --if-present format",
+    "lint": "pnpm -r --if-present lint",
     "start": "pnpm -C packages/backend start",
     "test": "pnpm -C packages/backend test"
   },
@@ -27,13 +27,5 @@
       "prisma",
       "@prisma/engines"
     ]
-  },
-  "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "catalog:typescript",
-    "@types/node": "^24.0.0",
-    "prettier": "catalog:typescript",
-    "prettier-plugin-prisma": "^5.0.0",
-    "ttsc": "catalog:typescript",
-    "typescript": "catalog:typescript"
   }
 }

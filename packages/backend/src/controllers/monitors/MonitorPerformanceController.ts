@@ -1,7 +1,6 @@
+import { IPerformance } from "@ORGANIZATION/PROJECT-api";
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-
-import { IPerformance } from "@ORGANIZATION/PROJECT-api";
 
 @Controller("monitors/performance")
 export class MonitorPerformanceController {
