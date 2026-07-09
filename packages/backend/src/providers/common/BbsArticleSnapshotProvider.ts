@@ -1,8 +1,6 @@
+import { IBbsArticle, IEntity } from "@ORGANIZATION/PROJECT-api";
 import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
-
-import { IBbsArticle, IEntity } from "@ORGANIZATION/PROJECT-api";
-
 import { MyGlobal } from "../../MyGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 

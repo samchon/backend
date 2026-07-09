@@ -1,5 +1,5 @@
 import { DynamicExecutor } from "@nestia/e2e";
-import cp from "child_process";
+import cp from "node:child_process";
 import { sleep_for } from "tstl";
 
 import { MyConfiguration } from "../src/MyConfiguration";
@@ -39,7 +39,7 @@ const main = async (): Promise<void> => {
   });
   TestAutomationStdio.report(report);
 };
-main().catch((exp) => {
+main().catch((exp: unknown) => {
   console.log(exp);
   process.exit(-1);
 });

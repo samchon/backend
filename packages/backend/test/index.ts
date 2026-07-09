@@ -20,7 +20,7 @@ const main = async (): Promise<void> => {
   });
   TestAutomationStdio.report(report);
 };
-main().catch((exp) => {
+main().catch((exp: unknown) => {
   console.log(exp);
   process.exit(-1);
 });

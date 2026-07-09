@@ -1,12 +1,10 @@
-import { Prisma } from "@prisma/sdk";
-import { v4 } from "uuid";
-
 import {
   IBbsArticle,
   IBbsArticleComment,
   IPage,
 } from "@ORGANIZATION/PROJECT-api";
-
+import { Prisma } from "@prisma/sdk";
+import { v4 } from "uuid";
 import { MyGlobal } from "../../MyGlobal";
 import { PaginationUtil } from "../../utils/PaginationUtil";
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";

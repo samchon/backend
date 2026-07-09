@@ -1,8 +1,6 @@
+import { ISystem } from "@ORGANIZATION/PROJECT-api";
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-
-import { ISystem } from "@ORGANIZATION/PROJECT-api";
-
 import { SystemProvider } from "../../providers/monitors/SystemProvider";
 import { DateUtil } from "../../utils/DateUtil";
 

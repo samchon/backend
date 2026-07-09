@@ -78,9 +78,9 @@ export namespace DateUtil {
 
   export function lastDate(year: number, month: number): number {
     // LEAP MONTH
-    if (month == 1 && year % 4 == 0 && !(year % 100 == 0 && year % 400 != 0))
+    if (month === 1 && year % 4 === 0 && !(year % 100 === 0 && year % 400 !== 0))
       return 29;
-    else return LAST_DATES[month];
+    else return LAST_DATES[month]!;
   }
 
   export function addYears(date: Date, value: number): Date {

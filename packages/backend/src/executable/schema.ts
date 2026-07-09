@@ -1,6 +1,5 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/sdk";
-
 import { MyGlobal } from "../MyGlobal";
 import { MySetupWizard } from "../setup/MySetupWizard";
 
@@ -84,7 +83,7 @@ async function main(): Promise<void> {
   MyGlobal.testing = true;
   await MySetupWizard.schema();
 }
-main().catch((exp) => {
+main().catch((exp: unknown) => {
   console.log(exp);
   process.exit(-1);
 });

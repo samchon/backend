@@ -29,7 +29,7 @@ export namespace TestAutomation {
     if (props.options.reset === true) {
       await MySetupWizard.schema();
       await MySetupWizard.seed();
-      await props.onReset();
+      props.onReset();
     }
 
     // OPEN BACKEND

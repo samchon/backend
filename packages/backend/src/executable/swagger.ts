@@ -1,5 +1,5 @@
-import cp from "child_process";
 import express from "express";
+import cp from "node:child_process";
 import SwaggerUI from "swagger-ui-express";
 
 const execute = (command: string): void => {
@@ -25,7 +25,7 @@ const main = async (): Promise<void> => {
   console.log("\n Swagger UI Address: http://127.0.0.1:37810/api-docs \n");
   console.log("-----------------------------------------------------------");
 };
-main().catch((exp) => {
+main().catch((exp: unknown) => {
   console.log(exp);
   process.exit(-1);
 });

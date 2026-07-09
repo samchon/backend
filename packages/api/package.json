@@ -9,8 +9,10 @@
   "scripts": {
     "build": "pnpm build:sdk && pnpm build:ttsc && pnpm build:rollup",
     "build:sdk": "cd ../backend && pnpm build:sdk",
-    "build:ttsc": "rimraf lib && ttsc -p tsconfig.json",
+    "build:ttsc": "ttsc -p tsconfig.json",
     "build:rollup": "rollup -c",
+    "format": "ttsc format -p tsconfig.json",
+    "lint": "ttsc -p tsconfig.json --noEmit",
     "prepack": "pnpm build"
   },
   "repository": {
@@ -37,7 +39,7 @@
   "devDependencies": {
     "@ORGANIZATION/PROJECT-api": "workspace:^",
     "@rollup/plugin-terser": "^0.4.4",
-    "rimraf": "catalog:utils",
+    "@ttsc/lint": "catalog:typescript",
     "rollup": "^4.18.0",
     "ttsc": "catalog:typescript",
     "typescript": "catalog:typescript"

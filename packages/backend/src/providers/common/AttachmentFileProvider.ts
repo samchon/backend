@@ -1,7 +1,6 @@
+import { IAttachmentFile } from "@ORGANIZATION/PROJECT-api";
 import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
-
-import { IAttachmentFile } from "@ORGANIZATION/PROJECT-api";
 
 export namespace AttachmentFileProvider {
   export namespace json {

@@ -1,7 +1,7 @@
 import { DynamicBenchmarker } from "@nestia/benchmark";
 import cliProgress from "cli-progress";
-import fs from "fs";
-import os from "os";
+import fs from "node:fs";
+import os from "node:os";
 import { IPointer } from "tstl";
 
 import { MyBackend } from "../../src/MyBackend";
@@ -105,9 +105,8 @@ const main = async (): Promise<void> => {
     });
   } catch {}
   await fs.promises.writeFile(
-    `${MyConfiguration.ROOT}/docs/benchmarks/${os
-      .cpus()[0]
-      .model.trim()
+    `${MyConfiguration.ROOT}/docs/benchmarks/${(os.cpus()[0]?.model ?? "unknown")
+      .trim()
       .split("\\")
       .join("")
       .split("/")
@@ -119,7 +118,7 @@ const main = async (): Promise<void> => {
   // CLOSE
   await backend.close();
 };
-main().catch((exp) => {
+main().catch((exp: unknown) => {
   console.error(exp);
   process.exit(-1);
 });
