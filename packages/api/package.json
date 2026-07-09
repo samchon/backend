@@ -37,9 +37,9 @@
     "typia": "catalog:samchon"
   },
   "devDependencies": {
-    "@ORGANIZATION/PROJECT-api": "workspace:^",
     "@rollup/plugin-terser": "^0.4.4",
     "@ttsc/lint": "catalog:typescript",
+    "@ttsc/paths": "catalog:typescript",
     "rollup": "^4.18.0",
     "ttsc": "catalog:typescript",
     "typescript": "catalog:typescript"

@@ -3,14 +3,6 @@
   "name": "@ORGANIZATION/PROJECT-config",
   "version": "0.1.0",
   "description": "Shared TypeScript and @ttsc/lint configuration for the workspace",
-  "exports": {
-    "./lint": {
-      "types": "./lint.config.ts",
-      "default": "./lint.config.ts"
-    },
-    "./tsconfig": "./tsconfig.json",
-    "./package.json": "./package.json"
-  },
   "files": [
     "lint.config.ts",
     "tsconfig.json"
