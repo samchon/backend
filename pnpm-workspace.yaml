@@ -16,7 +16,7 @@ catalogs:
     rimraf: ^6.1.3
     uuid: ^13.0.0
   typescript:
-    ttsc: &ttsc ^0.18.0
+    ttsc: &ttsc ^0.18.1
     "@ttsc/lint": *ttsc
     "@ttsc/paths": *ttsc
     "@ttsc/unplugin": *ttsc
