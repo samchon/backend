@@ -79,13 +79,16 @@ importers:
         specifier: catalog:samchon
         version: 13.0.0(@types/node@24.13.3)
     devDependencies:
-      '@ORGANIZATION/PROJECT-api':
+      '@ORGANIZATION/PROJECT-config':
         specifier: workspace:^
-        version: 'link:'
+        version: link:../../config
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@4.62.2)
       '@ttsc/lint':
+        specifier: catalog:typescript
+        version: 0.18.0
+      '@ttsc/paths':
         specifier: catalog:typescript
         version: 0.18.0
       rollup:
@@ -164,6 +167,9 @@ importers:
         specifier: catalog:utils
         version: 13.0.2
     devDependencies:
+      '@ORGANIZATION/PROJECT-config':
+        specifier: workspace:^
+        version: link:../../config
       '@nestia/benchmark':
         specifier: catalog:samchon
         version: 12.0.0-rc.3
