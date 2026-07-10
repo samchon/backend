@@ -7,10 +7,10 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "pnpm build:sdk && pnpm build:ttsc && pnpm build:rollup",
+    "build": "pnpm build:sdk && pnpm build:ttsc && pnpm build:rolldown",
     "build:sdk": "cd ../backend && pnpm build:sdk",
-    "build:ttsc": "ttsc -p tsconfig.json",
-    "build:rollup": "rollup -c",
+    "build:ttsc": "rimraf lib && ttsc -p tsconfig.json",
+    "build:rolldown": "rolldown -c",
     "format": "ttsc format -p tsconfig.json",
     "lint": "ttsc -p tsconfig.json --noEmit",
     "prepack": "pnpm build"
@@ -37,10 +37,12 @@
     "typia": "catalog:samchon"
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.4",
+    "@ORGANIZATION/PROJECT-api": "workspace:^",
     "@ttsc/lint": "catalog:typescript",
-    "@ttsc/paths": "catalog:typescript",
-    "rollup": "^4.18.0",
+    "@ttsc/unplugin": "catalog:typescript",
+    "rimraf": "catalog:utils",
+    "rolldown": "catalog:rolldown",
+    "tinyglobby": "^0.2.12",
     "ttsc": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
