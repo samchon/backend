@@ -5,25 +5,29 @@ settings:
   excludeLinksFromLockfile: false
 
 catalogs:
+  rolldown:
+    rolldown:
+      specifier: ^1.1.5
+      version: 1.1.5
   samchon:
     '@nestia/benchmark':
-      specifier: ^12.0.0-rc.3
-      version: 12.0.0-rc.3
+      specifier: ^12.0.0-rc.4
+      version: 12.0.0-rc.4
     '@nestia/core':
-      specifier: ^12.0.0-rc.3
-      version: 12.0.0-rc.3
+      specifier: ^12.0.0-rc.4
+      version: 12.0.0-rc.4
     '@nestia/e2e':
-      specifier: ^12.0.0-rc.3
-      version: 12.0.0-rc.3
+      specifier: ^12.0.0-rc.4
+      version: 12.0.0-rc.4
     '@nestia/fetcher':
-      specifier: ^12.0.0-rc.3
-      version: 12.0.0-rc.3
+      specifier: ^12.0.0-rc.4
+      version: 12.0.0-rc.4
     '@nestia/sdk':
-      specifier: ^12.0.0-rc.3
-      version: 12.0.0-rc.3
+      specifier: ^12.0.0-rc.4
+      version: 12.0.0-rc.4
     nestia:
-      specifier: ^12.0.0-rc.3
-      version: 12.0.0-rc.3
+      specifier: ^12.0.0-rc.4
+      version: 12.0.0-rc.4
     tgrid:
       specifier: ^1.2.1
       version: 1.2.1
@@ -31,18 +35,21 @@ catalogs:
       specifier: ^3.0.0
       version: 3.0.0
     typia:
-      specifier: ^13.0.0
-      version: 13.0.0
+      specifier: ^13.0.1
+      version: 13.0.1
   typescript:
     '@ttsc/lint':
-      specifier: ^0.18.1
-      version: 0.18.1
+      specifier: ^0.18.2
+      version: 0.18.2
     '@ttsc/paths':
-      specifier: ^0.18.1
-      version: 0.18.1
+      specifier: ^0.18.2
+      version: 0.18.2
+    '@ttsc/unplugin':
+      specifier: ^0.18.2
+      version: 0.18.2
     ttsc:
-      specifier: ^0.18.1
-      version: 0.18.1
+      specifier: ^0.18.2
+      version: 0.18.2
     typescript:
       specifier: ^7.0.2
       version: 7.0.2
@@ -62,7 +69,7 @@ importers:
     devDependencies:
       '@ttsc/lint':
         specifier: catalog:typescript
-        version: 0.18.1
+        version: 0.18.2
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -71,29 +78,35 @@ importers:
     dependencies:
       '@nestia/fetcher':
         specifier: catalog:samchon
-        version: 12.0.0-rc.3
+        version: 12.0.0-rc.4
       tgrid:
         specifier: catalog:samchon
         version: 1.2.1
       typia:
         specifier: catalog:samchon
-        version: 13.0.0(@types/node@24.13.3)
+        version: 13.0.1(@types/node@24.13.3)
     devDependencies:
-      '@rollup/plugin-terser':
-        specifier: ^0.4.4
-        version: 0.4.4(rollup@4.62.2)
+      '@ORGANIZATION/PROJECT-api':
+        specifier: workspace:^
+        version: 'link:'
       '@ttsc/lint':
         specifier: catalog:typescript
-        version: 0.18.1
-      '@ttsc/paths':
+        version: 0.18.2
+      '@ttsc/unplugin':
         specifier: catalog:typescript
-        version: 0.18.1
-      rollup:
-        specifier: ^4.18.0
-        version: 4.62.2
+        version: 0.18.2
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
+      rolldown:
+        specifier: catalog:rolldown
+        version: 1.1.5
+      tinyglobby:
+        specifier: ^0.2.12
+        version: 0.2.17
       ttsc:
         specifier: catalog:typescript
-        version: 0.18.1
+        version: 0.18.2
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -105,13 +118,13 @@ importers:
         version: link:../api
       '@nestia/core':
         specifier: catalog:samchon
-        version: 12.0.0-rc.3(@nestia/fetcher@12.0.0-rc.3)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.0(@types/node@24.13.3))
+        version: 12.0.0-rc.4(@nestia/fetcher@12.0.0-rc.4)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.1(@types/node@24.13.3))
       '@nestia/fetcher':
         specifier: catalog:samchon
-        version: 12.0.0-rc.3
+        version: 12.0.0-rc.4
       '@nestia/sdk':
         specifier: catalog:samchon
-        version: 12.0.0-rc.3(@nestia/core@12.0.0-rc.3(@nestia/fetcher@12.0.0-rc.3)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.0(@types/node@24.13.3)))(@types/node@24.13.3)
+        version: 12.0.0-rc.4(@nestia/core@12.0.0-rc.4(@nestia/fetcher@12.0.0-rc.4)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.1(@types/node@24.13.3)))(@types/node@24.13.3)
       '@nestjs/common':
         specifier: ^11.1.16
         version: 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -159,26 +172,26 @@ importers:
         version: 3.0.0
       typia:
         specifier: catalog:samchon
-        version: 13.0.0(@types/node@24.13.3)
+        version: 13.0.1(@types/node@24.13.3)
       uuid:
         specifier: catalog:utils
         version: 13.0.2
     devDependencies:
       '@nestia/benchmark':
         specifier: catalog:samchon
-        version: 12.0.0-rc.3
+        version: 12.0.0-rc.4
       '@nestia/e2e':
         specifier: catalog:samchon
-        version: 12.0.0-rc.3
+        version: 12.0.0-rc.4
       '@nestjs/cli':
         specifier: ^11.0.16
         version: 11.0.23(@types/node@24.13.3)(prettier@3.9.4)(webpack-cli@5.1.4)
       '@ttsc/lint':
         specifier: catalog:typescript
-        version: 0.18.1
+        version: 0.18.2
       '@ttsc/paths':
         specifier: catalog:typescript
-        version: 0.18.1
+        version: 0.18.2
       '@types/cli-progress':
         specifier: ^3.11.5
         version: 3.11.6
@@ -217,7 +230,7 @@ importers:
         version: 8.2.7(@types/node@24.13.3)
       nestia:
         specifier: catalog:samchon
-        version: 12.0.0-rc.3
+        version: 12.0.0-rc.4
       prisma-markdown:
         specifier: ^4.0.0
         version: 4.0.0(@prisma/client@7.8.0(prisma@7.8.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@7.0.2))(typescript@7.0.2))(prisma@7.8.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@7.0.2))
@@ -229,7 +242,7 @@ importers:
         version: 5.0.1(express@4.22.2)
       ttsc:
         specifier: catalog:typescript
-        version: 0.18.1
+        version: 0.18.2
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -308,6 +321,15 @@ packages:
 
   '@electric-sql/pglite@0.4.1':
     resolution: {integrity: sha512-mZ9NzzUSYPOCnxHH1oAHPRzoMFJHY472raDKwXl/+6oPbpdJ7g8LsCN4FSaIIfkiCKHhb3iF/Zqo3NYxaIhU7Q==}
+
+  '@emnapi/core@1.11.1':
+    resolution: {integrity: sha512-RSvbQmHzdKzNsLYa/wHrbc3KN4sYLKAdPZxqiM2HATqv/SBk2/ENSHpvXGaLOMcsAyz0poEGqkmmKYG3OWiJEQ==}
+
+  '@emnapi/runtime@1.11.1':
+    resolution: {integrity: sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==}
+
+  '@emnapi/wasi-threads@1.2.2':
+    resolution: {integrity: sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA==}
 
   '@hono/node-server@1.19.11':
     resolution: {integrity: sha512-dr8/3zEaB+p0D2n/IUrlPF1HZm586qgJNXK1a9fhg/PzdtkK7Ksd5l312tJX2yBuALqDYBlG20QEbayqPyxn+g==}
@@ -465,6 +487,9 @@ packages:
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
 
+  '@jridgewell/remapping@2.3.5':
+    resolution: {integrity: sha512-LI9u/+laYG4Ds1TDKSJW2YPrIlcVYOwi2fUC6xB43lueCjgxV4lffOCZCtYFiH6TNOX+tQKXx97T4IKHbhyHEQ==}
+
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
@@ -485,34 +510,40 @@ packages:
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
 
-  '@nestia/benchmark@12.0.0-rc.3':
-    resolution: {integrity: sha512-7GkrIIwxxOyY8yGmzoQnFLa8cRwPntNTps73ScXsUR2cMJ/FtBYUdECGZnbh9yyu/kQ6DBLZW1iG/bLxJA4bHg==}
+  '@napi-rs/wasm-runtime@1.1.6':
+    resolution: {integrity: sha512-ZLv/JdUfkvOy9eCnnBaGfiO+XimbjebAeO+MRQqD/B+FR1tnRN0tpKSJHRbE8sFfS6aqsXZ67TQjfwfsxULVbg==}
+    peerDependencies:
+      '@emnapi/core': ^1.7.1
+      '@emnapi/runtime': ^1.7.1
 
-  '@nestia/core@12.0.0-rc.3':
-    resolution: {integrity: sha512-X7XJw8/FM8vxnsYbAn1DXJKQr9cQNCUWk5yBcRc8MdcID8QW07PUJKCSwhF1UFphv2TGu6Amen53XyMWtbOkDw==}
+  '@nestia/benchmark@12.0.0-rc.4':
+    resolution: {integrity: sha512-d5RiNdTxYzVXvQ8z/nHflE5qmuVLKUqHmpkMKXsBKwTl5vJzcyQEr9cjsOLXU9kOc2xSOLN3VplId7RXgTf+lg==}
+
+  '@nestia/core@12.0.0-rc.4':
+    resolution: {integrity: sha512-LRYXo2KfqwTtk3pUgs7S8l8rT+W37MXqGeKU3tKIm/WCJXfdun3XgEeQyZUPrqrPyeOsPyhhUY4Q/VPV1hE5Vw==}
     peerDependencies:
       '@modelcontextprotocol/sdk': ^1.18.0
-      '@nestia/fetcher': ^12.0.0-rc.3
+      '@nestia/fetcher': ^12.0.0-rc.4
       '@nestjs/common': '>=7.0.1'
       '@nestjs/core': '>=7.0.1'
       reflect-metadata: '>=0.1.12'
       rxjs: '>=6.0.3'
-      typia: ^13.0.0
+      typia: ^13.0.1
     peerDependenciesMeta:
       '@modelcontextprotocol/sdk':
         optional: true
 
-  '@nestia/e2e@12.0.0-rc.3':
-    resolution: {integrity: sha512-DEDc4uIGtIR96QzCXtwwjkSxdLE01dVQRkuoyzZDq+xOCj+xl5w6oS2um4UyFsfzyeOTyEQpJCnERYgB0KOLYQ==}
+  '@nestia/e2e@12.0.0-rc.4':
+    resolution: {integrity: sha512-gtRr5N4kx8KG6cCbKzrgkbEx9I38mq6id3rAeo8hMfOkT2OJlerXr+kI9TvyFzWZaMskQruezwN+pDJ+SMtW2Q==}
 
-  '@nestia/fetcher@12.0.0-rc.3':
-    resolution: {integrity: sha512-igku3RtSe+IBXZ8vkyiRmwLAIbwsSdBsRrEur+g9t4dmZwYx1W2ama9LLeOLknqlR/Z5nY6hp56g6krG+rNW9g==}
+  '@nestia/fetcher@12.0.0-rc.4':
+    resolution: {integrity: sha512-3DpYyxFxiyv8WKBMWpV7JInZmUJWsrJ4MUAeWfwbXHKXvjLyTJVvb6XbQPrHKEd30pcGupazdA9xhgR57PottA==}
 
-  '@nestia/sdk@12.0.0-rc.3':
-    resolution: {integrity: sha512-i+H96ZgC8PNAhkAZMIh/MoLIfdYJu0ErEudrpiDQNzWuDiT+qKtuvHRpGhDESGJGXrdspPijhIYuBsBZmyIJEQ==}
+  '@nestia/sdk@12.0.0-rc.4':
+    resolution: {integrity: sha512-ZEweImFex4pVxEZ3Z10XUZMKinQ9S5JIuIorDWrPtcbX4qfBz2b4OWKYUaIdvZ9uUksP7PVn7zj3vGgHMVSh1Q==}
     hasBin: true
     peerDependencies:
-      '@nestia/core': ^12.0.0-rc.3
+      '@nestia/core': ^12.0.0-rc.4
 
   '@nestjs/cli@11.0.23':
     resolution: {integrity: sha512-2V0Bf5jz0KXhUZk3eJi9GljIyqH04otwsE/mYLbqJR+X0iiYx+6bkNJ2Qz28uHNFj1cpHgimf9xDzHkqarie0g==}
@@ -584,6 +615,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@oxc-project/types@0.139.0':
+    resolution: {integrity: sha512-r9gHphtCs+1M7J0pw6Sn/hh/Wpa/iQrOOkrNAlVLF/gHq+/CJmHIWKKUUhdWjcD6CIa8idarspCsASiXCXvFUw==}
 
   '@prisma/adapter-pg@7.8.0':
     resolution: {integrity: sha512-ygb3UkerK3v8MDpXVgCISdRNDozpxh6+JVJgiIGbSr5KBgz10LLf5ejUskPGoXlsIjxsOu6nuy1JVQr2EKGSlg==}
@@ -751,139 +785,97 @@ packages:
       '@types/react':
         optional: true
 
-  '@rollup/plugin-terser@0.4.4':
-    resolution: {integrity: sha512-XHeJC5Bgvs8LfukDwWZp7yeqin6ns8RTl2B9avbejt6tZqsqvVoWI7ZTQrcNsfKEDWBTnTxM8nMDkO2IFFbd0A==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.0.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-
-  '@rollup/rollup-android-arm-eabi@4.62.2':
-    resolution: {integrity: sha512-6o7ZLZK+BeenkZCFNDXqpbjw9bD6nuWonvS/lwQJp7NoVVxm6p3qE7qQ5jGuBjiFsgvqjD8mZAU5oWxTmbOeOg==}
-    cpu: [arm]
-    os: [android]
-
-  '@rollup/rollup-android-arm64@4.62.2':
-    resolution: {integrity: sha512-BaH7BllCACHoH1LguOU56UItGfUWjujlO65kS9LAodViaN4bwIKd7oeW/ZHJ/4ljr/7MIiENnNy3HJ0zXv8Zkw==}
+  '@rolldown/binding-android-arm64@1.1.5':
+    resolution: {integrity: sha512-lZg8fqIv2v7FF237bwMgzGZEJvGL79/s5knJ/i6FmsGF4XXlzccZ4jb+TrFIxtSSxFtIpdsgrPZeMk1I9AFcyQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [android]
 
-  '@rollup/rollup-darwin-arm64@4.62.2':
-    resolution: {integrity: sha512-v39RCCvj4He82I9sFmk+M1VZ0PLM9sfsLVikjfx2hYBNALhrrOR2D3JjQA6AhlaSOgcR+RzrKY7e1+bT6SUO/A==}
+  '@rolldown/binding-darwin-arm64@1.1.5':
+    resolution: {integrity: sha512-51Bnx9pNiMRKSUNtBfySkNJ9vMU9Hh3I1ozDd6gyPPYzaXCfnptUcEZxXGYFn+ul2dtcMUiqGR1Yai2K10uoTw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [darwin]
 
-  '@rollup/rollup-darwin-x64@4.62.2':
-    resolution: {integrity: sha512-yl0y2vq3S3lHeuXhEdss6TWfKW8vkujImO12tn4ZkG/4oghr09LvdYm2RElVjokTQiUvDUGXLGsYeLqUMCKpGA==}
+  '@rolldown/binding-darwin-x64@1.1.5':
+    resolution: {integrity: sha512-Tm+gbfC0aHu1tBA/JvKQh32S0K6YgCHkiAF4/W6xX0K0RmNuc94VeK419dJoE65R5aRxmo+noZQSWrAMF6yb6g==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [darwin]
 
-  '@rollup/rollup-freebsd-arm64@4.62.2':
-    resolution: {integrity: sha512-tT4pvt4qXD+vEoezupCWi+a1F0vvDiksiHc+PxRlYTOH1I6/X4id9jPxTP+Fg+545euaFT1jJVs4CEdHZAU1vw==}
-    cpu: [arm64]
-    os: [freebsd]
-
-  '@rollup/rollup-freebsd-x64@4.62.2':
-    resolution: {integrity: sha512-6nU5F2wCW+qvCBhTn1pdIU3bzsIoF7EUwsCDRxilWGprQR6yd508YnH9+OKFCwpfS8pjZqDUmnCAr7exax0XCg==}
+  '@rolldown/binding-freebsd-x64@1.1.5':
+    resolution: {integrity: sha512-JMzDKCCXq93YccG5gz3hvOs1oXRKAf0XYpfOS88e+wZrC8Iugj6j68867vrYZkvpDDpKn/KoKORThmchMpF6TA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [freebsd]
 
-  '@rollup/rollup-linux-arm-gnueabihf@4.62.2':
-    resolution: {integrity: sha512-n1GJHPOvpIfhi3TmrCeh6S6URt9BFCt0KQE3qvexyGCTAKpR4Lg+eWvNZEqu7epxwus/8ElT3hacYEucm49SZg==}
+  '@rolldown/binding-linux-arm-gnueabihf@1.1.5':
+    resolution: {integrity: sha512-uML21j2K5TfPGutKxub+M+nLjZIrWjXQ5Grx4lCe/nimTj9B4L63zHpjXLl4y0L3mcm2htEQIb06oCG/szerNw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm]
     os: [linux]
 
-  '@rollup/rollup-linux-arm-musleabihf@4.62.2':
-    resolution: {integrity: sha512-JqgflS8wEB+UXV/vS1RpRbifGBeN4D5lz8D8oOFbFZw4vedvdOgCFAjfBmIMdW3yL10XpQQ0Ambepw6MXrhOnA==}
-    cpu: [arm]
-    os: [linux]
-
-  '@rollup/rollup-linux-arm64-gnu@4.62.2':
-    resolution: {integrity: sha512-wnFJkogWvN4jm/hQRF2UBaeUmk20j5+DmHvoyWii2b8HJDyvz1MF2OU/6ynXt2KR63rbZLWkFpoytpdc/yBuSA==}
+  '@rolldown/binding-linux-arm64-gnu@1.1.5':
+    resolution: {integrity: sha512-navSiuTMogvnQoZoM/v+l3ZWo50/NTwSHSzheABx/RCnmUPaKwq9qSo4Br2OYRs21+Fz8uFqITZM3H4opOB0/Q==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [linux]
 
-  '@rollup/rollup-linux-arm64-musl@4.62.2':
-    resolution: {integrity: sha512-HVu2bp0zhvJ8xHEV9+UUs7S90VadmBSY3LcIMvozbPo4AuMGDWlz3ymHLHZPX4hR67TKTt8Qp5PJ5RBg/i+RMQ==}
+  '@rolldown/binding-linux-arm64-musl@1.1.5':
+    resolution: {integrity: sha512-lAryqH7IteztmCXQXk0etKj4wBQ7Gx5S6LjKhsgp9zb8I5bsuvU/2llH1hDQcjsFeqIsovMVN339/8pUDDBXxA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [linux]
 
-  '@rollup/rollup-linux-loong64-gnu@4.62.2':
-    resolution: {integrity: sha512-mQqqAV8QaoSgr9I2fKDLY2BAVvmKjWoGiu/cSYQonsLvtqwEn1E4QYfnCOcp5zoEqNhsDYin1s6jx/VJmrxlZg==}
-    cpu: [loong64]
-    os: [linux]
-
-  '@rollup/rollup-linux-loong64-musl@4.62.2':
-    resolution: {integrity: sha512-IxKLoxCQ2IWi6bT2akyDUBGsOImDKB+sPp4EsTmwFQ/fMwpCKm8uLSSgP/Kx/QYUgKis6SEZ5/Nlhup0DIA0PQ==}
-    cpu: [loong64]
-    os: [linux]
-
-  '@rollup/rollup-linux-ppc64-gnu@4.62.2':
-    resolution: {integrity: sha512-Mk5ha2RQSgyFfmYYLkBpPnUk8D8FriBxesO1u9O75X0mHgXL1UQcH5Itl2lurWL2tj0RxV9b9tJgipac0hRY9A==}
+  '@rolldown/binding-linux-ppc64-gnu@1.1.5':
+    resolution: {integrity: sha512-fsK/sNBnxzBlL4O1JNrZakVQxPspqpED5dLtNsZS9oOKmtSpdNIzxH2kkol5HYTWJN47sE20ztMJPxfZ89qGOg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [ppc64]
     os: [linux]
 
-  '@rollup/rollup-linux-ppc64-musl@4.62.2':
-    resolution: {integrity: sha512-CjvEnqJL/0/TQ3TXX3OPIJ/kmBellrWd4heXUmHeJlTnmwjKpSJzoehLaL6Xk0ZnMHBu9dZuFADNOrtjF4v+2w==}
-    cpu: [ppc64]
-    os: [linux]
-
-  '@rollup/rollup-linux-riscv64-gnu@4.62.2':
-    resolution: {integrity: sha512-1SiZbzwdkaDURsew/tSOrooKiYy7EQGT6m8ufavAi9NEyQb/6VuIxFXAL1fqa4iZe3g4NbNk4P7J32z2tw5Mgg==}
-    cpu: [riscv64]
-    os: [linux]
-
-  '@rollup/rollup-linux-riscv64-musl@4.62.2':
-    resolution: {integrity: sha512-nQts12zJ3NQRoE6uYljOH89v7szzLDvG2JD/vsX+vGXU8w/At1GowTZ5/7qeFQ8m7L55rpR8Okugnuo5bgjy2Q==}
-    cpu: [riscv64]
-    os: [linux]
-
-  '@rollup/rollup-linux-s390x-gnu@4.62.2':
-    resolution: {integrity: sha512-E9/ll019jhPIJgpzfZoIkBGhcz+kKNgVWYRY0zr9srBdPPFVpvOKW8VaJKUbeK+eZXyQF9ltME+Kk6affeaPgg==}
+  '@rolldown/binding-linux-s390x-gnu@1.1.5':
+    resolution: {integrity: sha512-gLYb4BIadlfTOYT5gO503n8zQjXflgzpD0FcyKh0Mzx3rqCZKnHoJWV9xe1KXUJ5lx2JfcSHr/mhzS0PC/McAA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [s390x]
     os: [linux]
 
-  '@rollup/rollup-linux-x64-gnu@4.62.2':
-    resolution: {integrity: sha512-5BqxR/pshjey51iliyzTD5Xi3EN0aLmQ2lZ3lvefVV9c82BvrLo2/6OT55iifpWBufs6kdwWbuOKS841DrmK9A==}
+  '@rolldown/binding-linux-x64-gnu@1.1.5':
+    resolution: {integrity: sha512-FjcpEKUyJygHgs1o50VYNvkt5+7Le/VEdYt0AkRpkL33MnyQfwr8l5mXwMmfmTbyMPr5vJLC+8/Gd9gXnwU1QQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
 
-  '@rollup/rollup-linux-x64-musl@4.62.2':
-    resolution: {integrity: sha512-uNN83XxQrRAh/w0/pmAfibcwyb6YWt4gP+dpnQKPVJshAloQ785ii8CT8ZCIxkGg9opVsvAlGhFitSm6D1Jjpg==}
+  '@rolldown/binding-linux-x64-musl@1.1.5':
+    resolution: {integrity: sha512-Me+PfPI2TMeOQk0gYWfLQZtTktrmzbr8cDboqX83XKc7UrgAi55gF+2dUkWdxd19n55Essp2yeca+O9N5rBxHg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
 
-  '@rollup/rollup-openbsd-x64@4.62.2':
-    resolution: {integrity: sha512-srjEIxSH3LRnJN6THczDHWQplqEMFiAJrTab0msUryh9kwNpkICf3Ea6q6MN/2cZwRFUNx5w+h6Hpi4QuHS6Zg==}
-    cpu: [x64]
-    os: [openbsd]
-
-  '@rollup/rollup-openharmony-arm64@4.62.2':
-    resolution: {integrity: sha512-8hOJnxgbyObnCm5AlRA3A931xX19xq80RjVTKgJOvEKWqJruP/Uf12IbAOaDjjEXYRewwHLfmF0YRIdK3OwKWA==}
+  '@rolldown/binding-openharmony-arm64@1.1.5':
+    resolution: {integrity: sha512-yc5WrLzXks6zCQfn9Oxr8pORKyl/pF+QjHmW/Qx3qu0oyrrNC+y2JLTU1E2rcWYAmzlnqngWXHQjy51VzW70Vw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [openharmony]
 
-  '@rollup/rollup-win32-arm64-msvc@4.62.2':
-    resolution: {integrity: sha512-mmF4AY1i0hG/bLWUctUq59gtmgaSIRa3cu/A3JFRp/sCNEme2bgDEiDS22P9FbnJB8NJNF4jPJiSP5RHQpUTDg==}
+  '@rolldown/binding-wasm32-wasi@1.1.5':
+    resolution: {integrity: sha512-VbQGPX2b4r48TAMIM2cjgluIM1HYutm4pcTEJsle7iEP7sB1dFqtPLBVbdLAZCxy1txCcPxf4QFf4v8uvltPqA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [wasm32]
+
+  '@rolldown/binding-win32-arm64-msvc@1.1.5':
+    resolution: {integrity: sha512-gHv82k63z4qpV5+Q1y/12KrK0ltWBukVDI8nZcbT7Tt/ZlOIVwppazneq0F93oDxTo3IgAMEDIoQh3E2n6mVsw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [arm64]
     os: [win32]
 
-  '@rollup/rollup-win32-ia32-msvc@4.62.2':
-    resolution: {integrity: sha512-DZgkknc6jhHrk46V25vbAM0zZkyP0nSDkJB8/dRkLTxv470dOmWDqGoEJl/9A0dFfS7yE3REOwNDxpHwSLSt0Q==}
-    cpu: [ia32]
-    os: [win32]
-
-  '@rollup/rollup-win32-x64-gnu@4.62.2':
-    resolution: {integrity: sha512-T6xr6ucWSFto+VGajA8YH26LdpHRuP4YLHEKAtCWvJDOlnmWcDZVCI2Jmjr+IFHDlt2zRaTAKE4tfjTaWLgJBg==}
+  '@rolldown/binding-win32-x64-msvc@1.1.5':
+    resolution: {integrity: sha512-tTZuDBPw85tEN5PQi1pnEBzDy0Z49HtScLAbD5t6hyeU92A95pRWaSMw1GZZi/RwgSgUIl0xrSlXIT/9QzvYSA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [win32]
 
-  '@rollup/rollup-win32-x64-msvc@4.62.2':
-    resolution: {integrity: sha512-BfzEnDJOt9T8M989/lA37EcJgat01wLRnoi5dQf3QzOH7jzpqTAzdDbVfRljVr5r+jzKqpbHeyOfAaXxAd0PAA==}
-    cpu: [x64]
-    os: [win32]
+  '@rolldown/pluginutils@1.0.1':
+    resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
   '@scarf/scarf@1.4.0':
     resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
@@ -905,49 +897,55 @@ packages:
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
-  '@ttsc/darwin-arm64@0.18.1':
-    resolution: {integrity: sha512-8HfO+OAdbZhW0iHKu0CO6t7NGWlx9L4ub4qRpznBzWzPTzGUqssvVUQX9aEFzh+tZ00pb199CiqYmsvs85yhcw==}
+  '@ttsc/darwin-arm64@0.18.2':
+    resolution: {integrity: sha512-wJOuSFWyBf6CUpKsvbD4QexQmYn/SLuRKZFgPItw8HNXc0yfiHL7oiJncNsd7g7Zq/B6IJ6jRy4e51RGC85Mcg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.18.1':
-    resolution: {integrity: sha512-dh6f/YKkgQTgB6LN1Iunlhow32vZaGXRTVrzd6+mLygJhSgBOQQY4wiiQx3Gla2Ps9fKQJ0lszTtPczWp6Bi/g==}
+  '@ttsc/darwin-x64@0.18.2':
+    resolution: {integrity: sha512-pG9yBPT8uyhwkqsLyywDQdSrbEPsE/IgwNea+RwIJdLttCIeXOyqMcdFLQNiX003ox5HpD84RUSZEDmXJ5YB1Q==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/factory@0.18.0':
-    resolution: {integrity: sha512-no6UpqTHkwmHfThkKQ4DaczOKiy/HVpBtY92V8ck5eQpjxBXZzKSqaJEEoA2uovsh+RbsejJnvd75P17hob/lg==}
+  '@ttsc/factory@0.18.2':
+    resolution: {integrity: sha512-q7X0aLXgf+xH0TcuE9QoG4DWW4YHATz0mr+tKqImxPLn4/RzdviLZujibmeKATsyw63RnFjQ1oP9zI9DV7YXVQ==}
 
-  '@ttsc/lint@0.18.1':
-    resolution: {integrity: sha512-jB+snw6vAWByzVtXc6EA+1uhoaGPYQwRj+/Fk+U1MkKdzoL/Z1Fxcu9e0Tlpm5Iz3F2nn8sA+Cf2yD7MWttviw==}
+  '@ttsc/lint@0.18.2':
+    resolution: {integrity: sha512-VQnd/8aj+CWLPcB1CtykyBXjla8ZOaPU/dM3d9wouuJgyRv4uHxq2Nzf9WOfpSHxQc17/J6vEOvHx4h14Qp27A==}
 
-  '@ttsc/linux-arm64@0.18.1':
-    resolution: {integrity: sha512-/XspvMThZk9wKiw1RK+brHEwkG+wSeHi1u55R+QVljV92nMPs8kgYuBw+RldAa+4B7woZQkYGzTeSop1eGljXg==}
+  '@ttsc/linux-arm64@0.18.2':
+    resolution: {integrity: sha512-C3p+ASPVaMdnMv2FCrZ8n39ThI3PJ8ZRsfQY7+TjLDaIWfsNWsIG92KC7W/C6CWyoIwSOfCS4VABcBNSuzw1Tw==}
     cpu: [arm64]
     os: [linux]
 
-  '@ttsc/linux-arm@0.18.1':
-    resolution: {integrity: sha512-Sx3fElCFfiR/rwNjheazAvzv5ypoYhcBLzS0ary84U7PZUWt9sQ7hTVLyeyI+XWCEtPsRXJFMTiOA3i9ZXYHiw==}
+  '@ttsc/linux-arm@0.18.2':
+    resolution: {integrity: sha512-T1ETyJwGqsenFMn/ziGd0GkZ5FqSxQywnw46gmPt5+MGKLwDcTefSynjnOVvvx2Db5XGNBFIimmXe0QAB1j0cA==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.18.1':
-    resolution: {integrity: sha512-NWfXlzsA+FBQGUFH46Gnup2boEX8XD5bNS0wkKmhRtjYlQ7lT0yJY5MoqxZnotaBAI/GyAkO8NG5zmmFEQcK6w==}
+  '@ttsc/linux-x64@0.18.2':
+    resolution: {integrity: sha512-26rq431C3kqy3L5l0xahtQVZPu8xNehVLqjUXseYZ2lzxmLZRT4Vp6v39+mzBiOfBVaZki+OUMq/YJGji1DG7Q==}
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/paths@0.18.1':
-    resolution: {integrity: sha512-XUIV80TesC3bGPVk+1DQzD+gL1ZSS1cueYjWfA7hqFNNKNbHjx4iCNMxUR2XGWDjJiLJ2v06CiUY493HVW4ckQ==}
+  '@ttsc/paths@0.18.2':
+    resolution: {integrity: sha512-pSmoav6w3CU4LKQ5gO4EO01KqYKJJ2eAmiYZNOYqFzq4CGhINufveHQS/YUPMNZ4l3/zGyjaLI3ljyMXvs+ALw==}
 
-  '@ttsc/win32-arm64@0.18.1':
-    resolution: {integrity: sha512-AcLptn5AdcYpMkUpGuYiBbpT8If3gsbj/XDf8q/jaigXPY9t+sYiXJ7J7PE3BghNc9phr8a3HgYlhrsnypuEJA==}
+  '@ttsc/unplugin@0.18.2':
+    resolution: {integrity: sha512-sqzuAQKnca3tAWheYjDS5+xKbXmEjbsgJPj4kV5hF5sBKSHSfuYkCeNrJW0ai1lbr3XvJgVnZpJyO3re2+IdpA==}
+
+  '@ttsc/win32-arm64@0.18.2':
+    resolution: {integrity: sha512-0tU6VPHHlxZnuw5xp+HvoM8q8k5auu8vT3jLVX0cu42/I32HY98zzlZZlTWW3/9Tx+9DVsi9UTRqxxa2j6+qUg==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.18.1':
-    resolution: {integrity: sha512-NAaFFewvx4M/3jyJhleERK5+7R58/eAyXtZYF3CGfXQiYHHAtaedSOmFp0BQK7Q/y3Wwa2eJ+aCZs3R2jR2dkg==}
+  '@ttsc/win32-x64@0.18.2':
+    resolution: {integrity: sha512-Sx9Xtsm2iSzLBG8Jw9R6GVWPAI2DA5bqOOoqq1JpxNaGg5gjRWTFiXq5hNzttdsoBVT8KTz80XL9PSaSwxjvKg==}
     cpu: [x64]
     os: [win32]
+
+  '@tybys/wasm-util@0.10.3':
+    resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
 
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
@@ -1153,11 +1151,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@typia/interface@13.0.0':
-    resolution: {integrity: sha512-wP0wRjhistlkOaKG/M7TsDMVixhMxewcDRRKvld3DzdReqEe1Dy8vXn7MBIqA+yIfxXg404ZuvxVuSii46G/dg==}
+  '@typia/interface@13.0.1':
+    resolution: {integrity: sha512-dgy2HIus1pd4iLriyXJuGogqZEMaNKU4LSlxlIZp8xWdto5VTIJr4Ivy1lSZ65OcjioeRxixpAqXPFuBDeaSWQ==}
 
-  '@typia/utils@13.0.0':
-    resolution: {integrity: sha512-eYd+MkIuClU+J0jMQHsQ/Ji/9SXa9s553UqZUb9rzYqpW7oFp9QNMuMTGwEE6/pxclv1R03MhCd2a3eIkthiKg==}
+  '@typia/utils@13.0.1':
+    resolution: {integrity: sha512-HWWxmkVrN1PE5oWD31G/z9C6yD5Q1Ebm0iZB92ncW+mwdHco3DZdj4oMe+RoFmHhlCS8NJ+MxSX4UchKwT683A==}
 
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
@@ -1855,11 +1853,6 @@ packages:
   fs-monkey@1.1.0:
     resolution: {integrity: sha512-QMUezzXWII9EV5aTFXW1UBVUO77wYPpjqIF8/AviUCThNeSYZykpoTixUeaNNBwmCev0AMDWMAni+f8Hxb1IFw==}
 
-  fsevents@2.3.3:
-    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
@@ -2328,8 +2321,8 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nestia@12.0.0-rc.3:
-    resolution: {integrity: sha512-W6KcnKxFy8co8SrGru7KaG42G9AIwuYh+kzthkExqgJuoSELNni4lzR2+LZ3rZ5erby3b0uezZ5IG5ocZIlG/Q==}
+  nestia@12.0.0-rc.4:
+    resolution: {integrity: sha512-YE/uHZ76jnFSVIt5V0ocdmtC7f6KgPWxxJDbLgLeZhC/a/Vo1X7vDqybPqRpd71ZHDvBBAjhtwdN2iSsi/NAUA==}
     hasBin: true
 
   node-abort-controller@3.1.1:
@@ -2673,9 +2666,9 @@ packages:
     engines: {node: 20 || >=22}
     hasBin: true
 
-  rollup@4.62.2:
-    resolution: {integrity: sha512-RFnrW4lhXA3s3eqHDZvN654g8OTjzRfqpIRJYczCGB6HzphckVAi/Qh4tbPUbRuDi7s1Llv8g/NspLkttY3gTA==}
-    engines: {node: '>=18.0.0', npm: '>=8.0.0'}
+  rolldown@1.1.5:
+    resolution: {integrity: sha512-t9z29cJjXf/vxQ8dyhCSpt6H6aSwHTk8cT5I3iy6SMXuFpk5mB6PL6XfC8PCwrPTx93udwKUm9HRteAlTGBLiA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
   router@2.2.0:
@@ -2794,10 +2787,6 @@ packages:
   slash@5.1.0:
     resolution: {integrity: sha512-ZA6oR3T/pEyuqwMgAKT0/hAv8oAXckzbkmR0UkUosQ+Mc4RxGoJkRmwHgHufaenlyAgE1Mxgpdcrf75y6XcnDg==}
     engines: {node: '>=14.16'}
-
-  smob@1.6.2:
-    resolution: {integrity: sha512-RQsvleCbF8cVHEv+xuDGaA4pOizFqJ0GgjtMSRo6oP8pnN7WsigHgVGey6aILRBKv4W2YOMHLqbKdnB6hpB9fw==}
-    engines: {node: '>=20.0.0'}
 
   source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
@@ -2968,8 +2957,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.18.1:
-    resolution: {integrity: sha512-aS/nTbkQyiHjM4ikv1Wl2yVTheR2xVCsK8Bb8WJ8NtqGsdWAueOfbgdjW22j+k9LfEi5NlrqHJxm5oYkbt4R+g==}
+  ttsc@0.18.2:
+    resolution: {integrity: sha512-FRUqAfgkjIT7HA7VwWNPzXr4GLw/upHFJf2k8chdQHXevYLr8T2NIrMGPAM6mrPK8pbnLkJQF3t9BuV5PGt7/g==}
     hasBin: true
 
   type-fest@0.21.3:
@@ -3001,8 +2990,8 @@ packages:
     engines: {node: '>=16.20.0'}
     hasBin: true
 
-  typia@13.0.0:
-    resolution: {integrity: sha512-Ab8kNv+5Z5owY1bUVoN6qPB6jn+hVgza8ZqBdooHzrh0PmCoKiJUtyT0MgotNhk+eoozIVAdmxKmqAJEKDEGMA==}
+  typia@13.0.1:
+    resolution: {integrity: sha512-JVAncWJs/5dkBx4Q0NKN4WTVmFp5FmM8PeQ/3cCpkgE5lioTryKlqg96sN5JtkWl5nNyPCiU/fUQHGh9f2eOpA==}
     hasBin: true
 
   uid@2.0.2:
@@ -3030,6 +3019,10 @@ packages:
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
+
+  unplugin@2.3.11:
+    resolution: {integrity: sha512-5uKD0nqiYVzlmCRs01Fhs2BdkEgBS3SAVP6ndrBsuK42iC2+JHyxM05Rm9G8+5mkmRtzMZGY8Ct5+mliZxU/Ww==}
+    engines: {node: '>=18.12.0'}
 
   update-browserslist-db@1.2.3:
     resolution: {integrity: sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d4+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==}
@@ -3098,6 +3091,9 @@ packages:
   webpack-sources@3.5.1:
     resolution: {integrity: sha512-jyuiGJdtvY434z5bUZrjz67v76/ePNvFZTp9Mdz29IlH4+GPsgyGjiv0fKI+M7BdkU6ADjulUcKAd3tUK3WlEw==}
     engines: {node: '>=10.13.0'}
+
+  webpack-virtual-modules@0.6.2:
+    resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
   webpack@5.106.2:
     resolution: {integrity: sha512-wGN3qcrBQIFmQ/c0AiOAQBvrZ5lmY8vbbMv4Mxfgzqd/B6+9pXtLo73WuS1dSGXM5QYY3hZnIbvx+K1xxe6FyA==}
@@ -3248,6 +3244,22 @@ snapshots:
       '@electric-sql/pglite': 0.4.1
 
   '@electric-sql/pglite@0.4.1': {}
+
+  '@emnapi/core@1.11.1':
+    dependencies:
+      '@emnapi/wasi-threads': 1.2.2
+      tslib: 2.8.1
+    optional: true
+
+  '@emnapi/runtime@1.11.1':
+    dependencies:
+      tslib: 2.8.1
+    optional: true
+
+  '@emnapi/wasi-threads@1.2.2':
+    dependencies:
+      tslib: 2.8.1
+    optional: true
 
   '@hono/node-server@1.19.11(hono@4.12.28)':
     dependencies:
@@ -3400,6 +3412,11 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
       '@jridgewell/trace-mapping': 0.3.31
 
+  '@jridgewell/remapping@2.3.5':
+    dependencies:
+      '@jridgewell/gen-mapping': 0.3.13
+      '@jridgewell/trace-mapping': 0.3.31
+
   '@jridgewell/resolve-uri@3.1.2': {}
 
   '@jridgewell/source-map@0.3.11':
@@ -3418,22 +3435,29 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
-  '@nestia/benchmark@12.0.0-rc.3':
+  '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:
-      '@nestia/fetcher': 12.0.0-rc.3
+      '@emnapi/core': 1.11.1
+      '@emnapi/runtime': 1.11.1
+      '@tybys/wasm-util': 0.10.3
+    optional: true
+
+  '@nestia/benchmark@12.0.0-rc.4':
+    dependencies:
+      '@nestia/fetcher': 12.0.0-rc.4
       tgrid: 1.2.1
       tstl: 3.0.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/core@12.0.0-rc.3(@nestia/fetcher@12.0.0-rc.3)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.0(@types/node@24.13.3))':
+  '@nestia/core@12.0.0-rc.4(@nestia/fetcher@12.0.0-rc.4)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.1(@types/node@24.13.3))':
     dependencies:
-      '@nestia/fetcher': 12.0.0-rc.3
+      '@nestia/fetcher': 12.0.0-rc.4
       '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@typia/interface': 13.0.0
-      '@typia/utils': 13.0.0
+      '@typia/interface': 13.0.1
+      '@typia/utils': 13.0.1
       get-function-location: 2.0.0
       glob: 11.1.0
       path-parser: 6.1.0
@@ -3441,34 +3465,34 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       tgrid: 1.2.1
-      typia: 13.0.0(@types/node@24.13.3)
+      typia: 13.0.1(@types/node@24.13.3)
       ws: 7.5.11
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/e2e@12.0.0-rc.3': {}
+  '@nestia/e2e@12.0.0-rc.4': {}
 
-  '@nestia/fetcher@12.0.0-rc.3':
+  '@nestia/fetcher@12.0.0-rc.4':
     dependencies:
-      '@typia/interface': 13.0.0
-      '@typia/utils': 13.0.0
+      '@typia/interface': 13.0.1
+      '@typia/utils': 13.0.1
 
-  '@nestia/sdk@12.0.0-rc.3(@nestia/core@12.0.0-rc.3(@nestia/fetcher@12.0.0-rc.3)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.0(@types/node@24.13.3)))(@types/node@24.13.3)':
+  '@nestia/sdk@12.0.0-rc.4(@nestia/core@12.0.0-rc.4(@nestia/fetcher@12.0.0-rc.4)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.1(@types/node@24.13.3)))(@types/node@24.13.3)':
     dependencies:
-      '@nestia/core': 12.0.0-rc.3(@nestia/fetcher@12.0.0-rc.3)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.0(@types/node@24.13.3))
-      '@nestia/fetcher': 12.0.0-rc.3
-      '@ttsc/factory': 0.18.0
-      '@typia/interface': 13.0.0
-      '@typia/utils': 13.0.0
+      '@nestia/core': 12.0.0-rc.4(@nestia/fetcher@12.0.0-rc.4)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.0.1(@types/node@24.13.3))
+      '@nestia/fetcher': 12.0.0-rc.4
+      '@ttsc/factory': 0.18.2
+      '@typia/interface': 13.0.1
+      '@typia/utils': 13.0.1
       get-function-location: 2.0.0
       glob: 11.1.0
       path-to-regexp: 6.3.0
       prettier: 3.9.4
       tgrid: 1.2.1
       tstl: 3.0.0
-      ttsc: 0.18.1
-      typia: 13.0.0(@types/node@24.13.3)
+      ttsc: 0.18.2
+      typia: 13.0.1(@types/node@24.13.3)
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -3571,6 +3595,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
+
+  '@oxc-project/types@0.139.0': {}
 
   '@prisma/adapter-pg@7.8.0':
     dependencies:
@@ -3775,88 +3801,56 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.17
 
-  '@rollup/plugin-terser@0.4.4(rollup@4.62.2)':
+  '@rolldown/binding-android-arm64@1.1.5':
+    optional: true
+
+  '@rolldown/binding-darwin-arm64@1.1.5':
+    optional: true
+
+  '@rolldown/binding-darwin-x64@1.1.5':
+    optional: true
+
+  '@rolldown/binding-freebsd-x64@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-arm-gnueabihf@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-arm64-gnu@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-arm64-musl@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-ppc64-gnu@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-s390x-gnu@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-x64-gnu@1.1.5':
+    optional: true
+
+  '@rolldown/binding-linux-x64-musl@1.1.5':
+    optional: true
+
+  '@rolldown/binding-openharmony-arm64@1.1.5':
+    optional: true
+
+  '@rolldown/binding-wasm32-wasi@1.1.5':
     dependencies:
-      serialize-javascript: 6.0.2
-      smob: 1.6.2
-      terser: 5.49.0
-    optionalDependencies:
-      rollup: 4.62.2
-
-  '@rollup/rollup-android-arm-eabi@4.62.2':
+      '@emnapi/core': 1.11.1
+      '@emnapi/runtime': 1.11.1
+      '@napi-rs/wasm-runtime': 1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
     optional: true
 
-  '@rollup/rollup-android-arm64@4.62.2':
+  '@rolldown/binding-win32-arm64-msvc@1.1.5':
     optional: true
 
-  '@rollup/rollup-darwin-arm64@4.62.2':
+  '@rolldown/binding-win32-x64-msvc@1.1.5':
     optional: true
 
-  '@rollup/rollup-darwin-x64@4.62.2':
-    optional: true
-
-  '@rollup/rollup-freebsd-arm64@4.62.2':
-    optional: true
-
-  '@rollup/rollup-freebsd-x64@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-arm-gnueabihf@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-arm-musleabihf@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-arm64-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-arm64-musl@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-loong64-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-loong64-musl@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-ppc64-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-ppc64-musl@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-riscv64-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-riscv64-musl@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-s390x-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-x64-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-linux-x64-musl@4.62.2':
-    optional: true
-
-  '@rollup/rollup-openbsd-x64@4.62.2':
-    optional: true
-
-  '@rollup/rollup-openharmony-arm64@4.62.2':
-    optional: true
-
-  '@rollup/rollup-win32-arm64-msvc@4.62.2':
-    optional: true
-
-  '@rollup/rollup-win32-ia32-msvc@4.62.2':
-    optional: true
-
-  '@rollup/rollup-win32-x64-gnu@4.62.2':
-    optional: true
-
-  '@rollup/rollup-win32-x64-msvc@4.62.2':
-    optional: true
+  '@rolldown/pluginutils@1.0.1': {}
 
   '@scarf/scarf@1.4.0': {}
 
@@ -3875,31 +3869,40 @@ snapshots:
 
   '@tokenizer/token@0.3.0': {}
 
-  '@ttsc/darwin-arm64@0.18.1':
+  '@ttsc/darwin-arm64@0.18.2':
     optional: true
 
-  '@ttsc/darwin-x64@0.18.1':
+  '@ttsc/darwin-x64@0.18.2':
     optional: true
 
-  '@ttsc/factory@0.18.0': {}
+  '@ttsc/factory@0.18.2': {}
 
-  '@ttsc/lint@0.18.1': {}
+  '@ttsc/lint@0.18.2': {}
 
-  '@ttsc/linux-arm64@0.18.1':
+  '@ttsc/linux-arm64@0.18.2':
     optional: true
 
-  '@ttsc/linux-arm@0.18.1':
+  '@ttsc/linux-arm@0.18.2':
     optional: true
 
-  '@ttsc/linux-x64@0.18.1':
+  '@ttsc/linux-x64@0.18.2':
     optional: true
 
-  '@ttsc/paths@0.18.1': {}
+  '@ttsc/paths@0.18.2': {}
 
-  '@ttsc/win32-arm64@0.18.1':
+  '@ttsc/unplugin@0.18.2':
+    dependencies:
+      unplugin: 2.3.11
+
+  '@ttsc/win32-arm64@0.18.2':
     optional: true
 
-  '@ttsc/win32-x64@0.18.1':
+  '@ttsc/win32-x64@0.18.2':
+    optional: true
+
+  '@tybys/wasm-util@0.10.3':
+    dependencies:
+      tslib: 2.8.1
     optional: true
 
   '@types/body-parser@1.19.6':
@@ -4078,11 +4081,11 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@typia/interface@13.0.0': {}
+  '@typia/interface@13.0.1': {}
 
-  '@typia/utils@13.0.0':
+  '@typia/utils@13.0.1':
     dependencies:
-      '@typia/interface': 13.0.0
+      '@typia/interface': 13.0.1
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
@@ -4819,9 +4822,6 @@ snapshots:
 
   fs-monkey@1.1.0: {}
 
-  fsevents@2.3.3:
-    optional: true
-
   function-bind@1.1.2: {}
 
   generate-function@2.3.1:
@@ -5213,7 +5213,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nestia@12.0.0-rc.3: {}
+  nestia@12.0.0-rc.4: {}
 
   node-abort-controller@3.1.1: {}
 
@@ -5521,36 +5521,26 @@ snapshots:
       glob: 13.0.6
       package-json-from-dist: 1.0.1
 
-  rollup@4.62.2:
+  rolldown@1.1.5:
     dependencies:
-      '@types/estree': 1.0.9
+      '@oxc-project/types': 0.139.0
+      '@rolldown/pluginutils': 1.0.1
     optionalDependencies:
-      '@rollup/rollup-android-arm-eabi': 4.62.2
-      '@rollup/rollup-android-arm64': 4.62.2
-      '@rollup/rollup-darwin-arm64': 4.62.2
-      '@rollup/rollup-darwin-x64': 4.62.2
-      '@rollup/rollup-freebsd-arm64': 4.62.2
-      '@rollup/rollup-freebsd-x64': 4.62.2
-      '@rollup/rollup-linux-arm-gnueabihf': 4.62.2
-      '@rollup/rollup-linux-arm-musleabihf': 4.62.2
-      '@rollup/rollup-linux-arm64-gnu': 4.62.2
-      '@rollup/rollup-linux-arm64-musl': 4.62.2
-      '@rollup/rollup-linux-loong64-gnu': 4.62.2
-      '@rollup/rollup-linux-loong64-musl': 4.62.2
-      '@rollup/rollup-linux-ppc64-gnu': 4.62.2
-      '@rollup/rollup-linux-ppc64-musl': 4.62.2
-      '@rollup/rollup-linux-riscv64-gnu': 4.62.2
-      '@rollup/rollup-linux-riscv64-musl': 4.62.2
-      '@rollup/rollup-linux-s390x-gnu': 4.62.2
-      '@rollup/rollup-linux-x64-gnu': 4.62.2
-      '@rollup/rollup-linux-x64-musl': 4.62.2
-      '@rollup/rollup-openbsd-x64': 4.62.2
-      '@rollup/rollup-openharmony-arm64': 4.62.2
-      '@rollup/rollup-win32-arm64-msvc': 4.62.2
-      '@rollup/rollup-win32-ia32-msvc': 4.62.2
-      '@rollup/rollup-win32-x64-gnu': 4.62.2
-      '@rollup/rollup-win32-x64-msvc': 4.62.2
-      fsevents: 2.3.3
+      '@rolldown/binding-android-arm64': 1.1.5
+      '@rolldown/binding-darwin-arm64': 1.1.5
+      '@rolldown/binding-darwin-x64': 1.1.5
+      '@rolldown/binding-freebsd-x64': 1.1.5
+      '@rolldown/binding-linux-arm-gnueabihf': 1.1.5
+      '@rolldown/binding-linux-arm64-gnu': 1.1.5
+      '@rolldown/binding-linux-arm64-musl': 1.1.5
+      '@rolldown/binding-linux-ppc64-gnu': 1.1.5
+      '@rolldown/binding-linux-s390x-gnu': 1.1.5
+      '@rolldown/binding-linux-x64-gnu': 1.1.5
+      '@rolldown/binding-linux-x64-musl': 1.1.5
+      '@rolldown/binding-openharmony-arm64': 1.1.5
+      '@rolldown/binding-wasm32-wasi': 1.1.5
+      '@rolldown/binding-win32-arm64-msvc': 1.1.5
+      '@rolldown/binding-win32-x64-msvc': 1.1.5
 
   router@2.2.0:
     dependencies:
@@ -5711,8 +5701,6 @@ snapshots:
 
   slash@5.1.0: {}
 
-  smob@1.6.2: {}
-
   source-map-support@0.5.21:
     dependencies:
       buffer-from: 1.1.2
@@ -5844,15 +5832,15 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.18.1:
+  ttsc@0.18.2:
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.18.1
-      '@ttsc/darwin-x64': 0.18.1
-      '@ttsc/linux-arm': 0.18.1
-      '@ttsc/linux-arm64': 0.18.1
-      '@ttsc/linux-x64': 0.18.1
-      '@ttsc/win32-arm64': 0.18.1
-      '@ttsc/win32-x64': 0.18.1
+      '@ttsc/darwin-arm64': 0.18.2
+      '@ttsc/darwin-x64': 0.18.2
+      '@ttsc/linux-arm': 0.18.2
+      '@ttsc/linux-arm64': 0.18.2
+      '@ttsc/linux-x64': 0.18.2
+      '@ttsc/win32-arm64': 0.18.2
+      '@ttsc/win32-x64': 0.18.2
 
   type-fest@0.21.3: {}
 
@@ -5896,11 +5884,11 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  typia@13.0.0(@types/node@24.13.3):
+  typia@13.0.1(@types/node@24.13.3):
     dependencies:
       '@standard-schema/spec': 1.1.0
-      '@typia/interface': 13.0.0
-      '@typia/utils': 13.0.0
+      '@typia/interface': 13.0.1
+      '@typia/utils': 13.0.1
       commander: 10.0.1
       inquirer: 8.2.7(@types/node@24.13.3)
       randexp: 0.5.3
@@ -5923,6 +5911,13 @@ snapshots:
   universalify@2.0.1: {}
 
   unpipe@1.0.0: {}
+
+  unplugin@2.3.11:
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
+      acorn: 8.17.0
+      picomatch: 4.0.5
+      webpack-virtual-modules: 0.6.2
 
   update-browserslist-db@1.2.3(browserslist@4.28.5):
     dependencies:
@@ -5980,6 +5975,8 @@ snapshots:
   webpack-node-externals@3.0.0: {}
 
   webpack-sources@3.5.1: {}
+
+  webpack-virtual-modules@0.6.2: {}
 
   webpack@5.106.2(webpack-cli@5.1.4):
     dependencies:
