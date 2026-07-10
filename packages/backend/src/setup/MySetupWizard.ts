@@ -8,9 +8,10 @@ export namespace MySetupWizard {
         "Erron on SetupWizard.schema(): unable to reset database in non-test mode.",
       );
     const execute = (type: string) => (argv: string) =>
-      cp.execSync(`npx prisma migrate ${type} --schema=prisma/schema ${argv}`, {
-        stdio: "inherit",
-      });
+      cp.execSync(
+        `pnpm exec prisma migrate ${type} --schema=prisma/schema ${argv}`,
+        { stdio: "inherit" },
+      );
     execute("reset")("--force");
     execute("dev")("--name init");
 

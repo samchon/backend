@@ -7,7 +7,7 @@ For the client developers who are connecting to this backend server, [`@ORGANIZA
 With the SDK, client developers never need to re-define the duplicated API interfaces. Just utilize the provided interfaces and asynchronous functions defined in the SDK. It would be much convenient than any other Rest API solutions.
 
 ```bash
-npm install --save @ORGANIZATION/PROJECT-api
+pnpm add @ORGANIZATION/PROJECT-api
 ```
 
 

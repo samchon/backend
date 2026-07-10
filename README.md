@@ -162,7 +162,7 @@ pnpm build:sdk
 
 # BUILD SDK AND PUBLISH IT TO THE NPM
 cd ../api
-npm publish
+pnpm publish
 ```
 
 ### 3.3. Test Automation Program
@@ -232,7 +232,7 @@ List of the run commands defined in the [packages/backend/package.json](packages
     - `webpack:start`: Start the backend server built by webpack
     - `webpack:test`: Run test program to the webpack built
 
-To publish the SDK library, run `npm publish` in the [packages/api](packages/api) directory. The `prepack` script would build everything before the publishing.
+To publish the SDK library, run `pnpm publish` in the [packages/api](packages/api) directory. The `prepack` script would build everything before the publishing.
 
 ### 4.2. Directories
   - [.vscode/launch.json](.vscode/launch.json): Configuration for debugging
