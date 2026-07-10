@@ -3,7 +3,7 @@ packages:
   - "packages/*"
 catalogs:
   samchon:
-    nestia: &nestia ^12.0.0-rc.4
+    nestia: &nestia ^12.0.0
     "@nestia/benchmark": *nestia
     "@nestia/core": *nestia
     "@nestia/e2e": *nestia
