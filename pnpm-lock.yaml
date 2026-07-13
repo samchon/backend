@@ -185,7 +185,7 @@ importers:
         version: 12.0.0
       '@nestjs/cli':
         specifier: ^11.0.16
-        version: 11.0.23(@types/node@24.13.3)(prettier@3.9.4)(webpack-cli@5.1.4)
+        version: 11.0.24(@types/node@24.13.3)(prettier@3.9.4)(webpack-cli@5.1.4)
       '@ttsc/lint':
         specifier: catalog:typescript
         version: 0.18.4
@@ -545,8 +545,8 @@ packages:
     peerDependencies:
       '@nestia/core': ^12.0.0
 
-  '@nestjs/cli@11.0.23':
-    resolution: {integrity: sha512-2V0Bf5jz0KXhUZk3eJi9GljIyqH04otwsE/mYLbqJR+X0iiYx+6bkNJ2Qz28uHNFj1cpHgimf9xDzHkqarie0g==}
+  '@nestjs/cli@11.0.24':
+    resolution: {integrity: sha512-aIHxQLSYtXShifA3zwWIeznEsZnNa3Iz2QRykFj+sl9IcbERBHr5nH87FRgywM+He3NxoF5WazHfR8FsmVeWxw==}
     engines: {node: '>= 20.11'}
     hasBin: true
     peerDependencies:
@@ -3498,7 +3498,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@nestjs/cli@11.0.23(@types/node@24.13.3)(prettier@3.9.4)(webpack-cli@5.1.4)':
+  '@nestjs/cli@11.0.24(@types/node@24.13.3)(prettier@3.9.4)(webpack-cli@5.1.4)':
     dependencies:
       '@angular-devkit/core': 19.2.27(chokidar@4.0.3)
       '@angular-devkit/schematics': 19.2.27(chokidar@4.0.3)
