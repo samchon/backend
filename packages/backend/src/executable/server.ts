@@ -10,9 +10,11 @@ async function main(): Promise<void> {
 
   // POST-PROCESS
   process.send?.("ready");
-  process.on("SIGTERM", async () => {
-    await backend.close();
-    process.exit(0);
+  process.on("SIGTERM", () => {
+    void (async () => {
+      await backend.close();
+      process.exit(0);
+    })();
   });
   global.process.on("uncaughtException", console.error);
   global.process.on("unhandledRejection", console.error);
