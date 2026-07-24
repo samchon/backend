@@ -35,8 +35,8 @@ catalogs:
       specifier: ^3.0.0
       version: 3.0.0
     typia:
-      specifier: ^13.1.1
-      version: 13.1.1
+      specifier: ^13.2.0
+      version: 13.2.0
   typescript:
     '@ttsc/lint':
       specifier: ^0.18.4
@@ -84,7 +84,7 @@ importers:
         version: 1.2.1
       typia:
         specifier: catalog:samchon
-        version: 13.1.1(@types/node@24.13.3)
+        version: 13.2.0(@types/node@24.13.3)(ttsc@0.18.4)
     devDependencies:
       '@ORGANIZATION/PROJECT-api':
         specifier: workspace:^
@@ -118,13 +118,13 @@ importers:
         version: link:../api
       '@nestia/core':
         specifier: catalog:samchon
-        version: 12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.1.1(@types/node@24.13.3))
+        version: 12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.2.0(@types/node@24.13.3)(ttsc@0.18.4))
       '@nestia/fetcher':
         specifier: catalog:samchon
         version: 12.0.0
       '@nestia/sdk':
         specifier: catalog:samchon
-        version: 12.0.0(@nestia/core@12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.1.1(@types/node@24.13.3)))(@types/node@24.13.3)
+        version: 12.0.0(@nestia/core@12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.2.0(@types/node@24.13.3)(ttsc@0.18.4)))(@types/node@24.13.3)
       '@nestjs/common':
         specifier: ^11.1.16
         version: 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -172,7 +172,7 @@ importers:
         version: 3.0.0
       typia:
         specifier: catalog:samchon
-        version: 13.1.1(@types/node@24.13.3)
+        version: 13.2.0(@types/node@24.13.3)(ttsc@0.18.4)
       uuid:
         specifier: catalog:utils
         version: 13.0.2
@@ -221,7 +221,7 @@ importers:
         version: 11.1.0
       copy-webpack-plugin:
         specifier: ^12.0.2
-        version: 12.0.2(webpack@5.108.4)
+        version: 12.0.2(webpack@5.109.0)
       express:
         specifier: ^4.18.2
         version: 4.22.2
@@ -248,10 +248,10 @@ importers:
         version: 7.0.2
       webpack:
         specifier: ^5.90.3
-        version: 5.108.4(webpack-cli@5.1.4)
+        version: 5.109.0(webpack-cli@5.1.4)
       webpack-cli:
         specifier: ^5.1.4
-        version: 5.1.4(webpack@5.108.4)
+        version: 5.1.4(webpack@5.109.0)
       write-file-webpack-plugin:
         specifier: ^4.5.1
         version: 4.5.1
@@ -1196,14 +1196,14 @@ packages:
   '@typia/interface@13.0.2':
     resolution: {integrity: sha512-8MnKq/vs90KA1iydscUubBzP2C6qXYL4vlW83giWV8ZzCfROtyyczx29P2ZH0tvN6yRd6qQlnx6sAB4YAmr7QA==}
 
-  '@typia/interface@13.1.1':
-    resolution: {integrity: sha512-6m2Rd5+sHadNo5nI5Z7TCfbkfCSP6Cxv3D4zuo0jzFsVV3CLTcxAzt4VT1WJdp3g3kCA/s53rZbVdLyws4Ui3A==}
+  '@typia/interface@13.2.0':
+    resolution: {integrity: sha512-F0SM5T7d4w8pyfsvQ0Wd8fR41iUwKjzpj/0+z7T87Ue+IS78STBPps5gFgQgM4qfsteVP82S217reJmb1SZRBA==}
 
   '@typia/utils@13.0.2':
     resolution: {integrity: sha512-xBaSdfviUgGJPdunaxKI/KFI5AFubDag2BYy8O+fd64yVaNgh/OaaWnOuHU2M7m+88pyR2WeVz0BisHcUJ7V7A==}
 
-  '@typia/utils@13.1.1':
-    resolution: {integrity: sha512-mmZ8+ZIN3qmfpPRw9+pwZKsrf0micpIGYQ3e8Lsd1fMpX3zIvyN+bzfkthklGYbOlqw/fswmJO1xkNethpJ4og==}
+  '@typia/utils@13.2.0':
+    resolution: {integrity: sha512-Hi/04+FY5tf9sHQihl0XWsb9QoISiHTbu6/gucUta9iT0/yakofMajRaCSwomRg43ekNNve7L9Hvb/6u5JDkuQ==}
 
   '@visx/curve@4.0.1-alpha.0':
     resolution: {integrity: sha512-jRu61Uz274pV1zyioXmboyrLutYbnKsgjj4njSGCnhdXj5GkZvZbg+ThDb6oOzoAnJOBRLz4rzPlWvNJOzuVMg==}
@@ -3144,9 +3144,14 @@ packages:
     engines: {node: '>=16.20.0'}
     hasBin: true
 
-  typia@13.1.1:
-    resolution: {integrity: sha512-hur9fCJ20mVzy/w3UfvxM+rmX9gGImdKHvhpNiTpEcUDT9qRiFbIG2+hTS9iNpw+plOJ5wgmPHci0yQKOHg4Xg==}
+  typia@13.2.0:
+    resolution: {integrity: sha512-2zZxQF6HBWXUz86rdNtyPbcY43PFAflivVNiSZM2cfVVmFz2u4h7eA6eD/AnSp0l+wzayBG/mYxmJlUdMmc3uQ==}
     hasBin: true
+    peerDependencies:
+      ttsc: '>=0.19.2'
+    peerDependenciesMeta:
+      ttsc:
+        optional: true
 
   uid@2.0.2:
     resolution: {integrity: sha512-u3xV3X7uzvi5b1MncmZo3i2Aw222Zk1keqLA1YkHldREkAhAqi65wuPfe7lHx8H/Wzy+8CE7S7uS3jekIM5s8g==}
@@ -3259,8 +3264,8 @@ packages:
       webpack-cli:
         optional: true
 
-  webpack@5.108.4:
-    resolution: {integrity: sha512-yur8LyJoeiWh47dErD+Ok7vlbmDsJ3UbbRPAoxbGJ54WpE2y5yVo5G/inUzujnYgw3tPmBRdn+G7PoxXaYC33w==}
+  webpack@5.109.0:
+    resolution: {integrity: sha512-vomrngskVVXEZF9sMZfYAd4pXZUnfaWdJGlF+BTNF+gJBCKYCQBnOeVPlrh39Ewl7nlCsirDplMy6o5g9xJHBg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -3599,7 +3604,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/core@12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.1.1(@types/node@24.13.3))':
+  '@nestia/core@12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.2.0(@types/node@24.13.3)(ttsc@0.18.4))':
     dependencies:
       '@nestia/fetcher': 12.0.0
       '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -3613,7 +3618,7 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       tgrid: 1.2.1
-      typia: 13.1.1(@types/node@24.13.3)
+      typia: 13.2.0(@types/node@24.13.3)(ttsc@0.18.4)
       ws: 7.5.11
     transitivePeerDependencies:
       - bufferutil
@@ -3626,9 +3631,9 @@ snapshots:
       '@typia/interface': 13.0.2
       '@typia/utils': 13.0.2
 
-  '@nestia/sdk@12.0.0(@nestia/core@12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.1.1(@types/node@24.13.3)))(@types/node@24.13.3)':
+  '@nestia/sdk@12.0.0(@nestia/core@12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.2.0(@types/node@24.13.3)(ttsc@0.18.4)))(@types/node@24.13.3)':
     dependencies:
-      '@nestia/core': 12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.1.1(@types/node@24.13.3))
+      '@nestia/core': 12.0.0(@nestia/fetcher@12.0.0)(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@13.2.0(@types/node@24.13.3)(ttsc@0.18.4))
       '@nestia/fetcher': 12.0.0
       '@ttsc/factory': 0.18.4
       '@typia/interface': 13.0.2
@@ -3640,7 +3645,7 @@ snapshots:
       tgrid: 1.2.1
       tstl: 3.0.0
       ttsc: 0.18.4
-      typia: 13.1.1(@types/node@24.13.3)
+      typia: 13.2.0(@types/node@24.13.3)(ttsc@0.18.4)
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -4284,15 +4289,15 @@ snapshots:
 
   '@typia/interface@13.0.2': {}
 
-  '@typia/interface@13.1.1': {}
+  '@typia/interface@13.2.0': {}
 
   '@typia/utils@13.0.2':
     dependencies:
       '@typia/interface': 13.0.2
 
-  '@typia/utils@13.1.1':
+  '@typia/utils@13.2.0':
     dependencies:
-      '@typia/interface': 13.1.1
+      '@typia/interface': 13.2.0
 
   '@visx/curve@4.0.1-alpha.0':
     dependencies:
@@ -4447,20 +4452,20 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.108.4)':
+  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.109.0)':
     dependencies:
-      webpack: 5.108.4(webpack-cli@5.1.4)
-      webpack-cli: 5.1.4(webpack@5.108.4)
+      webpack: 5.109.0(webpack-cli@5.1.4)
+      webpack-cli: 5.1.4(webpack@5.109.0)
 
-  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.108.4)':
+  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.109.0)':
     dependencies:
-      webpack: 5.108.4(webpack-cli@5.1.4)
-      webpack-cli: 5.1.4(webpack@5.108.4)
+      webpack: 5.109.0(webpack-cli@5.1.4)
+      webpack-cli: 5.1.4(webpack@5.109.0)
 
-  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack@5.108.4)':
+  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack@5.109.0)':
     dependencies:
-      webpack: 5.108.4(webpack-cli@5.1.4)
-      webpack-cli: 5.1.4(webpack@5.108.4)
+      webpack: 5.109.0(webpack-cli@5.1.4)
+      webpack-cli: 5.1.4(webpack@5.109.0)
 
   '@xtuc/ieee754@1.2.0': {}
 
@@ -4769,7 +4774,7 @@ snapshots:
 
   cookie@0.7.2: {}
 
-  copy-webpack-plugin@12.0.2(webpack@5.108.4):
+  copy-webpack-plugin@12.0.2(webpack@5.109.0):
     dependencies:
       fast-glob: 3.3.3
       glob-parent: 6.0.2
@@ -4777,7 +4782,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
-      webpack: 5.108.4(webpack-cli@5.1.4)
+      webpack: 5.109.0(webpack-cli@5.1.4)
 
   cors@2.8.6:
     dependencies:
@@ -5504,13 +5509,13 @@ snapshots:
 
   minimist@1.2.8: {}
 
-  minimizer-webpack-plugin@5.6.1(webpack@5.108.4):
+  minimizer-webpack-plugin@5.6.1(webpack@5.109.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.49.0
-      webpack: 5.108.4(webpack-cli@5.1.4)
+      webpack: 5.109.0(webpack-cli@5.1.4)
 
   minipass@7.1.3: {}
 
@@ -6236,15 +6241,17 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  typia@13.1.1(@types/node@24.13.3):
+  typia@13.2.0(@types/node@24.13.3)(ttsc@0.18.4):
     dependencies:
       '@standard-schema/spec': 1.1.0
-      '@typia/interface': 13.1.1
-      '@typia/utils': 13.1.1
+      '@typia/interface': 13.2.0
+      '@typia/utils': 13.2.0
       commander: 10.0.1
       inquirer: 8.2.7(@types/node@24.13.3)
       randexp: 0.5.3
       tinyglobby: 0.2.17
+    optionalDependencies:
+      ttsc: 0.18.4
     transitivePeerDependencies:
       - '@types/node'
 
@@ -6301,12 +6308,12 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
-  webpack-cli@5.1.4(webpack@5.108.4):
+  webpack-cli@5.1.4(webpack@5.109.0):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4)(webpack@5.108.4)
-      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4)(webpack@5.108.4)
-      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4)(webpack@5.108.4)
+      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4)(webpack@5.109.0)
+      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4)(webpack@5.109.0)
+      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4)(webpack@5.109.0)
       colorette: 2.0.20
       commander: 10.0.1
       cross-spawn: 7.0.6
@@ -6315,7 +6322,7 @@ snapshots:
       import-local: 3.2.0
       interpret: 3.1.1
       rechoir: 0.8.0
-      webpack: 5.108.4(webpack-cli@5.1.4)
+      webpack: 5.109.0(webpack-cli@5.1.4)
       webpack-merge: 5.10.0
 
   webpack-merge@5.10.0:
@@ -6357,7 +6364,7 @@ snapshots:
       watchpack: 2.5.2
       webpack-sources: 3.5.1
     optionalDependencies:
-      webpack-cli: 5.1.4(webpack@5.108.4)
+      webpack-cli: 5.1.4(webpack@5.109.0)
     transitivePeerDependencies:
       - '@minify-html/node'
       - '@swc/core'
@@ -6372,7 +6379,7 @@ snapshots:
       - postcss
       - uglify-js
 
-  webpack@5.108.4(webpack-cli@5.1.4):
+  webpack@5.109.0(webpack-cli@5.1.4):
     dependencies:
       '@types/estree': 1.0.9
       '@types/json-schema': 7.0.15
@@ -6380,7 +6387,6 @@ snapshots:
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.17.0
-      acorn-import-phases: 1.0.4(acorn@8.17.0)
       browserslist: 4.28.5
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.24.2
@@ -6388,16 +6394,15 @@ snapshots:
       eslint-scope: 5.1.1
       events: 3.3.0
       graceful-fs: 4.2.11
-      loader-runner: 4.3.2
       mime-db: 1.54.0
-      minimizer-webpack-plugin: 5.6.1(webpack@5.108.4)
+      minimizer-webpack-plugin: 5.6.1(webpack@5.109.0)
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.3
       watchpack: 2.5.2
       webpack-sources: 3.5.1
     optionalDependencies:
-      webpack-cli: 5.1.4(webpack@5.108.4)
+      webpack-cli: 5.1.4(webpack@5.109.0)
     transitivePeerDependencies:
       - '@minify-html/node'
       - '@swc/core'
