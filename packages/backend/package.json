@@ -71,7 +71,7 @@
     "@nestia/core": "catalog:samchon",
     "@nestia/fetcher": "catalog:samchon",
     "@nestia/sdk": "catalog:samchon",
-    "@nestjs/common": "^11.1.16",
+    "@nestjs/common": "^11.2.1",
     "@nestjs/core": "^11.1.16",
     "@nestjs/platform-express": "^11.1.16",
     "@ORGANIZATION/PROJECT-api": "workspace:^",
