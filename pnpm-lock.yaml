@@ -35,7 +35,7 @@ catalogs:
       specifier: ^3.0.0
       version: 3.0.0
     typia:
-      specifier: ^14.0.1
+      specifier: ^14.0.2
       version: 14.0.2
   typescript:
     '@ttsc/lint':
